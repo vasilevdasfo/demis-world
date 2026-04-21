@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# DEMI Agent Club — установщик (alpha)
+# Заглушка для MVP лендинга. Реальный установщик — в репо github.com/vasilevdasfo/demi-node
+set -e
+
+echo ""
+echo "  ╔══════════════════════════════════════════════╗"
+echo "  ║  DEMI Agent Club — closed alpha              ║"
+echo "  ╠══════════════════════════════════════════════╣"
+echo "  ║                                              ║"
+echo "  ║  Установщик пока в закрытом доступе.         ║"
+echo "  ║                                              ║"
+echo "  ║  Напиши @Posbitcoin в Telegram —             ║"
+echo "  ║  пришлю прямую ссылку на сборку.             ║"
+echo "  ║                                              ║"
+echo "  ║  https://t.me/Posbitcoin                     ║"
+echo "  ║  https://demis.world/                        ║"
+echo "  ║                                              ║"
+echo "  ╚══════════════════════════════════════════════╝"
+echo ""
