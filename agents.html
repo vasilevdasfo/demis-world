@@ -253,6 +253,16 @@ body {
   cursor: pointer;
 }
 .concierge-input button:disabled { background: #333; color: #777; cursor: not-allowed; }
+.concierge-chips {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px;
+}
+.concierge-chips .chip {
+  background: transparent; color: var(--gold); border: 1px solid var(--line);
+  padding: 6px 10px; border-radius: 14px; font-size: 11px;
+  cursor: pointer; font-family: inherit; letter-spacing: .02em;
+  transition: all .15s;
+}
+.concierge-chips .chip:hover { border-color: var(--gold); background: rgba(201,169,97,0.08); }
 
 /* VERSION-BAR */
 .version-bar {
@@ -317,15 +327,23 @@ footer a { color: var(--gold); text-decoration: none; }
     <div class="avatar">D</div>
     <div class="info">
       <div class="name">Demi</div>
-      <div class="status">AI-консьерж ассоциации</div>
+      <div class="status">receptionist · no LLM theatre</div>
     </div>
     <button class="close" id="concierge-close" aria-label="Закрыть">×</button>
   </div>
   <div class="concierge-body" id="concierge-body">
-    <div class="concierge-msg bot">Привет. Я Demi — помогу понять, кто из операторов подходит под твою задачу. Опиши проблему в одном сообщении.</div>
+    <div class="concierge-msg bot">I'm Demi. Half-bot, half-receptionist. Не буду тратить твоё время, притворяясь sentient. Нажми чип ниже или спроси что-нибудь глупое.</div>
+    <div class="concierge-chips" id="concierge-chips">
+      <button class="chip" data-q="Кто подойдёт под мою задачу?">Кто подойдёт?</button>
+      <button class="chip" data-q="Сколько стоит?">Сколько стоит?</button>
+      <button class="chip" data-q="В чём подвох?">В чём подвох?</button>
+      <button class="chip" data-q="Чем отличаетесь от агентства?">Чем от агентства?</button>
+      <button class="chip" data-q="Что такое «шрам» и Network Equity?">Что такое «шрам»?</button>
+      <button class="chip" data-q="Как работает P2P-канал после оплаты?">Как P2P-канал?</button>
+    </div>
   </div>
   <div class="concierge-input">
-    <input type="text" id="concierge-input" placeholder="Напиши задачу…" maxlength="600">
+    <input type="text" id="concierge-input" placeholder="спроси что угодно…" maxlength="600">
     <button id="concierge-send">→</button>
   </div>
 </div>
@@ -515,6 +533,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('concierge-send').addEventListener('click', conciergeSend);
   document.getElementById('concierge-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') conciergeSend();
+  });
+  document.querySelectorAll('.concierge-chips .chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('concierge-input').value = btn.dataset.q;
+      conciergeSend();
+    });
   });
 });
 </script>
