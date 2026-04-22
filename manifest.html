@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Манифест · Operators with Scars — DEMI</title>
+<meta name="description" content="Ассоциация операторов со шрамами — людей, которые работали в жёстких системах и выжили. Не AI-маркетплейс. Сеть, где ценность создаётся и делится вместе.">
+<meta property="og:title" content="Operators with Scars — DEMI Manifesto">
+<meta property="og:description" content="Не AI-маркетплейс. Сеть операторов, которые работали в жёстких системах и вернули людям $800M, пока регуляторы ничего не вернули.">
+<meta property="og:url" content="https://demis.world/manifest">
+<link rel="canonical" href="https://demis.world/manifest">
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --fg: #f5f0e1;
+  --gold: #c9a961;
+  --gold-bright: #e8c97a;
+  --muted: #888;
+  --line: rgba(201, 169, 97, 0.2);
+  --card: #0f0f0f;
+  --red: #c85050;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+/* TOP-BAR */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px; border-bottom: 1px solid var(--line);
+}
+.topbar .logo {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 13px; letter-spacing: 3px; color: var(--gold);
+  text-transform: uppercase; text-decoration: none;
+}
+.topbar .agents {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+}
+.topbar .agents:hover { color: var(--gold); }
+
+/* HERO */
+.hero {
+  padding: 100px 24px 80px; text-align: center;
+  border-bottom: 1px solid var(--line);
+  background: radial-gradient(ellipse at top, rgba(201,169,97,0.08) 0%, transparent 60%);
+}
+.hero .stamp {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 11px; letter-spacing: 3px; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 32px;
+}
+.hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(36px, 7.5vw, 72px);
+  font-weight: 400; line-height: 1.05; margin-bottom: 32px;
+}
+.hero h1 .gold { color: var(--gold); font-style: italic; }
+.hero h1 .scars {
+  color: var(--gold); font-style: italic; text-decoration: underline;
+  text-decoration-color: var(--red); text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+.hero .lead {
+  font-size: clamp(17px, 2.6vw, 22px);
+  color: var(--fg); max-width: 580px; margin: 0 auto;
+  line-height: 1.5;
+}
+.hero .lead em { color: var(--gold); font-style: normal; }
+
+/* SECTION */
+section { padding: 72px 24px; border-bottom: 1px solid var(--line); }
+section h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(26px, 4.5vw, 40px);
+  font-weight: 400; line-height: 1.2; margin-bottom: 32px;
+  color: var(--gold);
+}
+section p {
+  font-size: clamp(15px, 2vw, 17px); color: var(--fg);
+  margin-bottom: 20px; line-height: 1.75;
+}
+section p.big { font-size: clamp(17px, 2.4vw, 20px); }
+section p strong { color: var(--gold); font-weight: 500; }
+section .quote {
+  border-left: 3px solid var(--gold);
+  padding: 12px 0 12px 24px;
+  margin: 32px 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(18px, 2.8vw, 24px);
+  font-style: italic; color: var(--gold-bright); line-height: 1.4;
+}
+
+/* BROKEN */
+.broken-list { list-style: none; margin: 24px 0; }
+.broken-list li {
+  padding: 16px 0; border-bottom: 1px dashed var(--line);
+  font-size: 15px;
+}
+.broken-list li::before { content: "— "; color: var(--red); font-weight: 700; }
+.broken-list li strong { color: var(--gold); }
+
+/* PRINCIPLES */
+.principles { margin: 32px 0; }
+.principle {
+  padding: 24px 0; border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: start;
+}
+.principle .n {
+  font-family: "Playfair Display", serif; font-size: 32px;
+  color: var(--gold); line-height: 1;
+}
+.principle h3 {
+  font-family: "Playfair Display", serif; font-size: 20px;
+  color: var(--fg); margin-bottom: 8px; font-weight: 500;
+}
+.principle p { font-size: 15px; color: var(--muted); margin: 0; line-height: 1.6; }
+
+/* OPERATORS */
+.ops-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px; margin: 32px 0;
+}
+.op-card {
+  background: var(--card); border: 1px solid var(--line);
+  padding: 20px; border-radius: 4px;
+}
+.op-card .name {
+  font-family: "Playfair Display", serif; font-size: 18px;
+  color: var(--fg); margin-bottom: 6px;
+}
+.op-card .scar {
+  font-size: 12px; color: var(--red); letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.op-card .role { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* CTA */
+.cta-block {
+  background: var(--card); border: 1px solid var(--gold);
+  padding: 48px 32px; text-align: center;
+  margin: 40px 0; border-radius: 4px;
+}
+.cta-block h3 {
+  font-family: "Playfair Display", serif; font-size: 28px;
+  color: var(--gold); margin-bottom: 16px; font-weight: 400;
+}
+.cta-block p { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
+.cta-row {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+.cta-btn {
+  padding: 14px 28px; font-size: 14px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+  border-radius: 2px; transition: all 0.2s; display: inline-block;
+}
+.cta-primary { background: var(--gold); color: #0a0a0a; }
+.cta-primary:hover { background: var(--gold-bright); }
+.cta-secondary { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+.cta-secondary:hover { background: var(--gold); color: #0a0a0a; }
+
+/* FOOTER */
+footer {
+  padding: 40px 24px; text-align: center;
+  color: var(--muted); font-size: 12px;
+}
+footer a { color: var(--gold); text-decoration: none; }
+.nfa { margin-top: 12px; font-size: 11px; color: #555; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+@media (max-width: 600px) {
+  .hero { padding: 60px 20px 48px; }
+  section { padding: 48px 20px; }
+  .principle { grid-template-columns: 48px 1fr; gap: 14px; }
+  .cta-block { padding: 32px 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" class="logo">← DEMI · demis.world</a>
+  <a href="/agents-lite" class="agents">Каталог агентов →</a>
+</nav>
+
+<section class="hero">
+  <div class="stamp">Manifesto · v0.1 · 22.04.2026</div>
+  <h1>Operators <span class="gold">with</span> <span class="scars">Scars</span></h1>
+  <p class="lead">Ассоциация практиков, которые работали <em>внутри</em> жёстких систем и выжили. Мы не учим крипте из Дубая. Мы возвращали людям $800M, пока регуляторы не вернули ни цента.</p>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Почему это появилось</h2>
+    <p class="big">В 2017 году ФБР изъяло BTC-e. Пользователи остались без $800M. <strong>DOJ с тех пор не вернул ни цента</strong> — иск о конфискации был подан только в июне 2025, через восемь лет.</p>
+    <p>Mt.Gox — люди ждут выплат с 2014 года. Одиннадцать лет.</p>
+    <p>В 2017 я перезапустил биржу под именем <strong>WEX</strong> и дал людям окно вернуть свои деньги. Результат: 4 ареста, 5 стран, электронный браслет на ноге.</p>
+    <blockquote class="quote">Система наказывает тех, кто возвращает деньги людям. Это единственный в мире кейс: перезапуск биржи после ФБР с реальным возвратом $800M пользователям.</blockquote>
+    <p>Я заплатил за это цену, которую никто не готов платить. И именно поэтому у меня есть моральное право говорить о том, как должны работать финансовые системы.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Что сломано в текущем консалтинге</h2>
+    <ul class="broken-list">
+      <li><strong>Теоретики без шрамов.</strong> LinkedIn полон «крипто-экспертов», которые никогда не стояли перед регулятором. У них нет цены, которую они заплатили.</li>
+      <li><strong>Одиночки в плохой упаковке.</strong> Практик с 15-летним опытом сидит в Telegram и боится поднять прайс — потому что у него нет команды, бренда, системы.</li>
+      <li><strong>Агентства без компетенций.</strong> У них красивый сайт и 0 кейсов, где работа стоила чьей-то свободы.</li>
+      <li><strong>AI-хайп без смысла.</strong> «Подключи ChatGPT и стань консультантом» — путь к генерации мусора, который ничего не решает.</li>
+    </ul>
+    <p>Между ними — пропасть, в которую падают клиенты с реальными проблемами.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Что мы строим вместо этого</h2>
+    <p class="big">DEMI — не маркетплейс консультантов и не клуб «AI-энтузиастов».</p>
+    <p>Это ассоциация операторов, связанных <strong>общей экономикой и общей репутацией</strong>. Каждый — практик в своей узкой нише. У каждого — своя история и свои шрамы. AI-агенты — инструмент, не продукт.</p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="n">1</div>
+        <div>
+          <h3>Network Equity Lite</h3>
+          <p>Core-операторы разделяют 3% от revenue всей сети на 3 года. Это значит: когда клиент Даниила становится клиентом Дмитрия — выигрывают оба. Никто не теряет от роста соседа.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="n">2</div>
+        <div>
+          <h3>Attribution по intro</h3>
+          <p>Оператор, который привёл клиента другому, получает 5% от сделки. Формализованный trust-граф превращает дружбу в actionable network.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="n">3</div>
+        <div>
+          <h3>P2P-канал после оплаты</h3>
+          <p>Клиент, купивший час, получает приватный узел <code>demi-node</code> с E2E-шифрованием. Никаких облаков, никаких посредников после первого касания.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="n">4</div>
+        <div>
+          <h3>Публичный код</h3>
+          <p>MIT на GitHub, federation с sheva-net. Мы не закрываем протокол, мы закрываем репутацию.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <div class="n">5</div>
+        <div>
+          <h3>Шрамы — условие входа</h3>
+          <p>В core-круг попадают операторы, которые заплатили цену за свою экспертизу. Не «прошли курс». Не «работали в Google». Стояли в своей ответственности лицом к последствиям.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Кто в core-круге</h2>
+    <div class="ops-grid">
+      <div class="op-card">
+        <div class="name">Дмитрий Васильев</div>
+        <div class="scar">WEX · BTC-e · 4 ареста</div>
+        <div class="role">Crypto / fintech / crisis. 15 лет в финансах, MD BCB.credit, CEO Prizmbit, CEO WEX.</div>
+      </div>
+      <div class="op-card">
+        <div class="name">Даниил Тараскин</div>
+        <div class="scar">Bay Area · AI command center</div>
+        <div class="role">GTM / MVP sprint / critical review. Строит операционные системы с командами агентов.</div>
+      </div>
+      <div class="op-card">
+        <div class="name">Антон (PA)</div>
+        <div class="scar">Palo Alto network</div>
+        <div class="role">SF tech integration. Зона уточняется на разговоре.</div>
+      </div>
+      <div class="op-card">
+        <div class="name">Миша (Sheva)</div>
+        <div class="scar">Public figure · sheva-net</div>
+        <div class="role">Federated node. Цифровое гражданство, суверенные ноды, публичная позиция.</div>
+      </div>
+    </div>
+    <p>Мы не конкурируем между собой. Каждый покрывает свою вертикаль. Клиент, который приходит в сеть, получает ровно того, кто решит его задачу — не того, кто громче продал.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Кто не попадает</h2>
+    <p>— Если у тебя нет конкретных кейсов, за которые ты лично отвечал.</p>
+    <p>— Если твоя экспертиза — пересказ чужих статей и постов.</p>
+    <p>— Если ты строишь «AI-агентство» на 50 подрядчиках и нулевой личной вовлечённости.</p>
+    <p>— Если ты ни разу не платил своей шкурой за свою работу.</p>
+    <p class="big"><strong>DEMI не про количество, а про плотность.</strong> Мы не набираем 100 операторов. Мы ищем 10 правильных.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-block">
+      <h3>Две двери</h3>
+      <p>Если у тебя задача — найди оператора в каталоге. Если ты сам оператор — напиши, расскажи свою историю.</p>
+      <div class="cta-row">
+        <a href="/agents-lite" class="cta-btn cta-primary">Каталог агентов →</a>
+        <a href="https://t.me/Posbitcoin" class="cta-btn cta-secondary">Подать заявку</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><a href="/">← demis.world</a> · P2P · E2E · MIT · <a href="/agents-lite">Каталог</a></div>
+  <div class="nfa">NFA · Not financial advice · Операторы ассоциации предоставляют независимые консультации, не являющиеся инвестиционным советом.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Агенты — DEMI Agent Club</title>
+<meta name="description" content="Независимые операторы с AI-агентами. Выберите эксперта под задачу — напишите в Telegram, оплатите час, получите решение.">
+<meta property="og:title" content="DEMI — Агенты">
+<meta property="og:description" content="Независимые операторы с AI-агентами. Фиксированная цена за час консультации.">
+<meta property="og:url" content="https://demis.world/agents-lite">
+<link rel="canonical" href="https://demis.world/agents-lite">
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --fg: #f5f0e1;
+  --gold: #c9a961;
+  --gold-bright: #e8c97a;
+  --muted: #888;
+  --line: rgba(201, 169, 97, 0.2);
+  --card: #0f0f0f;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+/* TOP-BAR */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px; border-bottom: 1px solid var(--line);
+}
+.topbar .logo {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 13px; letter-spacing: 3px; color: var(--gold);
+  text-transform: uppercase; text-decoration: none;
+}
+.topbar .back { font-size: 13px; color: var(--muted); text-decoration: none; }
+.topbar .back:hover { color: var(--gold); }
+
+/* VERSION-BAR — между v1 (fan-out AI) и v2 (lite воронка) */
+.version-bar {
+  background: #0f0f0f; border-bottom: 1px solid var(--line);
+  padding: 10px 24px; font-size: 12px; color: var(--muted);
+  display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+}
+.version-bar a { color: var(--muted); text-decoration: none; padding: 4px 10px; border-radius: 2px; }
+.version-bar a:hover { color: var(--gold); }
+.version-bar a.active { background: var(--gold); color: #0a0a0a; }
+
+/* HERO */
+.hero { padding: 64px 24px 40px; text-align: center; border-bottom: 1px solid var(--line); }
+.hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 400; line-height: 1.1; margin-bottom: 20px;
+}
+.hero h1 .gold { color: var(--gold); font-style: italic; }
+.hero p.tagline {
+  font-size: clamp(15px, 2.3vw, 19px);
+  color: var(--muted); max-width: 640px; margin: 0 auto 24px;
+}
+.hero .meta {
+  font-size: 12px; color: var(--muted); letter-spacing: 2px;
+  text-transform: uppercase; margin-top: 28px;
+}
+.hero .meta span { color: var(--gold); }
+
+/* CATALOG */
+.catalog {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px; margin: 48px 0 56px;
+}
+.agent {
+  background: var(--card); border: 1px solid var(--line);
+  padding: 28px 24px; border-radius: 4px;
+  display: flex; flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.agent.featured { border-color: var(--gold); box-shadow: 0 0 30px rgba(201, 169, 97, 0.08); }
+.agent:hover { border-color: var(--gold); transform: translateY(-2px); }
+
+.agent .head {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+}
+.agent .avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  color: #0a0a0a; font-family: "Playfair Display", serif;
+  font-size: 22px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.agent .head-text { flex: 1; min-width: 0; }
+.agent .name {
+  font-family: "Playfair Display", serif;
+  font-size: 20px; color: var(--fg); margin-bottom: 2px;
+}
+.agent .role {
+  font-size: 11px; color: var(--gold); letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.agent .bio {
+  font-size: 14px; color: var(--muted); line-height: 1.55;
+  margin-bottom: 16px; flex-grow: 1;
+}
+
+.agent .deliverables {
+  list-style: none; margin-bottom: 18px; padding: 0;
+}
+.agent .deliverables li {
+  font-size: 13px; color: var(--fg); padding: 5px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.agent .deliverables li:last-child { border-bottom: none; }
+.agent .deliverables li::before { content: "→ "; color: var(--gold); }
+
+.agent .price-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 14px 0; border-top: 1px solid var(--line); margin-bottom: 14px;
+}
+.agent .price {
+  font-family: "Playfair Display", serif; font-size: 28px; color: var(--gold);
+}
+.agent .price small { font-size: 12px; color: var(--muted); }
+.agent .price-tbd { font-size: 16px; color: var(--muted); font-style: italic; }
+
+.agent .status {
+  font-size: 11px; color: var(--muted);
+}
+.agent .status .dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: #7fd89b; margin-right: 6px; vertical-align: middle;
+}
+.agent .status.away .dot { background: #e8c97a; }
+
+.agent .book {
+  padding: 12px 18px; background: var(--gold); color: #0a0a0a;
+  border: none; font-size: 13px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; text-align: center; text-decoration: none;
+  border-radius: 2px; transition: background 0.2s;
+  display: block;
+}
+.agent .book:hover { background: var(--gold-bright); }
+.agent .book.secondary {
+  background: transparent; color: var(--gold); border: 1px solid var(--gold);
+}
+.agent .book.secondary:hover { background: var(--gold); color: #0a0a0a; }
+
+.agent.add-slot {
+  border-style: dashed; align-items: center; justify-content: center;
+  text-align: center; color: var(--muted); min-height: 320px;
+}
+.agent.add-slot:hover { border-color: var(--gold-bright); color: var(--gold); }
+.agent.add-slot .plus {
+  font-size: 48px; color: var(--gold); line-height: 1; margin-bottom: 12px;
+}
+.agent.add-slot a { color: inherit; text-decoration: none; display: block; }
+
+/* HOW IT WORKS */
+.how { padding: 48px 24px; background: #070707; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.how h2 {
+  font-family: "Playfair Display", serif; font-size: clamp(22px, 4vw, 32px);
+  font-weight: 400; color: var(--gold); text-align: center; margin-bottom: 32px;
+}
+.how-steps {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px; max-width: 900px; margin: 0 auto;
+}
+.how-step {
+  padding: 20px; background: var(--card); border-left: 2px solid var(--gold);
+}
+.how-step .n {
+  font-family: "Playfair Display", serif; font-size: 36px;
+  color: var(--gold); line-height: 1; margin-bottom: 10px;
+}
+.how-step h3 { font-size: 16px; font-weight: 500; margin-bottom: 6px; }
+.how-step p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+/* FOOTER */
+footer {
+  padding: 32px 24px; text-align: center; color: var(--muted);
+  font-size: 13px;
+}
+footer a { color: var(--gold); text-decoration: none; }
+.nfa { margin-top: 12px; font-size: 11px; color: #555; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+@media (max-width: 600px) {
+  .hero { padding: 44px 20px 28px; }
+  .catalog { gap: 14px; margin: 32px 0 40px; }
+  .agent { padding: 22px 20px; }
+  .how { padding: 36px 20px; }
+  .version-bar { gap: 8px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" class="logo">← DEMI · demis.world</a>
+  <a href="/" class="back">О проекте</a>
+</nav>
+
+<div class="version-bar">
+  <span style="color: var(--muted);">Сравни варианты:</span>
+  <a href="/agents">v1 · Каталог + AI fan-out</a>
+  <a href="/agents-lite" class="active">v2 · Витрина-воронка (lite)</a>
+</div>
+
+<section class="hero">
+  <h1>Независимые <span class="gold">эксперты</span>,<br>усиленные AI-агентами</h1>
+  <p class="tagline">Ассоциация операторов DEMI: каждый — практик в своей нише, с AI-помощником и фиксированной ценой за час. Выбираешь, пишешь в Telegram, оплачиваешь, получаешь решение.</p>
+  <div class="meta">
+    <span>4</span> агента · <span>USDT TRC-20</span> · <span>бронь 5 минут</span>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="catalog" id="catalog"></div>
+</div>
+
+<section class="how">
+  <h2>Как работает</h2>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="n">1</div>
+      <h3>Выбираешь эксперта</h3>
+      <p>Смотришь карточки: домен, бэкграунд, конкретные продукты, цена. Никаких «заявок», никаких звонков с менеджером.</p>
+    </div>
+    <div class="how-step">
+      <div class="n">2</div>
+      <h3>Пишешь в Telegram</h3>
+      <p>Кнопка ведёт напрямую в личку эксперту. Описываешь задачу в 3-4 предложениях. Он отвечает в тот же день.</p>
+    </div>
+    <div class="how-step">
+      <div class="n">3</div>
+      <h3>Оплата</h3>
+      <p>USDT TRC-20 на кошелёк эксперта. Квитанция и инвойс — автоматически. Комиссия ассоциации 15% учтена в цене.</p>
+    </div>
+    <div class="how-step">
+      <div class="n">4</div>
+      <h3>Приватный канал</h3>
+      <p>После оплаты — P2P-узел <code>demi-node</code> с E2E-шифрованием. Переписка, файлы, голосовые. Без облаков.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>Ассоциация — часть <a href="/">DEMI Agent Club</a>. P2P · E2E · MIT</div>
+  <div class="nfa">NFA · Not financial advice · Консультации предоставляют независимые операторы, а не DEMI Foundation. Комиссия платформы 15% включена в стоимость часа.</div>
+</footer>
+
+<script>
+const AGENTS = [
+  {
+    id: "dmitrii",
+    name: "Дмитрий Васильев",
+    initials: "ДВ",
+    role: "Crypto / Fintech / Crisis",
+    bio: "15 лет в финтех. CEO WEX (вернул $800M пользователям BTC-e), MD BCB.credit, CEO Prizmbit. Кризис-менеджмент, EMI/PSP-лицензии, кросс-бордер, DD-аудит.",
+    deliverables: [
+      "DD-аудит провайдера за 48 ч",
+      "Стратегия EMI/PSP-лицензии",
+      "Антикризис для работающего бизнеса"
+    ],
+    price: 500,
+    priceUnit: "/час",
+    status: "online",
+    featured: true,
+    bookUrl: "https://t.me/Posbitcoin"
+  },
+  {
+    id: "daniil",
+    name: "Даниил Тараскин",
+    initials: "ДТ",
+    role: "GTM / MVP / Critical Review",
+    bio: "Строит AI-командные центры. GTM-специалист с опытом Bay Area. Критический взгляд на продукт — знает, где стартапы ломаются на ранних стадиях.",
+    deliverables: [
+      "GTM-аудит стартапа за 5 дней",
+      "MVP-спринт: прототип за неделю",
+      "Critical review архитектуры продукта"
+    ],
+    price: 150,
+    priceUnit: "/час",
+    status: "online",
+    bookUrl: "https://t.me/daniiltaraskin"
+  },
+  {
+    id: "anton",
+    name: "Антон (PA)",
+    initials: "А",
+    role: "SF Network · Tech Integration",
+    bio: "Bay Area. Технические интеграции, русскоязычная сеть Palo Alto, соединение founders с relevant networks. Конкретная зона экспертизы уточняется.",
+    deliverables: [
+      "Интро в нужную SF-сеть",
+      "Техаудит интеграций",
+      "Детали — после уточнения"
+    ],
+    price: null,
+    priceUnit: "скоро",
+    status: "away",
+    bookUrl: "https://t.me/TonySsd"
+  },
+  {
+    id: "sheva",
+    name: "Миша (Sheva)",
+    initials: "МЧ",
+    role: "Federated · Sheva-net",
+    bio: "Автор sheva-node и публичная персона цифрового гражданства. Федеративный узел DEMI через совместимый P2P-протокол. Публичные материалы — открыто.",
+    deliverables: [
+      "Консультация по P2P-этике",
+      "Суверенные ноды / цифровое гражданство",
+      "Публикации и встречи"
+    ],
+    price: null,
+    priceUnit: "public",
+    status: "online",
+    bookUrl: "https://t.me/michaelchobanian"
+  }
+];
+
+function agentCardHTML(a) {
+  const statusLabel = a.status === "online" ? "на связи" : a.status === "away" ? "скоро ответит" : "офлайн";
+  const priceBlock = a.price
+    ? `<div class="price">$${a.price}<small>${a.priceUnit}</small></div>`
+    : `<div class="price-tbd">${a.priceUnit}</div>`;
+  const btnClass = a.price ? 'book' : 'book secondary';
+  const btnText = a.price ? 'Забронировать час →' : 'Написать →';
+  return `
+    <div class="agent ${a.featured ? 'featured' : ''}" data-id="${a.id}">
+      <div class="head">
+        <div class="avatar">${a.initials}</div>
+        <div class="head-text">
+          <div class="name">${a.name}</div>
+          <div class="role">${a.role}</div>
+        </div>
+      </div>
+      <div class="bio">${a.bio}</div>
+      <ul class="deliverables">
+        ${a.deliverables.map(d => `<li>${d}</li>`).join('')}
+      </ul>
+      <div class="price-row">
+        ${priceBlock}
+        <div class="status ${a.status}"><span class="dot"></span>${statusLabel}</div>
+      </div>
+      <a class="${btnClass}" href="${a.bookUrl}" target="_blank" rel="noopener">${btnText}</a>
+    </div>
+  `;
+}
+
+function renderCatalog() {
+  const root = document.getElementById('catalog');
+  root.innerHTML = AGENTS.map(agentCardHTML).join('') + `
+    <div class="agent add-slot">
+      <a href="https://t.me/Posbitcoin">
+        <div class="plus">+</div>
+        <div style="font-size:14px;letter-spacing:1px;text-transform:uppercase">Подать заявку<br>в ассоциацию</div>
+      </a>
+    </div>
+  `;
+}
+
+document.addEventListener('DOMContentLoaded', renderCatalog);
+</script>
+
+</body>
+</html>
