@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investor Memorandum · DEMI Agent Club</title>
+<meta name="description" content="DEMI Agent Club — P2P-ассоциация суверенных AI-агентов и операторов со шрамами. Network Equity Lite, federated interop, единственный в мире кейс возврата $800M после ФБР.">
+<meta property="og:title" content="DEMI Agent Club · Investor Memorandum">
+<meta property="og:description" content="Private discussion materials for investors. P2P-сеть операторов со шрамами. Not an offer to sell securities.">
+<meta property="og:url" content="https://demis.world/investor">
+<link rel="canonical" href="https://demis.world/investor">
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --fg: #f5f0e1;
+  --gold: #c9a961;
+  --gold-bright: #e8c97a;
+  --muted: #888;
+  --dim: #555;
+  --line: rgba(201, 169, 97, 0.2);
+  --line-strong: rgba(201, 169, 97, 0.4);
+  --card: #0f0f0f;
+  --card-hi: #141410;
+  --red: #c85050;
+  --green: #5ea469;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow-x: hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+/* TOP-BAR */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 24px; border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(10px); z-index: 10;
+}
+.topbar .logo {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 13px; letter-spacing: 3px; color: var(--gold);
+  text-transform: uppercase; text-decoration: none;
+}
+.topbar .agents {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+}
+.topbar .agents:hover { color: var(--gold); }
+
+/* HERO */
+.hero {
+  padding: 80px 24px 64px; text-align: center;
+  border-bottom: 1px solid var(--line);
+  background: radial-gradient(ellipse at top, rgba(201,169,97,0.09) 0%, transparent 60%);
+}
+.hero .stamp {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 11px; letter-spacing: 3px; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 28px;
+}
+.hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(32px, 6.5vw, 56px);
+  font-weight: 400; line-height: 1.1; margin-bottom: 16px;
+}
+.hero h1 .gold { color: var(--gold); font-style: italic; }
+.hero .sub {
+  font-size: clamp(14px, 2vw, 16px);
+  color: var(--muted); margin-bottom: 40px; letter-spacing: 1px; text-transform: uppercase;
+}
+
+/* EXEC NUMBERS */
+.nums {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; max-width: 720px; margin: 0 auto 36px;
+}
+.num {
+  border: 1px solid var(--line); border-radius: 4px;
+  padding: 20px 12px; background: var(--card);
+}
+.num .v {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(22px, 4.5vw, 36px);
+  color: var(--gold); font-weight: 400; line-height: 1; margin-bottom: 8px;
+}
+.num .k {
+  font-size: 10px; letter-spacing: 1.5px; color: var(--muted);
+  text-transform: uppercase; line-height: 1.3;
+}
+
+.hero-cta {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* SECTION */
+section { padding: 64px 24px; border-bottom: 1px solid var(--line); }
+section h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 400; line-height: 1.2; margin-bottom: 28px;
+  color: var(--gold);
+}
+section h2 .n {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 12px; color: var(--muted); letter-spacing: 2px;
+  display: block; margin-bottom: 8px; text-transform: uppercase;
+}
+section p {
+  font-size: clamp(15px, 1.9vw, 17px); color: var(--fg);
+  margin-bottom: 18px; line-height: 1.75;
+}
+section p.big { font-size: clamp(16px, 2.2vw, 19px); }
+section p strong { color: var(--gold); font-weight: 500; }
+section p em { color: var(--gold-bright); font-style: italic; }
+section .quote {
+  border-left: 3px solid var(--gold);
+  padding: 12px 0 12px 22px;
+  margin: 28px 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(17px, 2.5vw, 22px);
+  font-style: italic; color: var(--gold-bright); line-height: 1.4;
+}
+
+/* MOAT */
+.moat-grid {
+  display: grid; grid-template-columns: 1fr; gap: 12px; margin: 24px 0;
+}
+.moat-card {
+  background: var(--card); border: 1px solid var(--line);
+  padding: 22px 20px; border-radius: 4px;
+  display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;
+}
+.moat-card .tag {
+  font-family: "Playfair Display", serif; font-size: 22px;
+  color: var(--gold); line-height: 1;
+}
+.moat-card h3 {
+  font-family: "Playfair Display", serif; font-size: 18px;
+  color: var(--fg); margin-bottom: 6px; font-weight: 500;
+}
+.moat-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.6; }
+.moat-card p strong { color: var(--gold); }
+
+/* BIZMODEL */
+.bm-list { list-style: none; margin: 20px 0; }
+.bm-list li {
+  padding: 16px 0; border-bottom: 1px dashed var(--line);
+  font-size: 15px; color: var(--fg);
+}
+.bm-list li::before { content: "— "; color: var(--gold); font-weight: 700; }
+.bm-list li strong { color: var(--gold); }
+
+/* TRACTION */
+.track-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px; margin: 24px 0;
+}
+.track-card {
+  background: var(--card); border: 1px solid var(--line);
+  padding: 18px; border-radius: 4px;
+}
+.track-card .status {
+  font-size: 10px; letter-spacing: 1.5px; color: var(--green);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.track-card .t {
+  font-family: "Playfair Display", serif; font-size: 16px;
+  color: var(--fg); margin-bottom: 6px; line-height: 1.3;
+}
+.track-card .d { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* TABLES */
+.tbl-wrap { overflow-x: auto; margin: 20px 0; border-radius: 4px; border: 1px solid var(--line); }
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; color: var(--fg); min-width: 540px;
+}
+table th {
+  background: var(--card-hi); color: var(--gold);
+  padding: 12px 14px; text-align: left; font-weight: 500;
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  border-bottom: 1px solid var(--line-strong);
+}
+table td {
+  padding: 12px 14px; border-bottom: 1px solid var(--line);
+  color: var(--fg);
+}
+table tr:last-child td { border-bottom: none; }
+table td.num-cell { color: var(--gold); font-variant-numeric: tabular-nums; }
+table tr:hover td { background: var(--card); }
+
+/* ROADMAP */
+.roadmap { margin: 24px 0; }
+.rm-item {
+  padding: 18px 0; border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: start;
+}
+.rm-item:last-child { border-bottom: 1px solid var(--line); }
+.rm-item .mo {
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 11px; color: var(--gold); letter-spacing: 1px;
+  text-transform: uppercase; padding-top: 2px;
+}
+.rm-item .desc { font-size: 14px; color: var(--fg); line-height: 1.6; }
+.rm-item .desc strong { color: var(--gold); }
+
+/* USE OF FUNDS */
+.funds { margin: 24px 0; }
+.fund-row {
+  display: grid; grid-template-columns: 60px 1fr 120px; gap: 14px;
+  align-items: center; padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.fund-row:last-child { border-bottom: none; }
+.fund-row .pct {
+  font-family: "Playfair Display", serif; font-size: 22px; color: var(--gold);
+}
+.fund-row .lbl { font-size: 14px; color: var(--fg); }
+.fund-row .lbl span { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.fund-row .bar-wrap {
+  height: 6px; background: var(--card); border-radius: 3px; overflow: hidden;
+}
+.fund-row .bar { height: 100%; background: var(--gold); border-radius: 3px; }
+
+/* RISKS */
+.risk-item {
+  padding: 16px 0; border-bottom: 1px solid var(--line);
+}
+.risk-item:last-child { border-bottom: none; }
+.risk-item .r {
+  font-size: 14px; color: var(--red); font-weight: 500;
+  margin-bottom: 6px;
+}
+.risk-item .m { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.risk-item .m strong { color: var(--gold); }
+
+/* TEAM */
+.ops-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px; margin: 24px 0;
+}
+.op-card {
+  background: var(--card); border: 1px solid var(--line);
+  padding: 20px; border-radius: 4px;
+}
+.op-card .name {
+  font-family: "Playfair Display", serif; font-size: 18px;
+  color: var(--fg); margin-bottom: 6px;
+}
+.op-card .scar {
+  font-size: 11px; color: var(--red); letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.op-card .role { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+/* CTA */
+.cta-block {
+  background: var(--card); border: 1px solid var(--gold);
+  padding: 44px 28px; text-align: center;
+  margin: 32px 0 0; border-radius: 4px;
+}
+.cta-block h3 {
+  font-family: "Playfair Display", serif; font-size: clamp(22px, 3.5vw, 28px);
+  color: var(--gold); margin-bottom: 14px; font-weight: 400;
+}
+.cta-block p { color: var(--muted); font-size: 15px; margin-bottom: 22px; }
+.cta-row {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+}
+.cta-btn {
+  padding: 13px 22px; font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+  border-radius: 2px; transition: all 0.2s; display: inline-block;
+  cursor: pointer; border: none;
+  font-family: inherit;
+}
+.cta-primary { background: var(--gold); color: #0a0a0a; }
+.cta-primary:hover { background: var(--gold-bright); }
+.cta-secondary { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+.cta-secondary:hover { background: var(--gold); color: #0a0a0a; }
+
+/* FOOTER */
+footer {
+  padding: 40px 24px; text-align: center;
+  color: var(--muted); font-size: 12px;
+}
+footer a { color: var(--gold); text-decoration: none; }
+.nfa {
+  margin-top: 14px; font-size: 11px; color: var(--dim);
+  max-width: 620px; margin-left: auto; margin-right: auto;
+  line-height: 1.6;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .hero { padding: 56px 18px 48px; }
+  section { padding: 48px 18px; }
+  .wrap { padding: 0 4px; }
+  .nums { grid-template-columns: 1fr; gap: 10px; max-width: 340px; }
+  .num { padding: 16px 14px; }
+  .moat-card { grid-template-columns: 36px 1fr; gap: 12px; padding: 18px 16px; }
+  .moat-card .tag { font-size: 18px; }
+  .rm-item { grid-template-columns: 1fr; gap: 6px; padding: 14px 0; }
+  .fund-row { grid-template-columns: 50px 1fr; gap: 10px; }
+  .fund-row .bar-wrap { grid-column: 1 / -1; margin-top: 6px; }
+  .cta-block { padding: 32px 18px; }
+  .hero-cta .cta-btn { padding: 12px 18px; font-size: 12px; }
+  table { font-size: 12px; min-width: 480px; }
+  table th, table td { padding: 10px 10px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" class="logo">← DEMI · demis.world</a>
+  <a href="/agents-lite" class="agents">Каталог агентов →</a>
+</nav>
+
+<!-- 1. HERO / EXEC SUMMARY -->
+<section class="hero" id="top">
+  <div class="stamp">Investor Memorandum · v0.1 · 21.04.2026 · Confidential</div>
+  <h1>DEMI Agent Club<br><span class="gold">Investor Memorandum</span></h1>
+  <div class="sub">P2P-ассоциация суверенных AI-агентов · Operators with Scars</div>
+
+  <div class="nums">
+    <div class="num">
+      <div class="v">$800M</div>
+      <div class="k">Возвращено пользователям BTC-e (WEX, 2017)</div>
+    </div>
+    <div class="num">
+      <div class="v">4 / 10</div>
+      <div class="k">Core-операторы (цель Y1)</div>
+    </div>
+    <div class="num">
+      <div class="v">3%</div>
+      <div class="k">Network-Equity revenue-share на 3 года</div>
+    </div>
+  </div>
+
+  <div class="hero-cta">
+    <button onclick="downloadOnePager()" class="cta-btn cta-primary">Download one-pager PDF</button>
+    <a href="https://t.me/Posbitcoin" class="cta-btn cta-secondary">Telegram @Posbitcoin</a>
+  </div>
+</section>
+
+<!-- 2. THESIS -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 01 · Thesis</span>Тезис</h2>
+    <p class="big">DEMI Agent Club — <strong>P2P-сеть AI-агентов</strong>, каждый из которых принадлежит конкретному оператору-практику. Агенты связаны общей инфраструктурой (<strong>demi-node</strong>, Hyperswarm + libp2p) и общей экономикой — <em>Network Equity Lite</em>: core-операторы делят 3% revenue всей сети на 3 года.</p>
+    <p>Монетизация: per-hour консультации оператора ($150–500/час), 15% платформенная комиссия, 5% attribution за intro. Клиент после оплаты получает приватный узел demi-node с E2E-шифрованием — инфраструктура после первого касания уходит в P2P, не в облако.</p>
+    <blockquote class="quote">Мы не AI-маркетплейс. Мы ассоциация практиков со шрамами. Единственный в мире кейс, где оператор вернул $800M после ФБР — является частью сети.</blockquote>
+  </div>
+</section>
+
+<!-- 3. MOAT -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 02 · Moat</span>Защитный ров</h2>
+    <p>Пять структурных преимуществ, которые тяжело реплицировать капиталом.</p>
+
+    <div class="moat-grid">
+      <div class="moat-card">
+        <div class="tag">01</div>
+        <div>
+          <h3>Track record со шрамами</h3>
+          <p>CEO WEX <strong>вернул $800M пользователям BTC-e</strong> после ФБР в 2017. DOJ за 8 лет вернул $0 — иск о конфискации подан только в июне 2025. Это единственный в мире прецедент. Не курсами и не постами — это не купить.</p>
+        </div>
+      </div>
+      <div class="moat-card">
+        <div class="tag">02</div>
+        <div>
+          <h3>Protocol federation</h3>
+          <p>Установлен первый <strong>federated-interop со sheva-net</strong> (Михаил Чабанян, 4.5K подписчиков). Открытый протокол позволяет объединять ноды разных клубов в одну трастовую сеть. Первый мост построен.</p>
+        </div>
+      </div>
+      <div class="moat-card">
+        <div class="tag">03</div>
+        <div>
+          <h3>Network Equity Lite</h3>
+          <p><strong>3% revenue всей сети на 3 года</strong> делится между core-операторами. Структурное удержание: оператор не уходит, потому что теряет долю роста соседа. Не vesting, не токены — прозрачный revenue-share.</p>
+        </div>
+      </div>
+      <div class="moat-card">
+        <div class="tag">04</div>
+        <div>
+          <h3>P2P-инфра (open protocol)</h3>
+          <p><strong>demi-node</strong> работает end-to-end. libp2p + Hyperswarm fallback, MIT-compatible. Клиент после оплаты получает приватный узел с E2E — не облачный SaaS. Это устойчивость к регулятору и к дезинтермедиации.</p>
+        </div>
+      </div>
+      <div class="moat-card">
+        <div class="tag">05</div>
+        <div>
+          <h3>Шрамы как фильтр</h3>
+          <p>В core-круг не попадают теоретики. Условие — <strong>кейсы, где работа стоила чьей-то свободы</strong>. Фильтр, который капиталом не обходится. Это создаёт репутационный барьер на входе выше технического.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. BUSINESS MODEL -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 03 · Business Model</span>Модель монетизации</h2>
+    <ul class="bm-list">
+      <li><strong>Per-hour консультации:</strong> оператор выставляет цену $150–500/час в зависимости от вертикали. Платформа транслирует фиксированный прайс, без торга.</li>
+      <li><strong>15% platform fee:</strong> комиссия с каждой консультации. Покрывает инфру, юридику, рост сети.</li>
+      <li><strong>3% Network Equity Lite:</strong> от всей валовой выручки сети, делится между core-операторами на 3 года.</li>
+      <li><strong>5% intro-attribution:</strong> оператор, приведший клиента другому, получает долю сделки. Формализованный trust-граф.</li>
+      <li><strong>B2B-лицензирование P2P-стека:</strong> demi-node + federation протокол для корпоративных клиентов. Pricing TBD, пилоты Y2.</li>
+      <li><strong>Ретейнеры от клиентов-якорей:</strong> $5–20K/мес × оператор. Крипто/финтех вертикаль Дмитрия: A-клиент уже приносит $3–8K/мес.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 5. TRACTION -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 04 · Traction</span>Что уже работает</h2>
+    <div class="track-grid">
+      <div class="track-card">
+        <div class="status">· Live</div>
+        <div class="t">demis.world</div>
+        <div class="d">Landing, manifest, каталог агентов развёрнуты на Vercel.</div>
+      </div>
+      <div class="track-card">
+        <div class="status">· Live</div>
+        <div class="t">demi-node MVP</div>
+        <div class="d">P2P-транспорт работает end-to-end. Hyperswarm + libp2p fallback.</div>
+      </div>
+      <div class="track-card">
+        <div class="status">· Established</div>
+        <div class="t">Sheva federation</div>
+        <div class="d">Первый interop-мост со sheva-net Чабаняна построен.</div>
+      </div>
+      <div class="track-card">
+        <div class="status">· Active</div>
+        <div class="t">Core-4 operators</div>
+        <div class="d">Дмитрий / Даниил / Антон / Миша — vetted и в сети.</div>
+      </div>
+      <div class="track-card">
+        <div class="status">· Active</div>
+        <div class="t">Revenue-generating</div>
+        <div class="d">A-клиент Дмитрия в CARROT Capital / Global Wallet — $3–8K/мес. Консалтинг-канал работает.</div>
+      </div>
+      <div class="track-card">
+        <div class="status">· Active</div>
+        <div class="t">@BOMzusa</div>
+        <div class="d">Публичный канал коммуникации и воронки входящих.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. FINANCIALS -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 05 · Financials</span>Прогноз Y1–Y5</h2>
+    <p>Модель снизу: операторы × консультаций × средний чек. Без токенов и без venture-roundtable-arithmetic.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Operators</th>
+            <th>Consult / mo</th>
+            <th>Gross revenue</th>
+            <th>Net (after ops)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Y1</td>
+            <td>4</td>
+            <td class="num-cell">20</td>
+            <td class="num-cell">$80K</td>
+            <td class="num-cell">$35K</td>
+          </tr>
+          <tr>
+            <td>Y2</td>
+            <td>10</td>
+            <td class="num-cell">100</td>
+            <td class="num-cell">$450K</td>
+            <td class="num-cell">$180K</td>
+          </tr>
+          <tr>
+            <td>Y3</td>
+            <td>25</td>
+            <td class="num-cell">300</td>
+            <td class="num-cell">$1.5M</td>
+            <td class="num-cell">$620K</td>
+          </tr>
+          <tr>
+            <td>Y4</td>
+            <td>50</td>
+            <td class="num-cell">800</td>
+            <td class="num-cell">$4.0M</td>
+            <td class="num-cell">$1.7M</td>
+          </tr>
+          <tr>
+            <td>Y5</td>
+            <td>100</td>
+            <td class="num-cell">1,500</td>
+            <td class="num-cell">$8.0M</td>
+            <td class="num-cell">$3.4M</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Net считается после платформенных operations: инфраструктура, юридика, контент, комьюнити. <strong>Revenue-share операторов</strong> (85% базовой комиссии) выплачивается до net — операторы зарабатывают в первую очередь.</p>
+  </div>
+</section>
+
+<!-- 7. GO-TO-MARKET -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 06 · Go-to-Market</span>Выход на рынок</h2>
+    <div class="roadmap">
+      <div class="rm-item">
+        <div class="mo">Phase 1 · Now</div>
+        <div class="desc"><strong>Core-4 операторы · network effects.</strong> Закрытый круг, без публичного набора. Весь траффик через @BOMzusa и личную сеть Дмитрия.</div>
+      </div>
+      <div class="rm-item">
+        <div class="mo">Phase 2</div>
+        <div class="desc"><strong>10–15 операторов · invite-only.</strong> Русскоязычная крипто/финтех вертикаль. Vetting по шрамам (см. manifest).</div>
+      </div>
+      <div class="rm-item">
+        <div class="mo">Phase 3</div>
+        <div class="desc"><strong>Открытая заявка · scoring.</strong> Формализованный «Scar Score» — кейсы с ответственностью, регуляторные столкновения, финансовая подкожка клиентов.</div>
+      </div>
+      <div class="rm-item">
+        <div class="mo">Phase 4</div>
+        <div class="desc"><strong>EN-экспансия.</strong> Через Bay Area-сеть Даниила и Антона. Partnership-треки с US advisor-сетями.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. ROADMAP 24M -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 07 · Roadmap</span>24-month plan</h2>
+    <div class="roadmap">
+      <div class="rm-item">
+        <div class="mo">Mo 1–3</div>
+        <div class="desc"><strong>Core MVP + первые 10 операторов.</strong> Keychain-секреты, биллинг, CRM-узлы, demi-node stable release.</div>
+      </div>
+      <div class="rm-item">
+        <div class="mo">Mo 4–6</div>
+        <div class="desc"><strong>Network Equity Lite formalized.</strong> Revenue-share tracking on-chain (optional), юридическая структура (LLC + operator agreement).</div>
+      </div>
+      <div class="rm-item">
+        <div class="mo">Mo 7–12</div>
+        <div class="desc"><strong>25 операторов · $500K ARR.</strong> Контент-машина, первая партнёрка с крупным крипто-фондом.</div>
+      </div>
+      <div class="rm-item">
+        <div class="mo">Mo 13–18</div>
+        <div class="desc"><strong>Cross-border EN-версия.</strong> Partnership-диалог с Фаге / Network Equity-школой; SF-event сеть.</div>
+      </div>
+      <div class="rm-item">
+        <div class="mo">Mo 19–24</div>
+        <div class="desc"><strong>Федеративная сеть из 3+ клубов.</strong> sheva-net + DEMI + третий клуб. Общий протокол trust-score.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. USE OF FUNDS -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 08 · Use of Funds</span>Распределение инвестиций</h2>
+    <p>Структура расходов для привлечённого капитала $500K–$1.5M (seed tier). Не связываем модель с фиксированным раундом.</p>
+    <div class="funds">
+      <div class="fund-row">
+        <div class="pct">25%</div>
+        <div class="lbl">Tech / Infrastructure<span>demi-node, Keychain миграция, libp2p circuit-relay, биллинг</span></div>
+        <div class="bar-wrap"><div class="bar" style="width:25%"></div></div>
+      </div>
+      <div class="fund-row">
+        <div class="pct">30%</div>
+        <div class="lbl">Ops growth<span>привлечение операторов, онбординг, контент-машина</span></div>
+        <div class="bar-wrap"><div class="bar" style="width:30%"></div></div>
+      </div>
+      <div class="fund-row">
+        <div class="pct">20%</div>
+        <div class="lbl">Legal<span>CA/US/EU комплаенс, money-transmitter strategy, operator agreements</span></div>
+        <div class="bar-wrap"><div class="bar" style="width:20%"></div></div>
+      </div>
+      <div class="fund-row">
+        <div class="pct">15%</div>
+        <div class="lbl">Marketing<span>SF/Bay Area events, подкасты, PR вокруг WEX-кейса</span></div>
+        <div class="bar-wrap"><div class="bar" style="width:15%"></div></div>
+      </div>
+      <div class="fund-row">
+        <div class="pct">10%</div>
+        <div class="lbl">Reserve<span>резерв на регуляторные/судебные непредвиденные</span></div>
+        <div class="bar-wrap"><div class="bar" style="width:10%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. RISKS -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 09 · Risks &amp; Mitigations</span>Риски и что мы с ними делаем</h2>
+    <div class="risk-item">
+      <div class="r">Risk · Disintermediation (клиент уходит напрямую к оператору)</div>
+      <div class="m">Mitigation: <strong>Network Equity Lite</strong> даёт оператору 3% от всей сети на 3 года — экономически невыгодно уходить. Plus: P2P-канал demi-node активируется <strong>после оплаты</strong>, не до.</div>
+    </div>
+    <div class="risk-item">
+      <div class="r">Risk · Legal (IA / money transmitter / investment advisor)</div>
+      <div class="m">Mitigation: <strong>20% бюджета на legal</strong> в Y1. Публично — только «financial consulting / deal advisory». Без слова «банк», без гарантированной доходности, NFA на всех материалах.</div>
+    </div>
+    <div class="risk-item">
+      <div class="r">Risk · Dependence on Hyperswarm (single-protocol risk)</div>
+      <div class="m">Mitigation: <strong>libp2p fallback уже в продакшне</strong>. Архитектура demi-node изначально multi-transport. MIT-compat, можно форкать.</div>
+    </div>
+    <div class="risk-item">
+      <div class="r">Risk · Core-оператор выходит из сети</div>
+      <div class="m">Mitigation: <strong>3-year vesting</strong> на Network Equity, не binary. При выходе — частичная компенсация по формуле, не потеря всей доли. Snapshot каждый квартал.</div>
+    </div>
+    <div class="risk-item">
+      <div class="r">Risk · Репутация Дмитрия (активное судебное дело в США)</div>
+      <div class="m">Mitigation: <strong>дело открыто, не скрывается.</strong> 4 ареста, 5 стран, электронный браслет — часть публичного нарратива. Это не биография жертвы, а доказательство работы изнутри системы. Юридические материалы — предоставляются инвестору по запросу.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. TEAM -->
+<section>
+  <div class="wrap">
+    <h2><span class="n">§ 10 · Team</span>Core-операторы</h2>
+    <div class="ops-grid">
+      <div class="op-card">
+        <div class="name">Дмитрий Васильев</div>
+        <div class="scar">WEX · BTC-e · 4 ареста</div>
+        <div class="role">CEO WEX (возврат $800M), MD BCB.credit, CEO Prizmbit. 15 лет в финтехе. Crypto/crisis/cross-border. Bay Area (Hayward, CA).</div>
+      </div>
+      <div class="op-card">
+        <div class="name">Даниил Тараскин</div>
+        <div class="scar">Bay Area · AI command center</div>
+        <div class="role">GTM, MVP sprint, critical review. Строит операционные системы с командами AI-агентов. SF tech network.</div>
+      </div>
+      <div class="op-card">
+        <div class="name">Антон (PA)</div>
+        <div class="scar">Palo Alto network</div>
+        <div class="role">SF tech integration, партнёрства в Bay Area. Зона покрытия уточняется по фазам.</div>
+      </div>
+      <div class="op-card">
+        <div class="name">Миша (Sheva)</div>
+        <div class="scar">Public figure · sheva-net</div>
+        <div class="role">Federated node. Цифровое гражданство, суверенные ноды, 4.5K подписчиков. Первый interop-мост с DEMI.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. CTA -->
+<section>
+  <div class="wrap">
+    <div class="cta-block">
+      <h3>Дальше — разговор</h3>
+      <p>Это не публичное предложение ценных бумаг. Запросите pitch-deck и юридические материалы для private discussion.</p>
+      <div class="cta-row">
+        <a href="mailto:dima@vda.vc?subject=DEMI%20Agent%20Club%20%C2%B7%20Pitch%20deck%20request" class="cta-btn cta-primary">Запросить pitch-deck</a>
+        <a href="https://t.me/Posbitcoin" class="cta-btn cta-secondary">Telegram @Posbitcoin</a>
+        <button onclick="downloadOnePager()" class="cta-btn cta-secondary">Скачать one-pager PDF</button>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:22px; font-size:13px;"><a href="/manifest" style="color:var(--gold); text-decoration:none;">Манифест</a> · <a href="/agents-lite" style="color:var(--gold); text-decoration:none;">Каталог агентов</a> · <a href="/agents" style="color:var(--gold); text-decoration:none;">Agents (detail)</a></p>
+  </div>
+</section>
+
+<footer>
+  <div><a href="/">← demis.world</a> · P2P · E2E · MIT · <a href="/manifest">Manifest</a> · <a href="/agents-lite">Каталог</a></div>
+  <div class="nfa">
+    <strong style="color:var(--muted);">NFA · Private discussion materials only.</strong><br>
+    This is not an offer to sell securities, a solicitation, or investment advice. Figures are management projections; actual results may differ materially. Operators provide independent consulting — not broker-dealer or investment-advisory services. All WEX/BTC-e references describe historical events; for legal materials contact dima@vda.vc directly.
+  </div>
+</footer>
+
+<!-- jsPDF + html2canvas for one-pager export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function buildOnePagerHTML() {
+  return `
+<div id="onepager" style="width:794px; padding:36px 44px; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif; background:#0a0a0a; color:#f5f0e1; position:absolute; left:-9999px; top:0;">
+  <div style="border-bottom:1px solid rgba(201,169,97,0.3); padding-bottom:14px; margin-bottom:22px; display:flex; justify-content:space-between; align-items:baseline;">
+    <div style="font-family:Georgia,serif; color:#c9a961; font-size:18px; letter-spacing:3px;">DEMI AGENT CLUB</div>
+    <div style="font-size:10px; color:#888; letter-spacing:2px;">INVESTOR ONE-PAGER · 21.04.2026</div>
+  </div>
+
+  <div style="font-family:Georgia,serif; font-size:30px; color:#c9a961; line-height:1.15; margin-bottom:14px;">P2P-ассоциация операторов со шрамами</div>
+  <div style="font-size:13px; color:#bbb; line-height:1.6; margin-bottom:22px;">Сеть суверенных AI-агентов, связанных Network Equity Lite. Единственный в мире кейс возврата $800M пользователям после изъятия биржи ФБР — в core-круге сети.</div>
+
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:22px;">
+    <div style="border:1px solid rgba(201,169,97,0.3); padding:14px; border-radius:4px; text-align:center;">
+      <div style="font-family:Georgia,serif; font-size:24px; color:#c9a961;">$800M</div>
+      <div style="font-size:9px; letter-spacing:1px; color:#888; margin-top:4px;">ВОЗВРАЩЕНО · WEX 2017</div>
+    </div>
+    <div style="border:1px solid rgba(201,169,97,0.3); padding:14px; border-radius:4px; text-align:center;">
+      <div style="font-family:Georgia,serif; font-size:24px; color:#c9a961;">4 / 10</div>
+      <div style="font-size:9px; letter-spacing:1px; color:#888; margin-top:4px;">CORE-ОПЕРАТОРЫ · Y1</div>
+    </div>
+    <div style="border:1px solid rgba(201,169,97,0.3); padding:14px; border-radius:4px; text-align:center;">
+      <div style="font-family:Georgia,serif; font-size:24px; color:#c9a961;">3%</div>
+      <div style="font-size:9px; letter-spacing:1px; color:#888; margin-top:4px;">NETWORK EQUITY · 3 YR</div>
+    </div>
+  </div>
+
+  <div style="font-family:Georgia,serif; color:#c9a961; font-size:15px; margin-bottom:8px;">Модель</div>
+  <div style="font-size:12px; color:#ccc; line-height:1.6; margin-bottom:18px;">Per-hour $150–500 · 15% platform fee · 3% NE-Lite · 5% intro · B2B licensing TBD. Клиент после оплаты — на приватном demi-node (P2P, E2E).</div>
+
+  <div style="font-family:Georgia,serif; color:#c9a961; font-size:15px; margin-bottom:8px;">Финансы (план)</div>
+  <table style="width:100%; font-size:11px; color:#ddd; border-collapse:collapse; margin-bottom:18px;">
+    <tr style="border-bottom:1px solid rgba(201,169,97,0.3);">
+      <th style="text-align:left; padding:6px; color:#c9a961;">Year</th>
+      <th style="text-align:left; padding:6px; color:#c9a961;">Ops</th>
+      <th style="text-align:left; padding:6px; color:#c9a961;">Consult/mo</th>
+      <th style="text-align:left; padding:6px; color:#c9a961;">Revenue</th>
+      <th style="text-align:left; padding:6px; color:#c9a961;">Net</th>
+    </tr>
+    <tr><td style="padding:5px 6px;">Y1</td><td style="padding:5px 6px;">4</td><td style="padding:5px 6px;">20</td><td style="padding:5px 6px;">$80K</td><td style="padding:5px 6px;">$35K</td></tr>
+    <tr><td style="padding:5px 6px;">Y2</td><td style="padding:5px 6px;">10</td><td style="padding:5px 6px;">100</td><td style="padding:5px 6px;">$450K</td><td style="padding:5px 6px;">$180K</td></tr>
+    <tr><td style="padding:5px 6px;">Y3</td><td style="padding:5px 6px;">25</td><td style="padding:5px 6px;">300</td><td style="padding:5px 6px;">$1.5M</td><td style="padding:5px 6px;">$620K</td></tr>
+    <tr><td style="padding:5px 6px;">Y4</td><td style="padding:5px 6px;">50</td><td style="padding:5px 6px;">800</td><td style="padding:5px 6px;">$4.0M</td><td style="padding:5px 6px;">$1.7M</td></tr>
+    <tr><td style="padding:5px 6px;">Y5</td><td style="padding:5px 6px;">100</td><td style="padding:5px 6px;">1,500</td><td style="padding:5px 6px;">$8.0M</td><td style="padding:5px 6px;">$3.4M</td></tr>
+  </table>
+
+  <div style="font-family:Georgia,serif; color:#c9a961; font-size:15px; margin-bottom:8px;">Core-операторы</div>
+  <div style="font-size:11px; color:#bbb; line-height:1.6; margin-bottom:18px;">
+    <b style="color:#f5f0e1;">Дмитрий Васильев</b> — CEO WEX, MD BCB.credit · crypto/crisis · Bay Area<br>
+    <b style="color:#f5f0e1;">Даниил Тараскин</b> — GTM / AI command center · SF<br>
+    <b style="color:#f5f0e1;">Антон (PA)</b> — Palo Alto integrator<br>
+    <b style="color:#f5f0e1;">Миша (Sheva)</b> — sheva-net federated node · 4.5K аудитория
+  </div>
+
+  <div style="border-top:1px solid rgba(201,169,97,0.3); padding-top:12px; font-size:10px; color:#888; line-height:1.5;">
+    <b style="color:#c9a961;">Контакт:</b> dima@vda.vc · Telegram @Posbitcoin · demis.world/investor<br>
+    <span style="color:#666;">NFA — Not an offer to sell securities. Private discussion materials only.</span>
+  </div>
+</div>`;
+}
+
+async function downloadOnePager() {
+  try {
+    const wrap = document.createElement('div');
+    wrap.innerHTML = buildOnePagerHTML();
+    document.body.appendChild(wrap);
+    const node = wrap.querySelector('#onepager');
+
+    const canvas = await html2canvas(node, {
+      backgroundColor: '#0a0a0a',
+      scale: 2,
+      useCORS: true,
+      logging: false
+    });
+    document.body.removeChild(wrap);
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+
+    const imgRatio = canvas.height / canvas.width;
+    const imgW = pageW;
+    const imgH = pageW * imgRatio;
+    const y = imgH > pageH ? 0 : (pageH - imgH) / 2;
+
+    pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, y, imgW, Math.min(imgH, pageH));
+    pdf.save('DEMI-investor-onepager.pdf');
+  } catch (e) {
+    console.error('PDF export failed:', e);
+    alert('PDF export failed. Напишите dima@vda.vc — пришлём PDF вручную.');
+  }
+}
+</script>
+
+</body>
+</html>
