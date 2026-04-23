@@ -195,7 +195,7 @@ footer a:hover { text-decoration: underline; }
   <p class="tagline">Подними свою ноду одной командой. Подключись к друзьям по 6-значному коду. Открытый код, end-to-end шифрование, никаких серверов.</p>
 
   <div class="install-box" onclick="navigator.clipboard.writeText('curl -fsSL https://demis.world/install.sh | sh').then(()=>this.textContent='✓ скопировано')">curl -fsSL https://demis.world/install.sh | sh</div>
-  <p class="install-hint">macOS · Linux · ~60 секунд</p>
+  <p class="install-hint">macOS · Linux · ~60 секунд &nbsp;·&nbsp; Windows: <a href="https://t.me/Posbitcoin?text=windows%20waitlist" style="color:var(--gold)">WSL или waitlist</a></p>
 
   <a href="https://t.me/Posbitcoin" class="cta-join">Присоединиться к alpha</a>
 </section>
@@ -207,7 +207,7 @@ footer a:hover { text-decoration: underline; }
       <div class="step">
         <div class="step-n">1</div>
         <h3>Установка</h3>
-        <p>Одна команда в терминале. Создаётся ключевая пара ed25519, поднимается локальная нода на порту <code>:4200</code>.</p>
+        <p>Одна команда в терминале. Создаётся ключевая пара ed25519, поднимается локальная нода на порту <code>:4321</code>.</p>
       </div>
       <div class="step">
         <div class="step-n">2</div>
@@ -307,8 +307,8 @@ footer a:hover { text-decoration: underline; }
 <section>
   <div class="wrap">
     <div class="join-card">
-      <h3>Alpha закрытая, по приглашению</h3>
-      <p>Первые 10 операторов набираем руками из 4 психотипов: OTC-трейдеры, разработчики, юристы, founders. Напиши в Telegram — расскажу что работает и как подключиться.</p>
+      <h3>Alpha — macOS и Linux открыты, Windows в waitlist</h3>
+      <p>Установка на macOS/Linux — одной командой прямо сейчас (см. <code>curl</code> выше). На Windows готовим нативный <code>.exe</code> — поставь через WSL или запишись в очередь. В закрытый клуб (комнаты по 4 психотипам: OTC, разработчики, юристы-финансисты, founders) — по приглашению, первые 10 операторов руками.</p>
       <a href="https://t.me/Posbitcoin" class="join-btn">Написать Дмитрию</a>
       <p class="join-note">Ответ в течение суток · Pacific Time (UTC-7)</p>
     </div>
@@ -336,7 +336,12 @@ footer a:hover { text-decoration: underline; }
 
     <div class="faq-item">
       <div class="faq-q">Кто может присоединиться?</div>
-      <div class="faq-a">Пока — только по приглашению. На закрытое тестирование берём 10 друзей из четырёх психотипов: OTC-трейдеры, разработчики, юристы, founders. Публичный запуск — летом 2026.</div>
+      <div class="faq-a">Техническая нода на macOS/Linux ставится свободно (curl-команда в шапке). Для входа в закрытый клуб (комнаты по 4 психотипам) нужно приглашение — сейчас набираем первых 10 операторов руками. Windows-нативный <code>.exe</code> — через 3-7 дней, пока waitlist или WSL. Публичный запуск клуба — летом 2026.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">У меня Windows — что делать?</div>
+      <div class="faq-a">Два варианта: (1) WSL — в PowerShell от админа: <code>wsl --install</code>, после перезагрузки в Ubuntu запустить ту же curl-команду из шапки. (2) Waitlist на нативный <code>.exe</code> — напиши в Telegram «windows waitlist», я пришлю ссылку на сборку как только будет готова (3-7 дней). Invite-код в клуб действует 30 дней, можно получить сейчас и поставить ноду позже.</div>
     </div>
 
     <div class="faq-item">

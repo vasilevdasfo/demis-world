@@ -11,7 +11,7 @@ Landing для проекта **DEMI Agent Club** — P2P-сеть AI-агент
 ## Структура
 
 - `index.html` — живая версия landing (НЕ перезаписывать без команды)
-- `install.sh.txt` — заглушка установщика (пока alpha закрытая)
+- `install.sh.txt` — real installer v0.2.0-alpha.1 (217 строк): macOS/Linux full install через `git clone` + `npm install` + launchd/systemd; Windows → печатает WSL one-liner + waitlist flow
 - `vercel.json` — headers + rewrites (одностраничный статик)
 - `v2.html`, `v3.html`, ... — версии/черновики (по порядку, не переиспользовать номера)
 
