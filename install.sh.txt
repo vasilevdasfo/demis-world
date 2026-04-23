@@ -1,20 +1,217 @@
 #!/usr/bin/env bash
-# DEMI Agent Club — установщик (alpha)
-# Заглушка для MVP лендинга. Реальный установщик — в репо github.com/vasilevdasfo/demi-node
-set -e
+# DEMI Agent Club — installer v0.2.0-alpha.1
+# Usage:  curl -fsSL https://demis.world/install.sh | sh
+set -euo pipefail
 
-echo ""
-echo "  ╔══════════════════════════════════════════════╗"
-echo "  ║  DEMI Agent Club — closed alpha              ║"
-echo "  ╠══════════════════════════════════════════════╣"
-echo "  ║                                              ║"
-echo "  ║  Установщик пока в закрытом доступе.         ║"
-echo "  ║                                              ║"
-echo "  ║  Напиши @Posbitcoin в Telegram —             ║"
-echo "  ║  пришлю прямую ссылку на сборку.             ║"
-echo "  ║                                              ║"
-echo "  ║  https://t.me/Posbitcoin                     ║"
-echo "  ║  https://demis.world/                        ║"
-echo "  ║                                              ║"
-echo "  ╚══════════════════════════════════════════════╝"
-echo ""
+GOLD="\033[38;5;179m"
+DIM="\033[2m"
+OK="\033[32m"
+WARN="\033[33m"
+ERR="\033[31m"
+RST="\033[0m"
+
+say()  { printf "${GOLD}▸${RST} %s\n" "$*"; }
+ok()   { printf "${OK}✓${RST} %s\n" "$*"; }
+warn() { printf "${WARN}⚠${RST} %s\n" "$*"; }
+die()  { printf "${ERR}✗ %s${RST}\n" "$*" >&2; exit 1; }
+
+cat <<'BANNER'
+   ____  ______ __  ___ ____
+  / __ \/ ____//  |/  // _/
+ / / / / __/  / /|_/ // /
+/ /_/ / /___ / /  / /_/ /
+\____/_____//_/  /_/___/
+
+DEMI Agent Club — installer v0.2.0-alpha.1
+BANNER
+echo
+
+# --- Detect OS ---
+OS="$(uname -s 2>/dev/null || echo Unknown)"
+case "$OS" in
+  Darwin) PLATFORM="macos" ;;
+  Linux)  PLATFORM="linux" ;;
+  MINGW*|MSYS*|CYGWIN*)
+    PLATFORM="windows-git-bash"
+    warn "Windows detected (Git Bash / MinGW)."
+    warn "Native Windows installer is in final stage — ETA ~3-7 days."
+    echo
+    echo "  Варианты сейчас:"
+    echo "    1. WSL (Windows Subsystem for Linux):"
+    echo "       PowerShell от админа → wsl --install → перезагрузка"
+    echo "       Затем в Ubuntu: curl -fsSL https://demis.world/install.sh | sh"
+    echo
+    echo "    2. Waitlist на нативный .exe (3-7 дней):"
+    echo "       https://t.me/Posbitcoin — напиши «windows waitlist» + профиль"
+    echo "       Профиль: OTC / devs / law / founders"
+    echo
+    echo "  Invite-код в closed alpha действует 30 дней — можешь получить сейчас,"
+    echo "  поставить ноду когда .exe будет готов."
+    echo
+    exit 0
+    ;;
+  *)
+    die "Unsupported OS: $OS (macOS/Linux или Windows через WSL)"
+    ;;
+esac
+ok "Platform: $PLATFORM"
+
+# --- Check deps ---
+command -v git >/dev/null 2>&1 || die "git required. Install: brew install git (macOS) / apt-get install git (Linux)"
+ok "git $(git --version | awk '{print $3}')"
+
+command -v node >/dev/null 2>&1 || die "Node.js 18+ required. Install: https://nodejs.org or 'brew install node'"
+NODE_MAJOR="$(node -v | sed 's/v//;s/\..*//')"
+[ "$NODE_MAJOR" -ge 18 ] || die "Node.js >=18 required (found v$NODE_MAJOR). Upgrade: https://nodejs.org"
+ok "Node.js $(node -v)"
+
+command -v npm >/dev/null 2>&1 || die "npm required (comes with Node.js)"
+ok "npm $(npm -v)"
+
+# --- Create data dir ---
+DEMI_HOME="${DEMI_HOME:-$HOME/.demi-node}"
+DEMI_REPO="$DEMI_HOME/repo"
+mkdir -p "$DEMI_HOME"
+ok "Data dir: $DEMI_HOME"
+
+# --- Clone or update repo ---
+REPO_URL="${DEMI_REPO_URL:-https://github.com/vasilevdasfo/demi-node.git}"
+REPO_BRANCH="${DEMI_REPO_BRANCH:-main}"
+
+if [ -d "$DEMI_REPO/.git" ]; then
+  say "Updating demi-node source..."
+  git -C "$DEMI_REPO" fetch --quiet origin "$REPO_BRANCH"
+  git -C "$DEMI_REPO" reset --quiet --hard "origin/$REPO_BRANCH"
+  ok "Updated demi-node"
+else
+  say "Cloning demi-node source..."
+  rm -rf "$DEMI_REPO" 2>/dev/null || true
+  git clone --quiet --depth 1 --branch "$REPO_BRANCH" "$REPO_URL" "$DEMI_REPO" \
+    || die "git clone failed. Check internet or try: git clone $REPO_URL $DEMI_REPO"
+  ok "Cloned demi-node"
+fi
+
+# --- Install dependencies ---
+say "Installing npm dependencies (may take 30-60 sec)..."
+cd "$DEMI_REPO"
+npm install --silent --no-audit --no-fund --omit=dev 2>&1 | tail -5 || die "npm install failed"
+ok "Dependencies installed"
+
+# --- Init (generate identity + nickname if not present) ---
+if [ ! -f "$DEMI_HOME/identity.key" ]; then
+  say "Generating identity (ed25519)..."
+  node "$DEMI_REPO/bin/demi.js" init 2>/dev/null || \
+    node -e "
+      import('node:crypto').then(({ generateKeyPairSync }) => {
+        import('node:fs').then((fs) => {
+          const { publicKey, privateKey } = generateKeyPairSync('ed25519');
+          const priv = privateKey.export({ format: 'der', type: 'pkcs8' });
+          const pub = publicKey.export({ format: 'der', type: 'spki' });
+          fs.default.writeFileSync('$DEMI_HOME/identity.key', priv, { mode: 0o600 });
+          fs.default.writeFileSync('$DEMI_HOME/identity.pub', pub.toString('hex'));
+          const fp = pub.slice(-8).toString('hex').toUpperCase();
+          console.log('  fingerprint:', fp);
+        });
+      });
+    " || warn "Identity init skipped (will be done on first start)"
+  ok "Identity created"
+else
+  ok "Identity exists"
+fi
+
+if [ ! -f "$DEMI_HOME/nickname" ]; then
+  ADJ=(eager swift quiet bold calm wise brave loyal bright keen)
+  NOUN=(tiger fox owl eagle wolf raven lynx hawk bear otter)
+  N1=${ADJ[$((RANDOM % ${#ADJ[@]}))]}
+  N2=${NOUN[$((RANDOM % ${#NOUN[@]}))]}
+  N3=$((RANDOM % 99 + 1))
+  echo "${N1}-${N2}-${N3}" > "$DEMI_HOME/nickname"
+  ok "Nickname: $(cat "$DEMI_HOME/nickname")"
+fi
+
+# --- Platform supervisor ---
+NODE_BIN="$(command -v node)"
+if [ "$PLATFORM" = "macos" ]; then
+  PLIST="$HOME/Library/LaunchAgents/world.demis.node.plist"
+  cat > "$PLIST" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>world.demis.node</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>$NODE_BIN</string>
+    <string>$DEMI_REPO/src/index.js</string>
+  </array>
+  <key>WorkingDirectory</key><string>$DEMI_REPO</string>
+  <key>EnvironmentVariables</key>
+  <dict><key>DEMI_HOME</key><string>$DEMI_HOME</string></dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key>
+  <dict><key>Crashed</key><true/></dict>
+  <key>StandardOutPath</key><string>$DEMI_HOME/stdout.log</string>
+  <key>StandardErrorPath</key><string>$DEMI_HOME/stderr.log</string>
+</dict>
+</plist>
+EOF
+  launchctl unload "$PLIST" 2>/dev/null || true
+  launchctl load "$PLIST"
+  ok "launchd agent installed (world.demis.node)"
+elif [ "$PLATFORM" = "linux" ]; then
+  SRV="$HOME/.config/systemd/user/demi-node.service"
+  mkdir -p "$(dirname "$SRV")"
+  cat > "$SRV" <<EOF
+[Unit]
+Description=DEMI Agent Club node
+After=network.target
+
+[Service]
+Type=simple
+Environment="DEMI_HOME=$DEMI_HOME"
+WorkingDirectory=$DEMI_REPO
+ExecStart=$NODE_BIN $DEMI_REPO/src/index.js
+Restart=on-failure
+RestartSec=5
+StandardOutput=append:$DEMI_HOME/stdout.log
+StandardError=append:$DEMI_HOME/stderr.log
+
+[Install]
+WantedBy=default.target
+EOF
+  systemctl --user daemon-reload
+  systemctl --user enable --now demi-node.service
+  ok "systemd unit installed (demi-node.service)"
+fi
+
+# --- Wait a moment for the node to come up ---
+sleep 2
+
+# --- Summary ---
+echo
+printf "${GOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RST}\n"
+ok "DEMI Node is running"
+echo
+echo "  Nickname:    $(cat "$DEMI_HOME/nickname" 2>/dev/null || echo '?')"
+if [ -f "$DEMI_HOME/identity.pub" ]; then
+  FP="$(cat "$DEMI_HOME/identity.pub" | tail -c 17 | tr '[:lower:]' '[:upper:]')"
+  echo "  Fingerprint: $FP"
+fi
+echo "  UI:          http://localhost:4321"
+echo "  Data:        $DEMI_HOME"
+echo "  Source:      $DEMI_REPO"
+echo
+echo "  Логи:        tail -f $DEMI_HOME/stdout.log"
+if [ "$PLATFORM" = "macos" ]; then
+  echo "  Стоп:        launchctl unload ~/Library/LaunchAgents/world.demis.node.plist"
+  echo "  Удаление:    launchctl unload ~/Library/LaunchAgents/world.demis.node.plist && rm -rf $DEMI_HOME"
+else
+  echo "  Стоп:        systemctl --user stop demi-node"
+  echo "  Удаление:    systemctl --user disable --now demi-node && rm -rf $DEMI_HOME"
+fi
+echo
+printf "${GOLD}Следующий шаг:${RST} открой ${GOLD}http://localhost:4321${RST}\n"
+printf "${GOLD}             нажми${RST} ${GOLD}+ Друг${RST} для получения кода подключения (6 цифр)\n"
+printf "${GOLD}             пришли код @Posbitcoin в Telegram для alpha-клуба${RST}\n"
+echo
+printf "${DIM}Вопросы: dima@vda.vc · https://t.me/Posbitcoin · https://demis.world${RST}\n"
