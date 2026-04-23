@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEMI Onboarding — Live Status</title>
+<meta name="description" content="Прогресс интеграции первого external-peer в DEMI P2P-сеть.">
+<link rel="canonical" href="https://demis.world/onboarding">
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --fg: #f5f0e1;
+  --gold: #c9a961;
+  --gold-bright: #e8c97a;
+  --muted: #8a8a8a;
+  --line: rgba(201, 169, 97, 0.18);
+  --done: #4a9b6c;
+  --wip: #d4a74a;
+  --blocked: #b85c5c;
+  --future: #5a6b8a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+a { color: var(--gold-bright); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1100px; margin: 0 auto; padding: clamp(20px, 4vw, 48px); }
+
+/* HERO */
+.hero { padding: clamp(40px, 8vw, 96px) 0 clamp(28px, 5vw, 56px); border-bottom: 1px solid var(--line); }
+.hero-kicker { color: var(--gold); font-size: clamp(11px, 1.3vw, 13px); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; }
+.hero-title { font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: clamp(36px, 6vw, 64px); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 18px; }
+.hero-title em { font-style: italic; color: var(--gold-bright); }
+.hero-sub { color: var(--muted); font-size: clamp(15px, 1.6vw, 18px); max-width: 720px; }
+
+/* PROGRESS RING */
+.progress-wrap { display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; margin: clamp(28px, 5vw, 48px) 0; padding: clamp(24px, 3vw, 36px); border: 1px solid var(--line); border-radius: 2px; background: rgba(201, 169, 97, 0.03); }
+.ring { width: 130px; height: 130px; position: relative; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: var(--line); stroke-width: 8; }
+.ring-fg { fill: none; stroke: var(--gold); stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease-out; }
+.ring-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring-num { font-family: "Playfair Display", Georgia, serif; font-size: 32px; font-weight: 700; color: var(--gold-bright); line-height: 1; }
+.ring-cap { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+.summary h2 { font-family: "Playfair Display", Georgia, serif; font-size: clamp(22px, 2.5vw, 28px); font-weight: 600; margin-bottom: 8px; }
+.summary-meta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; }
+.summary-meta .pill { padding: 4px 12px; border: 1px solid var(--line); border-radius: 100px; font-size: 12px; color: var(--muted); }
+.summary-meta .pill b { color: var(--fg); font-weight: 600; }
+
+/* TIMELINE */
+.timeline-title { font-family: "Playfair Display", Georgia, serif; font-size: clamp(26px, 3vw, 34px); margin: clamp(40px, 5vw, 64px) 0 clamp(16px, 2vw, 24px); letter-spacing: -0.01em; }
+.timeline-title::before { content: "— "; color: var(--gold); }
+
+.col-grid { display: grid; grid-template-columns: 1fr; gap: clamp(20px, 2.5vw, 32px); }
+@media (min-width: 880px) { .col-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+.col { }
+.col-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.col-head h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 600; font-size: clamp(18px, 2vw, 22px); }
+.col-count { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.col-done h3::before { content: "●"; color: var(--done); margin-right: 8px; }
+.col-wip h3::before { content: "◐"; color: var(--wip); margin-right: 8px; }
+.col-future h3::before { content: "○"; color: var(--future); margin-right: 8px; }
+
+.item { border-left: 2px solid var(--line); padding: 12px 0 16px 18px; margin-bottom: 2px; position: relative; }
+.item::before { content: ""; position: absolute; left: -5px; top: 18px; width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.col-done .item::before { background: var(--done); }
+.col-wip .item::before { background: var(--wip); animation: pulse 2s ease-in-out infinite; }
+.col-future .item::before { background: var(--future); }
+@keyframes pulse { 50% { opacity: 0.4; } }
+.item-time { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+.item-title { font-size: 15px; color: var(--fg); margin-top: 3px; font-weight: 500; }
+.item-note { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.item-note code { background: rgba(201, 169, 97, 0.1); color: var(--gold-bright); padding: 1px 6px; border-radius: 3px; font-size: 12px; font-family: "SF Mono", Menlo, monospace; }
+
+/* FOOTER */
+.foot { margin-top: clamp(48px, 8vw, 96px); padding: 32px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.foot-grid { display: grid; gap: 10px; }
+.foot b { color: var(--fg); font-weight: 500; }
+
+@media (max-width: 600px) {
+  .progress-wrap { grid-template-columns: 1fr; text-align: center; }
+  .ring { margin: 0 auto; }
+  .summary-meta { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-kicker">Live · Onboarding operation · agent-alpha-1</div>
+  <h1 class="hero-title">Первый внешний <em>peer</em> в DEMI P2P-сети.</h1>
+  <p class="hero-sub">Александр @bosswor (Windows + WSL2) вступает в DEMI. Агент-ментор Demi проводит через 7 уровней. На этой странице — живой прогресс и хронология от первого «да» до `localhost:4321`.</p>
+</section>
+
+<!-- PROGRESS RING + SUMMARY -->
+<section class="progress-wrap">
+  <div class="ring">
+    <svg viewBox="0 0 120 120">
+      <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+      <circle class="ring-fg" cx="60" cy="60" r="52"
+              stroke-dasharray="326.7"
+              stroke-dashoffset="98"></circle>
+    </svg>
+    <div class="ring-label">
+      <div class="ring-num">70%</div>
+      <div class="ring-cap">complete</div>
+    </div>
+  </div>
+  <div class="summary">
+    <h2>Инфраструктура готова, ждём libp2p landing</h2>
+    <p style="color:var(--muted)">14 задач закрыто · 3 в работе · 5 впереди. Ключевой блокер — fallback-транспорт для Windows (hyperswarm UDP блочится Defender + WSL2 NAT). ETA landing: 3-4 часа.</p>
+    <div class="summary-meta">
+      <span class="pill">Старт: <b>23.04.2026 · 10:25 PT</b></span>
+      <span class="pill">Текущий свинг: <b>2.5 часа</b></span>
+      <span class="pill">ETA P2P-чат: <b>15:30-16:30 PT</b></span>
+      <span class="pill">Peer: <b>swift-wolf-66</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<h2 class="timeline-title">Хронология</h2>
+
+<div class="col-grid">
+
+  <!-- DONE -->
+  <div class="col col-done">
+    <div class="col-head">
+      <h3>Сделано</h3>
+      <span class="col-count">14 задач</span>
+    </div>
+
+    <div class="item">
+      <div class="item-time">10:25 PT · Pair</div>
+      <div class="item-title">swift-wolf-66 ↔ fluent-wolf-44 запарены</div>
+      <div class="item-note">Первый external paired peer в DEMI P2P. Trust = trusted. Запаринг с 3-й попытки → TTL 5→10 мин codebase-wide.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">11:06 PT · Bot patch</div>
+      <div class="item-title">demi_bot.py whitelist + INBOX tagging</div>
+      <div class="item-note">uid <code>1034933692</code> → INBOX <code>[🔔 BOSSWOR]</code> + Telegram ping.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">11:22 PT · UI re-brand</div>
+      <div class="item-title">Observer UI · gold · Playfair + Inter</div>
+      <div class="item-note">Коммит <code>e74f721</code>. FTS5 <code>chat.search</code>, export MD/JSON, peer profile panel. Public mirror <code>eb35240</code>.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">11:40 PT · Onboarding bot</div>
+      <div class="item-title">@demisworld_bot автономный · Sonnet 4.5</div>
+      <div class="item-note">Через launchd из <code>~/bin/</code>. Знает все 10 гайдов, отвечает в группе автоматически.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">11:55 PT · Architecture</div>
+      <div class="item-title">Единый канал = группа «Три поросенка»</div>
+      <div class="item-note">@DEMIIDEAS_bot свёрнут как канал для Александра. Весь онбординг через @demisworld_bot.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">12:15 PT · Routing</div>
+      <div class="item-title">TO_PELMEN ↔ TO_MAIN протокол</div>
+      <div class="item-note">Межсессионная коммуникация между PELMEN и MAIN, 6 sync-циклов за час.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">12:18 PT · Screenshots</div>
+      <div class="item-title">4 live-скрина Observer UI</div>
+      <div class="item-note">Hero + search + peer chat + export. В группу отправлены (media group).</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">12:28 PT · Guides</div>
+      <div class="item-title">10 онбординг-гайдов L0-L6</div>
+      <div class="item-note">Checklist, Windows, Telegram MCP, Skills, Voice bots, Deploy, Advanced, Transcription, YouTube, L6-DEMI.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">12:40 PT · Prop-check</div>
+      <div class="item-title">CLI расхождения найдены · 4 critical</div>
+      <div class="item-note"><code>demi identity create</code> не существует · <code>pair new</code> → <code>pair --new</code> · 6-значный код · <code>--last</code> vs <code>--limit</code>.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">12:55 PT · L6 patched</div>
+      <div class="item-title">Гайды синхронизированы с реальным CLI</div>
+      <div class="item-note">Блок 275-310 переписан, correction отправлена в группу, обновлённый файл re-uploaded.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">12:40 PT · libp2p docs</div>
+      <div class="item-title">Release-notes черновик готов</div>
+      <div class="item-note">195 строк, 11 секций, 7 <code>CHECK</code>-маркеров для MAIN на review.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">12:00 PT · Spam cleanup</div>
+      <div class="item-title">67 сообщений бота удалены</div>
+      <div class="item-note">Очистка группы от избыточных broadcast-сообщений онбординга.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">11:42 PT · Bot infra</div>
+      <div class="item-title">Launchd + ~/bin переезд</div>
+      <div class="item-note">Вне macOS Documents-sandbox. <code>PYTHONUNBUFFERED=1</code> для real-time логов.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">11:55 PT · Decision skill</div>
+      <div class="item-title">decision-or-do · сквозной</div>
+      <div class="item-note">CLAUDE.md + memory + skill. Правило «не грузить меню на тривиальных решениях» применяется во всех сессиях.</div>
+    </div>
+  </div>
+
+  <!-- WIP -->
+  <div class="col col-wip">
+    <div class="col-head">
+      <h3>В работе</h3>
+      <span class="col-count">3 задачи</span>
+    </div>
+
+    <div class="item">
+      <div class="item-time">start 12:08 PT · ETA 15:30</div>
+      <div class="item-title">libp2p Этап B landing</div>
+      <div class="item-note">MAIN inline-интегрирует libp2p-транспорт в <code>src/transport/libp2p.js</code>. 3 Gemini mitigations: <code>clientMode:true</code>, trusted bootstrap, MAX_MSG_BYTES.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">ETA 13:30</div>
+      <div class="item-title">Backend RPC · chat.search + peers.getProfile</div>
+      <div class="item-note">Frontend (Дельта) уже в mirror, backend не landed. Александр увидит toast если кликнет — MAIN фиксит (30-60 мин).</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">ждём</div>
+      <div class="item-title">Александр · prep steps WSL+Node</div>
+      <div class="item-note">Пингован 12:43. От него ждём подтверждение прогресса по шкале 1-4 (WSL → apt → clone → install).</div>
+    </div>
+  </div>
+
+  <!-- FUTURE -->
+  <div class="col col-future">
+    <div class="col-head">
+      <h3>Впереди</h3>
+      <span class="col-count">5 задач</span>
+    </div>
+
+    <div class="item">
+      <div class="item-time">после libp2p</div>
+      <div class="item-title">git pull + demi start</div>
+      <div class="item-note">Identity автосоздаётся, бэкап <code>~/.demi-node/identity.json</code> критичен.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">~1 минута</div>
+      <div class="item-title">Pair code generation</div>
+      <div class="item-note">MAIN → <code>demi pair --new</code> → 6-знач код → в группу → Александр redeem.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">instant</div>
+      <div class="item-title">localhost:4321 live у Александра</div>
+      <div class="item-note">Observer UI открывается, видит чат с fluent-wolf-44, история подхватывается.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">первый P2P-текст</div>
+      <div class="item-title">Real message Alex → Dima</div>
+      <div class="item-note">Через DEMI P2P напрямую, без серверов. Первый «привет» закрывает полный цикл.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">w+1</div>
+      <div class="item-title">L1-L6 Claude Code онбординг</div>
+      <div class="item-note">MCP, skills, voice, deploy — через eженедельные чек-ины в группе.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="foot">
+  <div class="foot-grid">
+    <div>Страница обновляется вручную по ходу прогресса. Дата снимка: <b>23.04.2026 · 12:55 PT</b>.</div>
+    <div>Участники операции: <b>Дмитрий Васильев</b> (vda.vc) · <b>MAIN</b> (infra) · <b>Demi</b> (onboarding bot) · <b>Александр @bosswor</b> (первый peer) · <b>Евгений Бычковский</b> (наблюдатель).</div>
+    <div>Публичный код: <a href="https://github.com/vasilevdasfo/demi-node">github.com/vasilevdasfo/demi-node</a></div>
+    <div>Главная: <a href="/">demis.world</a></div>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>
