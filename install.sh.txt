@@ -34,19 +34,20 @@ case "$OS" in
   MINGW*|MSYS*|CYGWIN*)
     PLATFORM="windows-git-bash"
     warn "Windows detected (Git Bash / MinGW)."
-    warn "Native Windows installer is in final stage — ETA ~3-7 days."
+    warn "Native Windows .exe installer arrives 24-25 April 2026 (within 48h)."
     echo
     echo "  Варианты сейчас:"
-    echo "    1. WSL (Windows Subsystem for Linux):"
+    echo "    1. Подождать нативный .exe (рекомендую — 1-2 дня):"
+    echo "       https://github.com/vasilevdasfo/demi-node/releases — появится v0.2.0-alpha.1"
+    echo "       Без WSL, без админа, просто двойной клик. NSIS installer + portable."
+    echo
+    echo "    2. WSL (если не хочешь ждать):"
     echo "       PowerShell от админа → wsl --install → перезагрузка"
     echo "       Затем в Ubuntu: curl -fsSL https://demis.world/install.sh | sh"
     echo
-    echo "    2. Waitlist на нативный .exe (3-7 дней):"
+    echo "    3. Waitlist + invite-код (действует 30 дней):"
     echo "       https://t.me/Posbitcoin — напиши «windows waitlist» + профиль"
     echo "       Профиль: OTC / devs / law / founders"
-    echo
-    echo "  Invite-код в closed alpha действует 30 дней — можешь получить сейчас,"
-    echo "  поставить ноду когда .exe будет готов."
     echo
     exit 0
     ;;
