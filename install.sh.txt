@@ -29,25 +29,49 @@ echo
 # --- Detect OS ---
 OS="$(uname -s 2>/dev/null || echo Unknown)"
 case "$OS" in
-  Darwin) PLATFORM="macos" ;;
+  Darwin)
+    PLATFORM="macos"
+    ARCH="$(uname -m)"
+    if [ -z "${DEMI_CLI_MODE:-}" ]; then
+      say "macOS detected ($ARCH) — native .dmg available ✅"
+      echo
+      if [ "$ARCH" = "arm64" ]; then
+        echo "  Apple Silicon (M1/M2/M3/M4):"
+        echo "    https://github.com/vasilevdasfo/2026-vault/releases/download/v0.2.0-alpha.1/DEMI-0.2.0-alpha.1-arm64.dmg"
+      else
+        echo "  Intel:"
+        echo "    https://github.com/vasilevdasfo/2026-vault/releases/download/v0.2.0-alpha.1/DEMI-0.2.0-alpha.1.dmg"
+      fi
+      echo
+      echo "  ⚠️  Unsigned alpha — при первом запуске Gatekeeper спросит подтверждение:"
+      echo "      System Settings → Privacy & Security → «Open Anyway»"
+      echo
+      echo "  Релиз: https://github.com/vasilevdasfo/2026-vault/releases/tag/v0.2.0-alpha.1"
+      echo
+      echo "  Или CLI-режим (для разработчиков):"
+      echo "    DEMI_CLI_MODE=1 curl -fsSL https://demis.world/install.sh | sh"
+      echo
+      exit 0
+    fi
+    ;;
   Linux)  PLATFORM="linux" ;;
   MINGW*|MSYS*|CYGWIN*)
     PLATFORM="windows-git-bash"
-    warn "Windows detected (Git Bash / MinGW)."
-    warn "Native Windows .exe installer arrives 24-25 April 2026 (within 48h)."
+    ok "Windows detected — native .exe installer READY ✅"
     echo
-    echo "  Варианты сейчас:"
-    echo "    1. Подождать нативный .exe (рекомендую — 1-2 дня):"
-    echo "       https://github.com/vasilevdasfo/demi-node/releases — появится v0.2.0-alpha.1"
-    echo "       Без WSL, без админа, просто двойной клик. NSIS installer + portable."
+    echo "  Скачайте напрямую:"
     echo
-    echo "    2. WSL (если не хочешь ждать):"
-    echo "       PowerShell от админа → wsl --install → перезагрузка"
-    echo "       Затем в Ubuntu: curl -fsSL https://demis.world/install.sh | sh"
+    echo "    NSIS установщик (рекомендую):"
+    echo "      https://github.com/vasilevdasfo/2026-vault/releases/download/v0.2.0-alpha.1/DEMI-Setup-0.2.0-alpha.1.exe"
     echo
-    echo "    3. Waitlist + invite-код (действует 30 дней):"
-    echo "       https://t.me/Posbitcoin — напиши «windows waitlist» + профиль"
-    echo "       Профиль: OTC / devs / law / founders"
+    echo "    Portable (без установки, один .exe файл):"
+    echo "      https://github.com/vasilevdasfo/2026-vault/releases/download/v0.2.0-alpha.1/DEMI-0.2.0-alpha.1-portable.exe"
+    echo
+    echo "  ⚠️  При первом запуске Windows покажет SmartScreen warning (unsigned alpha):"
+    echo "      — Нажмите \"More info\" → \"Run anyway\""
+    echo
+    echo "  Релиз: https://github.com/vasilevdasfo/2026-vault/releases/tag/v0.2.0-alpha.1"
+    echo "  Feedback: https://t.me/Posbitcoin или dima@vda.vc"
     echo
     exit 0
     ;;
