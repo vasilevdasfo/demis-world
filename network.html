@@ -12,7 +12,18 @@
   --bg:#0a0a0a;--fg:#f5f0e1;--gold:#c9a961;--gold-br:#e8c97a;
   --muted:#8a8a8a;--line:rgba(201,169,97,.18);
   --public:#5a8a6b;--wall:#b85c5c;--club:#d4a74a;
+  --card-bg:rgba(201,169,97,.03);
+  --wall-grad:rgba(184,92,92,.06);
 }
+[data-theme="light"]{
+  --bg:#f8f5ed;--fg:#1a1812;--gold:#9a7f3a;--gold-br:#6d5820;
+  --muted:#6a6258;--line:rgba(154,127,58,.22);
+  --public:#3d6a4a;--wall:#8a3d3d;--club:#9a7f3a;
+  --card-bg:rgba(154,127,58,.05);
+  --wall-grad:rgba(138,61,61,.06);
+}
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:100;padding:8px 16px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s;font-family:inherit}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold-br)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;background:var(--bg);color:var(--fg);line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -43,14 +54,14 @@ p.sub{color:var(--muted);max-width:700px;margin-bottom:clamp(24px,3vw,36px);font
 
 .grid-3{display:grid;grid-template-columns:1fr;gap:clamp(16px,2vw,24px)}
 @media(min-width:820px){.grid-3{grid-template-columns:1fr 1fr 1fr}}
-.card{padding:clamp(18px,2.5vw,28px);border:1px solid var(--line);border-radius:2px;background:rgba(201,169,97,.03);transition:border-color .2s ease}
+.card{padding:clamp(18px,2.5vw,28px);border:1px solid var(--line);border-radius:2px;background:var(--card-bg);transition:border-color .2s ease}
 .card:hover{border-color:var(--gold)}
 .card h4{font-family:"Playfair Display",Georgia,serif;font-size:18px;font-weight:600;margin-bottom:10px;color:var(--gold-br)}
 .card p{font-size:14px;color:var(--muted);line-height:1.6}
 .card .cmd{display:block;margin-top:12px;padding:8px 12px;background:rgba(201,169,97,.08);color:var(--gold-br);font-family:"SF Mono",Menlo,monospace;font-size:12px;border-radius:3px;overflow-x:auto;white-space:nowrap}
 
 /* WALL */
-.wall{position:relative;margin:clamp(48px,6vw,80px) 0;padding:clamp(32px,5vw,56px) clamp(24px,4vw,48px);border:2px dashed var(--wall);border-radius:2px;text-align:center;background:radial-gradient(ellipse at center,rgba(184,92,92,.06) 0%,transparent 70%)}
+.wall{position:relative;margin:clamp(48px,6vw,80px) 0;padding:clamp(32px,5vw,56px) clamp(24px,4vw,48px);border:2px dashed var(--wall);border-radius:2px;text-align:center;background:radial-gradient(ellipse at center,var(--wall-grad) 0%,transparent 70%)}
 .wall-icon{font-size:44px;margin-bottom:16px}
 .wall h2{display:inline;background:var(--bg);padding:0 20px}
 .wall h2::before{content:"↓ "}
@@ -92,6 +103,31 @@ p.sub{color:var(--muted);max-width:700px;margin-bottom:clamp(24px,3vw,36px);font
 </style>
 </head>
 <body>
+
+<button class="theme-toggle" onclick="toggleTheme()" id="tt">☀ светлая</button>
+<script>
+  (function(){
+    var t = localStorage.getItem('theme') || 'dark';
+    if(t === 'light') document.documentElement.setAttribute('data-theme','light');
+    window.addEventListener('DOMContentLoaded', function(){
+      var btn = document.getElementById('tt');
+      if(btn) btn.textContent = t === 'light' ? '🌙 тёмная' : '☀ светлая';
+    });
+  })();
+  function toggleTheme(){
+    var html = document.documentElement;
+    var cur = html.getAttribute('data-theme');
+    if(cur === 'light'){
+      html.removeAttribute('data-theme');
+      localStorage.setItem('theme','dark');
+      document.getElementById('tt').textContent = '☀ светлая';
+    } else {
+      html.setAttribute('data-theme','light');
+      localStorage.setItem('theme','light');
+      document.getElementById('tt').textContent = '🌙 тёмная';
+    }
+  }
+</script>
 
 <div class="wrap">
 
