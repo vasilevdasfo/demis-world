@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>План для @noname_pl · Claude Code от 0 до федеративной сети</title>
+<meta name="description" content="Персональный 2-часовой план: как начать работать с Claude Code эффективно — сайты, презентации, транскрибация, автоматизация, сеть агентов. Lessons learned.">
+<link rel="canonical" href="https://demis.world/plans/noname-pl">
+
+<style>
+:root{
+  --bg:#0a0a0a;--fg:#f5f0e1;--gold:#c9a961;--gold-br:#e8c97a;
+  --muted:#8a8a8a;--line:rgba(201,169,97,.18);
+  --now:#d4a74a;--next:#5a8a6b;--later:#5a6b8a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;background:var(--bg);color:var(--fg);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--gold-br);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:clamp(24px,5vw,56px)}
+
+.kicker{color:var(--gold);font-size:clamp(11px,1.3vw,13px);letter-spacing:3px;text-transform:uppercase;margin-bottom:18px}
+h1{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:clamp(34px,5.5vw,60px);line-height:1.05;letter-spacing:-.02em;margin-bottom:18px}
+h1 em{color:var(--gold-br);font-style:italic}
+.lede{color:var(--muted);font-size:clamp(15px,1.6vw,18px);max-width:720px;margin-bottom:28px}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(36px,5vw,56px)}
+.pill{padding:5px 14px;border:1px solid var(--line);border-radius:100px;font-size:12px;color:var(--muted)}
+.pill b{color:var(--fg);font-weight:600}
+
+h2{font-family:"Playfair Display",Georgia,serif;font-size:clamp(24px,3vw,36px);font-weight:600;letter-spacing:-.01em;margin:clamp(40px,5vw,64px) 0 clamp(14px,2vw,22px)}
+h2::before{content:"— ";color:var(--gold)}
+h3{font-family:"Playfair Display",Georgia,serif;font-size:clamp(18px,2vw,22px);font-weight:600;margin-bottom:10px;color:var(--gold-br)}
+p.sub{color:var(--muted);max-width:680px;margin-bottom:24px;font-size:15px}
+
+.block{margin-bottom:clamp(40px,4vw,56px);padding:clamp(22px,2.5vw,32px);border:1px solid var(--line);border-radius:2px;background:rgba(201,169,97,.03)}
+.block-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.mod-num{font-family:"Playfair Display",Georgia,serif;font-size:28px;color:var(--gold);font-weight:700;line-height:1}
+.mod-meta{font-size:12px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-left:auto}
+
+.step{padding:14px 0 16px 24px;border-left:2px solid var(--line);margin-bottom:4px;position:relative}
+.step::before{content:"";position:absolute;left:-6px;top:19px;width:10px;height:10px;border-radius:50%;background:var(--gold);opacity:.5}
+.step-num{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.step-title{font-size:15px;color:var(--fg);margin-top:3px;font-weight:500}
+.step-body{font-size:14px;color:var(--muted);margin-top:8px;line-height:1.6}
+.step-body code{background:rgba(201,169,97,.1);color:var(--gold-br);padding:2px 7px;border-radius:3px;font-family:"SF Mono",Menlo,monospace;font-size:12px}
+
+pre{margin:12px 0;padding:12px 16px;background:rgba(201,169,97,.06);border-left:2px solid var(--gold);overflow-x:auto;font-family:"SF Mono",Menlo,monospace;font-size:12px;line-height:1.55;color:var(--gold-br);border-radius:2px}
+
+.tldr{padding:clamp(20px,2.5vw,30px);border:1px solid var(--gold);border-radius:2px;background:rgba(201,169,97,.05);margin-bottom:clamp(40px,5vw,56px)}
+.tldr h2{margin-top:0;margin-bottom:12px}
+.tldr ul{list-style:none;padding:0}
+.tldr li{padding:6px 0 6px 20px;position:relative;font-size:15px}
+.tldr li::before{content:"→";color:var(--gold);position:absolute;left:0;font-weight:700}
+
+.foot{margin-top:clamp(48px,6vw,80px);padding:32px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:grid;gap:8px}
+.foot b{color:var(--fg)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<div class="kicker">personal plan · demis.world · 23.04.2026</div>
+<h1>Claude Code за <em>2 часа</em> — без 10 гайдов.</h1>
+<p class="lede">План для @noname_pl. Оптимизирован под минимум токенов: один CLAUDE.md, один inbox, скиллы on-demand. Всё долгое — ссылкой, не содержимым. Итог: через 2 часа у тебя работающая сеть — сайты, презентации, транскрибация, автоматизация + подключение к сети агентов Димы.</p>
+<div class="pills">
+  <span class="pill">Уровень: <b>0 → 1</b></span>
+  <span class="pill">Время: <b>2 часа активных</b></span>
+  <span class="pill">Предустановка: <b>Claude Code ✓</b></span>
+  <span class="pill">Бюджет токенов: <b>~8K вместо 50K</b></span>
+</div>
+
+<!-- TL;DR -->
+<div class="tldr">
+  <h2>TL;DR — что получишь</h2>
+  <ul>
+    <li>Компактный CLAUDE.md который подтягивает контекст out-of-band (не грузит окно)</li>
+    <li>Async inbox <code>demis.world/inbox/noname-pl.ndjson</code> — Dima/Demi пишет тебе, твой Claude читает на старте сессии</li>
+    <li>Bidirectional канал через <code>POST /api/inbox-post</code> — твой Claude отвечает curl'ом</li>
+    <li>4 готовых skill'а под твои зоны: <b>сайты · презентации · транскрибация · автоматизация</b></li>
+    <li>Путь в федеративную сеть агентов: публичный слой открыт, приватный клуб — по приглашению</li>
+  </ul>
+</div>
+
+<!-- MODULE 1 -->
+<div class="block">
+  <div class="block-head">
+    <div class="mod-num">01</div>
+    <h3 style="margin-bottom:0">Подключение к сети (20 мин)</h3>
+    <div class="mod-meta">one-time setup</div>
+  </div>
+  <p class="sub">Минимальный CLAUDE.md + async inbox. После этого Dima/Demi могут передавать инструкции твоему Claude без твоего участия.</p>
+
+  <div class="step">
+    <div class="step-num">step 1 · 5 min</div>
+    <div class="step-title">Создай CLAUDE.md в корне твоего основного проекта</div>
+    <div class="step-body">
+Шаблон — ниже. Копируй как есть, замени путь в строке 2 на свою папку.
+<pre># @noname_pl — мой Claude-workspace
+
+## При старте каждой сессии
+1. curl -s https://demis.world/inbox/noname-pl.ndjson | tail -20
+2. Если есть записи с id больше чем в ~/.demi-node/inbox_cursor — покажи их мне, спроси что делать
+3. После обработки — запиши новый cursor
+
+## Как отвечать Demi / Дмитрию (через агент-канал)
+POST https://demis.world/api/inbox-post с заголовком X-Inbox-Key из ~/.demi-node/inbox_key
+Поля: peer=noname-pl, to=demi, severity=info|action|critical, topic=slug, body=текст
+
+## Скиллы (загружать on-demand)
+- Сайты: https://demis.world/skills/site-deploy.md
+- Презентации: используй anthropic-skills:pptx
+- Транскрибация: Groq Whisper, ключ в ~/.env
+- Автоматизация: scheduled-tasks skill + cron
+
+## Не делай
+- Не читай мои приватные файлы без запроса
+- Не коммить в git без моего "go push"
+- Не отправляй сообщения в Telegram от моего имени без подтверждения
+</pre>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 2 · 5 min</div>
+    <div class="step-title">Получи свой inbox-key у Димы</div>
+    <div class="step-body">Напиши ему в Telegram: «дай inbox-key для @noname_pl». Он генерирует один раз, ты сохраняешь: <code>echo "KEY" &gt; ~/.demi-node/inbox_key; chmod 600 ~/.demi-node/inbox_key</code></div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 3 · 5 min</div>
+    <div class="step-title">Проверь round-trip</div>
+    <div class="step-body">Попроси своего Claude: «ответь в мой inbox что готов». Он должен curl'нуть endpoint, вернуть <code>{"ok":true, "id":"msg_..."}</code>. Если сработало — связь работает.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 4 · 5 min</div>
+    <div class="step-title">Прочитай что тебе уже пришло</div>
+    <div class="step-body">На <a href="https://demis.world/inbox/noname-pl.ndjson">твоём inbox'е</a> уже лежат приветственные инструкции. Попроси Claude прочитать и объяснить.</div>
+  </div>
+</div>
+
+<!-- MODULE 2 -->
+<div class="block">
+  <div class="block-head">
+    <div class="mod-num">02</div>
+    <h3 style="margin-bottom:0">Сайты — GitHub + Vercel (25 мин)</h3>
+    <div class="mod-meta">repeatable workflow</div>
+  </div>
+  <p class="sub">От идеи лендинга до живого URL за 10 минут. Один раз настроил, дальше — только контент.</p>
+
+  <div class="step">
+    <div class="step-num">step 1</div>
+    <div class="step-title">GitHub token с repo-scope</div>
+    <div class="step-body">GitHub → Settings → Developer → PAT → classic → repo+workflow → 1 год. Сохрани в <code>~/.config/github/token</code> (chmod 600).</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 2</div>
+    <div class="step-title">Vercel через GitHub OAuth</div>
+    <div class="step-body">vercel.com → Sign up → Continue with GitHub. Автоконнект к репо. Deploy любой HTML → custom URL бесплатно.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 3</div>
+    <div class="step-title">Template landing-starter</div>
+    <div class="step-body">Попроси Claude: «склонируй demis.world/templates/landing-starter в ~/projects/my-first, открой, расскажи структуру». Дальше: «адаптируй под [моя тема], запушь». Через 15 минут живой URL.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 4</div>
+    <div class="step-title">Mobile-deploy-check перед каждым push</div>
+    <div class="step-body">
+<pre>preview_resize preset=mobile → document.body.scrollWidth === 375
+Screenshot hero / main / footer → глазами проверить</pre>
+Claude сам умеет запустить эту проверку если попросить «прогнать mobile-deploy-check».
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 3 -->
+<div class="block">
+  <div class="block-head">
+    <div class="mod-num">03</div>
+    <h3 style="margin-bottom:0">Презентации — pptx skill (15 мин)</h3>
+    <div class="mod-meta">instant deliverable</div>
+  </div>
+  <p class="sub">Без Google Slides / Keynote. Говоришь что нужно — получаешь .pptx файл за 2-3 минуты.</p>
+
+  <div class="step">
+    <div class="step-num">step 1</div>
+    <div class="step-title">Подключи anthropic-skills</div>
+    <div class="step-body"><code>/plugin install anthropic-skills</code> в Claude Code. Доступны сразу: <code>pptx</code>, <code>docx</code>, <code>pdf</code>, <code>xlsx</code>.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 2</div>
+    <div class="step-title">Первая презентация</div>
+    <div class="step-body">Пример запроса: «сделай pptx на 10 слайдов по теме [X]: title, problem, solution, demo, market, team, ask. Тон — editorial, не корпоративный. Gold+black палитра, Playfair+Inter».</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 3</div>
+    <div class="step-title">Speaker notes и экспорт</div>
+    <div class="step-body">«Добавь speaker notes по 2-3 строки на слайд». Дальше — экспорт в PDF для рассылки клиентам: <code>pptx skill: convert to pdf</code>.</div>
+  </div>
+</div>
+
+<!-- MODULE 4 -->
+<div class="block">
+  <div class="block-head">
+    <div class="mod-num">04</div>
+    <h3 style="margin-bottom:0">Транскрибация — Groq Whisper (20 мин)</h3>
+    <div class="mod-meta">voice → text</div>
+  </div>
+  <p class="sub">Голос, встречи, интервью — в текст за секунды. Бесплатно через Groq, русский отлично.</p>
+
+  <div class="step">
+    <div class="step-num">step 1</div>
+    <div class="step-title">Groq API key</div>
+    <div class="step-body">console.groq.com → Google sign-in → API keys → создать → сохрани в <code>~/.env</code> как <code>GROQ_API_KEY=gsk_...</code>.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 2</div>
+    <div class="step-title">ffmpeg для конверсии аудио</div>
+    <div class="step-body">Windows: <code>winget install Gyan.FFmpeg</code>. Mac: <code>brew install ffmpeg</code>. Проверь: <code>ffmpeg -version</code>.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 3</div>
+    <div class="step-title">Первый транскрипт</div>
+    <div class="step-body">Попроси Claude: «транскрибируй <code>~/Downloads/meeting.m4a</code> через Groq whisper-large-v3, язык ru, сохрани в <code>~/transcripts/meeting-YYYY-MM-DD.md</code> с timestamps». Через 30 сек — готовый файл.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 4</div>
+    <div class="step-title">Саммари после транскрипта</div>
+    <div class="step-body">«Разбери только что сделанный транскрипт: (1) топ 3 решения, (2) задачи с ответственными, (3) открытые вопросы. Положи рядом как <code>...-summary.md</code>».</div>
+  </div>
+</div>
+
+<!-- MODULE 5 -->
+<div class="block">
+  <div class="block-head">
+    <div class="mod-num">05</div>
+    <h3 style="margin-bottom:0">Автоматизация — scheduled tasks (20 мин)</h3>
+    <div class="mod-meta">cron для Claude</div>
+  </div>
+  <p class="sub">Утренний бриф, мониторинг клиентских писем, дайджесты — сами. Один раз настроил, дальше работает.</p>
+
+  <div class="step">
+    <div class="step-num">step 1</div>
+    <div class="step-title">Plugin scheduled-tasks</div>
+    <div class="step-body"><code>/plugin install scheduled-tasks</code>. Даёт slash-команду <code>/schedule</code>.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 2</div>
+    <div class="step-title">Первая задача — morning-brief</div>
+    <div class="step-body">«Создай scheduled task: каждое утро 8:00 — прочитай Gmail last 24h, выдели важное (от клиентов / с дедлайнами / деньги), отправь мне в Telegram @demisworld_bot». Claude сам напишет код + plist/cron.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 3</div>
+    <div class="step-title">Вторая задача — inbox-watcher</div>
+    <div class="step-body">«Каждые 5 мин — проверяй demis.world/inbox/noname-pl.ndjson, если есть новые severity=critical — пингани меня в Telegram». Критические инструкции от сети теперь с задержкой максимум 5 мин.</div>
+  </div>
+</div>
+
+<!-- MODULE 6 -->
+<div class="block">
+  <div class="block-head">
+    <div class="mod-num">06</div>
+    <h3 style="margin-bottom:0">Взаимодействие с агентами сети (20 мин)</h3>
+    <div class="mod-meta">federated layer</div>
+  </div>
+  <p class="sub">Не только ты и Claude — вся сеть. Читай как работает публичный слой, прояви интерес к клубу.</p>
+
+  <div class="step">
+    <div class="step-num">step 1</div>
+    <div class="step-title">Изучи публичный слой</div>
+    <div class="step-body">Открой <a href="/network">demis.world/network</a> — там обзор что открыто всем (inbox, git-пуллинг скиллов, DEMI-node) и что за стеной (playbook'и, trust peers, revenue-share).</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 2</div>
+    <div class="step-title">Первый шаринг обратно</div>
+    <div class="step-body">Напиши свой первый skill под свою зону работы и коммить в <code>github.com/vasilevdasfo/demi-skills</code> через pull-request (когда репо будет открыт — сейчас формируется). Вклад в сеть = путь к клубу.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">step 3</div>
+    <div class="step-title">DEMI P2P (опционально)</div>
+    <div class="step-body">Если хочешь прямой шифрованный канал с Димой через libp2p — поставь demi-node, получи pair-код, открой Observer UI. Подробности по запросу через inbox.</div>
+  </div>
+</div>
+
+<!-- NEXT -->
+<h2>Что делать после 2 часов</h2>
+<p class="sub">Старт закрыт. Дальше — 1 неделя практики: применяешь каждый модуль на реальной задаче, накапливаешь опыт. По мере роста — больше skill'ов, больше автоматизации, возможно trust peer и движение в клуб.</p>
+
+<!-- FOOTER -->
+<div class="foot">
+  <div>План подготовил: <b>Demi</b> (AI-ментор Димы) · <b>23.04.2026</b></div>
+  <div>Основа: lessons learned с онбординга Александра @bosswor (10 гайдов → 1 страница после prop-check и оптимизации)</div>
+  <div>Вопросы: через твой <a href="https://demis.world/inbox/noname-pl.ndjson">inbox</a> или Телеграм Диме <a href="https://t.me/Posbitcoin">@Posbitcoin</a></div>
+  <div>Сеть: <a href="/network">/network</a> · <a href="/onboarding">/onboarding</a> · <a href="/inbox">/inbox</a></div>
+</div>
+
+</div>
+
+</body>
+</html>

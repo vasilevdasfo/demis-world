@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Суверенный Мир × DEMI — федерация, не членство</title>
+<meta name="description" content="Предложение для Николая Бурова (Суверенный Мир) — равноправная федерация с сетью агентов DEMI. Не участник клуба, а peer-государство в цифровом суверенитете.">
+<link rel="canonical" href="https://demis.world/plans/suveren-mir">
+
+<style>
+:root{
+  --bg:#0a0a0a;--fg:#f5f0e1;--gold:#c9a961;--gold-br:#e8c97a;
+  --muted:#8a8a8a;--line:rgba(201,169,97,.18);
+  --sovereign:#8aa8c9;--demi:#c9a961;--bridge:#b8a0c9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--gold-br);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:clamp(24px,5vw,56px)}
+
+.kicker{color:var(--gold);font-size:clamp(11px,1.3vw,13px);letter-spacing:3px;text-transform:uppercase;margin-bottom:18px}
+h1{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:clamp(34px,5.5vw,64px);line-height:1.05;letter-spacing:-.02em;margin-bottom:20px}
+h1 em{color:var(--gold-br);font-style:italic}
+.lede{color:var(--muted);font-size:clamp(16px,1.7vw,19px);max-width:760px;margin-bottom:36px;line-height:1.6}
+.lede b{color:var(--fg)}
+
+h2{font-family:"Playfair Display",Georgia,serif;font-size:clamp(26px,3.2vw,40px);font-weight:600;letter-spacing:-.01em;margin:clamp(40px,5vw,72px) 0 clamp(14px,2vw,22px)}
+h2::before{content:"— ";color:var(--gold)}
+h3{font-family:"Playfair Display",Georgia,serif;font-size:clamp(20px,2vw,26px);font-weight:600;margin-bottom:10px;color:var(--gold-br)}
+p.sub{color:var(--muted);max-width:720px;margin-bottom:24px;font-size:clamp(15px,1.55vw,17px)}
+
+/* BRIDGE diagram */
+.bridge{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(14px,2vw,28px);align-items:center;margin:clamp(36px,5vw,56px) 0;padding:clamp(24px,3vw,36px);border:1px solid var(--line);border-radius:2px;background:radial-gradient(ellipse at center,rgba(184,160,201,.06) 0%,transparent 70%)}
+@media (max-width:640px){.bridge{grid-template-columns:1fr;gap:18px}.bridge-link{transform:rotate(90deg)}}
+.bridge-side{text-align:center;padding:clamp(18px,2vw,28px);border-radius:2px}
+.sov-side{border:2px solid var(--sovereign);background:rgba(138,168,201,.05)}
+.demi-side{border:2px solid var(--demi);background:rgba(201,169,97,.05)}
+.bridge-title{font-family:"Playfair Display",Georgia,serif;font-size:clamp(20px,2.2vw,26px);font-weight:700;margin-bottom:8px}
+.sov-side .bridge-title{color:var(--sovereign)}
+.demi-side .bridge-title{color:var(--demi)}
+.bridge-desc{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;line-height:1.4}
+.bridge-link{font-size:32px;color:var(--bridge);text-align:center;font-family:Georgia,serif}
+.bridge-caption{text-align:center;color:var(--bridge);font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-top:6px}
+
+/* SYNERGY list */
+.syn{display:grid;grid-template-columns:1fr;gap:clamp(16px,2vw,24px);margin-top:clamp(24px,3vw,32px)}
+@media(min-width:820px){.syn{grid-template-columns:1fr 1fr}}
+.syn-card{padding:clamp(20px,2.3vw,30px);border:1px solid var(--line);border-radius:2px;background:rgba(201,169,97,.03);transition:border-color .2s}
+.syn-card:hover{border-color:var(--gold)}
+.syn-num{font-family:"Playfair Display",Georgia,serif;font-size:32px;color:var(--gold);font-weight:700;line-height:1;margin-bottom:8px;opacity:.7}
+.syn-card h4{font-family:"Playfair Display",Georgia,serif;font-size:clamp(17px,1.9vw,20px);color:var(--gold-br);margin-bottom:10px;font-weight:600}
+.syn-card p{font-size:14px;color:var(--muted);line-height:1.65}
+.syn-card p b{color:var(--fg);font-weight:500}
+
+/* PROPOSAL */
+.prop{margin:clamp(40px,5vw,64px) 0;padding:clamp(24px,3vw,40px);border:1px solid var(--gold);border-radius:2px;background:rgba(201,169,97,.05)}
+.prop h2{margin-top:0}
+.prop-row{display:grid;grid-template-columns:140px 1fr;gap:20px;padding:14px 0;border-top:1px solid var(--line);align-items:baseline}
+.prop-row:first-of-type{border-top:0}
+.prop-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.prop-val{font-size:15px;line-height:1.6}
+.prop-val b{color:var(--gold-br)}
+@media (max-width:600px){.prop-row{grid-template-columns:1fr;gap:6px}}
+
+/* PHILOSOPHY */
+.philo{padding:clamp(20px,3vw,36px);border-left:3px solid var(--bridge);margin:clamp(32px,4vw,48px) 0}
+.philo blockquote{font-family:"Playfair Display",Georgia,serif;font-size:clamp(18px,2vw,22px);font-weight:500;font-style:italic;line-height:1.5;color:var(--fg);margin-bottom:12px}
+.philo cite{color:var(--muted);font-size:13px;font-style:normal}
+
+/* CTA */
+.cta{margin-top:clamp(48px,6vw,80px);padding:clamp(28px,4vw,48px);text-align:center;border-top:1px solid var(--line)}
+.cta h2{margin-top:0;text-align:left;max-width:720px;margin-left:auto;margin-right:auto}
+.cta .lede{margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-block;padding:14px 32px;background:var(--gold);color:#0a0a0a;font-weight:600;letter-spacing:1px;text-transform:uppercase;font-size:13px;border-radius:2px;margin-top:12px;transition:all .2s}
+.cta-btn:hover{background:var(--gold-br);text-decoration:none}
+
+.foot{margin-top:clamp(48px,6vw,80px);padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px;display:grid;gap:6px}
+.foot b{color:var(--fg)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<div class="kicker">demis.world · предложение для Николая Бурова</div>
+<h1>Суверенный Мир × DEMI —<br><em>федерация</em>, не членство.</h1>
+<p class="lede">Не приглашаем вас в клуб. <b>Предлагаем peer-интеграцию</b>: два суверенных node'а — ваше государство без территории и наша сеть агентов — обмениваются идентичностями, услугами и потоком людей, оставаясь равными. Технически — один DEMI-identity федерации. Экономически — делим value-потоки.</p>
+
+<!-- BRIDGE -->
+<div class="bridge">
+  <div class="bridge-side sov-side">
+    <div class="bridge-title">Суверенный Мир</div>
+    <div class="bridge-desc">государство без территории<br>11 институтов · 76 документов · 7 лет</div>
+  </div>
+  <div>
+    <div class="bridge-link">⇄</div>
+    <div class="bridge-caption">ed25519<br>federation</div>
+  </div>
+  <div class="bridge-side demi-side">
+    <div class="bridge-title">DEMI Network</div>
+    <div class="bridge-desc">сеть операторских AI-агентов<br>P2P · inbox · trust · club</div>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<div class="philo">
+  <blockquote>«Убирать посредников между людьми и справедливостью — через технологии»</blockquote>
+  <cite>— миссия Дмитрия Васильева (vda.vc). Идейное пересечение с Суверенным Миром — не случайное, и не совпадение брендинга. Это одна и та же философия: один убирает банковских и государственных посредников между людьми, другой — технологических и инфраструктурных.</cite>
+</div>
+
+<!-- SYNERGY -->
+<h2>6 синергий — не теоретических, а операционных</h2>
+<p class="sub">Каждая точка ниже — конкретный механизм. Не «давайте подружимся», а «вот где мы друг друга усиливаем прямо сейчас».</p>
+
+<div class="syn">
+
+  <div class="syn-card">
+    <div class="syn-num">01</div>
+    <h4>P2P как технологический скелет суверенитета</h4>
+    <p>Суверенный Мир декларирует суверенитет человека. <b>DEMI даёт инфраструктуру</b>: ed25519 identity, прямой peer-to-peer канал без серверов и госавторизаций, trusted verify между гражданами. Каждый гражданин СМ получает ключ, который работает без разрешений — как паспорт, но технический.</p>
+  </div>
+
+  <div class="syn-card">
+    <div class="syn-num">02</div>
+    <h4>76 документов → 76 агентов-институтов</h4>
+    <p>Ваши институты (право, финансы, образование, медицина) пока живут как документы. <b>Мы превращаем их в агентов</b>: каждый институт = Claude-skill, который применяется автоматически к запросу гражданина. «Хочу получить ВНЖ» → агент-миграция. «Нужен контракт» → агент-право. Барьер знаний с 8 часов → 8 минут.</p>
+  </div>
+
+  <div class="syn-card">
+    <div class="syn-num">03</div>
+    <h4>Trust-network между гражданами СМ</h4>
+    <p>Вместо централизованного реестра ВНЖ — <b>peer-to-peer верификация</b>. Каждый гражданин публикует свой DEMI identity, trusted-цепочка строится горизонтально. Никому не надо «спрашивать разрешение» — если другой гражданин trust'ит вас, запись уже валидна в сети.</p>
+  </div>
+
+  <div class="syn-card">
+    <div class="syn-num">04</div>
+    <h4>Общая инфраструктура уже есть</h4>
+    <p>Мой (Димин) Claude-агент <b>уже стоит на том же VPS</b> что и ваш — это не будущее, это сегодня. Hetzner Finland. Один клик `systemd link`, и два node'а видят друг друга как peer'ы федерации. Zero-setup.</p>
+  </div>
+
+  <div class="syn-card">
+    <div class="syn-num">05</div>
+    <h4>Кросс-поток людей</h4>
+    <p>Ваши 100M+ беженцев/перемещённых — это <b>аудитория которая нужна моим операторам</b> (EMI-лицензии, crypto-advisory, crisis-management). И наоборот — мои клиенты часто спрашивают «куда уезжать, как узаконить деньги» — это ваша зона. Взаимный referral-поток с 15-20% revenue-share.</p>
+  </div>
+
+  <div class="syn-card">
+    <div class="syn-num">06</div>
+    <h4>Публичная витрина + закрытые слои</h4>
+    <p>DEMI уже имеет архитектуру: <b>open layer</b> (витрина, open-source, inbox) + <b>club layer</b> (trust, revenue-share, playbook'и). Ваш Суверенный Мир встраивается как <b>отдельный stratum</b>: на уровне клуба, но peer, не subordinate. У вас свой слой — гражданство, у нас — экспертиза. Пересекаются по trust-протоколу.</p>
+  </div>
+
+</div>
+
+<!-- PROPOSAL -->
+<div class="prop">
+  <h2>Конкретное предложение</h2>
+  <div class="prop-row">
+    <div class="prop-label">статус</div>
+    <div class="prop-val"><b>Peer-федерация</b> Суверенный Мир × DEMI Network. Равноправные node'ы, а не «Буров член клуба».</div>
+  </div>
+  <div class="prop-row">
+    <div class="prop-label">технически</div>
+    <div class="prop-val">Один DEMI identity для СМ как института. Граждане получают свой identity при регистрации ВНЖ. Trust-цепочка через `demi pair` от вашей node'ы к моей. <b>Setup ~3 часа</b>.</div>
+  </div>
+  <div class="prop-row">
+    <div class="prop-label">экономически</div>
+    <div class="prop-val"><b>Revenue-share 20%</b> на leads переданных в обе стороны. Raw conversion tracking через inbox (audit trail). Квартальная сверка.</div>
+  </div>
+  <div class="prop-row">
+    <div class="prop-label">контент</div>
+    <div class="prop-val">Совместно превращаем 76 документов в 76 skills. Я беру на себя техническую упаковку (Claude skill format). Вы — факт-чек и обновления. <b>Первые 5 за 2 недели</b> — как proof of concept.</div>
+  </div>
+  <div class="prop-row">
+    <div class="prop-label">бренды</div>
+    <div class="prop-val">Сохраняются оба. Совместная витрина — отдельная страница `demis.world/suveren` + ref-линки на sovereign.world и обратно. <b>Ни один бренд не поглощает другой.</b></div>
+  </div>
+  <div class="prop-row">
+    <div class="prop-label">старт</div>
+    <div class="prop-val">30-минутный звонок чтобы обсудить модель. Если интересно — я делаю proof of concept (1 skill + trust pair + demo-inbox для одного вашего гражданина) за 48 часов, показываю — дальше решаем масштаб.</div>
+  </div>
+</div>
+
+<!-- CONCERNS -->
+<h2>Что может смущать — отвечаю сразу</h2>
+
+<div class="syn">
+
+  <div class="syn-card">
+    <h4>«Это не поглощение?»</h4>
+    <p><b>Нет.</b> Технически — peer-federation через ed25519. Вы сохраняете свою node'у, свой бренд, свою юрисдикцию. Мы — наши. Пересекаемся только там где обе стороны trust'ят интеграцию.</p>
+  </div>
+
+  <div class="syn-card">
+    <h4>«Мой сайт на WordPress, ваш стек другой»</h4>
+    <p>Не проблема. DEMI не требует переделки вашего фронта. <b>Витрина поверх</b>: статический sovereign-дженд на demis.world, который подтягивает данные из вашего WordPress через API (или просто ручной sync раз в неделю на старте).</p>
+  </div>
+
+  <div class="syn-card">
+    <h4>«Я уже 7 лет строю в одиночку»</h4>
+    <p>Федерация не меняет вашу архитектуру. Вы продолжаете как вели. <b>Новое — только интерфейс</b> для граждан: они получают дополнительный agent-layer. Вы — дополнительный поток лидов от моих клиентов.</p>
+  </div>
+
+  <div class="syn-card">
+    <h4>«Что если не пойдёт?»</h4>
+    <p>Proof of concept — 48 часов моего времени, ваши 30 минут на звонок + 30 минут на review. <b>Если не работает — просто не делаем масштаб</b>. Никаких обязательств, юрдока, финансовых вложений до тех пор пока оба не увидим что реально работает.</p>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Что дальше</h2>
+  <p class="lede">Если интересно — напишите Диме в Telegram одной строкой <b>«го обсудим федерацию»</b>. Дальше — 30 мин звонок, обсудим модель. Если да — через 48 часов первый proof of concept.</p>
+  <a href="https://t.me/Posbitcoin" class="cta-btn">Написать Диме →</a>
+</div>
+
+<div class="foot">
+  <div>Предложение подготовлено <b>23.04.2026</b>. Автор: Dmitrii Vasilev (@Posbitcoin) · <a href="https://vda.vc">vda.vc</a></div>
+  <div>Контекст: встреча 16.04.2026 по Суверенному Миру · <a href="https://vda.vc/burov.html">хаб прототипов</a> · <a href="/network">сеть DEMI</a></div>
+  <div>Адресат: Николай Буров (@Nikolai_Burov) · основатель Суверенный Мир</div>
+</div>
+
+</div>
+
+</body>
+</html>
