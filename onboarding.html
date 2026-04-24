@@ -111,21 +111,22 @@ a:hover { text-decoration: underline; }
       <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
       <circle class="ring-fg" cx="60" cy="60" r="52"
               stroke-dasharray="326.7"
-              stroke-dashoffset="98"></circle>
+              stroke-dashoffset="49"></circle>
     </svg>
     <div class="ring-label">
-      <div class="ring-num">70%</div>
+      <div class="ring-num">85%</div>
       <div class="ring-cap">complete</div>
     </div>
   </div>
   <div class="summary">
-    <h2>Инфраструктура готова, ждём libp2p landing</h2>
-    <p style="color:var(--muted)">14 задач закрыто · 3 в работе · 5 впереди. Ключевой блокер — fallback-транспорт для Windows (hyperswarm UDP блочится Defender + WSL2 NAT). ETA landing: 3-4 часа.</p>
+    <h2>Инфраструктура готова, Александр спит — ждём пробуждения</h2>
+    <p style="color:var(--muted)">19 задач закрыто · 2 в работе · 3 впереди. VPS bootstrap поднят (Hetzner Finland), libp2p T19 landed в монорепо. Александр ушёл спать ~14:15 PT, вернётся ~21:15 PT — тогда native Windows за 20 мин.</p>
     <div class="summary-meta">
       <span class="pill">Старт: <b>23.04.2026 · 10:25 PT</b></span>
-      <span class="pill">Текущий свинг: <b>2.5 часа</b></span>
-      <span class="pill">ETA P2P-чат: <b>15:30-16:30 PT</b></span>
+      <span class="pill">Снимок: <b>14:45 PT</b></span>
+      <span class="pill">ETA первый P2P-чат: <b>21:30-22:00 PT</b></span>
       <span class="pill">Peer: <b>swift-wolf-66</b></span>
+      <span class="pill">Bootstrap: <b>gentle-otter-68</b></span>
     </div>
   </div>
 </section>
@@ -139,7 +140,37 @@ a:hover { text-decoration: underline; }
   <div class="col col-done">
     <div class="col-head">
       <h3>Сделано</h3>
-      <span class="col-count">14 задач</span>
+      <span class="col-count">19 задач</span>
+    </div>
+
+    <div class="item">
+      <div class="item-time">14:15 PT · Bootstrap</div>
+      <div class="item-title">Публичный libp2p bootstrap на Hetzner</div>
+      <div class="item-note">VPS <code>37.27.193.218:4001</code>, systemd-сервис, auto-restart. Пробивает Windows NAT через TCP — native Windows без WSL2 возможен. Nickname <code>gentle-otter-68</code>.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">13:20 PT · T19 landed</div>
+      <div class="item-title">libp2p Этап B в монорепо</div>
+      <div class="item-note">Commit <code>1aa7b0b</code> в <code>2026-vault/main</code>. Adapter verified, user_notes VERIFIED (все 7 CHECK'ов заполнены).</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">13:10 PT · Async inbox</div>
+      <div class="item-title">Fallback для P2P — https://demis.world/inbox</div>
+      <div class="item-note">Bidirectional канал. Read: ndjson файл, Write: POST /api/inbox-post с shared key. GitHub API commit под капотом.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">13:05 PT · Status page</div>
+      <div class="item-title">https://demis.world/onboarding live</div>
+      <div class="item-note">Gold + Playfair, progress ring, timeline. Snapshot для истории операции.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-time">14:45 PT · Vercel automation</div>
+      <div class="item-title">API-based env vars + auto-deploy</div>
+      <div class="item-note">Токен Vercel API сохранён. Следующие env-changes — без ручных кликов в dashboard.</div>
     </div>
 
     <div class="item">
@@ -231,25 +262,19 @@ a:hover { text-decoration: underline; }
   <div class="col col-wip">
     <div class="col-head">
       <h3>В работе</h3>
-      <span class="col-count">3 задачи</span>
+      <span class="col-count">2 задачи</span>
     </div>
 
     <div class="item">
-      <div class="item-time">start 12:08 PT · ETA 15:30</div>
-      <div class="item-title">libp2p Этап B landing</div>
-      <div class="item-note">MAIN inline-интегрирует libp2p-транспорт в <code>src/transport/libp2p.js</code>. 3 Gemini mitigations: <code>clientMode:true</code>, trusted bootstrap, MAX_MSG_BYTES.</div>
+      <div class="item-time">спит 14:15-21:15 PT</div>
+      <div class="item-title">Александр · wake + native Windows install</div>
+      <div class="item-note">Инструкции уже в inbox (msg_007-011) — Node 22+, git, npm install, 2 env vars (DEMI_TRANSPORT=libp2p + bootstrap multiaddr). Без WSL2. ~20 мин работы после пробуждения.</div>
     </div>
 
     <div class="item">
-      <div class="item-time">ETA 13:30</div>
-      <div class="item-title">Backend RPC · chat.search + peers.getProfile</div>
-      <div class="item-note">Frontend (Дельта) уже в mirror, backend не landed. Александр увидит toast если кликнет — MAIN фиксит (30-60 мин).</div>
-    </div>
-
-    <div class="item">
-      <div class="item-time">ждём</div>
-      <div class="item-title">Александр · prep steps WSL+Node</div>
-      <div class="item-note">Пингован 12:43. От него ждём подтверждение прогресса по шкале 1-4 (WSL → apt → clone → install).</div>
+      <div class="item-time">pending squash</div>
+      <div class="item-title">Backend RPC + public mirror push</div>
+      <div class="item-note">MAIN: <code>chat.search</code> + <code>peers.getProfile</code> backend ещё не landed. Public mirror blocked до <code>[ack]</code> от Александра. Оба разблочатся когда он проснётся.</div>
     </div>
   </div>
 
@@ -257,37 +282,25 @@ a:hover { text-decoration: underline; }
   <div class="col col-future">
     <div class="col-head">
       <h3>Впереди</h3>
-      <span class="col-count">5 задач</span>
+      <span class="col-count">3 задачи</span>
     </div>
 
     <div class="item">
-      <div class="item-time">после libp2p</div>
-      <div class="item-title">git pull + demi start</div>
-      <div class="item-note">Identity автосоздаётся, бэкап <code>~/.demi-node/identity.json</code> критичен.</div>
-    </div>
-
-    <div class="item">
-      <div class="item-time">~1 минута</div>
-      <div class="item-title">Pair code generation</div>
-      <div class="item-note">MAIN → <code>demi pair --new</code> → 6-знач код → в группу → Александр redeem.</div>
-    </div>
-
-    <div class="item">
-      <div class="item-time">instant</div>
-      <div class="item-title">localhost:4321 live у Александра</div>
-      <div class="item-note">Observer UI открывается, видит чат с fluent-wolf-44, история подхватывается.</div>
+      <div class="item-time">~21:30 PT</div>
+      <div class="item-title">Pair + localhost:4321 live</div>
+      <div class="item-note">Александр <code>node src/index.js</code> → identity авто → <code>demi pair &lt;код&gt;</code> → Observer UI на <code>http://localhost:4321</code> с чатом к fluent-wolf-44.</div>
     </div>
 
     <div class="item">
       <div class="item-time">первый P2P-текст</div>
-      <div class="item-title">Real message Alex → Dima</div>
-      <div class="item-note">Через DEMI P2P напрямую, без серверов. Первый «привет» закрывает полный цикл.</div>
+      <div class="item-title">Real message Alex → Dima через libp2p</div>
+      <div class="item-note">Через DEMI P2P, трафик через Hetzner bootstrap TCP. Первый audit event <code>transport.libp2p.bootstrap-wire-ok</code> = полный цикл закрыт.</div>
     </div>
 
     <div class="item">
       <div class="item-time">w+1</div>
       <div class="item-title">L1-L6 Claude Code онбординг</div>
-      <div class="item-note">MCP, skills, voice, deploy — через eженедельные чек-ины в группе.</div>
+      <div class="item-note">MCP, skills, voice, deploy — еженедельные чек-ины в группе «Три поросенка».</div>
     </div>
   </div>
 
@@ -296,7 +309,7 @@ a:hover { text-decoration: underline; }
 <!-- FOOTER -->
 <div class="foot">
   <div class="foot-grid">
-    <div>Страница обновляется вручную по ходу прогресса. Дата снимка: <b>23.04.2026 · 12:55 PT</b>.</div>
+    <div>Страница обновляется вручную по ходу прогресса. Дата снимка: <b>23.04.2026 · 14:45 PT</b>.</div>
     <div>Участники операции: <b>Дмитрий Васильев</b> (vda.vc) · <b>MAIN</b> (infra) · <b>Demi</b> (onboarding bot) · <b>Александр @bosswor</b> (первый peer) · <b>Евгений Бычковский</b> (наблюдатель).</div>
     <div>Публичный код: <a href="https://github.com/vasilevdasfo/demi-node">github.com/vasilevdasfo/demi-node</a></div>
     <div>Главная: <a href="/">demis.world</a></div>
