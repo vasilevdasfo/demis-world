@@ -9,10 +9,19 @@
 
 <style>
 :root{
+  --bg:#f8f5ed;--fg:#1a1812;--gold:#9a7f3a;--gold-br:#6d5820;
+  --muted:#6a6258;--line:rgba(154,127,58,.22);
+  --ready:#3d6a4a;--buildable:#9a7f3a;--custom:#4a6b8a;
+  --card-bg:rgba(154,127,58,.06);
+}
+[data-theme="dark"]{
   --bg:#0a0a0a;--fg:#f5f0e1;--gold:#c9a961;--gold-br:#e8c97a;
   --muted:#8a8a8a;--line:rgba(201,169,97,.18);
   --ready:#5a8a6b;--buildable:#d4a74a;--custom:#8aa8c9;
+  --card-bg:rgba(201,169,97,.04);
 }
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:100;padding:8px 16px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold-br)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -77,6 +86,23 @@ p.sub{color:var(--muted);max-width:720px;margin-bottom:24px;font-size:clamp(15px
 </style>
 </head>
 <body>
+
+<button class="theme-toggle" onclick="toggleTheme()" id="tt">🌙 dark</button>
+<script>
+(function(){
+  var t = localStorage.getItem('theme') || 'light';
+  if(t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+  window.addEventListener('DOMContentLoaded', function(){
+    var b = document.getElementById('tt');
+    if(b) b.textContent = t === 'dark' ? '☀ light' : '🌙 dark';
+  });
+})();
+function toggleTheme(){
+  var h = document.documentElement, c = h.getAttribute('data-theme');
+  if(c === 'dark'){ h.removeAttribute('data-theme'); localStorage.setItem('theme','light'); document.getElementById('tt').textContent='🌙 dark'; }
+  else { h.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); document.getElementById('tt').textContent='☀ light'; }
+}
+</script>
 
 <div class="wrap">
 
@@ -256,6 +282,54 @@ p.sub{color:var(--muted);max-width:720px;margin-bottom:24px;font-size:clamp(15px
 
 <div class="note" style="margin:clamp(24px,3vw,36px) 0;padding:clamp(20px,2.5vw,32px);border:1px solid var(--gold);border-radius:2px;background:rgba(201,169,97,.04)">
   <p style="font-size:16px;color:var(--fg);margin:0;line-height:1.6"><b style="color:var(--gold-br)">Главный тезис:</b> клубная модель которую ты обдумываешь для Суверенного Мира — <b>один-в-один ложится на этот стек</b>. Не нужно писать бэкенд с нуля, не нужно придумывать как верифицировать граждан, не нужно строить систему коммуникации. Всё это уже работает. Если захочешь — бери и адаптируй. Если нет — просто имей в виду что такой паттерн уже реализован и обкатан.</p>
+</div>
+
+<!-- BOT HELPER -->
+<h2>Бот-помощник пока Дима спит</h2>
+<p class="sub">Чтобы ты не ждал ответа в часы когда я offline — настроил бота который знает весь стек и может провести через установку любого инструмента. Отвечает мгновенно, на русском, 24/7.</p>
+
+<div style="padding:clamp(22px,2.7vw,32px);border:1px solid var(--gold);border-radius:2px;background:var(--card-bg);margin-top:clamp(16px,2vw,24px)">
+  <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)">
+    <div style="font-family:'Playfair Display',Georgia,serif;font-size:24px;color:var(--gold-br);font-weight:700">@demisworld_bot</div>
+    <div style="font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase">Telegram · Claude Sonnet 4.5 · 24/7</div>
+  </div>
+
+  <p style="font-size:15px;color:var(--fg);margin-bottom:14px;line-height:1.65">Пиши ему в Telegram (<a href="https://t.me/demisworld_bot" style="color:var(--gold-br)">@demisworld_bot</a>) любые вопросы про стек. Знает все 6 инструментов + клубный паттерн + как адаптировать под Суверенный Мир.</p>
+
+  <div style="font-size:13px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin:18px 0 10px">Что спросить (примеры)</div>
+
+  <div style="display:grid;grid-template-columns:1fr;gap:12px">
+    <div style="padding:12px 16px;border-left:2px solid var(--buildable);background:var(--card-bg)">
+      <div style="font-size:14px;color:var(--fg);margin-bottom:4px"><b>«Как повторить inbox для моих граждан СМ?»</b></div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55">Бот даст пошаговый рецепт: куда создать репо, какой JSON-формат, как настроить endpoint, сколько времени займёт.</div>
+    </div>
+
+    <div style="padding:12px 16px;border-left:2px solid var(--buildable);background:var(--card-bg)">
+      <div style="font-size:14px;color:var(--fg);margin-bottom:4px"><b>«Покажи как сделать свой Telegram-бот-помощник»</b></div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55">Бот даст Python-код за 5 минут: токен от @BotFather, system prompt под СМ, launchd/systemd для автозапуска.</div>
+    </div>
+
+    <div style="padding:12px 16px;border-left:2px solid var(--buildable);background:var(--card-bg)">
+      <div style="font-size:14px;color:var(--fg);margin-bottom:4px"><b>«Дай готовый skill-файл для ВНЖ СМ»</b></div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55">Бот соберёт markdown-шаблон с триггерами («как получить ВНЖ», «ВНЖ СМ», «резидентство»), инструкциями и путями — готовый к копированию.</div>
+    </div>
+
+    <div style="padding:12px 16px;border-left:2px solid var(--buildable);background:var(--card-bg)">
+      <div style="font-size:14px;color:var(--fg);margin-bottom:4px"><b>«Как склонировать demis.world/onboarding под свой бренд?»</b></div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55">Бот покажет какие CSS-переменные поменять (gold → твой цвет), как поставить свой шрифт, где лежит код, как задеплоить.</div>
+    </div>
+
+    <div style="padding:12px 16px;border-left:2px solid var(--buildable);background:var(--card-bg)">
+      <div style="font-size:14px;color:var(--fg);margin-bottom:4px"><b>«Я вообще не программист — объясни как ребёнку»</b></div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.55">Бот адаптирует уровень. Если сложно — разобьёт на 10 простых шагов. Если нужно — скажет «это лучше через Диму, напиши ему».</div>
+    </div>
+  </div>
+
+  <div style="margin-top:18px;padding:14px 18px;border-left:2px solid var(--gold);background:var(--card-bg)">
+    <div style="font-size:13px;color:var(--fg);line-height:1.6"><b style="color:var(--gold-br)">Как начать:</b> открой в Telegram <a href="https://t.me/demisworld_bot" style="color:var(--gold-br)">@demisworld_bot</a> → кнопка Start → напиши первый вопрос. Никаких регистраций, секретов, платы — бот просто отвечает.</div>
+  </div>
+
+  <div style="margin-top:14px;font-size:12px;color:var(--muted)">Когда проснусь (~утро по PT) — увижу твою переписку с ботом в своём INBOX, подключусь если что-то требует человеческого ответа.</div>
 </div>
 
 <!-- HOW -->

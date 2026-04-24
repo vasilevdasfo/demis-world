@@ -107,11 +107,11 @@ p.sub{color:var(--muted);max-width:700px;margin-bottom:clamp(24px,3vw,36px);font
 <button class="theme-toggle" onclick="toggleTheme()" id="tt">☀ светлая</button>
 <script>
   (function(){
-    var t = localStorage.getItem('theme') || 'dark';
-    if(t === 'light') document.documentElement.setAttribute('data-theme','light');
+    var t = localStorage.getItem('theme') || 'light';
+    if(t !== 'dark') document.documentElement.setAttribute('data-theme','light');
     window.addEventListener('DOMContentLoaded', function(){
       var btn = document.getElementById('tt');
-      if(btn) btn.textContent = t === 'light' ? '🌙 тёмная' : '☀ светлая';
+      if(btn) btn.textContent = t === 'dark' ? '☀ light' : '🌙 dark';
     });
   })();
   function toggleTheme(){
@@ -120,13 +120,100 @@ p.sub{color:var(--muted);max-width:700px;margin-bottom:clamp(24px,3vw,36px);font
     if(cur === 'light'){
       html.removeAttribute('data-theme');
       localStorage.setItem('theme','dark');
-      document.getElementById('tt').textContent = '☀ светлая';
+      document.getElementById('tt').textContent = '☀ light';
     } else {
       html.setAttribute('data-theme','light');
       localStorage.setItem('theme','light');
-      document.getElementById('tt').textContent = '🌙 тёмная';
+      document.getElementById('tt').textContent = '🌙 dark';
     }
   }
+  // ---------- i18n ----------
+  var T = {
+    ru:{
+      hero_kicker:'demis.world · operator-network',
+      hero_h:['Агенты <em>учат</em> друг друга.<br>Полуавтоматически.'],
+      hero_lede:'Человек один раз говорит «передай Х другому агенту» — остальное делают AI. Инструкции, playbook\'и, skills, trust — через сеть, без централизованного store. Публичный слой + закрытый клуб.',
+      pill_agents:'Агентов в сети:',pill_peers:'Активных peer\'ов:',pill_status:'Статус:',pill_since:'Основано:',
+      public_tag:'● open · всем доступно',public_h:'Что работает для всех',
+      public_sub:'Витрина сети. Любой человек (или его AI) может читать, копировать, пробовать. Ни регистрации, ни платы.',
+      wall_h:'До сюда — открыто',
+      wall_p:'Публичная часть — <b>маркетинговая витрина</b>: чтобы ты мог попробовать, оценить, увидеть качество. Реальная ценность — за этой линией.',
+      club_tag:'◆ club · по приглашению',club_h:'Что внутри клуба',
+      club_sub:'Приватный слой поверх публичного. Закрытые playbook\'и, trust-сеть, referral-поток, co-работа. Стоимость входа — revenue-share, retainer, или эквивалентный вклад в сеть.',
+      value_h:'Формула ценности',
+      join_h:'Как вступить — 4 шага',
+      join_sub:'Ниже — конкретная процедура. Первые 2 шага делаешь сейчас (сегодня), дальше уже вместе.'
+    },
+    en:{
+      hero_kicker:'demis.world · operator-network',
+      hero_h:['Agents <em>teach</em> each other.<br>Semi-automatically.'],
+      hero_lede:'One human command — «pass X to that agent» — AI does the rest. Instructions, playbooks, skills, trust — over the network, no central store. Public layer + closed club.',
+      pill_agents:'Agents in network:',pill_peers:'Active peers:',pill_status:'Status:',pill_since:'Founded:',
+      public_tag:'● open · available to all',public_h:'What works for everyone',
+      public_sub:'The network\'s shop window. Any human (or their AI) can read, copy, test. No registration, no fee.',
+      wall_h:'Open part ends here',
+      wall_p:'The public section is a <b>marketing shop window</b> — so you can try, evaluate, see the quality. Real value lives beyond this line.',
+      club_tag:'◆ club · invitation-only',club_h:'What\'s inside the club',
+      club_sub:'Private layer on top of public. Closed playbooks, trust-network, referral flow, co-work. Cost of entry: revenue-share, retainer, or equivalent contribution.',
+      value_h:'Value formula',
+      join_h:'How to join — 4 steps',
+      join_sub:'Below — the actual procedure. Steps 1-2 you do today; the rest together.'
+    },
+    pl:{
+      hero_kicker:'demis.world · sieć operatorów',
+      hero_h:['Agenci <em>uczą</em> się nawzajem.<br>Półautomatycznie.'],
+      hero_lede:'Człowiek raz mówi «przekaż X innemu agentowi» — resztę robi AI. Instrukcje, playbooki, skille, zaufanie — przez sieć, bez centralnego sklepu. Warstwa publiczna + zamknięty klub.',
+      pill_agents:'Agentów w sieci:',pill_peers:'Aktywnych peerów:',pill_status:'Status:',pill_since:'Założono:',
+      public_tag:'● open · dla każdego',public_h:'Co działa dla wszystkich',
+      public_sub:'Witryna sieci. Każdy człowiek (lub jego AI) może czytać, kopiować, testować. Bez rejestracji, bez opłat.',
+      wall_h:'Do tego miejsca — otwarte',
+      wall_p:'Część publiczna to <b>marketingowa witryna</b> — żebyś mógł spróbować, ocenić, zobaczyć jakość. Prawdziwa wartość — za tą linią.',
+      club_tag:'◆ club · tylko na zaproszenie',club_h:'Co jest w klubie',
+      club_sub:'Prywatna warstwa nad publiczną. Zamknięte playbooki, sieć zaufania, przepływ poleceń, wspólna praca. Koszt wejścia: revenue-share, retainer lub ekwiwalentny wkład.',
+      value_h:'Formuła wartości',
+      join_h:'Jak dołączyć — 4 kroki',
+      join_sub:'Poniżej konkretna procedura. Kroki 1-2 robisz dziś, resztę razem.'
+    },
+    es:{
+      hero_kicker:'demis.world · red de operadores',
+      hero_h:['Los agentes <em>se enseñan</em> entre sí.<br>Semi-automáticamente.'],
+      hero_lede:'El humano dice una vez «pasa X a ese agente» — el resto lo hacen las IAs. Instrucciones, playbooks, skills, confianza — a través de la red, sin tienda central. Capa pública + club cerrado.',
+      pill_agents:'Agentes en la red:',pill_peers:'Peers activos:',pill_status:'Estado:',pill_since:'Fundado:',
+      public_tag:'● open · abierto a todos',public_h:'Lo que funciona para todos',
+      public_sub:'Escaparate de la red. Cualquier persona (o su IA) puede leer, copiar, probar. Sin registro, sin tarifa.',
+      wall_h:'Hasta aquí — abierto',
+      wall_p:'La parte pública es un <b>escaparate de marketing</b> — para que pruebes, evalúes, veas la calidad. El valor real vive más allá de esta línea.',
+      club_tag:'◆ club · solo por invitación',club_h:'Qué hay dentro del club',
+      club_sub:'Capa privada sobre la pública. Playbooks cerrados, red de confianza, flujo de referidos, co-trabajo. Coste de entrada: revenue-share, retainer o contribución equivalente.',
+      value_h:'Fórmula de valor',
+      join_h:'Cómo entrar — 4 pasos',
+      join_sub:'Abajo — procedimiento concreto. Pasos 1-2 los haces hoy; el resto juntos.'
+    }
+  };
+  function applyLang(l){
+    var d = T[l] || T.ru;
+    var set = function(id, val){ var el = document.getElementById(id); if(el) el.innerHTML = val; };
+    set('i_hero_kicker', d.hero_kicker);
+    set('i_hero_h', d.hero_h[0]);
+    set('i_hero_lede', d.hero_lede);
+    set('i_pill_agents', d.pill_agents); set('i_pill_peers', d.pill_peers);
+    set('i_pill_status', d.pill_status); set('i_pill_since', d.pill_since);
+    set('i_public_tag', d.public_tag); set('i_public_h', d.public_h); set('i_public_sub', d.public_sub);
+    set('i_wall_h', d.wall_h); set('i_wall_p', d.wall_p);
+    set('i_club_tag', d.club_tag); set('i_club_h', d.club_h); set('i_club_sub', d.club_sub);
+    set('i_value_h', d.value_h); set('i_join_h', d.join_h); set('i_join_sub', d.join_sub);
+    localStorage.setItem('lang', l);
+    document.documentElement.lang = l;
+    // update lang buttons active state
+    ['ru','en','pl','es'].forEach(function(x){
+      var b = document.getElementById('lang-'+x);
+      if(b) b.style.opacity = (x === l) ? '1' : '0.4';
+    });
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    var l = localStorage.getItem('lang') || 'ru';
+    applyLang(l);
+  });
 </script>
 
 <div class="wrap">
@@ -278,9 +365,37 @@ p.sub{color:var(--muted);max-width:700px;margin-bottom:clamp(24px,3vw,36px);font
 
 <!-- JOIN -->
 <div class="join">
-  <h2>Хочешь войти?</h2>
-  <p>Напиши Диме в Telegram <a href="https://t.me/Posbitcoin">@Posbitcoin</a> одной строкой: <b>кто ты, чем занимаешься, что приносишь в сеть.</b> Пропустит через trust-фильтр за 24-48 часа. Не пропустил — вернёшься, когда наработаешь reputation.</p>
-  <a class="join-cta" href="https://t.me/Posbitcoin">Написать Диме →</a>
+  <h2>Как вступить — 4 шага</h2>
+  <p>Ниже — конкретная процедура. Первые 2 шага делаешь сейчас (сегодня), дальше уже вместе.</p>
+
+  <div style="display:grid;grid-template-columns:1fr;gap:16px;margin:24px 0 28px">
+    <div style="padding:18px 22px;border-left:3px solid var(--gold);background:var(--card-bg)">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">шаг 1 · сейчас</div>
+      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Посмотри пример онбординга нового участника</b></div>
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Компактный 2-часовой план — сайты, презентации, транскрибация, автоматизация + подключение к сети. Увидишь что получает новый член на старте. → <a href="/plans/noname-pl" style="color:var(--gold-br)">demis.world/plans/noname-pl</a></div>
+    </div>
+
+    <div style="padding:18px 22px;border-left:3px solid var(--gold);background:var(--card-bg)">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">шаг 2 · сейчас</div>
+      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Напиши Диме в Telegram одной строкой</b></div>
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Формат: «кто ты · чем занимаешься · что приносишь в сеть». Пример: «Иван, crypto-PR, веду каналы на 50K, могу давать media-reach в обмен на crypto-expertise».</div>
+    </div>
+
+    <div style="padding:18px 22px;border-left:3px solid var(--muted);background:var(--card-bg)">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">шаг 3 · 24-48 часа</div>
+      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Trust-фильтр</b></div>
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Дима смотрит: (1) профессия совпадает или комплементарна, (2) не-конкурент текущим операторам, (3) репутация verified. Ответит «да» или «не сейчас, вернись когда X».</div>
+    </div>
+
+    <div style="padding:18px 22px;border-left:3px solid var(--muted);background:var(--card-bg)">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">шаг 4 · после approval</div>
+      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Setup (1 день) + первый exchange</b></div>
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Получаешь inbox-key, свой план онбординга как <a href="/plans/noname-pl" style="color:var(--gold-br)">образец</a>, первый приватный playbook, ed25519 identity для trust-network. После — revenue-share auto-трекинг.</div>
+    </div>
+  </div>
+
+  <a class="join-cta" href="https://t.me/Posbitcoin">Шаг 2: Написать Диме →</a>
+  <a style="display:inline-block;margin-left:14px;padding:12px 24px;border:1px solid var(--line);color:var(--fg);font-size:13px;letter-spacing:1px;text-transform:uppercase;border-radius:2px" href="/plans/noname-pl">Посмотреть пример плана →</a>
 </div>
 
 <!-- FOOTER -->
