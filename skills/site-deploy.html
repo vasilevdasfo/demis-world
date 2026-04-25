@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill: site-deploy — DEMI</title>
+<style>
+  :root { --bg:#f8f5ee; --ink:#1a1a1a; --soft:#4a4a4a; --gold:#a07d2a; --border:#e8e2d2; --code-bg:#efebe0; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Iowan Old Style','Charter',Georgia,serif; background:var(--bg); color:var(--ink); line-height:1.7; padding:48px 24px; }
+  .wrap { max-width:780px; margin:0 auto; }
+  h1 { font-size:36px; margin-bottom:8px; letter-spacing:-0.02em; }
+  h2 { font-size:24px; margin:32px 0 12px; padding-top:24px; border-top:1px solid var(--border); }
+  h3 { font-size:18px; margin:20px 0 8px; color:var(--gold); }
+  p { margin-bottom:14px; color:var(--soft); }
+  code { font-family:'SF Mono',Menlo,monospace; font-size:14px; background:var(--code-bg); padding:2px 6px; border-radius:4px; }
+  pre { background:var(--code-bg); padding:16px; border-radius:8px; overflow-x:auto; margin:14px 0; font-family:'SF Mono',Menlo,monospace; font-size:13px; line-height:1.5; }
+  ul, ol { margin:8px 0 14px 24px; }
+  li { margin-bottom:6px; color:var(--soft); }
+  table { width:100%; border-collapse:collapse; margin:16px 0; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--border); font-size:14px; }
+  th { background:var(--code-bg); font-weight:600; }
+  .kicker { display:inline-block; padding:4px 10px; background:var(--gold); color:#fff; border-radius:12px; font-size:12px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:12px; }
+  .anti { color:#b04040; }
+  hr { border:0; border-top:1px solid var(--border); margin:32px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="kicker">Skill</div>
+<h1>site-deploy</h1>
+<p>Skill для агента — как задеплоить лендинг / лид-магнит / клиентский сайт. Загружай on-demand когда Дима говорит «выкати сайт» / «опубликуй» / «pushni live».</p>
+
+<h2>Когда применять</h2>
+<ul>
+  <li>Создал HTML-страницу (лендинг, клиентский сайт, лид-магнит)</li>
+  <li>Нужно сделать её доступной по публичной ссылке</li>
+  <li>Дима не хочет вникать в детали — нужен URL за 2 минуты</li>
+</ul>
+
+<h2>Решение в 1 предложение</h2>
+<p>GitHub Pages бесплатно для статичных репо, Vercel auto-deploy для продуктовых сайтов. Деплой через <code>git push</code>.</p>
+
+<h2>Два пути деплоя</h2>
+
+<h3>A. Vercel (для основных проектов: vda.vc, demis.world)</h3>
+<p><strong>Когда:</strong> проект уже привязан к Vercel (<code>.vercel/</code> в корне или connected на Vercel.com)</p>
+<pre>git add &lt;files&gt;
+git commit -m "Deploy: &lt;что задеплоено&gt;"
+git push https://vasilevdasfo:&lt;TOKEN&gt;@github.com/vasilevdasfo/&lt;repo&gt;.git main</pre>
+<p>После push — Vercel автоматически собирает и публикует за 30-60 секунд.</p>
+<p><strong>Проверка:</strong> <code>curl -s -o /dev/null -w "%{http_code}\n" https://&lt;domain&gt;/&lt;page&gt;.html</code></p>
+
+<h3>B. GitHub Pages (для клиентских сайтов: promstroy-sites, etc)</h3>
+<p><strong>Когда:</strong> простой статичный repo без Vercel</p>
+<pre>git add &lt;files&gt;
+git commit -m "Deploy: &lt;что&gt;"
+git push https://vasilevdasfo:&lt;TOKEN&gt;@github.com/vasilevdasfo/&lt;repo&gt;.git main</pre>
+<p>URL формата: <code>https://vasilevdasfo.github.io/&lt;repo&gt;/&lt;page&gt;.html</code>. Деплой 1-2 мин.</p>
+
+<h2>Стандартные репо Димы</h2>
+<table>
+  <tr><th>Проект</th><th>Repo</th><th>Деплой</th><th>URL</th></tr>
+  <tr><td>Главный сайт</td><td>vda-vc</td><td>Vercel</td><td>https://vda.vc</td></tr>
+  <tr><td>Demis World</td><td>demis-world</td><td>Vercel</td><td>https://demis.world</td></tr>
+  <tr><td>Промстрой</td><td>promstroy-sites</td><td>GitHub Pages</td><td>https://vasilevdasfo.github.io/promstroy-sites/</td></tr>
+  <tr><td>DEMI node</td><td>demi-node</td><td>npm</td><td>https://github.com/vasilevdasfo/demi-node</td></tr>
+</table>
+
+<h2>Версионирование (важное правило)</h2>
+<ul>
+  <li><code>index.html</code> в корне репо = <strong>ЖИВОЙ САЙТ</strong>, никогда не перезаписывать без явной команды</li>
+  <li>Новые версии = отдельные файлы <code>v2.html</code>, <code>v3.html</code>, ... <code>vN.html</code></li>
+  <li>URL черновика: <code>vda.vc/v15.html</code></li>
+  <li>Чтобы сделать версию живой → скопировать содержимое в <code>index.html</code> (только по команде «сделай живым»)</li>
+</ul>
+
+<h2>Mobile deploy check (обязательно перед push)</h2>
+<ol>
+  <li>Открой в Preview iframe <code>375×812</code></li>
+  <li>Проверь <code>document.body.scrollWidth === 375</code> (нет horizontal overflow)</li>
+  <li>Скриншот hero + main content + closing — глазами</li>
+</ol>
+<p>Если FAIL → fix <code>clamp()</code> на font-size, grid → <code>1fr</code> на 720px, padding меньше.</p>
+
+<h2>После деплоя — обновить навигацию</h2>
+<ol>
+  <li>Добавить в <code>6_ЛИЧНЫЙ_БРЕНД/Сайт/📍_САЙТ_ВЕРСИИ.md</code></li>
+  <li>Обновить ссылку в проектном <code>CLAUDE.md</code></li>
+  <li>Если новая страница — добавить ссылку в <code>index.html</code> живого сайта (футер/контакты)</li>
+</ol>
+
+<h2>Анти-паттерны</h2>
+<ul class="anti">
+  <li>❌ Не использовать <code>git add .</code> или <code>git add -A</code> — может затащить .env / секреты</li>
+  <li>❌ Не пушить в main без mobile-check</li>
+  <li>❌ Не перезаписывать <code>index.html</code> без явного «сделай живым»</li>
+  <li>❌ Не коммитить <code>node_modules/</code>, <code>.vercel/cache/</code></li>
+</ul>
+
+<h2>Если что-то сломалось</h2>
+<ul>
+  <li>Vercel deploy failed → https://vercel.com/dashboard, смотри build logs</li>
+  <li>GitHub Pages 404 → проверь Settings → Pages → branch=main, root=/</li>
+  <li>DNS не резолвит → у Namecheap A-запись <code>76.76.21.21</code> (для Vercel)</li>
+</ul>
+
+<hr>
+<p style="font-size:13px; color:#999;">Полная мастер-инструкция в vault: <code>5_БАЗА_ЗНАНИЙ/reference_deploy_master.md</code>. Skill версия 1.0 · 2026-04-24.</p>
+
+</div>
+</body>
+</html>
