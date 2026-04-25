@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+  DEMI Landing Starter Template
+  ─────────────────────────────────────────
+  Минимальный одностраничный лендинг для нового partner-агента.
+
+  Как использовать:
+  1. Скачай / git clone этот репозиторий
+  2. Замени все [BRACKETS] на свои значения (Find&Replace)
+  3. Удали этот комментарий
+  4. Push в свой Vercel или GitHub Pages
+
+  Структура:
+  - Hero (h1 + sub + CTA)
+  - 3 features
+  - Social proof
+  - Final CTA
+
+  Стиль: cream + gold (вписан в визуал demis.world)
+  Шрифты: Iowan Old Style (serif) + system sans
+  Mobile-first, без зависимостей.
+-->
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="[МЕТА-ОПИСАНИЕ — 1-2 предложения, что ты делаешь и для кого]">
+<title>[ТВОЁ ИМЯ / ТВОЙ ПРОДУКТ]</title>
+<style>
+  :root { --bg:#f8f5ee; --ink:#1a1a1a; --soft:#4a4a4a; --gold:#a07d2a; --gold-bg:#faf2d9; --border:#e8e2d2; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { font-family:-apple-system,system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.65; }
+  h1, h2, h3 { font-family:'Iowan Old Style','Charter',Georgia,serif; font-weight:600; line-height:1.15; }
+  h1 { font-size:clamp(40px,6vw,72px); letter-spacing:-0.02em; }
+  h2 { font-size:clamp(28px,3.5vw,42px); }
+  h3 { font-size:22px; }
+  .container { max-width:1100px; margin:0 auto; padding:0 24px; }
+  .gold { color:var(--gold); }
+  a { color:var(--gold); text-decoration:none; border-bottom:1px solid transparent; transition:border .2s; }
+  a:hover { border-bottom-color:var(--gold); }
+
+  /* Hero */
+  .hero { padding:96px 0 80px; text-align:center; }
+  .hero-kicker { display:inline-block; padding:6px 16px; background:var(--gold-bg); color:var(--gold); border-radius:24px; font-size:13px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:28px; }
+  .hero h1 { margin-bottom:24px; max-width:900px; margin-left:auto; margin-right:auto; }
+  .hero-sub { font-size:clamp(18px,2vw,22px); color:var(--soft); max-width:680px; margin:0 auto 36px; }
+  .btn { display:inline-block; padding:14px 32px; font-size:16px; font-weight:600; border-radius:50px; transition:transform .2s,box-shadow .2s; }
+  .btn-primary { background:var(--ink); color:var(--bg); border:none; cursor:pointer; }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.15); border-bottom:none; }
+
+  /* Features */
+  .features { padding:80px 0; background:#fff; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:48px; }
+  @media (max-width:820px) { .features-grid { grid-template-columns:1fr; } }
+  .feature { text-align:center; padding:24px; }
+  .feature-num { font-family:'Iowan Old Style',serif; font-size:48px; color:var(--gold); font-weight:700; line-height:1; margin-bottom:16px; }
+  .feature h3 { margin-bottom:12px; }
+  .feature p { color:var(--soft); font-size:15px; }
+
+  /* Social proof */
+  .proof { padding:80px 0; text-align:center; }
+  .proof blockquote { font-family:'Iowan Old Style',serif; font-size:clamp(20px,2.5vw,28px); font-style:italic; max-width:780px; margin:0 auto 24px; color:var(--ink); line-height:1.5; }
+  .proof cite { font-style:normal; color:var(--soft); font-size:15px; }
+
+  /* CTA */
+  .cta { padding:96px 0; text-align:center; background:var(--ink); color:var(--bg); }
+  .cta h2 { color:var(--bg); margin-bottom:16px; }
+  .cta p { font-size:18px; max-width:600px; margin:0 auto 36px; opacity:0.85; }
+  .cta .btn-primary { background:var(--bg); color:var(--ink); }
+
+  footer { padding:32px 0; text-align:center; font-size:13px; color:var(--soft); border-top:1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-kicker">[КИКЕР — например: «AI-консалтинг» или «Партнёр DEMI Network»]</div>
+    <h1>[ОДНА СТРОКА — что ты делаешь и для кого]</h1>
+    <p class="hero-sub">[2-3 СТРОКИ — раскрытие h1, главная боль клиента, как ты её решаешь]</p>
+    <a href="#cta" class="btn btn-primary">[CTA — например: «Обсудить задачу»]</a>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:8px;">Что получаешь</h2>
+    <p style="text-align:center; color:var(--soft); max-width:600px; margin:0 auto;">[Подзаголовок к features]</p>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-num">01</div>
+        <h3>[ФИЧА 1]</h3>
+        <p>[2-3 строки описания, что именно даёт]</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">02</div>
+        <h3>[ФИЧА 2]</h3>
+        <p>[2-3 строки описания]</p>
+      </div>
+      <div class="feature">
+        <div class="feature-num">03</div>
+        <h3>[ФИЧА 3]</h3>
+        <p>[2-3 строки описания]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="container">
+    <blockquote>«[ОТЗЫВ КЛИЕНТА — 2-3 строки, реальный или из ранних разговоров]»</blockquote>
+    <cite>— [ИМЯ, КОМПАНИЯ, РОЛЬ]</cite>
+  </div>
+</section>
+
+<section class="cta" id="cta">
+  <div class="container">
+    <h2>[CTA-заголовок — например: «Обсудим твой кейс»]</h2>
+    <p>[1-2 строки — что произойдёт когда напишут, какой следующий шаг]</p>
+    <a href="https://t.me/[ТВОЙ_TG_ХЭНДЛ]" class="btn btn-primary">Написать в Telegram</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 [ТВОЁ ИМЯ] · Часть <a href="https://demis.world">DEMI Network</a>
+</footer>
+
+</body>
+</html>
