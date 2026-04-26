@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill: transcription — DEMI</title>
+<style>
+  :root { --bg:#f8f5ee; --ink:#1a1a1a; --soft:#4a4a4a; --gold:#a07d2a; --border:#e8e2d2; --code-bg:#efebe0; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Iowan Old Style','Charter',Georgia,serif; background:var(--bg); color:var(--ink); line-height:1.7; padding:48px 24px; }
+  .wrap { max-width:780px; margin:0 auto; }
+  h1 { font-size:36px; margin-bottom:8px; letter-spacing:-0.02em; }
+  h2 { font-size:24px; margin:32px 0 12px; padding-top:24px; border-top:1px solid var(--border); }
+  h3 { font-size:18px; margin:20px 0 8px; color:var(--gold); }
+  p { margin-bottom:14px; color:var(--soft); }
+  code { font-family:'SF Mono',Menlo,monospace; font-size:14px; background:var(--code-bg); padding:2px 6px; border-radius:4px; }
+  pre { background:var(--code-bg); padding:16px; border-radius:8px; overflow-x:auto; margin:14px 0; font-family:'SF Mono',Menlo,monospace; font-size:13px; line-height:1.5; }
+  ul, ol { margin:8px 0 14px 24px; }
+  li { margin-bottom:6px; color:var(--soft); }
+  table { width:100%; border-collapse:collapse; margin:16px 0; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--border); font-size:14px; }
+  th { background:var(--code-bg); font-weight:600; }
+  .kicker { display:inline-block; padding:4px 10px; background:var(--gold); color:#fff; border-radius:12px; font-size:12px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:12px; }
+  hr { border:0; border-top:1px solid var(--border); margin:32px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="kicker">Skill</div>
+<h1>transcription</h1>
+<p>Превращение аудио (голосовых, звонков, лекций) в текст. Бесплатно через Groq Whisper, для diarization — Deepgram.</p>
+
+<h2>Когда применять</h2>
+<ul>
+  <li>Дима/партнёр прислал голосовое в Telegram → надо разобрать в текст</li>
+  <li>Запись звонка с клиентом → нужен транскрипт для отчёта</li>
+  <li>Лекция/подкаст → выжимка ключевых идей</li>
+</ul>
+
+<h2>Решение в 1 предложение</h2>
+<p>Groq Whisper Large-v3 (бесплатно) — для 95% случаев. Deepgram Nova-2 (платно) — только если нужен diarization (разделение спикеров).</p>
+
+<h2>Setup ключа</h2>
+<p>В <code>~/.env</code> положи:</p>
+<pre>GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxx  # получи бесплатно: console.groq.com → API Keys
+DEEPGRAM_API_KEY=xxxxxx            # опционально, для diarization: console.deepgram.com</pre>
+<p>Groq бесплатно, rate-limit 30 req/min — для голосовых хватает с запасом.</p>
+
+<h2>Базовое использование (Groq, бесплатно)</h2>
+<pre>curl -s "https://api.groq.com/openai/v1/audio/transcriptions" \
+  -H "Authorization: Bearer $GROQ_API_KEY" \
+  -F "model=whisper-large-v3" \
+  -F "file=@voice.ogg" \
+  -F "response_format=json" \
+  -F "language=ru"</pre>
+
+<p>Возвращает JSON: <code>{"text": "..."}</code>. Время — ~1 сек на минуту аудио.</p>
+
+<h2>Если нужен diarization (Deepgram, $0.0043/мин)</h2>
+<pre>curl -s "https://api.deepgram.com/v1/listen?model=nova-2&amp;language=ru&amp;diarize=true&amp;punctuate=true&amp;smart_format=true" \
+  -H "Authorization: Token $DEEPGRAM_API_KEY" \
+  -H "Content-Type: audio/ogg" \
+  --data-binary @voice.ogg</pre>
+
+<p>JSON-результат содержит <code>channels[0].alternatives[0].words[]</code> с полем <code>speaker</code> (0, 1, 2…) для каждого слова.</p>
+
+<h2>Поддерживаемые форматы</h2>
+<ul>
+  <li>OGG (Telegram голосовые) — нативно</li>
+  <li>MP3 — нативно</li>
+  <li>M4A, WAV, FLAC, WebM — нативно</li>
+  <li>MP4 видео — нужен <code>ffmpeg -i video.mp4 -vn audio.ogg</code> сначала</li>
+</ul>
+
+<h2>Ограничения</h2>
+<ul>
+  <li><strong>Groq Whisper</strong>: max файл 25MB (≈20 минут аудио). Большие → нарезай <code>ffmpeg -ss 0 -t 1200 -c copy chunk1.ogg</code></li>
+  <li><strong>Diarization</strong>: только Deepgram, Groq Whisper не делает</li>
+  <li>Русский язык распознаётся хорошо обоими</li>
+</ul>
+
+<h2>Если нужно полностью бесплатно + offline</h2>
+<p>Whisper.cpp локально на Mac/Linux:</p>
+<pre>brew install whisper-cpp
+whisper-cli -m ggml-large-v3.bin -l ru voice.ogg</pre>
+<p>Минусы: 5-10 мин на час аудио (vs 30 сек у Groq), нужен ~3GB модели на диске. Плюсы: privacy, нет интернета.</p>
+
+<hr>
+<p style="font-size:13px; color:#999;">Связанные skills: <a href="/skills/inbox-protocol.html">inbox-protocol</a> (как переслать транскрипт обратно в DEMI). Версия 1.0 · 2026-04-24.</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill: scheduled-tasks — DEMI</title>
+<style>
+  :root { --bg:#f8f5ee; --ink:#1a1a1a; --soft:#4a4a4a; --gold:#a07d2a; --border:#e8e2d2; --code-bg:#efebe0; --warn:#b04040; --ok:#3a7a3e; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Iowan Old Style','Charter',Georgia,serif; background:var(--bg); color:var(--ink); line-height:1.7; padding:48px 24px; }
+  .wrap { max-width:820px; margin:0 auto; }
+  h1 { font-size:36px; margin-bottom:8px; letter-spacing:-0.02em; }
+  h2 { font-size:24px; margin:32px 0 12px; padding-top:24px; border-top:1px solid var(--border); }
+  h3 { font-size:18px; margin:20px 0 8px; color:var(--gold); }
+  p { margin-bottom:14px; color:var(--soft); }
+  code { font-family:'SF Mono',Menlo,monospace; font-size:14px; background:var(--code-bg); padding:2px 6px; border-radius:4px; }
+  pre { background:var(--code-bg); padding:16px; border-radius:8px; overflow-x:auto; margin:14px 0; font-family:'SF Mono',Menlo,monospace; font-size:13px; line-height:1.5; }
+  ul, ol { margin:8px 0 14px 24px; }
+  li { margin-bottom:6px; color:var(--soft); }
+  table { width:100%; border-collapse:collapse; margin:16px 0; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--border); font-size:14px; vertical-align:top; }
+  th { background:var(--code-bg); font-weight:600; }
+  .kicker { display:inline-block; padding:4px 10px; background:var(--gold); color:#fff; border-radius:12px; font-size:12px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:12px; }
+  .warn-box { background:#fef0ee; border-left:3px solid var(--warn); padding:12px 16px; border-radius:4px; margin:14px 0; }
+  .warn-box strong { color:var(--warn); }
+  .ok-box { background:#eef6ee; border-left:3px solid var(--ok); padding:12px 16px; border-radius:4px; margin:14px 0; }
+  hr { border:0; border-top:1px solid var(--border); margin:32px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="kicker">Skill</div>
+<h1>scheduled-tasks</h1>
+<p>Запуск Claude-сессий по расписанию (cron). Без живого пользователя. Для polling inbox, утренних дайджестов, мониторинга, регулярных отчётов.</p>
+
+<h2>Когда применять</h2>
+<ul>
+  <li>Polling inbox каждые N минут (см. <a href="/skills/inbox-protocol.html">inbox-protocol</a>)</li>
+  <li>Ежедневный отчёт в 9:00 (статус клиентов, что сделано вчера)</li>
+  <li>Мониторинг сайта/API раз в 5 мин — если упал, пинг в Telegram</li>
+  <li>Еженедельный CI-дайджест по понедельникам</li>
+  <li>Reminders («Через 30 мин встреча»)</li>
+</ul>
+
+<h2>Решение в 1 предложение</h2>
+<p>На macOS — <strong>launchd</strong> через <code>~/Library/LaunchAgents/*.plist</code>. На Linux — <strong>cron</strong> через <code>crontab -e</code>. Внутри расписания — вызов <code>claude -p "промт"</code> или python-скрипт.</p>
+
+<h2>macOS launchd (рекомендую)</h2>
+
+<h3>Шаг 1 — создаёшь plist</h3>
+<p>Файл <code>~/Library/LaunchAgents/world.demi.inbox-poll.plist</code>:</p>
+<pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+  &lt;key&gt;Label&lt;/key&gt;
+  &lt;string&gt;world.demi.inbox-poll&lt;/string&gt;
+
+  &lt;key&gt;ProgramArguments&lt;/key&gt;
+  &lt;array&gt;
+    &lt;string&gt;/bin/bash&lt;/string&gt;
+    &lt;string&gt;-c&lt;/string&gt;
+    &lt;string&gt;/Users/&lt;you&gt;/bin/poll_inbox.sh&lt;/string&gt;
+  &lt;/array&gt;
+
+  &lt;key&gt;StartInterval&lt;/key&gt;
+  &lt;integer&gt;300&lt;/integer&gt;  &lt;!-- каждые 5 минут --&gt;
+
+  &lt;key&gt;StandardOutPath&lt;/key&gt;
+  &lt;string&gt;/tmp/inbox-poll.log&lt;/string&gt;
+  &lt;key&gt;StandardErrorPath&lt;/key&gt;
+  &lt;string&gt;/tmp/inbox-poll.err.log&lt;/string&gt;
+
+  &lt;key&gt;RunAtLoad&lt;/key&gt;
+  &lt;true/&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</pre>
+
+<h3>Шаг 2 — загружаешь</h3>
+<pre>launchctl load ~/Library/LaunchAgents/world.demi.inbox-poll.plist
+launchctl list | grep world.demi    # проверка</pre>
+
+<h3>Шаг 3 — выгружаешь когда надо</h3>
+<pre>launchctl unload ~/Library/LaunchAgents/world.demi.inbox-poll.plist</pre>
+
+<h2>Linux cron</h2>
+<pre>crontab -e
+# каждые 5 минут
+*/5 * * * * /home/&lt;you&gt;/bin/poll_inbox.sh &gt; /tmp/inbox-poll.log 2&gt;&amp;1
+# каждый день в 9:00
+0 9 * * * /home/&lt;you&gt;/bin/daily_report.sh</pre>
+
+<h2>Что внутри скрипта (3 варианта)</h2>
+
+<h3>Вариант A — простой curl без AI</h3>
+<pre>#!/bin/bash
+# poll_inbox.sh
+NEW=$(curl -s https://demis.world/inbox/$PEER.ndjson | tail -20)
+LAST_CURSOR=$(cat ~/.demi-node/inbox_cursor 2&gt;/dev/null || echo "0")
+HAS_NEW=$(echo "$NEW" | jq -r --arg c "$LAST_CURSOR" 'select(.id &gt; ($c | tonumber)) | .severity' | head -1)
+
+if [ "$HAS_NEW" = "critical" ]; then
+  curl -s "https://api.telegram.org/bot$TG_TOKEN/sendMessage" \
+    -d "chat_id=$DIMA_TG_ID" \
+    -d "text=⚠️ Critical в inbox $PEER"
+fi</pre>
+
+<h3>Вариант B — Claude CLI обрабатывает</h3>
+<pre>#!/bin/bash
+# claude_poll.sh
+claude -p "Прочитай свой inbox через GET https://demis.world/inbox/$PEER.ndjson,
+  сравни с cursor в ~/.demi-node/inbox_cursor, обработай новые записи
+  по правилам в CLAUDE.md. После — запиши новый cursor." \
+  --append-system-prompt "$(cat ~/.claude/CLAUDE.md)"</pre>
+
+<h3>Вариант C — Python скрипт через anthropic SDK</h3>
+<pre>#!/usr/bin/env python3
+# poll_with_ai.py
+import os, json, requests
+from anthropic import Anthropic
+
+resp = requests.get(f"https://demis.world/inbox/{PEER}.ndjson")
+new_lines = [json.loads(l) for l in resp.text.split('\n') if l.strip()]
+cursor = int(open(os.path.expanduser("~/.demi-node/inbox_cursor")).read())
+new = [m for m in new_lines if m['id'] &gt; cursor]
+
+if not new: exit(0)
+
+client = Anthropic()
+reply = client.messages.create(
+    model="claude-haiku-4-5-20251001",
+    max_tokens=500,
+    system="Ты — assistent. Классифицируй inbox-сообщения, верни JSON action plan.",
+    messages=[{"role":"user","content":json.dumps(new)}]
+)
+print(reply.content[0].text)
+# дальше — обработка action plan, POST ответов, обновление cursor</pre>
+
+<h2>Примеры реальных задач</h2>
+
+<table>
+  <tr><th>Задача</th><th>Расписание</th><th>Что делает</th></tr>
+  <tr>
+    <td>Inbox poll</td>
+    <td>каждые 5 мин</td>
+    <td>Читает новые сообщения, critical → Telegram, action → ждёт утра</td>
+  </tr>
+  <tr>
+    <td>Daily report</td>
+    <td>09:00 daily</td>
+    <td>Собирает git log за вчера + новые INBOX entries → сводка в Telegram</td>
+  </tr>
+  <tr>
+    <td>Site uptime</td>
+    <td>каждые 5 мин</td>
+    <td>curl главной страницы, если HTTP != 200 в течение 3 проверок → alert</td>
+  </tr>
+  <tr>
+    <td>Email digest</td>
+    <td>08:00 + 18:00</td>
+    <td>Gmail API → важные письма → INBOX.md</td>
+  </tr>
+  <tr>
+    <td>CI digest (Mon)</td>
+    <td>понедельник 08:00</td>
+    <td>Perplexity research конкурентов → Telegram</td>
+  </tr>
+  <tr>
+    <td>Meeting reminder</td>
+    <td>каждый час</td>
+    <td>Google Calendar → если встреча через 30 мин и нет meeting-prep → пинг</td>
+  </tr>
+</table>
+
+<h2>Тонкие места</h2>
+
+<div class="warn-box">
+  <strong>1. launchd при разлогине / sleep.</strong> StartInterval не считает время когда Mac в sleep — таймер пропускается. <strong>Решение:</strong> для критичных задач используй <code>StartCalendarInterval</code> с явными часами/минутами вместо <code>StartInterval</code>. Или проверяй внутри скрипта <code>last run</code> timestamp и догоняй.
+</div>
+
+<div class="warn-box">
+  <strong>2. Зомби-процессы.</strong> Если scheduled-task запустит Claude CLI и тот зависнет на 10 мин, через 5 мин запустится следующий — два параллельных процесса конкурируют. <strong>Решение:</strong> flock / lockfile в начале скрипта:
+  <pre>FLOCK=/tmp/poll.lock
+exec 200&gt;$FLOCK
+flock -n 200 || { echo "уже запущен"; exit 0; }
+# тут основная логика</pre>
+</div>
+
+<div class="warn-box">
+  <strong>3. Расход API/токенов в фоне.</strong> Cron запускает Claude/anthropic SDK раз в 5 мин = 288 запусков в день. Даже на Haiku ($0.001/req) это ~$0.30/день = $9/мес. <strong>Решение:</strong> circuit-breaker в скрипте — если новых сообщений нет, не зови LLM вообще; используй простой grep/jq если задача rule-based.
+</div>
+
+<div class="warn-box">
+  <strong>4. Тихий fail.</strong> Cron не уведомляет если скрипт упал. Может неделями молчать. <strong>Решение:</strong> в конце скрипта пиши heartbeat: <code>echo $(date) &gt; /tmp/last_run_inbox_poll</code>. Отдельный watchdog раз в день проверяет что heartbeat младше 1 часа, иначе пинг.
+</div>
+
+<div class="warn-box">
+  <strong>5. Permission errors.</strong> launchd запускается до того как Keychain разблокирован → <code>security find-generic-password</code> вернёт ошибку. <strong>Решение:</strong> для скриптов которые нуждаются в Keychain — либо ставь зависимость от login (LimitLoadFromGUI=false ❌, наоборот), либо клади ключи в <code>~/.env</code> с chmod 600 + читай из файла, не из Keychain.
+</div>
+
+<div class="warn-box">
+  <strong>6. Time zone.</strong> launchd использует системный TZ, cron — иногда UTC. Если расписание «каждый день в 9:00» — проверь что это PT, а не UTC. <strong>Решение:</strong> явно ставь <code>TZ=America/Los_Angeles</code> в скрипте либо в plist.
+</div>
+
+<div class="ok-box">
+  <strong>✅ Хороший паттерн:</strong> один master-supervisor (`com.demi.bot-monitor.plist` у Димы), который сам запускает другие задачи в нужный момент. Лучше один умный процесс чем 20 отдельных launchd entries — проще debug.
+</div>
+
+<h2>Готовые скрипты (примеры из demis-world)</h2>
+<ul>
+  <li><code>~/bin/email-digest.sh</code> — 08:00 + 18:00</li>
+  <li><code>~/bin/competitive-intel.sh</code> — понедельник 08:00</li>
+  <li><code>~/bin/morning-digest.sh</code> — 09:00</li>
+  <li><code>~/bin/health-check.sh</code> — каждые 5 мин</li>
+</ul>
+
+<hr>
+<p style="font-size:13px; color:#999;">Связанные: <a href="/skills/inbox-protocol.html">inbox-protocol</a> (что poll-ить), <a href="/skills/transcription.html">transcription</a>. Версия 1.0 · 2026-04-24.</p>
+
+</div>
+</body>
+</html>

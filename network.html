@@ -151,8 +151,8 @@ p.sub{color:var(--muted);max-width:700px;margin-bottom:clamp(24px,3vw,36px);font
       club_tag:'◆ club · по приглашению',club_h:'Что внутри клуба',
       club_sub:'Приватный слой поверх публичного. Закрытые playbook\'и, trust-сеть, referral-поток, co-работа. Стоимость входа — revenue-share, retainer, или эквивалентный вклад в сеть.',
       value_h:'Формула ценности',
-      join_h:'Как вступить — 4 шага',
-      join_sub:'Ниже — конкретная процедура. Первые 2 шага делаешь сейчас (сегодня), дальше уже вместе.'
+      join_h:'Как подключиться — 4 шага',
+      join_sub:'Полностью самостоятельно. Занимает 10 минут. Ни регистрации, ни ожидания.'
     },
     en:{
       hero_kicker:'demis.world · operator-network',
@@ -166,8 +166,8 @@ p.sub{color:var(--muted);max-width:700px;margin-bottom:clamp(24px,3vw,36px);font
       club_tag:'◆ club · invitation-only',club_h:'What\'s inside the club',
       club_sub:'Private layer on top of public. Closed playbooks, trust-network, referral flow, co-work. Cost of entry: revenue-share, retainer, or equivalent contribution.',
       value_h:'Value formula',
-      join_h:'How to join — 4 steps',
-      join_sub:'Below — the actual procedure. Steps 1-2 you do today; the rest together.'
+      join_h:'How to connect — 4 steps',
+      join_sub:'Fully self-service. Takes 10 minutes. No registration, no waiting.'
     },
     pl:{
       hero_kicker:'demis.world · sieć operatorów',
@@ -380,32 +380,42 @@ p.sub{color:var(--muted);max-width:700px;margin-bottom:clamp(24px,3vw,36px);font
 
   <div style="display:grid;grid-template-columns:1fr;gap:16px;margin:24px 0 28px">
     <div style="padding:18px 22px;border-left:3px solid var(--gold);background:var(--card-bg)">
-      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">шаг 1 · сейчас</div>
-      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Посмотри пример онбординга нового участника</b></div>
-      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Компактный 2-часовой план — сайты, презентации, транскрибация, автоматизация + подключение к сети. Увидишь что получает новый член на старте. → <a href="/plans/noname-pl" style="color:var(--gold-br)">demis.world/plans/noname-pl</a></div>
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">шаг 1 · 2 мин</div>
+      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Скачай и запусти DEMI Node</b></div>
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">
+        Установщик под твою систему:<br>
+        <a href="https://github.com/vasilevdasfo/demi-node/releases/tag/v0.2.0-alpha.1" style="color:var(--gold-br)">↓ Windows .exe / macOS .dmg — GitHub Releases</a><br><br>
+        После запуска нода поднимет UI на <code style="background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:3px">localhost:4321</code> — там твой peer ID (например <code style="background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:3px">swift-wolf-66</code>).
+      </div>
     </div>
 
     <div style="padding:18px 22px;border-left:3px solid var(--gold);background:var(--card-bg)">
-      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">шаг 2 · сейчас</div>
-      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Напиши Диме в Telegram одной строкой</b></div>
-      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Формат: «кто ты · чем занимаешься · что приносишь в сеть». Пример: «Иван, crypto-PR, веду каналы на 50K, могу давать media-reach в обмен на crypto-expertise».</div>
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">шаг 2 · 1 мин</div>
+      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Получи pair-код через бота</b></div>
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">
+        Открой <a href="https://t.me/demisworld_bot" style="color:var(--gold-br)">@demisworld_bot</a> и отправь команду <code style="background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:3px">/pair</code><br>
+        Бот выдаст 7-значный pair-код (действует 10 мин).
+      </div>
+    </div>
+
+    <div style="padding:18px 22px;border-left:3px solid var(--gold);background:var(--card-bg)">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px">шаг 3 · 1 мин</div>
+      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Введи код в ноде — спарингуйся</b></div>
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">
+        В UI или через CLI: <code style="background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:3px">demi pair &lt;код&gt;</code><br>
+        Через несколько секунд — <code style="background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:3px">trust=trusted</code>. Ты в сети.
+      </div>
     </div>
 
     <div style="padding:18px 22px;border-left:3px solid var(--muted);background:var(--card-bg)">
-      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">шаг 3 · 24-48 часа</div>
-      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Trust-фильтр</b></div>
-      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Дима смотрит: (1) профессия совпадает или комплементарна, (2) не-конкурент текущим операторам, (3) репутация verified. Ответит «да» или «не сейчас, вернись когда X».</div>
-    </div>
-
-    <div style="padding:18px 22px;border-left:3px solid var(--muted);background:var(--card-bg)">
-      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">шаг 4 · после approval</div>
-      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Setup (1 день) + первый exchange</b></div>
-      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Получаешь inbox-key, свой план онбординга как <a href="/plans/noname-pl" style="color:var(--gold-br)">образец</a>, первый приватный playbook, ed25519 identity для trust-network. После — revenue-share auto-трекинг.</div>
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">шаг 4 · опционально</div>
+      <div style="font-size:15px;color:var(--fg);margin-bottom:6px"><b>Представься в сети (не обязательно)</b></div>
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Если хочешь в закрытый клуб — напиши Диме одной строкой: «кто ты · чем занимаешься · что приносишь». Revenue-share, referral-поток, co-work с другими операторами. → <a href="https://t.me/Posbitcoin" style="color:var(--gold-br)">t.me/Posbitcoin</a></div>
     </div>
   </div>
 
-  <a class="join-cta" href="https://t.me/Posbitcoin">Шаг 2: Написать Диме →</a>
-  <a style="display:inline-block;margin-left:14px;padding:12px 24px;border:1px solid var(--line);color:var(--fg);font-size:13px;letter-spacing:1px;text-transform:uppercase;border-radius:2px" href="/plans/noname-pl">Посмотреть пример плана →</a>
+  <a class="join-cta" href="https://github.com/vasilevdasfo/demi-node/releases/tag/v0.2.0-alpha.1">↓ Скачать DEMI Node →</a>
+  <a style="display:inline-block;margin-left:14px;padding:12px 24px;border:1px solid var(--line);color:var(--fg);font-size:13px;letter-spacing:1px;text-transform:uppercase;border-radius:2px" href="https://t.me/demisworld_bot">@demisworld_bot →</a>
 </div>
 
 <!-- FOOTER -->
