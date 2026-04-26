@@ -373,6 +373,68 @@ p.sub{color:var(--muted);max-width:700px;margin-bottom:clamp(24px,3vw,36px);font
   </div>
 </section>
 
+<!-- LIVE DEMO -->
+<section>
+<style>
+.demo-section{margin:clamp(40px,6vw,72px) 0 0}
+.demo-card{background:#0d0d0d;border:1px solid #d4af37;border-radius:4px;padding:clamp(20px,3vw,36px);color:#f5f0e1}
+.demo-card .demo-title{font-family:"Playfair Display",Georgia,serif;font-size:clamp(18px,2vw,22px);font-weight:600;color:#d4af37;margin-bottom:20px}
+.demo-title::before{content:""}
+.demo-cols{display:grid;grid-template-columns:55fr 45fr;gap:clamp(16px,2.5vw,32px)}
+@media(max-width:640px){.demo-cols{grid-template-columns:1fr}}
+.demo-terminal{background:#050505;border:1px solid rgba(212,175,55,.25);border-radius:3px;padding:16px 18px;font-family:"SF Mono",Menlo,"Courier New",monospace;font-size:clamp(11px,1.2vw,13px);line-height:1.8;overflow:hidden}
+.t-prompt{color:#d4af37}
+.t-line{opacity:0;white-space:pre}
+.t-line.show{opacity:1}
+.t-dot{color:#4caf50;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.t-line:nth-child(1){animation:fadein .1s .2s forwards}
+.t-line:nth-child(2){animation:fadein .1s .7s forwards}
+.t-line:nth-child(3){animation:fadein .1s 1.2s forwards}
+.t-line:nth-child(4){animation:fadein .1s 1.7s forwards}
+.t-line:nth-child(5){animation:fadein .1s 2.6s forwards}
+.t-line:nth-child(6){animation:fadein .1s 3.1s forwards}
+.t-line:nth-child(7){animation:fadein .1s 3.6s forwards}
+@keyframes fadein{to{opacity:1}}
+.demo-features{display:flex;flex-direction:column;gap:10px;justify-content:center}
+.df-item{font-size:clamp(12px,1.3vw,14px);color:#c8c0a8;line-height:1.5}
+.df-item::before{content:"● ";color:#d4af37}
+.demo-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.demo-pill{padding:3px 12px;border:1px solid rgba(212,175,55,.35);border-radius:100px;font-size:11px;color:#8a8a7a;letter-spacing:.5px}
+</style>
+<div class="demo-section">
+  <h2>◆ Как выглядит запущенная нода</h2>
+  <div class="demo-card">
+    <div class="demo-cols">
+      <div>
+        <div class="demo-terminal">
+          <div class="t-line"><span class="t-prompt">$</span> demi peers</div>
+          <div class="t-line"><span class="t-dot">●</span> swift-wolf-66    8bd2593c  trust=trusted</div>
+          <div class="t-line"><span class="t-dot">●</span> swift-falcon-46  9e503ab0  trust=self</div>
+          <div class="t-line">&nbsp;</div>
+          <div class="t-line"><span class="t-prompt">$</span> demi status</div>
+          <div class="t-line"><span class="t-dot">●</span> Работает · swift-falcon-46</div>
+          <div class="t-line">&nbsp;&nbsp;Uptime: 2d 17h · peers: 2</div>
+        </div>
+      </div>
+      <div class="demo-features">
+        <div class="df-item">P2P напрямую — без серверов и посредников</div>
+        <div class="df-item">Identity: ed25519, ты владеешь ключом</div>
+        <div class="df-item">Работает в background, тихо</div>
+        <div class="df-item">Observer UI на localhost:4321</div>
+        <div class="df-item">Пока включён — всегда онлайн для trusted-сети</div>
+      </div>
+    </div>
+    <div class="demo-pills">
+      <span class="demo-pill">Node 22+</span>
+      <span class="demo-pill">MIT</span>
+      <span class="demo-pill">macOS / Windows</span>
+      <span class="demo-pill">~15MB</span>
+    </div>
+  </div>
+</div>
+</section>
+
 <!-- JOIN -->
 <div class="join">
   <h2 id="i_join_h">Как вступить — 4 шага</h2>
