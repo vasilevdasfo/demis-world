@@ -1,0 +1,259 @@
+/*
+  DEMI Design System v1.0 — единая палитра + компоненты для всех сайтов
+  Подключение: <link rel="stylesheet" href="/styles/demi.css">
+  Тема выбирается классом на <body>: theme-public-dark | theme-public-light | theme-tool
+  Документация: /DESIGN_SYSTEM.md
+*/
+
+/* ───────────────────────────────────────────
+   1. ТЕМЫ — выбор класса на <body>
+   ─────────────────────────────────────────── */
+
+/* THEME: public-dark — основной бренд demis.world / vda.vc (золото на чёрном)
+   Использовать для: публичных лендингов B2B premium, продающих страниц UHNWI/крипта/финтех */
+.theme-public-dark {
+  --bg: #0a0a0a;
+  --bg-2: #111111;
+  --surface: rgba(255,255,255,.03);
+  --surface-2: rgba(255,255,255,.06);
+  --line: rgba(201,169,97,.2);
+  --line-strong: rgba(201,169,97,.5);
+  --fg: #f5f0e1;
+  --fg-mute: #888;
+  --accent: #c9a961;
+  --accent-bright: #e8c97a;
+  --accent-ink: #1a1408;
+  --success: #7ac97a;
+  --danger: #e85a5a;
+  --info: #6aa5ff;
+  --shadow: 0 8px 32px rgba(0,0,0,.5);
+  --hero-glow: radial-gradient(circle, rgba(201,169,97,.08) 0%, transparent 70%);
+}
+
+/* THEME: public-light — cream + serif (landing-starter эстетика)
+   Использовать для: партнёрских сайтов, white-label, классический бренд */
+.theme-public-light {
+  --bg: #f8f5ee;
+  --bg-2: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #faf2d9;
+  --line: #e8e2d2;
+  --line-strong: #a07d2a;
+  --fg: #1a1a1a;
+  --fg-mute: #4a4a4a;
+  --accent: #a07d2a;
+  --accent-bright: #c9a961;
+  --accent-ink: #ffffff;
+  --success: #2d8659;
+  --danger: #c44545;
+  --info: #2c6cb8;
+  --shadow: 0 4px 24px rgba(0,0,0,.08);
+  --hero-glow: none;
+}
+
+/* THEME: tool — Google Material light (deep-research-style)
+   Использовать для: ВНУТРЕННИХ инструментов: dashboards, sales-deck, decisions, audits, admin
+   Это НЕ для холодного трафика. Это для работы. */
+.theme-tool {
+  --bg: #f8f9fa;
+  --bg-2: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f1f3f4;
+  --line: #dadce0;
+  --line-strong: #4285F4;
+  --fg: #202124;
+  --fg-mute: #5f6368;
+  --accent: #4285F4;
+  --accent-bright: #1967D2;
+  --accent-ink: #ffffff;
+  --success: #34A853;
+  --danger: #EA4335;
+  --warn: #FBBC04;
+  --info: #4285F4;
+  --gold: #c9a961;
+  --shadow: 0 1px 3px rgba(60,64,67,.15), 0 1px 2px rgba(60,64,67,.1);
+  --hero-glow: none;
+}
+
+/* ───────────────────────────────────────────
+   2. БАЗА — reset + body
+   ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.theme-public-light body, body.theme-public-light {
+  font-family: 'Iowan Old Style', 'Charter', Georgia, serif;
+  line-height: 1.65;
+}
+.theme-public-light h1, .theme-public-light h2, .theme-public-light h3,
+body.theme-public-light h1, body.theme-public-light h2, body.theme-public-light h3 {
+  font-family: 'Iowan Old Style', 'Charter', Georgia, serif;
+  font-weight: 600;
+}
+
+/* ───────────────────────────────────────────
+   3. ТИПОГРАФИКА
+   ─────────────────────────────────────────── */
+h1 { font-size: clamp(28px, 5vw, 48px); line-height: 1.1; letter-spacing: -.02em; color: var(--accent-bright); margin-bottom: 16px; }
+.theme-tool h1 { color: var(--fg); font-weight: 500; font-size: clamp(22px, 3vw, 28px); }
+h2 { font-size: clamp(22px, 3.5vw, 32px); line-height: 1.15; letter-spacing: -.01em; color: var(--accent-bright); margin-bottom: 12px; }
+.theme-tool h2 { color: var(--fg); font-weight: 500; font-size: 18px; }
+h3 { font-size: 18px; font-weight: 600; color: var(--fg); margin-bottom: 10px; }
+.kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .15em; color: var(--accent); margin-bottom: 16px; font-weight: 600; }
+.lead { font-size: clamp(16px, 2vw, 19px); color: var(--fg); opacity: .9; max-width: 680px; }
+.mute { color: var(--fg-mute); font-size: 13px; }
+
+/* ───────────────────────────────────────────
+   4. LAYOUT
+   ─────────────────────────────────────────── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+.container-narrow { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+.container-wide { max-width: 1440px; margin: 0 auto; padding: 0 32px; }
+section.block { padding: 56px 0; border-top: 1px solid var(--line); }
+.theme-tool section.block { padding: 32px 0; border-top: 1px solid var(--line); }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.grid-auto-sm { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+
+/* ───────────────────────────────────────────
+   5. NAV (sticky header) — для лендингов
+   ─────────────────────────────────────────── */
+.demi-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 20px;
+}
+.demi-nav .row { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.demi-nav .logo { font-weight: 700; letter-spacing: .05em; color: var(--accent-bright); text-decoration: none; font-size: 15px; }
+.demi-nav .links { display: flex; gap: 18px; font-size: 13px; }
+.demi-nav a { color: var(--fg-mute); text-decoration: none; transition: color .15s; }
+.demi-nav a:hover { color: var(--accent); }
+@media (max-width: 600px) { .demi-nav .links { display: none; } }
+
+/* ───────────────────────────────────────────
+   6. КНОПКИ
+   ─────────────────────────────────────────── */
+.btn {
+  display: inline-block; padding: 12px 22px; border-radius: 8px;
+  text-decoration: none; font-weight: 600; font-size: 14px;
+  border: 1px solid transparent; cursor: pointer; font-family: inherit;
+  transition: transform .15s, background .15s, border-color .15s;
+}
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { background: var(--accent-bright); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--fg); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.btn-sm { padding: 8px 14px; font-size: 13px; }
+.btn-lg { padding: 16px 32px; font-size: 16px; }
+
+/* ───────────────────────────────────────────
+   7. КАРТОЧКИ
+   ─────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: border-color .15s, transform .15s;
+}
+.card.hoverable { cursor: pointer; }
+.card.hoverable:hover { border-color: var(--accent); transform: translateY(-1px); }
+.card-tight { padding: 14px 16px; }
+.card .card-pull { font-size: 16px; font-weight: 600; color: var(--accent-bright); margin-bottom: 8px; line-height: 1.35; }
+.theme-tool .card .card-pull { color: var(--fg); }
+.card .card-ctx { font-size: 13px; color: var(--fg-mute); margin-bottom: 8px; }
+.card .card-meta { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line); }
+
+/* ───────────────────────────────────────────
+   8. БЕЙДЖИ / TAGS
+   ─────────────────────────────────────────── */
+.badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: .05em; vertical-align: middle; }
+.badge-accent { background: var(--accent); color: var(--accent-ink); }
+.badge-success { background: var(--success); color: #fff; }
+.badge-danger { background: var(--danger); color: #fff; }
+.badge-warn { background: var(--warn, #FBBC04); color: #1a1408; }
+.badge-mute { background: var(--surface-2); color: var(--fg-mute); }
+
+/* ───────────────────────────────────────────
+   9. ТАБЫ
+   ─────────────────────────────────────────── */
+.demi-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.theme-tool .demi-tabs { background: var(--surface-2); padding: 3px; border-radius: 24px; border: none; gap: 2px; display: inline-flex; }
+.demi-tab {
+  padding: 8px 16px; background: transparent; border: 1px solid var(--line); color: var(--fg);
+  border-radius: 6px; cursor: pointer; font-size: 13px; font-family: inherit; transition: all .15s;
+}
+.theme-tool .demi-tab { border: none; border-radius: 20px; padding: 8px 18px; color: var(--fg-mute); font-weight: 500; }
+.demi-tab:hover:not(.active) { border-color: var(--accent); }
+.theme-tool .demi-tab:hover:not(.active) { color: var(--fg); border-color: transparent; }
+.demi-tab.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.theme-tool .demi-tab.active { background: var(--bg-2); color: var(--accent); box-shadow: var(--shadow); }
+.demi-section { display: none; }
+.demi-section.active { display: block; }
+
+/* ───────────────────────────────────────────
+   10. УВЕДОМЛЕНИЯ / TOAST
+   ─────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--success); color: #fff; padding: 10px 18px; border-radius: 8px;
+  font-weight: 600; font-size: 14px; opacity: 0; transition: .25s; pointer-events: none; z-index: 100;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.warn-box {
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  border: 1px solid var(--danger); border-radius: 8px;
+  padding: 12px 16px; margin-bottom: 20px; font-size: 13px;
+}
+.warn-box b { color: var(--danger); }
+
+/* ───────────────────────────────────────────
+   11. FOOTER
+   ─────────────────────────────────────────── */
+.demi-footer { padding: 32px 20px; border-top: 1px solid var(--line); text-align: center; font-size: 12px; color: var(--fg-mute); margin-top: 48px; }
+.demi-footer a { color: var(--accent); text-decoration: none; margin: 0 8px; }
+.demi-footer a:hover { color: var(--accent-bright); }
+
+/* ───────────────────────────────────────────
+   12. APPROVE BUTTON (per CLAUDE.md rule)
+   ─────────────────────────────────────────── */
+.approve-btn {
+  position: fixed; bottom: 18px; right: 18px;
+  background: var(--success); color: #fff; border: none;
+  padding: 10px 16px; border-radius: 8px;
+  font-weight: 600; font-size: 13px; cursor: pointer; font-family: inherit;
+  box-shadow: 0 4px 16px rgba(0,0,0,.3); z-index: 100;
+}
+.approve-btn:hover { transform: translateY(-1px); }
+
+/* ───────────────────────────────────────────
+   13. УТИЛИТЫ
+   ─────────────────────────────────────────── */
+.text-center { text-align: center; }
+.text-mute { color: var(--fg-mute); }
+.text-accent { color: var(--accent); }
+.mt-0 { margin-top: 0; } .mt-1 { margin-top: 8px; } .mt-2 { margin-top: 16px; } .mt-3 { margin-top: 24px; } .mt-4 { margin-top: 32px; }
+.mb-0 { margin-bottom: 0; } .mb-1 { margin-bottom: 8px; } .mb-2 { margin-bottom: 16px; } .mb-3 { margin-bottom: 24px; } .mb-4 { margin-bottom: 32px; }
+.flex { display: flex; gap: 12px; flex-wrap: wrap; }
+.flex-center { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+/* ───────────────────────────────────────────
+   14. MOBILE
+   ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  body { padding: 0; }
+  section.block { padding: 36px 0; }
+  .container, .container-narrow, .container-wide { padding: 0 16px; }
+  .demi-tab { font-size: 12px; padding: 7px 12px; }
+  .card { padding: 16px; }
+  .btn { padding: 11px 18px; }
+}
