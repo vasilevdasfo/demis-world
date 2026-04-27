@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-аудит финтех — 3-дневный интенсив с Дмитрием Васильевым</title>
+<meta name="description" content="3-дневный закрытый интенсив для финтех/крипто founders. AI-внедрение под compliance. 8 мест. Гарантия возврата после 1-го дня.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://demis.world/intensive.html">
+<meta property="og:title" content="AI-аудит финтех — 3 дня · 8 мест · Дмитрий Васильев">
+<meta property="og:description" content="Внедрить AI под compliance. Не курс. Не марафон. 3 дня — рабочая система.">
+<meta property="og:locale" content="ru_RU">
+<link rel="stylesheet" href="/styles/demi.css">
+<style>
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:var(--hero-glow);pointer-events:none;z-index:-1}
+.hero{padding:80px 0 60px;text-align:center;position:relative}
+.hero-pricetag{display:inline-flex;align-items:baseline;gap:14px;margin-top:24px;padding:14px 24px;background:rgba(201,169,97,.08);border:1px solid var(--accent);border-radius:10px;font-size:15px}
+.hero-pricetag .num{font-size:28px;font-weight:700;color:var(--accent-bright)}
+.hero-pricetag .strike{text-decoration:line-through;color:var(--fg-mute);font-size:14px;margin-left:4px}
+.scarcity{display:inline-block;padding:6px 14px;background:var(--danger);color:#fff;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:18px;letter-spacing:.05em}
+.scarcity::before{content:'🔥 ';margin-right:4px}
+
+.day{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:14px}
+.day-num{display:inline-block;font-size:42px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:10px}
+.day h3{font-size:22px;color:var(--accent-bright);margin-bottom:14px}
+.day ul{list-style:none}
+.day li{padding:8px 0 8px 24px;position:relative;color:var(--fg);font-size:15px}
+.day li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:700}
+.day .outcome{margin-top:18px;padding:14px 18px;background:rgba(122,201,122,.08);border-left:3px solid var(--success);border-radius:0 8px 8px 0;font-size:14px}
+.day .outcome b{color:var(--success)}
+
+.who-for{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:24px}
+.wcard{padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.wcard.bad{border-color:var(--danger)}
+.wcard.good{border-color:var(--success)}
+.wcard .ttl{font-weight:600;font-size:15px;margin-bottom:8px}
+.wcard.bad .ttl::before{content:'❌ ';margin-right:4px}
+.wcard.good .ttl::before{content:'✅ ';margin-right:4px}
+.wcard .txt{font-size:13px;color:var(--fg-mute);line-height:1.5}
+
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:24px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px}
+.pcard .big{font-size:36px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:6px}
+.pcard .lbl{font-size:13px;color:var(--fg-mute)}
+
+.compare{margin-top:32px}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.compare-row:first-child{font-weight:700;border-bottom-width:2px;border-bottom-color:var(--accent)}
+.compare-row .col-them{color:var(--fg-mute);font-size:14px}
+.compare-row .col-us{color:var(--accent-bright);font-size:14px;font-weight:500}
+.compare-row .col-us::before{content:'→ ';color:var(--success)}
+
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:600;color:var(--accent-bright);font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::after{content:'+';color:var(--accent);font-size:20px;transition:transform .15s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details>p{margin-top:14px;color:var(--fg);opacity:.9;font-size:14px;line-height:1.6}
+
+.guarantee{display:flex;gap:18px;align-items:flex-start;background:rgba(122,201,122,.06);border:1px solid var(--success);border-radius:14px;padding:24px;margin-top:32px}
+.guarantee .icon{font-size:36px;line-height:1;flex-shrink:0}
+.guarantee h3{color:var(--success);font-size:18px;margin-bottom:8px}
+
+.final{text-align:center;padding:64px 20px}
+.final h2{font-size:clamp(28px,5vw,40px);margin-bottom:20px}
+.final p{color:var(--fg-mute);max-width:520px;margin:0 auto 28px;font-size:16px}
+.spots-counter{display:inline-block;padding:8px 16px;background:rgba(232,90,90,.1);border:1px solid var(--danger);border-radius:20px;color:var(--danger);font-weight:600;font-size:13px;margin-bottom:18px}
+
+@media(max-width:600px){
+  .hero{padding:50px 0 36px}
+  .compare-row{grid-template-columns:1fr;gap:6px}
+  .compare-row .col-us::before{display:none}
+  .guarantee{flex-direction:column}
+}
+</style>
+</head>
+<body class="theme-public-dark">
+
+<nav class="demi-nav">
+  <div class="row">
+    <a href="/" class="logo">DEMI</a>
+    <div class="links">
+      <a href="#program">Программа</a>
+      <a href="#for-whom">Для кого</a>
+      <a href="#vs">Vs Хедлайнеры</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#book" class="btn btn-primary btn-sm">Забронировать</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="scarcity">8 мест · следующий поток 12-14 мая</div>
+    <h1>AI-аудит финтех<br>за 3 дня</h1>
+    <p class="lead">Закрытый интенсив для founders финтех/крипта/EMI. <b>Не семинар.</b> На выходе — рабочая AI-система в твоей компании, не презентация.</p>
+    <div class="hero-pricetag">
+      <span>Инвестиция:</span>
+      <span class="num">$1 500</span>
+      <span class="strike">$2 500</span>
+      <span style="color:var(--fg-mute);font-size:13px">/ участник · early bird до 5 мая</span>
+    </div>
+    <div style="margin-top:30px">
+      <a href="#book" class="btn btn-primary btn-lg">Забронировать место</a>
+      <a href="#program" class="btn btn-ghost btn-lg" style="margin-left:10px">Программа 3 дней</a>
+    </div>
+    <div class="mute mt-2" style="font-size:12px">Гарантия возврата 100% после 1-го дня · криптой / wire / РФ-картой</div>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container-narrow">
+    <h2>Почему этот интенсив</h2>
+    <p class="lead mb-3">Хедлайнеры берут 200K ₽ за «AI вообще». Я работаю с теми, у кого <b>EMI-лицензия и 4 ареста в анамнезе</b>. Это другая лига регуляторики и другие риски.</p>
+    <p class="lead">Внедрить и быстро — ты ошибёшься, отобьёт желание, тебя откатит назад. Внедрить и <b>навсегда</b> — это другая стратегия. Этот интенсив про вторую.</p>
+  </div>
+</section>
+
+<section class="block" id="program">
+  <div class="container">
+    <h2 class="text-center">Программа · 3 дня по 5 часов</h2>
+    <p class="subh text-center mb-3" style="margin-left:auto;margin-right:auto">Оффлайн в Bay Area или онлайн (Zoom). Приходишь вдвоём — ты + твой +1 (партнёр или operations director).</p>
+
+    <div class="day">
+      <div class="day-num">1</div>
+      <h3>Аудит и архитектура</h3>
+      <ul>
+        <li>AI-аудит твоей компании по 5 уровням зрелости (1-2 часа)</li>
+        <li>Карта compliance-рисков: где AI можно, где нельзя, где под NDA</li>
+        <li>Обзор твоего стека: ChatGPT/Claude/Gemini vs специализированные финтех-AI</li>
+        <li>Архитектура: что внедряем за 3 дня, что — за 3 месяца</li>
+        <li>Личный план для тебя + личный план для +1</li>
+      </ul>
+      <div class="outcome"><b>На выходе:</b> карта твоей AI-зрелости + 90-дневный roadmap. Если не подошло — возвращаю деньги до конца дня.</div>
+    </div>
+
+    <div class="day">
+      <div class="day-num">2</div>
+      <h3>Внедрение base-stack</h3>
+      <ul>
+        <li>Корпоративный аккаунт ChatGPT Team / Claude Team — настройка под compliance</li>
+        <li>Custom GPT для твоей роли (CEO / COO / Compliance Officer)</li>
+        <li>Библиотека промтов твоей компании — собираем с нуля под твои процессы</li>
+        <li>Меня учат → я учу тебя → ты учишь +1 (live в течение дня)</li>
+        <li>Telegram-агент в твоём контуре: каждому сотруднику — свой топик</li>
+      </ul>
+      <div class="outcome"><b>На выходе:</b> рабочая база, к которой команда подключена. Не «вот вам промты», а живая система.</div>
+    </div>
+
+    <div class="day">
+      <div class="day-num">3</div>
+      <h3>Автономные агенты + защита</h3>
+      <ul>
+        <li>1-2 автономных AI-агента под твою боль (аналитика / отчёты / due diligence)</li>
+        <li>Compliance-checklist: что AI делает, что нет, как фиксировать в документах</li>
+        <li>P2P-нода DEMI в твоём периметре (опционально)</li>
+        <li>Crypto-DD скилл, если работаешь с криптой</li>
+        <li>«Карта возврата»: как через 90 дней проверить что ничего не откатилось</li>
+      </ul>
+      <div class="outcome"><b>На выходе:</b> у тебя есть AI-команда, которая работает, пока ты спишь. И понимание как её защищать от регулятора.</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="for-whom">
+  <div class="container">
+    <h2>Кому подходит</h2>
+    <div class="who-for">
+      <div class="wcard good">
+        <div class="ttl">Финтех/EMI founder</div>
+        <div class="txt">У тебя лицензия. Compliance — не теория, а ежедневная боль. Хочешь AI без риска отзыва.</div>
+      </div>
+      <div class="wcard good">
+        <div class="ttl">Крипто OTC / P2P</div>
+        <div class="txt">Серая зона. Регуляторика меняется. Нужны инструменты которые не повесят на тебя ярлык скам.</div>
+      </div>
+      <div class="wcard good">
+        <div class="ttl">Founder в кризисе</div>
+        <div class="txt">Падает выручка. Нужно урезать косты без обвала команды. AI как мультипликатор, не замена.</div>
+      </div>
+      <div class="wcard bad">
+        <div class="ttl">«Хочу попробовать AI»</div>
+        <div class="txt">Иди к Хедлайнерам или ShareAI. Это интенсив для тех, у кого есть конкретная боль и она стоит $1500.</div>
+      </div>
+      <div class="wcard bad">
+        <div class="ttl">Один без команды</div>
+        <div class="txt">Без +1 не сработает. Это не моё мнение — это правило Никиты Ануфриева. Подтверждаю на своих кейсах.</div>
+      </div>
+      <div class="wcard bad">
+        <div class="ttl">«Сам разберусь»</div>
+        <div class="txt">Тогда смотри Vibecast Headliner на YouTube — там всё то же бесплатно. Но через 6 мес я тебя обгоню.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container">
+    <h2>Почему я (а не Хедлайнеры)</h2>
+    <div class="proof">
+      <div class="pcard"><div class="big">$800M</div><div class="lbl">возвращено пользователям BTC-e через WEX</div></div>
+      <div class="pcard"><div class="big">EMI</div><div class="lbl">текущий клиент с лицензией, реальный compliance</div></div>
+      <div class="pcard"><div class="big">4/5</div><div class="lbl">арестов в 5 странах — знаю систему изнутри</div></div>
+      <div class="pcard"><div class="big">$200K+</div><div class="lbl">платящих подписчиков в моих ботах за 8 мес</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="vs">
+  <div class="container-narrow">
+    <h2>Vs «ИИвизация» Хедлайнеров</h2>
+    <div class="compare">
+      <div class="compare-row">
+        <div>Хедлайнеры (Никита Ануфриев)</div>
+        <div>DEMI (Дмитрий Васильев)</div>
+      </div>
+      <div class="compare-row">
+        <div class="col-them">200 000 ₽ ($2 200) · 15 мест · оффлайн МСК</div>
+        <div class="col-us">$1 500 · 8 мест · Bay Area / онлайн</div>
+      </div>
+      <div class="compare-row">
+        <div class="col-them">AI-внедрение «вообще» для бизнеса</div>
+        <div class="col-us">AI-внедрение под compliance · финтех/крипта/EMI</div>
+      </div>
+      <div class="compare-row">
+        <div class="col-them">Бэкграунд: Hamster Kombat (-98% от ATH), MarsDAO (реестр пирамид ЦБ)</div>
+        <div class="col-us">Бэкграунд: WEX/$800M возврата, BCB.credit MD, Сталь EMI</div>
+      </div>
+      <div class="compare-row">
+        <div class="col-them">Кейс на интенсиве: Carloson Club (200 авто)</div>
+        <div class="col-us">Кейсы: Сталь / Global Wallet / DOM / PintoPay (живые финтех)</div>
+      </div>
+      <div class="compare-row">
+        <div class="col-them">На выходе: ассистент no-code + план на 6 мес</div>
+        <div class="col-us">На выходе: рабочие AI-агенты в продакшене + compliance-карта</div>
+      </div>
+      <div class="compare-row">
+        <div class="col-them">Гарантия возврата после 1-го дня (есть)</div>
+        <div class="col-us">Гарантия возврата после 1-го дня (тоже есть)</div>
+      </div>
+    </div>
+
+    <div class="guarantee">
+      <div class="icon">🛡️</div>
+      <div>
+        <h3>Гарантия 100% возврата</h3>
+        <p>После 1-го дня. Не подошло — возвращаю всю сумму без вопросов. Криптой / wire / на ту карту с которой пришёл платёж.</p>
+        <p style="margin-top:8px;font-size:13px;color:var(--fg-mute)">Условие одно: ты честно прошёл 1-й день. Не «передумал в обед» — это не возврат, это пропуск без причины.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="faq">
+  <div class="container-narrow">
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details>
+        <summary>Это онлайн или оффлайн?</summary>
+        <p>По выбору. Оффлайн — Bay Area (Hayward, CA) или Дубай (даты согласовываем). Онлайн — Zoom, 5 часов в день. Качество одинаковое, оффлайн обычно глубже за счёт неформальной части.</p>
+      </details>
+      <details>
+        <summary>Можно одному, без +1?</summary>
+        <p>Технически — да, но я отговариваю. По опыту 80% «одиночных» внедрений откатываются за 90 дней. Бери COO, business partner или того кто будет внедрять руками. Цена за двоих — те же $1500.</p>
+      </details>
+      <details>
+        <summary>Я не технарь. Справлюсь?</summary>
+        <p>Это интенсив для founders, не разработчиков. Технические детали закрываю я + готовые скиллы DEMI. От тебя — твои процессы и боли.</p>
+      </details>
+      <details>
+        <summary>Что если у меня уже есть какой-то AI?</summary>
+        <p>Это плюс. На 1-м дне делаю аудит того что есть, добиваем недостающее. Часто оказывается что 60% работы уже сделано — просто без системы.</p>
+      </details>
+      <details>
+        <summary>Как оплатить из СНГ?</summary>
+        <p>USDT (TRC-20), карта РФ через посредника, Wise, прямой wire. Реквизиты в TG после брони.</p>
+      </details>
+      <details>
+        <summary>Что после интенсива?</summary>
+        <p>30 дней email-поддержки бесплатно. Дальше — опционально вступаешь в DEMI Club (от $49/мес) или работаем индивидуально.</p>
+      </details>
+      <details>
+        <summary>Можно записать?</summary>
+        <p>Да, всё пишется. Тебе уйдёт полный архив + транскрипты + чек-листы. Использовать только внутри своей компании, не перепродавать.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="final" id="book">
+  <div class="container">
+    <div class="spots-counter">⏰ Осталось 6 из 8 мест · поток 12-14 мая</div>
+    <h2>Внедрить AI — и навсегда.</h2>
+    <p>Это разрыв-оффер. Не быстро. Не «разобраться». 3 дня → рабочая система, которая не откатится.</p>
+    <a href="https://t.me/Posbitcoin" class="btn btn-primary btn-lg">Написать Дмитрию в Telegram</a>
+    <div class="mute mt-2" style="font-size:12px">Или напиши на dima@vda.vc · отвечаю в течение 4 часов</div>
+  </div>
+</div>
+
+<footer class="demi-footer">
+  <div>
+    <a href="/">demis.world</a> ·
+    <a href="/club.html">DEMI Club</a> ·
+    <a href="https://vda.vc">vda.vc</a> ·
+    <a href="https://t.me/Posbitcoin">@Posbitcoin</a>
+  </div>
+  <div style="margin-top:14px;opacity:.6">© 2026 Дмитрий Васильев · NFA · Hayward, CA · Не финансовый совет</div>
+</footer>
+
+<button class="approve-btn" onclick="alert('Напишите Дмитрию: сделай intensive.html живым')">✅ Approve → live</button>
+
+</body>
+</html>
