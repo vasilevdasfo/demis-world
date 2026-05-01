@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vda.vc — Design Levels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* Control Panel */
+    .control-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #c9a84c;
+      white-space: nowrap;
+    }
+
+    .buttons-group {
+      display: flex;
+      gap: 1rem;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .level-btn {
+      padding: 0.625rem 1.25rem;
+      border: 2px solid;
+      background: transparent;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .level-btn[data-level="level1"] {
+      border-color: #22c55e;
+      color: #22c55e;
+    }
+
+    .level-btn[data-level="level1"].active {
+      background: #22c55e;
+      color: #0a0a0a;
+    }
+
+    .level-btn[data-level="level2"] {
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    .level-btn[data-level="level2"].active {
+      background: #3b82f6;
+      color: #0a0a0a;
+    }
+
+    .level-btn[data-level="level3"] {
+      border-color: #a855f7;
+      color: #a855f7;
+    }
+
+    .level-btn[data-level="level3"].active {
+      background: #a855f7;
+      color: #0a0a0a;
+    }
+
+    .level-btn[data-level="v13"] {
+      border-color: #c9a84c;
+      color: #c9a84c;
+    }
+
+    .level-btn[data-level="v13"].active {
+      background: #c9a84c;
+      color: #0a0a0a;
+    }
+
+    .level-btn:hover {
+      text-shadow: 0 0 8px currentColor;
+      transform: translateY(-2px);
+    }
+
+    .info-panel {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-left: auto;
+      font-size: 12px;
+      color: #999;
+      white-space: nowrap;
+    }
+
+    .size-info {
+      padding: 0.5rem 1rem;
+      background: rgba(201, 168, 76, 0.05);
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      border-radius: 4px;
+    }
+
+    .tech-stack {
+      max-width: 250px;
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    /* iframe Container */
+    .iframe-container {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: calc(100vh - 70px);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    iframe.fade-out {
+      opacity: 0;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .control-panel {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        gap: 1rem;
+      }
+
+      .buttons-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.75rem;
+      }
+
+      .level-btn {
+        width: 100%;
+      }
+
+      .info-panel {
+        flex-direction: column;
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .tech-stack {
+        max-width: 100%;
+        text-align: left;
+      }
+
+      .iframe-container {
+        top: auto;
+        height: calc(100vh - 200px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="control-panel">
+    <div class="logo">vda.vc — Design Levels</div>
+    <div class="buttons-group">
+      <button class="level-btn" data-level="level1">L1 Clean</button>
+      <button class="level-btn" data-level="level2">L2 Premium</button>
+      <button class="level-btn" data-level="level3">L3 Cinematic</button>
+      <button class="level-btn active" data-level="v13">v13 Final</button>
+    </div>
+    <div class="info-panel">
+      <div class="size-info">
+        <span id="size">44KB</span>
+      </div>
+      <div class="tech-stack" id="tech">
+        Video + Particles + Gold + Trust + Cases + RU/EN
+      </div>
+    </div>
+  </div>
+
+  <div class="iframe-container">
+    <iframe id="preview" src="v13.html"></iframe>
+  </div>
+
+  <script>
+    const levelData = {
+      level1: {
+        file: 'level1-clean.html',
+        size: '20KB',
+        tech: 'CSS only · IntersectionObserver · &lt;1s load · Typography-first'
+      },
+      level2: {
+        file: 'level2-premium.html',
+        size: '33KB',
+        tech: 'GSAP · ScrollTrigger · Typewriter · Cursor follower · 3D tilt'
+      },
+      level3: {
+        file: 'level3-cinematic.html',
+        size: '38KB',
+        tech: 'Video bg · Canvas particles · Smooth scroll · Magnetic buttons · Noise'
+      },
+      v13: {
+        file: 'v13.html',
+        size: '44KB',
+        tech: 'Video + Particles + Gold accents + Trust bar + Cases + RU/EN · All-in-one'
+      }
+    };
+
+    const preview = document.getElementById('preview');
+    const sizeEl = document.getElementById('size');
+    const techEl = document.getElementById('tech');
+    const buttons = document.querySelectorAll('.level-btn');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const level = btn.dataset.level;
+        const data = levelData[level];
+
+        // Update active state
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Fade out, change src, fade in
+        preview.classList.add('fade-out');
+        setTimeout(() => {
+          preview.src = data.file;
+          preview.classList.remove('fade-out');
+        }, 200);
+
+        // Update info
+        sizeEl.textContent = data.size;
+        techEl.innerHTML = data.tech;
+      });
+    });
+  </script>
+</body>
+</html>

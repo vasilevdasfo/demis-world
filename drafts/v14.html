@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Дмитрий Васильев — крипто/финтех эксперт. Решу вашу проблему. WEX, $800M, 15+ лет опыта.">
+  <meta property="og:title" content="Дмитрий Васильев — Крипто & Финтех Консалтинг">
+  <meta property="og:description" content="Решаю нерешаемое. Крипто-консалтинг, AI-автоматизация, кризис-менеджмент.">
+  <meta property="og:image" content="https://vda.vc/og-image.jpg">
+  <title>Дмитрий Васильев — Решаю нерешаемое</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #0f0f0f;
+      background-color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* === GLOBALS === */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    section {
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* === NOISE OVERLAY === */
+    svg.noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.025;
+      z-index: 9999;
+      mix-blend-mode: multiply;
+    }
+
+    /* === CURSOR FOLLOWER === */
+    .cursor-follower {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(201, 168, 76, 0.3);
+      border: 1px solid rgba(201, 168, 76, 0.6);
+      pointer-events: none;
+      z-index: 9998;
+      mix-blend-mode: difference;
+      display: none;
+    }
+
+    @media (min-width: 769px) {
+      .cursor-follower {
+        display: block;
+      }
+    }
+
+    /* === NAVBAR === */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 24px;
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(24px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #0f0f0f;
+      transition: color 0.3s ease;
+    }
+
+    nav.scrolled .nav-logo {
+      color: #0f0f0f;
+    }
+
+    .nav-logo:hover {
+      color: #c9a84c;
+    }
+
+    .nav-menu {
+      display: none;
+      gap: 40px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-menu li a {
+      font-size: 14px;
+      color: #3a3a3a;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-menu li a:hover {
+      color: #c9a84c;
+    }
+
+    .nav-menu li a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #c9a84c;
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu li a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid #c9a84c;
+      color: #c9a84c;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      background: #c9a84c;
+      color: #0f0f0f;
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #0f0f0f;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    @media (min-width: 1025px) {
+      .nav-menu {
+        display: flex;
+      }
+      .hamburger {
+        display: none;
+      }
+    }
+
+    /* === HERO === */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: white;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.5));
+      z-index: 2;
+    }
+
+    canvas#particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 4;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 24px;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 30px;
+      font-weight: 600;
+      opacity: 0;
+      animation: fadeInDown 1s ease-out 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 8vw, 72px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero-title span {
+      display: inline-block;
+      opacity: 0;
+      animation: slideUp 0.6s ease-out forwards;
+    }
+
+    .hero-title span:nth-child(1) { animation-delay: 0.4s; }
+    .hero-title span:nth-child(2) { animation-delay: 0.6s; }
+    .hero-title span:nth-child(3) {
+      animation-delay: 0.8s;
+      color: #c9a84c;
+      animation: slideUp 0.6s ease-out 0.8s, pulse 2s ease-in-out 1.4s infinite;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 1s forwards;
+    }
+
+    .hero-quote {
+      font-size: 16px;
+      font-style: italic;
+      border-left: 3px solid #c9a84c;
+      padding-left: 20px;
+      margin: 40px 0;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 1.2s forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 1.4s forwards;
+    }
+
+    .btn-primary {
+      background: #c9a84c;
+      color: #0f0f0f;
+      padding: 15px 35px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .btn-primary:hover {
+      background: #d4af37;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 13px 33px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: #0f0f0f;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 60px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 1.6s forwards;
+    }
+
+    @media (max-width: 768px) {
+      .hero-stats {
+        gap: 20px;
+      }
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 900;
+      color: #c9a84c;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 2s forwards;
+    }
+
+    .chevron {
+      width: 24px;
+      height: 24px;
+      border-left: 2px solid #c9a84c;
+      border-bottom: 2px solid #c9a84c;
+      transform: rotate(-45deg);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: rotate(-45deg) translateY(0);
+      }
+      40% {
+        transform: rotate(-45deg) translateY(8px);
+      }
+      60% {
+        transform: rotate(-45deg) translateY(4px);
+      }
+    }
+
+    /* === TRUST BAR === */
+    .trust-link {
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.3s ease, color 0.3s ease;
+      cursor: pointer;
+    }
+    .trust-link:hover {
+      transform: translateY(-4px);
+    }
+    .trust-link:hover .trust-number {
+      color: #c9a84c;
+    }
+    .trust-bar {
+      background: #ffffff;
+      padding: 60px 24px;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .trust-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .trust-content {
+        gap: 20px;
+        justify-content: center;
+      }
+    }
+
+    .trust-item {
+      text-align: center;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .trust-item:nth-child(1) { animation-delay: 0s; }
+    .trust-item:nth-child(2) { animation-delay: 0.1s; }
+    .trust-item:nth-child(3) { animation-delay: 0.2s; }
+    .trust-item:nth-child(4) { animation-delay: 0.3s; }
+
+    .trust-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #c9a84c;
+      line-height: 1;
+    }
+
+    .trust-label {
+      font-size: 12px;
+      color: #3a3a3a;
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* === MARQUEE === */
+    .marquee-section {
+      background: #0a0a0a;
+      color: white;
+      padding: 40px 0;
+      overflow: hidden;
+    }
+
+    .marquee {
+      display: flex;
+      width: fit-content;
+      animation: scroll 20s linear infinite;
+    }
+
+    .marquee-item {
+      padding: 0 30px;
+      white-space: nowrap;
+      font-size: 16px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      opacity: 0.7;
+    }
+
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      background: #c9a84c;
+      border-radius: 50%;
+    }
+
+    .marquee.reverse {
+      animation: scroll-reverse 20s linear infinite;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes scroll-reverse {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* === ABOUT SECTION === */
+    .about {
+      background: #ffffff;
+      padding: 100px 24px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-number {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #c9a84c;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 900;
+      color: #0f0f0f;
+      margin-bottom: 15px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: #3a3a3a;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    .about-card {
+      padding: 40px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .about-card.success {
+      background: #f0fdf4;
+      border: 1px solid #c6f6d5;
+    }
+
+    .about-card.challenge {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .about-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .about-card.success .about-card-title {
+      color: #16a34a;
+    }
+
+    .about-card.challenge .about-card-title {
+      color: #dc2626;
+    }
+
+    .about-card ul {
+      list-style: none;
+    }
+
+    .about-card li {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #3a3a3a;
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .about-card.success li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #16a34a;
+      font-weight: 700;
+    }
+
+    .about-card.challenge li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: #dc2626;
+      font-weight: 700;
+    }
+
+    .about-card {
+      opacity: 1;
+      transition: box-shadow 0.3s ease;
+    }
+
+    /* === ABOUT FACTS BAR === */
+    .about-facts {
+      display: flex;
+      gap: 0;
+      max-width: 1000px;
+      margin: 0 auto 60px;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .about-fact {
+      flex: 1;
+      padding: 28px 24px;
+      text-align: center;
+      border-right: 1px solid #e5e5e5;
+    }
+
+    .about-fact:last-child { border-right: none; }
+
+    .about-fact-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #c9a84c;
+      line-height: 1;
+    }
+
+    .about-fact-label {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 768px) {
+      .about-facts {
+        flex-wrap: wrap;
+      }
+      .about-fact {
+        flex: 1 0 50%;
+        border-right: 1px solid #e5e5e5;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .about-fact:nth-child(2n) { border-right: none; }
+      .about-fact:last-child, .about-fact:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+    }
+
+    /* === SERVICES === */
+    .services {
+      background: #0a0a0a;
+      padding: 100px 24px;
+    }
+
+    .services .section-number {
+      color: #c9a84c;
+    }
+
+    .services .section-title {
+      color: #ffffff;
+    }
+
+    .services .section-subtitle {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .service-card {
+        padding: 28px 24px;
+      }
+      .service-list li {
+        font-size: 13px;
+        padding: 6px 0;
+      }
+    }
+
+    .service-card {
+      background: #141414;
+      padding: 40px 36px;
+      border-radius: 12px;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #c9a84c, transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .service-card:hover {
+      border-color: rgba(201, 168, 76, 0.5);
+      box-shadow: 0 24px 48px rgba(201, 168, 76, 0.12);
+      transform: translateY(-6px);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-icon-wrap {
+      width: 56px;
+      height: 56px;
+      background: rgba(201, 168, 76, 0.12);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .service-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .service-desc {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    .service-list {
+      list-style: none;
+      margin: 0 0 28px 0;
+      padding: 0;
+      flex: 1;
+    }
+
+    .service-list li {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.75);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      line-height: 1.4;
+    }
+
+    .service-list li::before {
+      content: '→';
+      color: #c9a84c;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .service-list li:last-child {
+      border-bottom: none;
+    }
+
+    .service-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .service-tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+    }
+
+    .service-tag.crypto {
+      background: rgba(201, 168, 76, 0.15);
+      color: #c9a84c;
+    }
+
+    .service-tag.ai {
+      background: rgba(99, 179, 237, 0.15);
+      color: #63b3ed;
+    }
+
+    .service-tag.life {
+      background: rgba(154, 205, 50, 0.12);
+      color: #9acd32;
+    }
+
+    .service-cta {
+      font-size: 13px;
+      font-weight: 600;
+      color: #c9a84c;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .service-cta:hover {
+      color: #d4af37;
+      transform: translateX(3px);
+    }
+
+    /* === PROOF BAR === */
+    .proof-bar {
+      background: linear-gradient(135deg, #c9a84c 0%, #d4af37 100%);
+      color: #0f0f0f;
+      padding: 50px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proof-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    .proof-text {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* === CASES === */
+    .cases {
+      background: #ffffff;
+      padding: 100px 24px;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .case-card {
+      border-left: 4px solid #c9a84c;
+      padding: 30px;
+      background: #f8f9fc;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .case-card:hover {
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .case-problem {
+      font-size: 12px;
+      color: #c9a84c;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .case-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f0f0f;
+      margin-bottom: 15px;
+    }
+
+    .case-desc {
+      font-size: 14px;
+      color: #3a3a3a;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .case-result {
+      font-size: 13px;
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    /* === TESTIMONIALS === */
+    .testimonials {
+      padding: 80px 24px;
+      background: #f8f9fc;
+    }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .test-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      border: 1px solid #e5e7eb;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .test-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      border-color: #c9a84c;
+    }
+
+    .test-quote {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #3a3a3a;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .test-quote::before {
+      content: '"';
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      color: #c9a84c;
+      opacity: 0.3;
+      display: block;
+      line-height: 1;
+      margin-bottom: -10px;
+    }
+
+    .test-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .test-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c9a84c, #1a56db);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .test-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: #0f0f0f;
+    }
+
+    .test-role {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .test-stars {
+      color: #c9a84c;
+      font-size: 14px;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .test-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* === CONTACT === */
+    .contact {
+      background: #0a0a0a;
+      padding: 120px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .contact-subtitle {
+      font-size: 17px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 48px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+
+    .contact-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+      position: relative;
+    }
+
+    .btn-telegram {
+      background: #c9a84c;
+      color: #0f0f0f;
+      padding: 18px 44px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-telegram:hover {
+      background: #d4af37;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(201, 168, 76, 0.35);
+    }
+
+    .btn-email {
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 18px 44px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-email:hover {
+      border-color: #c9a84c;
+      color: #c9a84c;
+    }
+
+    .contact-note {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      position: relative;
+      margin-top: 8px;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: #0f0f0f;
+      color: white;
+      padding: 60px 24px 30px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: #c9a84c;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .footer-section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section a {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: #c9a84c;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* === MOBILE MENU === */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-size: 24px;
+      color: white;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      color: #c9a84c;
+    }
+
+    /* === PREFERS REDUCED MOTION === */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* === RESPONSIVE HERO === */
+    @media (max-width: 768px) {
+      .hero-subtitle {
+        font-size: 14px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    /* === LANGUAGE VISIBILITY === */
+    .en { display: none !important; }
+    body.lang-en .en { display: inline !important; }
+    body.lang-en .ru { display: none !important; }
+
+    /* === LANG TOGGLE === */
+    .lang-toggle {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: #3a3a3a;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .lang-btn:hover {
+      border-color: #c9a84c;
+      color: #c9a84c;
+    }
+
+    .lang-btn.active {
+      background: #c9a84c;
+      color: #0f0f0f;
+      border-color: #c9a84c;
+    }
+
+    @media (max-width: 768px) {
+      .lang-toggle {
+        display: none;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Дмитрий Васильев",
+    "alternateName": "Dmitrii Vasilev",
+    "url": "https://vda.vc",
+    "jobTitle": "Crypto & Fintech Consultant",
+    "description": "Crisis management, crypto consulting, AI automation. 15+ years in crypto. Bay Area, CA.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hayward",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "url": "https://t.me/vdavc_bot",
+      "email": "dima@vda.vc"
+    },
+    "sameAs": [
+      "https://t.me/vdavc_bot"
+    ],
+    "knowsAbout": ["Cryptocurrency", "Fintech", "Crisis Management", "AI Automation", "OTC Trading", "Cross-border Payments"]
+  }
+  </script>
+</head>
+<body>
+
+
+  <!-- NOISE OVERLAY -->
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="2" />
+      <feColorMatrix type="saturate" values="0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise)" />
+  </svg>
+
+  <!-- CURSOR FOLLOWER -->
+  <div class="cursor-follower"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-content">
+      <div class="nav-logo">vda.vc</div>
+      <ul class="nav-menu">
+        <li><a href="#about"><span class="ru">Обо мне</span><span class="en">About</span></a></li>
+        <li><a href="#services"><span class="ru">Услуги</span><span class="en">Services</span></a></li>
+        <li><a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a></li>
+        <li><a href="#testimonials"><span class="ru">Отзывы</span><span class="en">Testimonials</span></a></li>
+        <li><a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a></li>
+        <li><a href="/scamradar" style="color:#e02424;font-weight:600"><span class="ru">🛡 ScamRadar</span><span class="en">🛡 ScamRadar</span></a></li>
+        <li><button class="nav-cta"><span class="ru">Написать →</span><span class="en">Get in touch →</span></button></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu">
+    <a href="#about"><span class="ru">Обо мне</span><span class="en">About</span></a>
+    <a href="#services"><span class="ru">Услуги</span><span class="en">Services</span></a>
+    <a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a>
+    <a href="#testimonials"><span class="ru">Отзывы</span><span class="en">Testimonials</span></a>
+    <a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a>
+    <a href="/scamradar" style="color:#e02424;font-weight:600"><span class="ru">🛡 ScamRadar</span><span class="en">🛡 ScamRadar</span></a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Crect fill='%230a0a0a' width='1920' height='1080'/%3E%3C/svg%3E">
+      <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4">
+      <source src="https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="ru">КРИПТО · ФИНТЕХ · AI · КРИЗИС-МЕНЕДЖМЕНТ</span><span class="en">CRYPTO · FINTECH · AI · CRISIS MANAGEMENT</span></div>
+
+      <h1 class="hero-title" style="font-family: 'Anton', 'Inter', sans-serif; font-weight: 900; line-height:0.88;">
+        <span class="ru" style="display:block">Я открываю</span>
+        <span class="en" style="display:block">I open</span>
+        <span style="color:var(--gold-primary, #c9a227); display:block">
+          <span class="ru">двери</span><span class="en">doors</span>
+        </span>
+      </h1>
+
+      <!-- ROTATING DOORS -->
+      <div id="doors-wrap" style="min-height:52px;margin:20px 0 8px;">
+        <p id="doors-text" style="font-size:clamp(18px,2.8vw,32px);font-weight:600;color:rgba(255,255,255,0.9);letter-spacing:0.01em;transition:opacity 0.4s ease;"></p>
+      </div>
+
+      <div class="hero-quote" style="font-size: 1rem; letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; margin-bottom:12px;">
+        <span class="ru">✦ 4 ареста · 5 стран · $800M возвращено</span>
+        <span class="en">✦ 4 arrests · 5 countries · $800M returned</span>
+      </div>
+
+      <p class="hero-tagline" style="font-size: 0.9rem; color: rgba(255,255,255,0.55); margin-bottom: 0.5rem; margin-top: 0; font-style: italic;">
+        <span class="ru">Надокучила проблема? Опиши её голосом.</span>
+        <span class="en">Got a stubborn problem? Describe it by voice.</span>
+      </p>
+
+      <div class="hero-buttons">
+        <a href="https://t.me/vdavc_bot" class="btn-primary" target="_blank" rel="noopener"><span class="ru">Описать проблему →</span><span class="en">Describe your problem →</span></a>
+        <a href="#about" class="btn-secondary"><span class="ru">Мой путь ↓</span><span class="en">My story ↓</span></a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number" data-target="15">15</div>
+          <div class="stat-label"><span class="ru">+ лет опыта</span><span class="en">+ years in crypto</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" data-target="800" data-format="currency">800</div>
+          <div class="stat-label"><span class="ru">М возвращено</span><span class="en">M returned</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" data-target="20">20</div>
+          <div class="stat-label"><span class="ru">+ разорений</span><span class="en">+ failures</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" data-target="4">4</div>
+          <div class="stat-label"><span class="ru">ареста</span><span class="en">arrests</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="chevron"></div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <section class="trust-bar">
+    <div class="trust-content">
+      <a href="press.html" class="trust-item trust-link">
+        <div class="trust-number">100+</div>
+        <div class="trust-label"><span class="ru">статей в прессе</span><span class="en">negative articles</span></div>
+      </a>
+      <a href="countries.html" class="trust-item trust-link">
+        <div class="trust-number">5</div>
+        <div class="trust-label"><span class="ru">стран</span><span class="en">countries</span></div>
+      </a>
+      <a href="lawyers.html" class="trust-item trust-link">
+        <div class="trust-number">27</div>
+        <div class="trust-label"><span class="ru">адвокатов</span><span class="en">lawyers</span></div>
+      </a>
+      <div class="trust-item">
+        <div class="trust-number">$6M</div>
+        <div class="trust-label"><span class="ru">в защиту</span><span class="en">on defense</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="marquee-section">
+    <div class="marquee">
+      <div class="marquee-item">OTC<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Compliance<span class="marquee-dot"></span></div>
+      <div class="marquee-item">SWIFT<span class="marquee-dot"></span></div>
+      <div class="marquee-item">AML<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Due Diligence<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Разблокировка<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Escrow<span class="marquee-dot"></span></div>
+      <div class="marquee-item">OTC<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Compliance<span class="marquee-dot"></span></div>
+      <div class="marquee-item">SWIFT<span class="marquee-dot"></span></div>
+    </div>
+    <div class="marquee reverse" style="margin-top: 20px;">
+      <div class="marquee-item">AI-автоматизация<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Кризис-менеджмент<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Крипто-консалтинг<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Финтех<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Токенизация<span class="marquee-dot"></span></div>
+      <div class="marquee-item">AI-автоматизация<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Кризис-менеджмент<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Крипто-консалтинг<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Финтех<span class="marquee-dot"></span></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number"><span class="ru">01 — Обо мне</span><span class="en">01 — About me</span></div>
+        <h2 class="section-title"><span class="ru">Успехи и провалы.<br>В одном человеке.</span><span class="en">Wins and losses.<br>In one person.</span></h2>
+        <p class="section-subtitle">
+          <span class="ru">Это не вдохновляющая история. Это хроника человека, который падал — и вставал.</span>
+          <span class="en">This is not an inspirational story. It's a chronicle of a man who kept falling — and getting back up.</span>
+        </p>
+      </div>
+
+      <!-- FACTS BAR -->
+      <div class="about-facts">
+        <div class="about-fact">
+          <div class="about-fact-num">15+</div>
+          <div class="about-fact-label"><span class="ru">лет в крипто</span><span class="en">years in crypto</span></div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-num">$800M</div>
+          <div class="about-fact-label"><span class="ru">возвращено пользователям</span><span class="en">returned to users</span></div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-num">20+</div>
+          <div class="about-fact-label"><span class="ru">банкротств и рестартов</span><span class="en">bankruptcies & restarts</span></div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-num">4</div>
+          <div class="about-fact-label"><span class="ru">ареста в 5 странах</span><span class="en">arrests in 5 countries</span></div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-num">27</div>
+          <div class="about-fact-label"><span class="ru">адвокатов нанято</span><span class="en">lawyers hired</span></div>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card success">
+          <h3 class="about-card-title"><span class="ru">Что получилось</span><span class="en">What worked</span></h3>
+          <ul>
+            <li><span class="ru">В 30 лет купил и перезапустил крупнейшую российскую криптобиржу</span><span class="en">At 30, I bought and relaunched Russia's largest crypto exchange</span></li>
+            <li><span class="ru">Вернул пользователям доступ к $800M после закрытия ФБР</span><span class="en">Returned $800M access to users after FBI seizure</span></li>
+            <li><span class="ru">Путешествовал по миру 5 лет — будучи в розыске Интерпола</span><span class="en">Traveled the world for 5 years while wanted by Interpol</span></li>
+            <li><span class="ru">Выдерживаю прессинг: 100+ негативных статей, угрозы</span><span class="en">Withstand pressure: 100+ negative articles, threats</span></li>
+            <li><span class="ru">10 раз начинал жизнь с нуля</span><span class="en">Started from zero 10 times</span></li>
+            <li><span class="ru">Счастливый человек</span><span class="en">I'm a happy person</span></li>
+          </ul>
+        </div>
+
+        <div class="about-card challenge">
+          <h3 class="about-card-title"><span class="ru">Цена опыта</span><span class="en">The price of experience</span></h3>
+          <ul>
+            <li><span class="ru">Разорялся более 20 раз</span><span class="en">Bankrupted 20+ times</span></li>
+            <li><span class="ru">Потерял компанию стоимостью $4 000 000 000</span><span class="en">Lost a $4B company</span></li>
+            <li><span class="ru">Арестован 4 раза в 5 странах</span><span class="en">Arrested 4 times in 5 countries</span></li>
+            <li><span class="ru">$6 000 000 на 27 адвокатов в 5 странах</span><span class="en">$6M on 27 lawyers in 5 countries</span></li>
+            <li><span class="ru">Обжёгся на 50+ скамах — теперь чую их за версту</span><span class="en">Burned by 50+ scams — now I spot them a mile away</span></li>
+            <li><span class="ru">3 развода, предательства</span><span class="en">3 divorces, betrayals</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number"><span class="ru">02 — Услуги</span><span class="en">02 — Services</span></div>
+        <h2 class="section-title"><span class="ru">Направления работы</span><span class="en">Three directions. One goal.</span></h2>
+        <p class="section-subtitle">
+          <span class="ru">Помогаю с проблемами, которые кажутся неразрешимыми.</span>
+          <span class="en">Solving your problems.</span>
+        </p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- CARD 1: Крипто + Финтех + Инвестиции -->
+        <div class="service-card">
+          <div class="service-icon-wrap">₿</div>
+          <h3 class="service-title"><span class="ru">Крипто, финтех и инвестиции</span><span class="en">Crypto, Fintech & Investments</span></h3>
+          <p class="service-desc">
+            <span class="ru">Открываю двери к новым рынкам — туда, где деньги движутся быстрее, чем банки успевают запретить. 15 лет практики, $800M в обороте.</span>
+            <span class="en">I open doors to new markets — where money moves faster than banks can block it. 15 years, $800M handled.</span>
+          </p>
+          <ul class="service-list">
+            <li><span class="ru">Заморожен счёт или транзакция — разблокирую</span><span class="en">Frozen account or transaction — I unblock it</span></li>
+            <li><span class="ru">OTC-сделки от $100K · кросс-бордер платежи</span><span class="en">OTC deals $100K+ · cross-border payments</span></li>
+            <li><span class="ru">Крипто-инвестиции: стратегия без потери головы</span><span class="en">Crypto investments: strategy without losing your head</span></li>
+            <li><span class="ru">Запуск обменника / кошелька / EMI-структуры</span><span class="en">Exchange / wallet / EMI structure launch</span></li>
+            <li><span class="ru">Compliance, лицензии, юрисдикции</span><span class="en">Compliance, licenses, jurisdictions</span></li>
+          </ul>
+          <div class="service-footer">
+            <span class="service-tag crypto"><span class="ru">Новые рынки · Крипто</span><span class="en">New markets · Crypto</span></span>
+            <a href="#contact" class="service-cta"><span class="ru">Открыть дверь →</span><span class="en">Open the door →</span></a>
+          </div>
+        </div>
+
+        <!-- CARD 2: AI для бизнеса -->
+        <div class="service-card">
+          <div class="service-icon-wrap">⚡</div>
+          <h3 class="service-title"><span class="ru">AI для бизнеса</span><span class="en">AI for Business</span></h3>
+          <p class="service-desc">
+            <span class="ru">Открываю двери к масштабированию без раздутого штата. Автоматизирую то, на что уходят деньги и нервы. Рекорд: $10K/мес за 3 недели.</span>
+            <span class="en">I open doors to scaling without bloated headcount. Record: $10K/month saved in 3 weeks.</span>
+          </p>
+          <ul class="service-list">
+            <li><span class="ru">Аудит — нахожу где бизнес теряет деньги</span><span class="en">Audit — find where business bleeds money</span></li>
+            <li><span class="ru">AI-агенты: продажи, поддержка, документы</span><span class="en">AI agents: sales, support, documents</span></li>
+            <li><span class="ru">Автоматизация на Claude, GPT, n8n, Make</span><span class="en">Automation on Claude, GPT, n8n, Make</span></li>
+            <li><span class="ru">Масштабирование без найма новых людей</span><span class="en">Scale without hiring more people</span></li>
+            <li><span class="ru">Результат с первой недели, не через год</span><span class="en">Results from week one, not in a year</span></li>
+          </ul>
+          <div class="service-footer">
+            <span class="service-tag ai"><span class="ru">Автоматизация · Масштаб</span><span class="en">Automation · Scale</span></span>
+            <a href="#contact" class="service-cta"><span class="ru">Открыть дверь →</span><span class="en">Open the door →</span></a>
+          </div>
+        </div>
+
+        <!-- CARD 3: Второй шанс -->
+        <div class="service-card">
+          <div class="service-icon-wrap">🔑</div>
+          <h3 class="service-title"><span class="ru">Второй шанс</span><span class="en">Second Chance</span></h3>
+          <p class="service-desc">
+            <span class="ru">Жизнь с нуля. После тюрьмы, войны, разорения, переезда в никуда. Я сам через всё это прошёл — знаю выход.</span>
+            <span class="en">Starting over. After prison, war, bankruptcy, relocation to nowhere. I've been through it all — I know the way out.</span>
+          </p>
+          <ul class="service-list">
+            <li><span class="ru">Жизнь с нуля: без денег, связей, в чужой стране</span><span class="en">Life from scratch: no money, no contacts, foreign country</span></li>
+            <li><span class="ru">После тюрьмы — как вернуться в бизнес и жизнь</span><span class="en">After prison — how to return to business and life</span></li>
+            <li><span class="ru">После войны — релокация, документы, капитал</span><span class="en">After war — relocation, documents, capital</span></li>
+            <li><span class="ru">После разорения — кризис-менеджмент и рестарт</span><span class="en">After bankruptcy — crisis management and restart</span></li>
+            <li><span class="ru">Иду рядом — не советую со стороны, а прохожу путь вместе</span><span class="en">I walk beside you — not advising from afar, but going through it together</span></li>
+          </ul>
+          <div class="service-footer">
+            <span class="service-tag life"><span class="ru">Второй шанс · Кризис</span><span class="en">Second chance · Crisis</span></span>
+            <a href="#contact" class="service-cta"><span class="ru">Открыть дверь →</span><span class="en">Open the door →</span></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF BAR -->
+  <section class="proof-bar">
+    <div class="proof-text">
+      <span class="ru">✦ Каждые $1 000 в мою консультацию = $10 000+ экономии клиенту. Рекорд — $1M за 15 минут.</span>
+      <span class="en">✦ Every $1,000 in my consulting = $10,000+ saved for the client. Record — $1M in 15 minutes.</span>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="cases" id="cases">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number"><span class="ru">03 — Кейсы</span><span class="en">03 — Case Studies</span></div>
+        <h2 class="section-title"><span class="ru">Реальные истории</span><span class="en">Real stories</span></h2>
+        <p class="section-subtitle">
+          <span class="ru">Проблемы → Решения → Результаты</span>
+          <span class="en">Problems → Solutions → Results</span>
+        </p>
+      </div>
+
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="case-problem"><span class="ru">Проблема</span><span class="en">Problem</span></div>
+          <h3 class="case-title"><span class="ru">WEX/BTC-e и ФБР</span><span class="en">WEX/BTC-e & FBI</span></h3>
+          <p class="case-desc">
+            <span class="ru">ФБР изъяло биржу и заморозило $800M пользователей. ФБР/IRS ничего не вернул пользователям.</span>
+            <span class="en">FBI seized the exchange and froze $800M of users. FBI/IRS returned nothing to users.</span>
+          </p>
+          <div class="case-result"><span class="ru">Решение: восстановил биржу, вернул деньги пользователям</span><span class="en">Solution: relaunched exchange, returned users' funds</span></div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-problem"><span class="ru">Проблема</span><span class="en">Problem</span></div>
+          <h3 class="case-title"><span class="ru">OTC-сделка $2M</span><span class="en">$2M OTC Deal</span></h3>
+          <p class="case-desc">
+            <span class="ru">Клиент заблокирован на $2 млн. Банк требует $100K за разблокировку. Юристы не помогают.</span>
+            <span class="en">Client frozen on $2M. Bank demands $100K unblock fee. Lawyers can't help.</span>
+          </p>
+          <div class="case-result"><span class="ru">Решение: разблокировка за 72 часа, комиссия 0</span><span class="en">Solution: unlocked in 72 hours, zero commission</span></div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-problem"><span class="ru">Проблема</span><span class="en">Problem</span></div>
+          <h3 class="case-title"><span class="ru">AI-автоматизация</span><span class="en">AI Automation</span></h3>
+          <p class="case-desc">
+            <span class="ru">Компания тратила $15K/мес на рутинную работу. Сотрудники в burnout. Доход не растёт.</span>
+            <span class="en">Company spent $15K/month on routine work. Staff in burnout. Revenue stalled.</span>
+          </p>
+          <div class="case-result"><span class="ru">Решение: внедрил AI, экономия $10K/мес, лучше команда</span><span class="en">Solution: deployed AI, saved $10K/month, happier team</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-title">
+      <span class="ru">Расскажи проблему</span>
+      <span class="en">Tell me your problem</span>
+    </div>
+    <p class="contact-subtitle">
+      <span class="ru">Первый разговор — бесплатно. Если не смогу помочь — скажу честно и направлю к тому, кто сможет.</span>
+      <span class="en">First call is free. If I can't help — I'll be honest and point you to someone who can.</span>
+    </p>
+    <div class="contact-buttons">
+      <a href="https://t.me/vdavc_bot" class="btn-telegram" target="_blank" rel="noopener">
+        ✈ <span class="ru">Написать в Telegram — @vdavc_bot</span><span class="en">Message on Telegram — @vdavc_bot</span>
+      </a>
+      <a href="mailto:dima@vda.vc" class="btn-email">
+        <span class="ru">Email: dima@vda.vc</span><span class="en">Email: dima@vda.vc</span>
+      </a>
+    </div>
+    <p class="contact-note">
+      <span class="ru">Отвечаю в течение 24 часов · Bay Area, CA (UTC−7)</span>
+      <span class="en">Response within 24 hours · Bay Area, CA (UTC−7)</span>
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <div class="footer-logo">vda.vc</div>
+        <p style="color:rgba(255,255,255,0.5);font-size:13px;margin-top:12px;line-height:1.6;max-width:260px">
+          <span class="ru">Дмитрий Васильев — крипто/финтех консультант. Bay Area, CA.</span>
+          <span class="en">Dmitrii Vasilev — crypto/fintech consultant. Bay Area, CA.</span>
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3><span class="ru">Навигация</span><span class="en">Navigation</span></h3>
+        <ul>
+          <li><a href="#about"><span class="ru">Обо мне</span><span class="en">About</span></a></li>
+          <li><a href="#services"><span class="ru">Услуги</span><span class="en">Services</span></a></li>
+          <li><a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a></li>
+          <li><a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3><span class="ru">Контакты</span><span class="en">Contact</span></h3>
+        <ul>
+          <li><a href="https://t.me/vdavc_bot" target="_blank">Telegram: @vdavc_bot</a></li>
+          <li><a href="mailto:dima@vda.vc">dima@vda.vc</a></li>
+          <li><a href="/scamradar" style="color:#e02424">🛡 ScamRadar</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3><span class="ru">Услуги</span><span class="en">Services</span></h3>
+        <ul>
+          <li><span class="ru">Крипто и финтех</span><span class="en">Crypto & Fintech</span></li>
+          <li><span class="ru">AI для бизнеса</span><span class="en">AI for Business</span></li>
+          <li><span class="ru">Второй шанс</span><span class="en">Second Chance</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 vda.vc · Дмитрий Васильев</span>
+      <span style="color:rgba(255,255,255,0.3);font-size:11px">
+        <span class="ru">Не является финансовой рекомендацией (NFA)</span>
+        <span class="en">Not financial advice (NFA)</span>
+      </span>
+    </div>
+  </footer>
+
+</body>
+<script>
+  /* ===== LANGUAGE TOGGLE ===== */
+  function setLang(lang) {
+    if (lang === 'en') {
+      document.body.classList.add('lang-en');
+    } else {
+      document.body.classList.remove('lang-en');
+    }
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]');
+    if (activeBtn) activeBtn.classList.add('active');
+    try { localStorage.setItem('lang', lang); } catch(e) {}
+  }
+
+  /* Restore saved language */
+  try {
+    const saved = localStorage.getItem('lang');
+    if (saved === 'en') setLang('en');
+  } catch(e) {}
+
+  /* ===== NAVBAR SCROLL ===== */
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  /* ===== CURSOR FOLLOWER ===== */
+  const cursor = document.querySelector('.cursor-follower');
+  if (cursor) {
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = (e.clientX - 10) + 'px';
+      cursor.style.top = (e.clientY - 10) + 'px';
+    });
+  }
+
+  /* ===== HAMBURGER MENU ===== */
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+  }
+
+  /* ===== SCROLL ANIMATIONS (IntersectionObserver) ===== */
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -20px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  /* Only service-card needs scroll-in animation (others are visible by default) */
+  document.querySelectorAll('.service-card').forEach((el, i) => {
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+    el.dataset.delay = i * 100;
+    observer.observe(el);
+  });
+
+  /* ===== ROTATING DOORS ===== */
+  const doorsRU = [
+    'к крипто и новым рынкам',
+    'когда ты в жопе и выхода не видно',
+    'из тюрьмы — к новой жизни',
+    'к инвестициям, которые работают',
+    'когда банк, система и государство говорят "нет"',
+    'к AI-трансформации твоего бизнеса',
+    'после банкротства и потери всего',
+    'после войны, переезда, второго шанса',
+    'к свободе — финансовой и личной',
+    'туда, куда другие боятся даже смотреть',
+  ];
+  const doorsEN = [
+    'to crypto and new markets',
+    'when you\'re stuck and see no way out',
+    'from prison — to a new life',
+    'to investments that actually work',
+    'when banks, systems and states say "no"',
+    'to AI transformation of your business',
+    'after bankruptcy and losing everything',
+    'after war, relocation, a second chance',
+    'to financial and personal freedom',
+    'where others are afraid to even look',
+  ];
+  let doorIdx = 0;
+  const doorsEl = document.getElementById('doors-text');
+  function rotateDoor() {
+    if (!doorsEl) return;
+    const lang = document.documentElement.lang || 'ru';
+    const list = lang === 'en' ? doorsEN : doorsRU;
+    doorsEl.style.opacity = '0';
+    setTimeout(() => {
+      doorIdx = (doorIdx + 1) % list.length;
+      doorsEl.textContent = '→ ' + list[doorIdx];
+      doorsEl.style.opacity = '1';
+    }, 420);
+  }
+  // init
+  if (doorsEl) {
+    const lang = document.documentElement.lang || 'ru';
+    doorsEl.textContent = '→ ' + (lang === 'en' ? doorsEN[0] : doorsRU[0]);
+  }
+  setInterval(rotateDoor, 2800);
+
+  /* ===== NAV CTA → contact ===== */
+  document.querySelectorAll('.nav-cta').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const contact = document.querySelector('#contact') || document.querySelector('footer');
+      if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+<!-- APPROVE BUTTON (preview only) -->
+<div style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#c9a227;color:#000;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.4)" onclick="alert('Напишите: сделай v14.html живым')">✅ Approve → сделать живым</div>
+</html>

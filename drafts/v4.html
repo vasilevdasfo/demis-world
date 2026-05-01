@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дмитрий Васильев — Крипто & Финтех Консультант | vasilevda.com</title>
+  <meta name="description" content="Безнадёжно — это когда на крышку гроба падает земля. Остальное можно исправить. 15 лет в крипте, бывший CEO биржи, Bay Area." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Unbounded:wght@700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --dark: #1a1a1a;
+      --mid: #666;
+      --light: #999;
+      --border: #e8e8e8;
+      --bg: #ffffff;
+      --bg2: #f7f7f7;
+      --accent: #1a1aff;
+      --accent2: #ff2222;
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-head: 'Unbounded', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--black);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ===== PRELOADER ===== */
+    #preloader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.5s ease;
+    }
+    #preloader.hidden { opacity: 0; pointer-events: none; }
+    .preloader-inner {
+      text-align: center; color: #fff;
+      max-width: 560px; padding: 40px;
+    }
+    .preloader-quote {
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 300; line-height: 1.4;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .preloader-quote.visible { opacity: 1; }
+    .preloader-quote em { font-style: italic; color: #aaa; }
+    .preloader-attr {
+      font-size: 11px; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #555;
+      margin-bottom: 40px;
+    }
+    .preloader-skip {
+      background: none; border: 1px solid #333;
+      color: #555; font-size: 12px; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 10px 24px;
+      cursor: pointer; transition: all 0.2s;
+      font-family: var(--font);
+    }
+    .preloader-skip:hover { border-color: #fff; color: #fff; }
+    .preloader-dots {
+      display: flex; justify-content: center; gap: 6px; margin-bottom: 32px;
+    }
+    .preloader-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #333; transition: background 0.3s;
+    }
+    .preloader-dot.active { background: #fff; }
+
+    /* ===== NAV ===== */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      height: 64px; display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 32px;
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px; color: var(--mid);
+      transition: color 0.2s; font-weight: 400;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-cta {
+      background: var(--black); color: #fff;
+      font-size: 12px; font-weight: 600;
+      padding: 9px 20px; border: none; cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.75; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none;
+    }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--black); }
+    nav.mobile-menu {
+      display: none; position: fixed; top: 64px; inset-x: 0;
+      background: #fff; z-index: 99; padding: 24px 32px;
+      flex-direction: column; gap: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    nav.mobile-menu.open { display: flex; }
+    nav.mobile-menu a { font-size: 16px; color: var(--mid); }
+
+    /* ===== SECTIONS BASE ===== */
+    section { padding: 96px 0; }
+    .section-num {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--light);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 700; line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--mid);
+      max-width: 560px; line-height: 1.65;
+    }
+    .section-header { margin-bottom: 56px; }
+
+    /* ===== HERO ===== */
+    #hero {
+      padding: 80px 0 96px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--light);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 24px; height: 1px; background: var(--light);
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 900; line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+    }
+    .hero-title .line-accent {
+      display: block; color: var(--accent);
+    }
+    .hero-quote {
+      font-size: 16px; color: var(--mid);
+      font-style: italic; line-height: 1.65;
+      border-left: 2px solid var(--border);
+      padding-left: 18px; margin-bottom: 36px;
+    }
+    .hero-cta-row {
+      display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    }
+    .btn-black {
+      background: var(--black); color: #fff;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.03em;
+      padding: 14px 28px; border: 1.5px solid var(--black);
+      cursor: pointer; transition: all 0.2s; display: inline-block;
+    }
+    .btn-black:hover { background: transparent; color: var(--black); }
+    .btn-ghost {
+      background: transparent; color: var(--black);
+      font-size: 13px; font-weight: 500;
+      padding: 13px 24px; border: 1.5px solid var(--border);
+      cursor: pointer; transition: all 0.2s; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--black); }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); margin-top: 48px;
+    }
+    .hero-stat {
+      background: #fff; padding: 20px 18px;
+      text-align: center;
+    }
+    .stat-val {
+      font-family: var(--font-head);
+      font-size: 26px; font-weight: 900;
+      line-height: 1; margin-bottom: 6px;
+    }
+    .stat-val span { font-size: 14px; font-weight: 400; }
+    .stat-lbl { font-size: 11px; color: var(--light); letter-spacing: 0.06em; }
+    .hero-visual {
+      position: relative;
+    }
+    .hero-card-stack { position: relative; }
+    .hero-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 28px 32px;
+    }
+    .hero-card-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--light);
+      margin-bottom: 18px;
+    }
+    .hero-pain-list { list-style: none; }
+    .hero-pain-list li {
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px; color: var(--dark);
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .hero-pain-list li:last-child { border-bottom: none; }
+    .hero-pain-list li::before {
+      content: '→'; color: var(--accent2);
+      font-size: 12px; flex-shrink: 0; margin-top: 1px;
+    }
+    .hero-badge {
+      position: absolute; top: -14px; right: 24px;
+      background: var(--black); color: #fff;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 6px 14px;
+    }
+
+    /* ===== CAREER — два столбца ===== */
+    #career {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .career-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; border: 1px solid var(--border);
+    }
+    .career-col {
+      padding: 40px;
+    }
+    .career-col:first-child {
+      border-right: 1px solid var(--border);
+    }
+    .career-col-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 32px; padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .career-col-icon { font-size: 20px; }
+    .career-col-title {
+      font-family: var(--font-head);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .career-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .career-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      font-size: 14px; color: var(--dark); line-height: 1.55;
+    }
+    .career-item-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      flex-shrink: 0; margin-top: 6px;
+    }
+    .career-col:first-child .career-item-dot { background: var(--black); }
+    .career-col:last-child .career-item-dot { background: var(--accent2); }
+    .career-col:last-child .career-col-title { color: var(--accent2); }
+
+    /* ===== SERVICES ===== */
+    #services { border-bottom: 1px solid var(--border); }
+    .services-intro {
+      max-width: 700px; margin-bottom: 56px;
+    }
+    .services-intro p {
+      font-size: 18px; color: var(--mid); line-height: 1.7;
+      font-style: italic;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .service-card {
+      background: #fff; padding: 32px 28px;
+      cursor: pointer; transition: background 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .service-card:hover { background: var(--bg2); }
+    .service-card:hover .service-hover { opacity: 1; max-height: 200px; }
+    .service-num {
+      font-size: 11px; color: var(--light); letter-spacing: 0.12em;
+      font-weight: 600; margin-bottom: 16px;
+    }
+    .service-name {
+      font-family: var(--font-head);
+      font-size: 14px; font-weight: 700;
+      line-height: 1.3; margin-bottom: 14px;
+    }
+    .service-hover {
+      font-size: 13px; color: var(--mid); line-height: 1.6;
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: all 0.3s ease;
+    }
+    .service-hover ul { list-style: none; padding: 0; margin-top: 10px; }
+    .service-hover ul li { padding: 4px 0; padding-left: 14px; position: relative; }
+    .service-hover ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 11px; }
+    .service-arrow {
+      position: absolute; bottom: 24px; right: 24px;
+      font-size: 18px; color: var(--border);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .service-card:hover .service-arrow { color: var(--black); transform: translateX(4px); }
+
+    /* ===== CASES ===== */
+    #cases { background: var(--bg2); border-bottom: 1px solid var(--border); }
+    .cases-carousel { position: relative; overflow: hidden; }
+    .cases-track {
+      display: flex; gap: 24px;
+      transition: transform 0.4s ease;
+    }
+    .case-card {
+      min-width: calc(33.33% - 16px);
+      background: #fff; border: 1px solid var(--border);
+      padding: 32px; flex-shrink: 0;
+    }
+    .case-num {
+      font-size: 11px; color: var(--light); letter-spacing: 0.14em;
+      margin-bottom: 16px; font-weight: 600;
+    }
+    .case-title {
+      font-family: var(--font-head);
+      font-size: 14px; font-weight: 700;
+      line-height: 1.35; margin-bottom: 16px;
+    }
+    .case-result {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 14px 16px;
+      background: var(--bg2); border: 1px solid var(--border);
+      margin-top: 16px;
+    }
+    .case-result-icon { font-size: 16px; flex-shrink: 0; }
+    .case-result-text { font-size: 13px; color: var(--dark); font-weight: 500; line-height: 1.45; }
+    .carousel-controls {
+      display: flex; gap: 10px; margin-top: 32px; align-items: center;
+    }
+    .carousel-btn {
+      width: 40px; height: 40px; border: 1.5px solid var(--border);
+      background: #fff; cursor: pointer; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .carousel-btn:hover { border-color: var(--black); background: var(--black); color: #fff; }
+
+    /* ===== FORMATS ===== */
+    #formats { border-bottom: 1px solid var(--border); }
+    .formats-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px; margin-top: 48px;
+    }
+    .format-card {
+      border: 1.5px solid var(--border); padding: 32px;
+      transition: border-color 0.2s;
+    }
+    .format-card:hover { border-color: var(--black); }
+    .format-name {
+      font-family: var(--font-head);
+      font-size: 15px; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .format-price {
+      font-size: 24px; font-weight: 700; margin-bottom: 6px;
+      font-family: var(--font-head);
+    }
+    .format-price .old {
+      font-size: 14px; color: var(--light);
+      text-decoration: line-through; font-weight: 400;
+      margin-left: 8px;
+    }
+    .format-note { font-size: 12px; color: var(--light); margin-bottom: 20px; }
+    .format-desc { font-size: 14px; color: var(--mid); line-height: 1.6; margin-bottom: 24px; }
+    .format-cta {
+      display: inline-block; background: var(--black); color: #fff;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.05em;
+      padding: 11px 22px; border: 1.5px solid var(--black);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .format-cta:hover { background: transparent; color: var(--black); }
+
+    /* ===== CONTACT ===== */
+    #contact {
+      background: var(--black); color: #fff;
+      border-bottom: none;
+    }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .contact-title {
+      font-family: var(--font-head);
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 900; line-height: 1.1;
+      margin-bottom: 20px; letter-spacing: -0.02em;
+    }
+    .contact-slogan {
+      font-size: 15px; color: #777; line-height: 1.7;
+      font-style: italic; margin-bottom: 36px;
+    }
+    .contact-channels { display: flex; flex-direction: column; gap: 12px; }
+    .contact-channel {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 20px; border: 1px solid #222;
+      transition: border-color 0.2s; cursor: pointer;
+    }
+    .contact-channel:hover { border-color: #555; }
+    .channel-icon { font-size: 18px; flex-shrink: 0; }
+    .channel-info { }
+    .channel-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #555; margin-bottom: 2px; }
+    .channel-val { font-size: 14px; color: #ddd; }
+    /* Form */
+    .contact-form { }
+    .form-title {
+      font-family: var(--font-head);
+      font-size: 14px; font-weight: 700;
+      margin-bottom: 28px; letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .form-row { margin-bottom: 16px; }
+    .form-label {
+      display: block; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: #555; margin-bottom: 8px;
+    }
+    .form-input, .form-textarea, .form-select {
+      width: 100%; background: #111; border: 1px solid #222;
+      color: #fff; font-family: var(--font); font-size: 14px;
+      padding: 12px 16px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: #555; }
+    .form-textarea { resize: vertical; min-height: 110px; line-height: 1.55; }
+    .form-select { cursor: pointer; }
+    .form-select option { background: #111; }
+    .form-submit {
+      width: 100%; background: #fff; color: #000;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 15px 24px;
+      border: none; cursor: pointer; transition: opacity 0.2s;
+      margin-top: 4px; font-family: var(--font);
+    }
+    .form-submit:hover { opacity: 0.8; }
+    .form-note { font-size: 11px; color: #444; margin-top: 12px; text-align: center; }
+    #form-success {
+      display: none; text-align: center; padding: 40px 20px;
+    }
+    #form-success .ok { font-size: 36px; margin-bottom: 16px; }
+    #form-success p { color: #777; font-size: 14px; line-height: 1.6; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #050505; border-top: 1px solid #111;
+      padding: 28px 32px; text-align: center;
+      font-size: 11px; color: #444; letter-spacing: 0.06em;
+    }
+    footer a { color: #444; transition: color 0.2s; }
+    footer a:hover { color: #888; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+      .career-grid { grid-template-columns: 1fr; }
+      .career-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .formats-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 56px 0; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .services-grid { grid-template-columns: 1fr; }
+      .case-card { min-width: calc(85vw); }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== PRELOADER ===== -->
+<div id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-dots">
+      <div class="preloader-dot active" id="dot0"></div>
+      <div class="preloader-dot" id="dot1"></div>
+      <div class="preloader-dot" id="dot2"></div>
+      <div class="preloader-dot" id="dot3"></div>
+      <div class="preloader-dot" id="dot4"></div>
+    </div>
+    <div class="preloader-quote" id="preloaderQuote"></div>
+    <div class="preloader-attr" id="preloaderAttr"></div>
+    <button class="preloader-skip" onclick="skipPreloader()">Пропустить</button>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<header>
+  <div class="nav-inner">
+    <div class="nav-logo">Дмитрий <span>Васильев</span></div>
+    <ul class="nav-links">
+      <li><a href="#career">Путь</a></li>
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#cases">Кейсы</a></li>
+      <li><a href="#formats">Форматы</a></li>
+      <li><a href="#contact">Контакт</a></li>
+    </ul>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="#contact" class="nav-cta">Написать</a>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu">
+  <a href="#career" onclick="this.closest('.mobile-menu').classList.remove('open')">Путь</a>
+  <a href="#services" onclick="this.closest('.mobile-menu').classList.remove('open')">Услуги</a>
+  <a href="#cases" onclick="this.closest('.mobile-menu').classList.remove('open')">Кейсы</a>
+  <a href="#formats" onclick="this.closest('.mobile-menu').classList.remove('open')">Форматы</a>
+  <a href="#contact" onclick="this.closest('.mobile-menu').classList.remove('open')">Контакт</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <div>
+        <div class="hero-eyebrow">Крипто & Финтех Консультант · Bay Area, CA</div>
+        <h1 class="hero-title">
+          Мне бы<br>
+          ваши<br>
+          <span class="line-accent">проблемы.</span>
+        </h1>
+        <div class="hero-quote">
+          "Безнадёжно — это когда на крышку гроба падает земля.<br>
+          Остальное можно исправить."
+        </div>
+        <div class="hero-cta-row">
+          <a href="#contact" class="btn-black">Описать ситуацию →</a>
+          <a href="#career" class="btn-ghost">Мой путь</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="stat-val">20<span>+</span></div>
+            <div class="stat-lbl">разорений</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-val">$6M</div>
+            <div class="stat-lbl">на адвокатов</div>
+          </div>
+          <div class="hero-stat">
+            <div class="stat-val">15<span>+</span></div>
+            <div class="stat-lbl">лет в крипте</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card-stack">
+          <div class="hero-badge">Типичные запросы</div>
+          <div class="hero-card">
+            <div class="hero-card-title">С чем приходят</div>
+            <ul class="hero-pain-list">
+              <li>Биржа заморозила $50K — 3 месяца без ответа</li>
+              <li>KYC не проходит, аккаунт заблокирован</li>
+              <li>Подозреваю фрод в компании — нужен аудит</li>
+              <li>Переезд в США / переезд после тюрьмы</li>
+              <li>Потерял деньги в скам-проекте — хочу вернуть</li>
+              <li>Нужна крупная сделка без лишних глаз</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAREER ===== -->
+<section id="career">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">01 — Мой путь</div>
+      <h2 class="section-title">Успехи и провалы.<br>В одном человеке.</h2>
+      <p class="section-sub">Это не вдохновляющая история успеха. Это хроника человека, который падал — и вставал снова.</p>
+    </div>
+
+    <div class="career-grid">
+
+      <div class="career-col">
+        <div class="career-col-head">
+          <div class="career-col-icon">↑</div>
+          <div class="career-col-title">Что получилось</div>
+        </div>
+        <ul class="career-list">
+          <li class="career-item"><span class="career-item-dot"></span>В 30 лет купил и перезапустил крупнейшую российскую криптобиржу</li>
+          <li class="career-item"><span class="career-item-dot"></span>Путешествовал по миру 5 лет — будучи в розыске Интерпола</li>
+          <li class="career-item"><span class="career-item-dot"></span>Выдерживаю прессинг: 100+ негативных статей, угрозы, конкуренты</li>
+          <li class="career-item"><span class="career-item-dot"></span>Научился бороться со стрессом и паническими атаками</li>
+          <li class="career-item"><span class="career-item-dot"></span>10 раз начинал жизнь с нуля — выработал иммунитет к переезду</li>
+          <li class="career-item"><span class="career-item-dot"></span>Стал героем самого скандального выпуска «Секретного миллионера» — считаю, что передача спасла мне жизнь</li>
+          <li class="career-item"><span class="career-item-dot"></span>Счастливый человек</li>
+        </ul>
+      </div>
+
+      <div class="career-col">
+        <div class="career-col-head">
+          <div class="career-col-icon">↓</div>
+          <div class="career-col-title">Цена опыта</div>
+        </div>
+        <ul class="career-list">
+          <li class="career-item"><span class="career-item-dot"></span>Разорялся более 20 раз</li>
+          <li class="career-item"><span class="career-item-dot"></span>Потерял компанию стоимостью $4 000 000 000</li>
+          <li class="career-item"><span class="career-item-dot"></span>Арестован 3 раза, сидел в Европе в рамках одного обвинения</li>
+          <li class="career-item"><span class="career-item-dot"></span>5 раз снимали с самолёта — Европол, Интерпол, FBI, IRS</li>
+          <li class="career-item"><span class="career-item-dot"></span>$6 000 000 на 20+ адвокатов в 5 странах. Один умер — после получения гонорара</li>
+          <li class="career-item"><span class="career-item-dot"></span>Обжёгся на 50+ скамах — теперь чую их за версту</li>
+          <li class="career-item"><span class="career-item-dot"></span>3 развода, предательства, измены</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">02 — Услуги</div>
+      <h2 class="section-title">Проблемы, которые<br>я решаю.</h2>
+    </div>
+    <div class="services-intro">
+      <p>Все рассказывают какая крипта прибыльная. Я расскажу обратную сторону — как из неё можно потерять всё. И как выйти из этого живым.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-name">Консультации по блокчейн и крипто-тематике</div>
+        <div class="service-hover">
+          <div>Я помогу вам:</div>
+          <ul>
+            <li>Найти лучший курс и безопасно провести сделку</li>
+            <li>Провести токенизацию бизнеса, найти инвестора</li>
+            <li>Настроить маркетинг и разработку для крипто-проекта</li>
+            <li>Применить DeFi для улучшения финансовой эффективности</li>
+            <li>Провести независимый аудит блокчейн-проекта</li>
+          </ul>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-name">Финансово-юридические консультации</div>
+        <div class="service-hover">
+          <div>Я помогу вам:</div>
+          <ul>
+            <li>Приобрести, защитить и безопасно управлять активами (от $1M)</li>
+            <li>Разблокировать замороженные средства</li>
+            <li>Переместить и легализовать капитал в новой юрисдикции</li>
+            <li>Провести сложную сделку</li>
+          </ul>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-name">Запуск обменника под франшизой BCB</div>
+        <div class="service-hover">
+          <div>Я помогу вам:</div>
+          <ul>
+            <li>Открыть прибыльный бизнес в вашем городе или стране</li>
+            <li>Разобраться с локальными регуляциями</li>
+            <li>Увеличить прибыль действующего обменника</li>
+            <li>Найти инвестора и расширить сеть</li>
+          </ul>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-name">Инвестиции в блокчейн-проекты</div>
+        <div class="service-hover">
+          <div>Я помогу вам:</div>
+          <ul>
+            <li>Разобраться и войти в блокчейн-технологии</li>
+            <li>Минимизировать скам-риски</li>
+            <li>Получить проверенные контакты из индустрии</li>
+            <li>Нарастить нетворк среди founders и инвесторов</li>
+          </ul>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <div class="service-name">Скорая помощь при неудачных инвестициях</div>
+        <div class="service-hover">
+          <div>Я помогу вам:</div>
+          <ul>
+            <li>Разблокировать крипто-активы</li>
+            <li>Вернуть украденные мошенниками средства</li>
+            <li>Найти надёжных партнёров</li>
+          </ul>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <div class="service-name">Наставничество и второй шанс</div>
+        <div class="service-hover">
+          <div>Для кого:</div>
+          <ul>
+            <li>Начинающие предприниматели в крипте</li>
+            <li>Те, кто начинает жизнь с нуля или переехал</li>
+            <li>Люди, ищущие гармонию и умение радоваться каждому дню</li>
+          </ul>
+        </div>
+        <div class="service-arrow">→</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CASES ===== -->
+<section id="cases">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">03 — Кейсы</div>
+      <h2 class="section-title">Реальные задачи.<br>Реальные результаты.</h2>
+    </div>
+
+    <div class="cases-carousel">
+      <div class="cases-track" id="casesTrack">
+
+        <div class="case-card">
+          <div class="case-num">Кейс 01 · Обменник</div>
+          <div class="case-title">Открытие офиса по обмену криптовалют в агентстве недвижимости</div>
+          <p style="font-size:14px;color:var(--mid);line-height:1.6;">Агентство добавило крипто-обмен как дополнительный сервис. С нуля — до рабочего бизнеса.</p>
+          <div class="case-result">
+            <div class="case-result-icon">✓</div>
+            <div class="case-result-text">Бизнес запущен. Новый источник дохода без отдельного офиса.</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-num">Кейс 02 · Рост прибыли</div>
+          <div class="case-title">Увеличение прибыли обменника с $10K до $25K за 2 месяца</div>
+          <p style="font-size:14px;color:var(--mid);line-height:1.6;">Действующий обменник застрял на плато. Аудит процессов, корректировка курсов и маркетинга.</p>
+          <div class="case-result">
+            <div class="case-result-icon">↑</div>
+            <div class="case-result-text">+150% прибыли за 8 недель. Без увеличения оборота.</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-num">Кейс 03 · Крупный бизнес</div>
+          <div class="case-title">Помощь с денежными переводами крупному бизнесмену</div>
+          <p style="font-size:14px;color:var(--mid);line-height:1.6;">SWIFT не работал. Стандартные схемы не подходили из-за суммы и юрисдикции.</p>
+          <div class="case-result">
+            <div class="case-result-icon">$</div>
+            <div class="case-result-text">Экономия $50 000 ежемесячно на комиссиях и конвертации.</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-num">Кейс 04 · Маркетинг</div>
+          <div class="case-title">Настройка маркетинга крипто-проекта: эффективность лида ×3</div>
+          <p style="font-size:14px;color:var(--mid);line-height:1.6;">Проект тратил бюджет на нецелевую аудиторию. Помог определиться с гео и УТП.</p>
+          <div class="case-result">
+            <div class="case-result-icon">×</div>
+            <div class="case-result-text">Стоимость лида снизилась в 3 раза при том же бюджете.</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-num">Кейс 05 · ВЭД Китай</div>
+          <div class="case-title">Прямая схема ВЭД без посредников — Китай</div>
+          <p style="font-size:14px;color:var(--mid);line-height:1.6;">Клиент платил посредникам 3–5% от каждой транзакции через несколько прокладок.</p>
+          <div class="case-result">
+            <div class="case-result-icon">$</div>
+            <div class="case-result-text">Экономия $50 000 еженедельно после перехода на прямую схему.</div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-num">Кейс 06 · Пассивный доход</div>
+          <div class="case-title">Крупная сумма — в ликвидность: +50–100% за год</div>
+          <p style="font-size:14px;color:var(--mid);line-height:1.6;">Клиент хотел пассивный доход, не зная куда положить капитал без риска скама.</p>
+          <div class="case-result">
+            <div class="case-result-icon">↑</div>
+            <div class="case-result-text">50–100% в валюте за 6–12 месяцев через проверенную схему ликвидности.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="moveCarousel(-1)">←</button>
+      <button class="carousel-btn" onclick="moveCarousel(1)">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORMATS ===== -->
+<section id="formats">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">04 — Форматы сотрудничества</div>
+      <h2 class="section-title">Как работаем.</h2>
+      <p class="section-sub">Первый разбор ситуации — бесплатно. Скажу честно: смогу ли помочь и как.</p>
+    </div>
+
+    <div class="formats-grid">
+
+      <div class="format-card">
+        <div class="format-name">Консультация (1 час)</div>
+        <div class="format-price">$200 <span class="old">$200</span></div>
+        <div class="format-note">$100 для членов BCB.credit</div>
+        <div class="format-desc">Разбираем вашу ситуацию. Получаете конкретный план действий — не общие советы. Если не смогу помочь — скажу сразу и не возьму денег.</div>
+        <a href="#contact" class="format-cta">Записаться</a>
+      </div>
+
+      <div class="format-card">
+        <div class="format-name">Проектная работа</div>
+        <div class="format-price">от $2 000</div>
+        <div class="format-note">Разблокировка, аудит, сопровождение сделки</div>
+        <div class="format-desc">Работаю с задачей от начала до результата. Разблокировка активов, финансово-юридическое сопровождение, аудит транзакций, сложные сделки.</div>
+        <a href="#contact" class="format-cta">Обсудить</a>
+      </div>
+
+      <div class="format-card">
+        <div class="format-name">Ретейнер / Постоянное сопровождение</div>
+        <div class="format-price">от $3 000 /мес</div>
+        <div class="format-note">Для бизнеса с регулярными задачами</div>
+        <div class="format-desc">Постоянный доступ к моей экспертизе. Крипто-обменник, финтех, инвестиционный портфель — нахожусь рядом при любых вопросах.</div>
+        <a href="#contact" class="format-cta">Обсудить</a>
+      </div>
+
+      <div class="format-card">
+        <div class="format-name">Наставничество</div>
+        <div class="format-price">$150 – $300 /ч</div>
+        <div class="format-note">Для предпринимателей и инвесторов</div>
+        <div class="format-desc">Не теория — личный опыт. 20+ разорений, 10 переездов, старт с нуля в Bay Area. Работаю с теми, кто готов слышать неудобную правду.</div>
+        <a href="#contact" class="format-cta">Записаться</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div>
+        <h2 class="contact-title">Описать ситуацию.<br>Отвечу за 24 часа.</h2>
+        <p class="contact-slogan">"Выжил я — получится и у вас."</p>
+        <div class="contact-channels">
+          <a href="https://t.me/vdavc_bot" target="_blank" class="contact-channel">
+            <div class="channel-icon">🤖</div>
+            <div class="channel-info">
+              <div class="channel-label">AI-ассистент 24/7</div>
+              <div class="channel-val">@vdavc_bot</div>
+            </div>
+          </a>
+          <a href="https://t.me/vdavc_bot" target="_blank" class="contact-channel">
+            <div class="channel-icon">✈️</div>
+            <div class="channel-info">
+              <div class="channel-label">Telegram напрямую</div>
+              <div class="channel-val">@vdavc_bot</div>
+            </div>
+          </a>
+          <a href="mailto:dima@vda.vc" class="contact-channel">
+            <div class="channel-icon">✉️</div>
+            <div class="channel-info">
+              <div class="channel-label">Email</div>
+              <div class="channel-val">dima@vda.vc</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div id="form-main">
+          <div class="form-title">Заявка</div>
+          <form onsubmit="submitForm(event)">
+            <div class="form-row">
+              <label class="form-label">Имя</label>
+              <input type="text" class="form-input" placeholder="Дмитрий" required />
+            </div>
+            <div class="form-row">
+              <label class="form-label">Telegram / WhatsApp</label>
+              <input type="text" class="form-input" placeholder="@username или +7..." required />
+            </div>
+            <div class="form-row">
+              <label class="form-label">Тип запроса</label>
+              <select class="form-select form-input">
+                <option value="">— выбрать —</option>
+                <option>Разблокировка крипты / счёта</option>
+                <option>Финансово-юридическая консультация</option>
+                <option>Запуск / развитие обменника</option>
+                <option>Скорая помощь (мошенники, потери)</option>
+                <option>Наставничество / старт с нуля</option>
+                <option>Другое</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label class="form-label">Ситуация</label>
+              <textarea class="form-textarea" placeholder="Что случилось, сколько застряло, сроки..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">Отправить →</button>
+            <p class="form-note">NFA. Первый разбор бесплатно. Отвечу в течение 24 часов.</p>
+          </form>
+        </div>
+        <div id="form-success">
+          <div class="ok">✅</div>
+          <p>Получил. Отвечу в течение 24 часов.<br><br>Срочно — пиши напрямую: <a href="https://t.me/vdavc_bot" style="color:#aaa;">@vdavc_bot</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Dmitrii Vasilev · <a href="mailto:dima@vda.vc">dima@vda.vc</a> · Bay Area, CA · <a href="https://t.me/vdavc_bot">Telegram</a></p>
+  <p style="margin-top:6px;">NFA. Не является финансовой или юридической рекомендацией.</p>
+</footer>
+
+<script>
+  // ===== PRELOADER =====
+  const quotes = [
+    { text: '"Дима, ты — человек-легенда"', attr: '' },
+    { text: '"Дима, когда Netflix снимет про тебя фильм?"', attr: '' },
+    { text: 'Мой опыт поможет вам сэкономить время и деньги.<br><em>Я допустил сотни ошибок, потерял десятки миллионов.</em>', attr: 'Не повторяйте моих.' },
+    { text: '"Безнадёжно — это когда на крышку гроба падает земля.<br>Остальное можно исправить."', attr: '— Дмитрий Васильев' },
+    { text: 'Профессионально решаю любые проблемы.', attr: 'Bay Area, CA' },
+  ];
+  let qi = 0;
+  const qEl = document.getElementById('preloaderQuote');
+  const aEl = document.getElementById('preloaderAttr');
+
+  function showQuote(i) {
+    qEl.classList.remove('visible');
+    setTimeout(() => {
+      qEl.innerHTML = quotes[i].text;
+      aEl.textContent = quotes[i].attr;
+      qEl.classList.add('visible');
+      document.querySelectorAll('.preloader-dot').forEach((d, idx) => {
+        d.classList.toggle('active', idx === i);
+      });
+    }, 300);
+  }
+
+  showQuote(0);
+  const preloaderInterval = setInterval(() => {
+    qi++;
+    if (qi >= quotes.length) { clearInterval(preloaderInterval); skipPreloader(); return; }
+    showQuote(qi);
+  }, 2200);
+
+  function skipPreloader() {
+    clearInterval(preloaderInterval);
+    const pl = document.getElementById('preloader');
+    pl.classList.add('hidden');
+    setTimeout(() => pl.remove(), 600);
+  }
+
+  // ===== CAROUSEL =====
+  let carouselPos = 0;
+  function moveCarousel(dir) {
+    const track = document.getElementById('casesTrack');
+    const cards = track.querySelectorAll('.case-card');
+    const cardW = cards[0].offsetWidth + 24;
+    const maxPos = Math.max(0, cards.length - 3);
+    carouselPos = Math.max(0, Math.min(maxPos, carouselPos + dir));
+    track.style.transform = `translateX(-${carouselPos * cardW}px)`;
+  }
+
+  // ===== FORM =====
+  function submitForm(e) {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    fetch('https://formsubmit.co/ajax/dima@vda.vc', {
+      method: 'POST', headers: { 'Accept': 'application/json' }, body: data
+    }).catch(() => {});
+    document.getElementById('form-main').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+</script>
+</body>
+</html>

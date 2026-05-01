@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дмитрий Васильев — vda.vc</title>
+<meta name="description" content="Решаю нерешаемое. Крипто, финтех, AI-автоматизация. Падал и вставал. Теперь помогаю тебе.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg2: #f5f7fa;
+  --bg3: #eef1f6;
+  --ink: #0f0f0f;
+  --ink2: #3a3a3a;
+  --ink3: #6b7280;
+  --border: #e5e7eb;
+  --accent: #1a56db;
+  --accent2: #1d4ed8;
+  --accent-bg: #eff6ff;
+  --red: #c0392b;
+  --green: #059669;
+  --green-bg: #ecfdf5;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --radius: 14px;
+  --font: 'Inter', -apple-system, sans-serif;
+  --serif: 'Playfair Display', serif;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 56px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-weight: 700; font-size: 0.95rem; color: var(--ink); letter-spacing: 0.02em; }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; }
+.nav-links a { color: var(--ink3); font-size: 0.82rem; font-weight: 500; }
+.nav-links a:hover { color: var(--ink); text-decoration: none; }
+.btn-nav { background: var(--ink); color: #fff; padding: 7px 18px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; }
+.btn-nav:hover { background: var(--ink2); text-decoration: none; }
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* HERO */
+.hero { padding: 72px 0 56px; }
+.hero-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--green); display: inline-block;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero-sub {
+  font-size: 18px; color: var(--ink2); max-width: 600px; margin-bottom: 28px; line-height: 1.6;
+}
+.hero-quote {
+  font-style: italic; color: var(--ink3); font-size: 15px; margin-bottom: 32px;
+  padding-left: 16px; border-left: 3px solid var(--border);
+}
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+.btn-primary {
+  background: var(--ink); color: #fff; padding: 13px 28px; border-radius: 10px;
+  font-size: 15px; font-weight: 600; display: inline-block; transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--ink2); text-decoration: none; }
+.btn-outline {
+  border: 2px solid var(--border); color: var(--ink2); padding: 11px 24px;
+  border-radius: 10px; font-size: 15px; font-weight: 500; display: inline-block;
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+.hero-stats { display: flex; gap: 40px; }
+.stat-val { font-size: 28px; font-weight: 800; line-height: 1; }
+.stat-val span { font-weight: 400; color: var(--ink3); }
+.stat-lbl { font-size: 13px; color: var(--ink3); margin-top: 4px; }
+
+/* SECTIONS */
+section { padding: 56px 0; }
+section + section { border-top: 1px solid var(--bg3); }
+.s-num { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.s-title { font-size: clamp(24px, 4vw, 34px); font-weight: 800; line-height: 1.2; margin-bottom: 8px; letter-spacing: -0.3px; }
+.s-sub { color: var(--ink3); font-size: 16px; max-width: 600px; margin-bottom: 32px; }
+
+/* CAREER GRID */
+.career-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.career-col { background: var(--bg2); border-radius: var(--radius); padding: 28px; border: 1px solid var(--border); }
+.career-col-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.career-col-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
+.career-col.wins .career-col-icon { background: var(--green-bg); color: var(--green); }
+.career-col.cost .career-col-icon { background: #fef2f2; color: var(--red); }
+.career-col-title { font-weight: 700; font-size: 16px; }
+.career-list { list-style: none; }
+.career-list li {
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: 14px; color: var(--ink2); line-height: 1.5;
+}
+.career-list li:last-child { border-bottom: none; }
+
+/* DIRECTIONS HUB */
+.dir-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.dir-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px 24px; text-align: center; transition: all 0.2s;
+  text-decoration: none; color: var(--ink);
+}
+.dir-card:hover { border-color: var(--accent); box-shadow: var(--shadow); text-decoration: none; transform: translateY(-2px); }
+.dir-icon { font-size: 32px; margin-bottom: 10px; display: block; }
+.dir-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.dir-card p { font-size: 13px; color: var(--ink3); line-height: 1.5; }
+.dir-tag {
+  display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 10px; border-radius: 6px;
+}
+.dir-tag.crypto { background: #fef3c7; color: #92400e; }
+.dir-tag.ai { background: var(--accent-bg); color: var(--accent); }
+.dir-tag.life { background: #fce7f3; color: #9d174d; }
+
+/* PROOF */
+.proof-bar {
+  background: var(--accent-bg); border-radius: 12px; padding: 20px 28px;
+  display: flex; align-items: center; gap: 12px; margin-top: 32px;
+  font-size: 15px; font-weight: 600; color: var(--accent);
+}
+
+/* FOOTER */
+.footer { padding: 40px 0; text-align: center; color: var(--ink3); font-size: 13px; border-top: 1px solid var(--bg3); }
+.footer a { color: var(--accent); font-weight: 600; }
+
+@media (max-width: 700px) {
+  nav { padding: 0 1rem; }
+  .nav-links { display: none; }
+  .hero-stats { flex-wrap: wrap; gap: 24px; }
+  .career-grid { grid-template-columns: 1fr; }
+  .dir-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">vda<span>.vc</span></a>
+  <ul class="nav-links">
+    <li><a href="#career">Мой путь</a></li>
+    <li><a href="#directions">Направления</a></li>
+    <li><a href="#contact">Контакт</a></li>
+  </ul>
+  <a class="btn-nav" href="#contact">Написать →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">Hayward CA · Bay Area · Крипто / Финтех / AI</div>
+    <h1>Решаю<br><em>нерешаемое.</em></h1>
+    <p class="hero-sub">Крипта, финтех, AI-автоматизация, кризисный менеджмент. Когда юристы и банкиры разводят руками — я нахожу выход. Потому что я уже был там, где вы сейчас.</p>
+    <div class="hero-quote">«Безнадёжно — это когда на крышку гроба падает земля. Остальное можно исправить.»</div>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#contact">Описать проблему →</a>
+      <a class="btn-outline" href="#career">Мой путь ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val">15<span>+</span></div><div class="stat-lbl">лет в крипте</div></div>
+      <div><div class="stat-val">20<span>+</span></div><div class="stat-lbl">разорений</div></div>
+      <div><div class="stat-val">$6M</div><div class="stat-lbl">на адвокатов</div></div>
+      <div><div class="stat-val">4</div><div class="stat-lbl">ареста, 5 стран</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER -->
+<section id="career" class="reveal">
+  <div class="wrap">
+    <div class="s-num">01 — Мой путь</div>
+    <div class="s-title">Успехи и провалы. В одном человеке.</div>
+    <p class="s-sub">Это не вдохновляющая история успеха. Это хроника человека, который падал — и вставал снова.</p>
+
+    <div class="career-grid">
+      <div class="career-col wins">
+        <div class="career-col-head">
+          <div class="career-col-icon">↑</div>
+          <div class="career-col-title">Что получилось</div>
+        </div>
+        <ul class="career-list">
+          <li>В 30 лет купил и перезапустил крупнейшую российскую криптобиржу</li>
+          <li>Вернул пользователям доступ к $800M после закрытия ФБР</li>
+          <li>Путешествовал по миру 5 лет — будучи в розыске Интерпола</li>
+          <li>Выдерживаю прессинг: 100+ негативных статей, угрозы</li>
+          <li>Научился бороться со стрессом и паническими атаками</li>
+          <li>10 раз начинал жизнь с нуля</li>
+          <li>Счастливый человек</li>
+        </ul>
+      </div>
+      <div class="career-col cost">
+        <div class="career-col-head">
+          <div class="career-col-icon">↓</div>
+          <div class="career-col-title">Цена опыта</div>
+        </div>
+        <ul class="career-list">
+          <li>Разорялся более 20 раз</li>
+          <li>Потерял компанию стоимостью $4 000 000 000</li>
+          <li>Арестован 4 раза в 5 странах</li>
+          <li>5 раз снимали с самолёта — Европол, Интерпол, FBI, IRS</li>
+          <li>$6 000 000 на 27 адвокатов в 5 странах</li>
+          <li>Обжёгся на 50+ скамах — теперь чую их за версту</li>
+          <li>3 развода, предательства</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="proof-bar">
+      ✦ Каждые $1 000 в мою консультацию = $10 000+ экономии клиенту. Рекорд — $1M за 15 минут.
+    </div>
+  </div>
+</section>
+
+<!-- DIRECTIONS -->
+<section id="directions" class="reveal">
+  <div class="wrap">
+    <div class="s-num">02 — Направления</div>
+    <div class="s-title">Три направления. Одна задача — решить вашу проблему.</div>
+    <p class="s-sub">Выберите то, что ближе. Каждое — отдельная страница с деталями.</p>
+
+    <div class="dir-grid">
+      <a class="dir-card" href="/v3.html">
+        <span class="dir-icon">🔐</span>
+        <h3>Крипто и финтех</h3>
+        <p>Разблокировка счетов, OTC-сделки, юридическая стратегия, кросс-бордер платежи, запуск биржи</p>
+        <span class="dir-tag crypto">Крипто-консалтинг</span>
+      </a>
+      <a class="dir-card" href="/ai-service.html">
+        <span class="dir-icon">🤖</span>
+        <h3>AI для бизнеса</h3>
+        <p>Автоматизация, внедрение AI, подбор специалистов. Экономия 2-4 часа в день и от $10K/мес</p>
+        <span class="dir-tag ai">AI-автоматизация</span>
+      </a>
+      <a class="dir-card" href="/v4.html">
+        <span class="dir-icon">💎</span>
+        <h3>Второй шанс</h3>
+        <p>Кризис-менеджмент, личные проблемы, переезд, рестарт после потерь. Я это прошёл — помогу вам</p>
+        <span class="dir-tag life">Жизнь и кризис</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <div class="wrap" style="text-align:center; padding: 48px 24px;">
+    <div class="s-title">Есть проблема? Напишите.</div>
+    <p class="s-sub" style="margin: 12px auto 28px; max-width: 480px;">Первый ответ — бесплатно. Я отвечу лично в Telegram в течение 24 часов.</p>
+    <a class="btn-primary" href="https://t.me/vdavc_bot" style="font-size:17px; padding: 15px 36px;">Написать в Telegram →</a>
+    <p style="margin-top: 16px; font-size: 13px; color: var(--ink3);">
+      или <a href="mailto:dima@vda.vc">dima@vda.vc</a>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="wrap">
+    <a href="https://vda.vc">vda.vc</a> · Дмитрий Васильев · Bay Area, CA<br>
+    <div style="margin-top: 8px;">
+      <a href="/ai-service.html">AI-консалтинг</a> ·
+      <a href="/quiz.html">AI-диагностика</a> ·
+      <a href="/v4.html">Мой путь</a> ·
+      <a href="/ideas.html">Проекты</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

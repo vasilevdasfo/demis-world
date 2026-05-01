@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" data-lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дмитрий Васильев — Крипто-консультант, Bay Area | vda.vc</title>
+<meta name="description" content="ФБР закрыло биржу — я вернул $800M людям. Разблокировка крипты, кризис-менеджмент, финтех-консалтинг. 15 лет практики. Bay Area, CA.">
+<meta name="keywords" content="крипто консалтинг, разблокировка криптоактивов, кризис-менеджмент, EMI лицензия, финтех, Дмитрий Васильев, vda.vc">
+<meta name="author" content="Дмитрий Васильев / Dmitrii Vasilev">
+<meta property="og:title" content="Дмитрий Васильев — Крипто-консультант, Bay Area">
+<meta property="og:description" content="ФБР закрыло биржу — я вернул $800M людям. Разблокировка крипты, кризис-менеджмент, финтех.">
+<meta property="og:url" content="https://vda.vc">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold:       #C9A84C;
+  --gold-light: #E2C87A;
+  --gold-dim:   #8B6D2A;
+  --bg:         #0A0A0A;
+  --bg2:        #111111;
+  --bg3:        #161616;
+  --line:       rgba(201,168,76,0.15);
+  --text1:      #F0EAD8;
+  --text2:      #9A8E78;
+  --text3:      #5A5040;
+  --red:        #C0392B;
+  --green:      #4ade80;
+  --max-w:      1200px;
+  --transition: 0.25s ease;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text1);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+a { text-decoration: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ─── LIGHT THEME ─── */
+[data-theme="light"] {
+  --gold:       #A07830;
+  --gold-light: #C09840;
+  --gold-dim:   #C09840;
+  --bg:         #FAFAF7;
+  --bg2:        #F2F0EB;
+  --bg3:        #E8E5DE;
+  --line:       rgba(160,120,48,0.15);
+  --text1:      #1A1610;
+  --text2:      #5C5040;
+  --text3:      #9A8E78;
+  --red:        #C0392B;
+  --green:      #16a34a;
+}
+[data-theme="light"] nav {
+  background: linear-gradient(to bottom, rgba(250,250,247,0.97), transparent);
+}
+[data-theme="light"] #mobile-menu {
+  background: rgba(250,250,247,0.98);
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.97), transparent);
+  backdrop-filter: blur(10px);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.05em;
+}
+.nav-logo span { color: var(--text2); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-size: 13px; font-weight: 400; color: var(--text2);
+  letter-spacing: 0.04em; transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px;
+  border: 1px solid var(--gold-dim);
+  color: var(--gold); font-size: 13px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: all var(--transition);
+}
+.nav-cta:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+.nav-controls { display: flex; align-items: center; gap: 10px; }
+.nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.nav-burger span { width: 24px; height: 2px; background: var(--text2); border-radius: 2px; transition: all 0.2s; display: block; }
+
+/* ─── THEME TOGGLE ─── */
+.theme-toggle {
+  position: relative;
+  width: 44px; height: 24px;
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover { border-color: var(--gold-dim); }
+.theme-toggle-knob {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.3s;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; line-height: 1;
+}
+[data-theme="light"] .theme-toggle-knob {
+  transform: translateX(20px);
+}
+.theme-toggle-icon { pointer-events: none; }
+
+/* ─── LANG TOGGLE ─── */
+.lang-toggle {
+  display: flex; align-items: center;
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  flex-shrink: 0;
+}
+.lang-toggle:hover { border-color: var(--gold-dim); }
+.lang-btn {
+  padding: 4px 10px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.05em;
+  color: var(--text3);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.lang-btn.active {
+  color: var(--bg);
+  background: var(--gold);
+}
+
+/* Mobile overlay */
+#mobile-menu {
+  display: none; position: fixed; top: 64px; left: 0; right: 0;
+  background: rgba(10,10,10,0.98); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line); z-index: 99; padding: 28px 24px;
+}
+#mobile-menu a {
+  display: block; padding: 12px 0;
+  font-size: 1rem; color: var(--text1);
+  border-bottom: 1px solid var(--line);
+  transition: color var(--transition);
+}
+#mobile-menu a:last-child { border-bottom: none; }
+#mobile-menu a:hover { color: var(--gold); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 48px 80px;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 70% 40%, rgba(201,168,76,0.06) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+}
+.hero-line {
+  position: absolute; top: 0; left: 48px;
+  width: 1px; height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+  opacity: 0.3;
+}
+.hero-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); opacity: 0.8; margin-bottom: 32px;
+  display: flex; align-items: center; gap: 16px;
+}
+.hero-label::before {
+  content: ''; display: block; width: 40px; height: 1px; background: var(--gold-dim);
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 700; line-height: 1.05; letter-spacing: -0.01em;
+  max-width: 820px; margin-bottom: 40px;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-weight: 300; line-height: 1.65;
+  color: var(--text2); max-width: 520px; margin-bottom: 48px;
+}
+.hero-sub strong { color: var(--text1); font-weight: 500; }
+.hero-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 36px; background: var(--gold); color: var(--bg);
+  font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+  border: none; cursor: pointer; transition: all var(--transition);
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 32px; border: 1px solid var(--line); color: var(--text2);
+  font-size: 14px; font-weight: 400; letter-spacing: 0.04em;
+  cursor: pointer; transition: all var(--transition); background: transparent;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-ghost:hover { border-color: var(--gold-dim); color: var(--text1); }
+.hero-tags {
+  margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px;
+  font-size: 12px; color: var(--text3); letter-spacing: 0.06em;
+}
+.hero-tags span { padding: 5px 12px; border: 1px solid rgba(201,168,76,0.1); }
+.scroll-indicator {
+  position: absolute; bottom: 40px; right: 48px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.5;
+}
+.scroll-text {
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text3); writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* ─── STATS ─── */
+.stats {
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  padding: 32px 48px;
+}
+.stat {
+  padding: 16px 24px;
+  border-right: 1px solid var(--line);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 700; color: var(--gold);
+  line-height: 1.1; margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text1); margin-bottom: 4px;
+}
+.stat-sub { font-size: 12px; color: var(--text3); line-height: 1.5; }
+
+/* ─── SECTIONS SHARED ─── */
+.services, .cases, .markets, .about, .contact, .method, .expertise, .problems {
+  padding: 96px 48px;
+  max-width: var(--max-w); margin: 0 auto;
+  width: 100%;
+}
+.section-header { margin-bottom: 48px; }
+.section-tag {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); display: block; margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700; line-height: 1.1; letter-spacing: -0.01em;
+}
+
+/* ─── SERVICES ─── */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.service-card {
+  background: var(--bg2); padding: 40px 32px;
+  border: 1px solid var(--line); position: relative;
+  transition: border-color var(--transition);
+}
+.service-card:hover { border-color: var(--gold-dim); }
+.service-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 700; color: var(--bg3);
+  line-height: 1; margin-bottom: 24px;
+}
+.service-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 600; line-height: 1.2;
+  margin-bottom: 20px;
+}
+.service-pain {
+  font-size: 14px; color: var(--text2); font-style: italic;
+  border-left: 2px solid var(--gold-dim); padding-left: 16px;
+  margin-bottom: 20px; line-height: 1.6;
+}
+.service-solution {
+  font-size: 14px; color: var(--text2); line-height: 1.7;
+  margin-bottom: 28px;
+}
+.service-footer { display: flex; align-items: center; justify-content: space-between; }
+.service-price { font-size: 18px; font-weight: 500; color: var(--gold); }
+.service-link {
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text2); transition: color var(--transition);
+}
+.service-link:hover { color: var(--gold); }
+.services-wide {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.service-card-sm {
+  background: var(--bg2); padding: 24px;
+  border: 1px solid var(--line);
+  transition: border-color var(--transition);
+}
+.service-card-sm:hover { border-color: var(--gold-dim); }
+.service-sm-icon { font-size: 24px; margin-bottom: 12px; }
+.service-sm-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600; margin-bottom: 8px;
+}
+.service-sm-text { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 12px; }
+.service-sm-price { font-size: 13px; color: var(--gold); font-weight: 500; }
+
+/* ─── QUOTE ─── */
+.quote-section {
+  padding: 80px 48px; text-align: center;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg2);
+}
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 400; font-style: italic;
+  line-height: 1.3; color: var(--text1);
+  max-width: 700px; margin: 0 auto 24px;
+}
+.quote-text em { color: var(--gold); }
+.quote-author { font-size: 14px; color: var(--text3); letter-spacing: 0.08em; }
+
+/* ─── EXPERTISE ─── */
+.expertise-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.expertise-item { padding: 24px 0; border-bottom: 1px solid var(--line); }
+.expertise-icon { font-size: 28px; margin-bottom: 12px; }
+.expertise-item h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 600; margin-bottom: 8px;
+}
+.expertise-item p { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+/* ─── METHOD ─── */
+.method { background: var(--bg2); max-width: 100%; }
+.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: var(--max-w); margin: 0 auto; }
+.method-steps { display: flex; flex-direction: column; gap: 32px; }
+.method-step { display: flex; align-items: flex-start; gap: 24px; }
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px; font-weight: 700; color: var(--gold-dim);
+  line-height: 1; flex-shrink: 0; width: 60px;
+}
+.step-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600; margin-bottom: 6px;
+}
+.step-text { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+/* ─── CASES ─── */
+.cases-list { display: flex; flex-direction: column; gap: 2px; }
+.case-item {
+  display: grid; grid-template-columns: 200px 1fr 1fr; gap: 0;
+  border: 1px solid var(--line);
+  transition: border-color var(--transition);
+}
+.case-item:hover { border-color: var(--gold-dim); }
+.case-meta {
+  padding: 32px 24px; background: var(--bg2);
+  border-right: 1px solid var(--line);
+}
+.case-location { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
+.case-type { font-size: 14px; color: var(--text2); font-style: italic; }
+.case-problem, .case-result { padding: 32px 32px; }
+.case-problem { border-right: 1px solid var(--line); }
+.case-label {
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
+.case-text { font-size: 14px; color: var(--text2); line-height: 1.7; }
+.case-win {
+  margin-top: 16px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 700; color: var(--green);
+}
+
+/* ─── PROBLEMS ─── */
+.problems-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.problem-card {
+  padding: 24px; border: 1px solid var(--line); background: var(--bg2);
+  transition: border-color var(--transition);
+}
+.problem-card:hover { border-color: var(--gold-dim); }
+.problem-card h3 { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+.problem-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* ─── MARKETS ─── */
+.markets { max-width: 100%; background: var(--bg2); }
+.markets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: var(--max-w); margin: 0 auto; }
+.market-card {
+  padding: 40px 32px; border: 1px solid var(--line);
+  transition: border-color var(--transition);
+}
+.market-card:hover { border-color: var(--gold-dim); }
+.market-flag {
+  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+}
+.market-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 700; line-height: 1.2;
+  margin-bottom: 24px;
+}
+.market-requests { list-style: none; margin-bottom: 24px; }
+.market-requests li {
+  font-size: 13px; color: var(--text2); padding: 8px 0;
+  border-bottom: 1px solid var(--line); line-height: 1.5;
+}
+.market-requests li:last-child { border-bottom: none; }
+.market-requests li::before { content: '→ '; color: var(--gold-dim); }
+.market-price { font-size: 14px; color: var(--text3); }
+
+/* ─── ABOUT ─── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.about-text p {
+  font-size: 18px; color: var(--text2); line-height: 1.8;
+  margin-bottom: 20px;
+}
+.about-text em { color: var(--gold); font-style: italic; }
+.about-fact { display: flex; gap: 16px; margin-bottom: 24px; }
+.fact-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0; margin-top: 8px;
+}
+.fact-text { font-size: 15px; color: var(--text2); line-height: 1.7; }
+.fact-text strong { color: var(--text1); }
+
+/* ─── CONTACT ─── */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.contact-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 56px); font-weight: 700; line-height: 1.1;
+  margin-bottom: 28px;
+}
+.contact-sub { font-size: 16px; color: var(--text2); line-height: 1.8; margin-bottom: 36px; }
+.contact-direct { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+.contact-link {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 20px; border: 1px solid var(--line);
+  color: var(--text2); font-size: 15px;
+  transition: all var(--transition);
+}
+.contact-link:hover { border-color: var(--gold-dim); color: var(--gold); }
+.contact-link-icon {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg3); border-radius: 50%;
+  font-size: 16px; flex-shrink: 0;
+}
+.nfa { font-size: 12px; color: var(--text3); line-height: 1.6; }
+.contact-form { display: flex; flex-direction: column; gap: 20px; }
+.form-field { display: flex; flex-direction: column; gap: 8px; }
+.form-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); }
+.form-input, .form-select, .form-textarea {
+  padding: 14px 16px;
+  background: var(--bg2); border: 1px solid var(--line);
+  color: var(--text1); font-size: 14px; font-family: 'DM Sans', sans-serif;
+  transition: border-color var(--transition);
+  outline: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold-dim); }
+.form-input.error, .form-textarea.error { border-color: var(--red); }
+.form-select { appearance: none; cursor: pointer; }
+.form-select option { background: var(--bg2); }
+.form-textarea { resize: vertical; min-height: 120px; }
+.form-submit {
+  padding: 16px 36px; background: var(--gold); color: var(--bg);
+  font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+  border: none; cursor: pointer; transition: all var(--transition);
+  font-family: 'DM Sans', sans-serif; align-self: flex-start;
+}
+.form-submit:hover { background: var(--gold-light); }
+.form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.form-success {
+  display: none; padding: 16px; background: rgba(74,222,128,0.1);
+  border: 1px solid var(--green); color: var(--green); font-size: 14px;
+}
+
+/* ─── DISCLAIMER ─── */
+.disclaimer-bar {
+  padding: 24px 48px;
+  background: var(--bg2); border-top: 1px solid var(--line);
+}
+.disclaimer-bar p { font-size: 12px; color: var(--text3); line-height: 1.6; max-width: var(--max-w); margin: 0 auto; }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 48px 48px 32px;
+  border-top: 1px solid var(--line);
+}
+.footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; max-width: var(--max-w); margin: 0 auto 32px; }
+.footer-brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 700; color: var(--gold);
+  margin-bottom: 12px;
+}
+.footer-brand-desc { font-size: 13px; color: var(--text3); line-height: 1.6; }
+.footer-col { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 16px; }
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a { font-size: 13px; color: var(--text2); transition: color var(--transition); }
+.footer-links a:hover { color: var(--gold); }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--line); padding-top: 24px;
+  max-width: var(--max-w); margin: 0 auto;
+  font-size: 12px; color: var(--text3);
+}
+.footer-langs { display: flex; gap: 16px; }
+.footer-langs a { font-size: 12px; color: var(--text3); transition: color var(--transition); }
+.footer-langs a:hover { color: var(--gold); }
+
+/* ─── FLOAT CTA ─── */
+.float-cta {
+  position: fixed; bottom: 32px; right: 32px; z-index: 50;
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 24px;
+  background: var(--gold); color: var(--bg);
+  font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+  transition: all var(--transition);
+  box-shadow: 0 4px 24px rgba(201,168,76,0.3);
+}
+.float-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
+.float-cta-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--bg); animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .services-wide { grid-template-columns: repeat(2, 1fr); }
+  .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+  .problems-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-burger { display: flex; }
+  .hero { padding: 80px 24px 60px; min-height: auto; padding-top: 120px; }
+  .hero-line { left: 24px; }
+  .stats { grid-template-columns: repeat(2, 1fr); padding: 32px 24px; }
+  .stat { border-right: none; padding: 16px 0; }
+  .stat:nth-child(odd) { border-right: 1px solid var(--line); }
+  .services, .cases, .markets, .about, .contact, .method, .expertise, .problems { padding: 64px 24px; }
+  .services-grid, .markets-grid { grid-template-columns: 1fr; }
+  .services-wide { grid-template-columns: 1fr; }
+  .expertise-grid, .problems-grid { grid-template-columns: 1fr; }
+  .case-item { grid-template-columns: 1fr; gap: 24px; }
+  .case-problem { padding: 0; border: none; }
+  .method-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  .scroll-indicator { display: none; }
+  .disclaimer-bar, footer { padding-left: 24px; padding-right: 24px; }
+  .quote-section { padding: 60px 24px; }
+  .float-cta { bottom: 16px; right: 16px; padding: 10px 18px; font-size: 12px; }
+}
+@media (max-width: 480px) {
+  .stats { grid-template-columns: 1fr; }
+  .stat:nth-child(odd) { border-right: none; }
+  .hero-title { font-size: 42px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">VDA<span>.VC</span></a>
+  <div class="nav-links">
+    <a href="#services" data-ru="Услуги" data-en="Services">Услуги</a>
+    <a href="#expertise" data-ru="Экспертиза" data-en="Expertise">Экспертиза</a>
+    <a href="#method" data-ru="Метод" data-en="Method">Метод</a>
+    <a href="#cases" data-ru="Кейсы" data-en="Cases">Кейсы</a>
+    <a href="#about" data-ru="Обо мне" data-en="About">Обо мне</a>
+    <a href="#markets" data-ru="Рынки" data-en="Markets">Рынки</a>
+  </div>
+  <a class="nav-cta" href="#contact" data-ru="Описать проблему" data-en="Describe problem">Описать проблему</a>
+  <div class="nav-controls">
+    <div class="lang-toggle" onclick="toggleLang()" title="RU / EN">
+      <button class="lang-btn active" id="btn-ru" onclick="event.stopPropagation(); setLang('ru')">RU</button>
+      <button class="lang-btn" id="btn-en" onclick="event.stopPropagation(); setLang('en')">EN</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme" title="Dark / Light">
+      <div class="theme-toggle-knob"><span class="theme-toggle-icon">☀</span></div>
+    </button>
+    <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <a href="#services" onclick="toggleMenu()" data-ru="Услуги" data-en="Services">Услуги</a>
+  <a href="#expertise" onclick="toggleMenu()" data-ru="Экспертиза" data-en="Expertise">Экспертиза</a>
+  <a href="#method" onclick="toggleMenu()" data-ru="Метод" data-en="Method">Метод</a>
+  <a href="#cases" onclick="toggleMenu()" data-ru="Кейсы" data-en="Cases">Кейсы</a>
+  <a href="#about" onclick="toggleMenu()" data-ru="Обо мне" data-en="About">Обо мне</a>
+  <a href="#markets" onclick="toggleMenu()" data-ru="Рынки" data-en="Markets">Рынки</a>
+  <a href="#contact" onclick="toggleMenu()" style="color:var(--gold);" data-ru="Описать проблему →" data-en="Describe problem →">Описать проблему →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-label" data-ru="Дмитрий Васильев · Bay Area, California" data-en="Dmitrii Vasilev · Bay Area, California">Дмитрий Васильев · Bay Area, California</div>
+  <h1 class="hero-title fade-in">
+    <span data-ru="ФБР закрыло биржу." data-en="FBI seized the exchange.">ФБР закрыло биржу.</span><br>
+    <span data-ru="Я вернул" data-en="I returned">Я вернул</span> <em>$800M</em> <span data-ru="людям." data-en="to people.">людям.</span><br>
+    <span data-ru="Теперь помогаю тебе." data-en="Now I help you.">Теперь помогаю тебе.</span>
+  </h1>
+  <p class="hero-sub fade-in">
+    <span data-ru="Крипта заблокирована. Деньги застряли. Система давит." data-en="Crypto blocked. Money stuck. System pushing back.">Крипта заблокирована. Деньги застряли. Система давит.</span><br>
+    <span data-ru="Я знаю этот маршрут изнутри —" data-en="I know this route from the inside —">Я знаю этот маршрут изнутри —</span>
+    <strong data-ru="4 ареста, 5 стран, 27 адвокатов." data-en="4 arrests, 5 countries, 27 attorneys.">4 ареста, 5 стран, 27 адвокатов.</strong><br>
+    <span data-ru="Прихожу, когда остальные сдались." data-en="I come when others have given up.">Прихожу, когда остальные сдались.</span>
+  </p>
+  <div class="hero-actions fade-in">
+    <a href="#contact" class="btn-primary" data-ru="Описать проблему →" data-en="Describe problem →">Описать проблему →</a>
+    <a href="#about" class="btn-ghost" data-ru="Кто я такой" data-en="Who I am">Кто я такой</a>
+  </div>
+  <div class="hero-tags fade-in">
+    <span data-ru="🔓 Разблокировка крипты" data-en="🔓 Crypto Recovery">🔓 Разблокировка крипты</span>
+    <span data-ru="🔄 Второй шанс" data-en="🔄 Second Chance">🔄 Второй шанс</span>
+    <span data-ru="🤖 AI-аудит финансов" data-en="🤖 AI Financial Audit">🤖 AI-аудит финансов</span>
+    <span data-ru="⚖️ Кризис-менеджмент" data-en="⚖️ Crisis Management">⚖️ Кризис-менеджмент</span>
+    <span data-ru="💳 Финтех-лицензии" data-en="💳 Fintech Licenses">💳 Финтех-лицензии</span>
+  </div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">scroll</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat fade-in">
+    <div class="stat-num">$6M+</div>
+    <div class="stat-label" data-ru="На адвокатов" data-en="Legal defense">На адвокатов</div>
+    <div class="stat-sub" data-ru="27 юристов<br>1 умер · 1 сидит" data-en="27 attorneys<br>1 died · 1 in prison">27 юристов<br>1 умер · 1 сидит</div>
+  </div>
+  <div class="stat fade-in">
+    <div class="stat-num" data-ru="15 лет" data-en="15 yrs">15 лет</div>
+    <div class="stat-label" data-ru="В крипте" data-en="In crypto">В крипте</div>
+    <div class="stat-sub" data-ru="С 2009 года" data-en="Since 2009">С 2009 года</div>
+  </div>
+  <div class="stat fade-in">
+    <div class="stat-num" data-ru="4 рынка" data-en="4 markets">4 рынка</div>
+    <div class="stat-label" data-ru="Присутствие" data-en="Presence">Присутствие</div>
+    <div class="stat-sub">RU · USA · EU · PL</div>
+  </div>
+  <div class="stat fade-in">
+    <div class="stat-num" data-ru="4 яз" data-en="4 lang">4 яз</div>
+    <div class="stat-label" data-ru="Языки" data-en="Languages">Языки</div>
+    <div class="stat-sub">RU · EN · PL · ES</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header fade-in">
+    <span class="section-tag" data-ru="01 — Услуги" data-en="01 — Services">01 — Услуги</span>
+    <h2 class="section-title" data-ru="Три задачи, которые я решаю" data-en="Three problems I solve">Три задачи, которые я решаю</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-num">01</div>
+      <h3 class="service-title">
+        <span data-ru="Разблокировка крипты —" data-en="Crypto Recovery —">Разблокировка крипты —</span>
+        <em style="color:var(--gold);" data-ru="$800M опыт" data-en="$800M experience">$800M опыт</em>
+      </h3>
+      <p class="service-pain" data-ru="«Деньги на бирже — не вывести. KYC не проходит. Аккаунт заморожен. Поддержка молчит третью неделю.»" data-en="«Funds on exchange — can't withdraw. KYC failing. Account frozen. Support silent for three weeks.»">«Деньги на бирже — не вывести. KYC не проходит. Аккаунт заморожен. Поддержка молчит третью неделю.»</p>
+      <div class="service-solution">
+        <span data-ru="Я восстанавливал биржу с" data-en="I rebuilt an exchange with">Я восстанавливал биржу с</span>
+        <strong>$800M <span data-ru="замороженных активов" data-en="of frozen assets">замороженных активов</span></strong>.
+        <span data-ru="Знаю все маршруты разблокировки — через обменники, юрисдикции и прямые контакты." data-en="I know every recovery route — through exchanges, jurisdictions and direct contacts.">Знаю все маршруты разблокировки — через обменники, юрисдикции и прямые контакты.</span><br>
+        <strong data-ru="Результат: 7–21 день." data-en="Result: 7–21 days.">Результат: 7–21 день.</strong>
+      </div>
+      <div class="service-footer">
+        <span class="service-price" data-ru="от $2 000" data-en="from $2,000">от $2 000</span>
+        <a href="#contact" class="service-link" data-ru="Описать ситуацию" data-en="Describe situation">Описать ситуацию</a>
+      </div>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-num">02</div>
+      <h3 class="service-title">
+        <span data-ru="AI-аудит финансов —" data-en="AI Financial Audit —">AI-аудит финансов —</span>
+        <em style="color:var(--gold);" data-ru="за 72 часа" data-en="in 72 hours">за 72 часа</em>
+      </h3>
+      <p class="service-pain" data-ru="«Компания теряет деньги — не знаю где. Подозреваю фрод. Цифры не сходятся — никто не объяснит.»" data-en="«Company losing money — don't know where. Suspect fraud. Numbers don't add up — nobody explains.»">«Компания теряет деньги — не знаю где. Подозреваю фрод. Цифры не сходятся — никто не объяснит.»</p>
+      <div class="service-solution">
+        <span data-ru="Применяю AI для анализа транзакций. Нахожу аномалии, фрод, недоработки —" data-en="I apply AI to analyze transactions. I find anomalies, fraud, gaps —">Применяю AI для анализа транзакций. Нахожу аномалии, фрод, недоработки —</span>
+        <strong data-ru="за 72 часа" data-en="in 72 hours">за 72 часа</strong>.
+        <span data-ru="Результат: конкретные цифры потерь и виновные." data-en="Result: concrete loss figures and the culprits.">Результат: конкретные цифры потерь и виновные.</span><br>
+        <em style="color:var(--text3)" data-ru="Побочный эффект: часть команды придётся уволить." data-en="Side effect: part of the team will need to be fired.">Побочный эффект: часть команды придётся уволить.</em>
+      </div>
+      <div class="service-footer">
+        <span class="service-price" data-ru="от $5 000" data-en="from $5,000">от $5 000</span>
+        <a href="#contact" class="service-link" data-ru="Заказать аудит" data-en="Order audit">Заказать аудит</a>
+      </div>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-num">03</div>
+      <h3 class="service-title">
+        <span data-ru="Второй шанс —" data-en="Second Chance —">Второй шанс —</span>
+        <em style="color:var(--gold);" data-ru="личный маршрут" data-en="personal route">личный маршрут</em>
+      </h3>
+      <p class="service-pain" data-ru="«Новая страна. Тюрьма. Банкротство.»" data-en="«New country. Prison. Bankruptcy.»">«Новая страна. Тюрьма. Банкротство.»</p>
+      <div class="service-solution">
+        <span data-ru="Я сам прошёл через это. Домашний арест. Пять стран. Старт с нуля." data-en="I've been through it myself. House arrest. Five countries. Starting from zero.">Я сам прошёл через это. Домашний арест. Пять стран. Старт с нуля.</span>
+        <strong data-ru="Не теория — личный маршрут." data-en="Not theory — personal route.">Не теория — личный маршрут.</strong>
+        <span data-ru="Провожу за руку: банк, документы, первые деньги, план на 90 дней." data-en="I guide you step by step: bank, documents, first income, 90-day plan.">Провожу за руку: банк, документы, первые деньги, план на 90 дней.</span>
+      </div>
+      <div class="service-footer">
+        <span class="service-price" data-ru="Бесплатно / За отзыв" data-en="Free / For a review">Бесплатно / За отзыв</span>
+        <a href="#contact" class="service-link" data-ru="Рассказать ситуацию" data-en="Tell your story">Рассказать ситуацию</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Extended services -->
+  <div style="margin-top:48px;">
+    <div class="section-header fade-in" style="margin-bottom:32px;">
+      <span class="section-tag" data-ru="Полный прайс" data-en="Full price list">Полный прайс</span>
+      <h3 class="section-title" style="font-size:clamp(24px,3vw,36px);" data-ru="Все направления" data-en="All services">Все направления</h3>
+    </div>
+    <div class="services-wide">
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">⚡</div>
+        <h3 class="service-sm-title" data-ru="Антикризисный консалтинг" data-en="Crisis Consulting">Антикризисный консалтинг</h3>
+        <p class="service-sm-text" data-ru="Регуляторное давление, потеря лицензии, конфликт с партнёрами. Разбираю за 24 часа." data-en="Regulatory pressure, license loss, partner conflicts. I analyze within 24 hours.">Регуляторное давление, потеря лицензии, конфликт с партнёрами. Разбираю за 24 часа.</p>
+        <span class="service-sm-price" data-ru="от $3 000 / мес" data-en="from $3,000 / mo">от $3 000 / мес</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">💳</div>
+        <h3 class="service-sm-title" data-ru="Карточный продукт" data-en="Card Products">Карточный продукт</h3>
+        <p class="service-sm-text" data-ru="BIN-спонсорство, эмиссия карт, Visa/MC compliance, интеграция с процессингом." data-en="BIN sponsorship, card issuance, Visa/MC compliance, processing integration.">BIN-спонсорство, эмиссия карт, Visa/MC compliance, интеграция с процессингом.</p>
+        <span class="service-sm-price" data-ru="от $5 000 / проект" data-en="from $5,000 / project">от $5 000 / проект</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🏦</div>
+        <h3 class="service-sm-title">EMI / MSB <span data-ru="Лицензии" data-en="Licenses">Лицензии</span></h3>
+        <p class="service-sm-text" data-ru="Получение и поддержание EMI, MSB, VASP в EU, UK, CIS. Работа с регуляторами напрямую." data-en="Obtaining and maintaining EMI, MSB, VASP in EU, UK, CIS. Direct work with regulators.">Получение и поддержание EMI, MSB, VASP в EU, UK, CIS. Работа с регуляторами напрямую.</p>
+        <span class="service-sm-price" data-ru="от $8 000 / проект" data-en="from $8,000 / project">от $8 000 / проект</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🔄</div>
+        <h3 class="service-sm-title" data-ru="Консалтинг для обменников" data-en="Exchange Consulting">Консалтинг для обменников</h3>
+        <p class="service-sm-text" data-ru="Запуск, масштабирование, compliance, работа с банками-партнёрами." data-en="Launch, scaling, compliance, working with banking partners.">Запуск, масштабирование, compliance, работа с банками-партнёрами.</p>
+        <span class="service-sm-price" data-ru="от $2 000 / мес" data-en="from $2,000 / mo">от $2 000 / мес</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🤝</div>
+        <h3 class="service-sm-title">M&amp;A <span data-ru="в крипто" data-en="in crypto">в крипто</span></h3>
+        <p class="service-sm-text" data-ru="Due diligence, оценка активов, структурирование сделок. Кросс-бордер опыт." data-en="Due diligence, asset valuation, deal structuring. Cross-border experience.">Due diligence, оценка активов, структурирование сделок. Кросс-бордер опыт.</p>
+        <span class="service-sm-price" data-ru="по договорённости" data-en="by arrangement">по договорённости</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🤖</div>
+        <h3 class="service-sm-title" data-ru="AI-автоматизация" data-en="AI Automation">AI-автоматизация</h3>
+        <p class="service-sm-text" data-ru="Внедрение AI-инструментов, автоматизация рутины — один человек работает как компания." data-en="Deploying AI tools, automating routine — one person works like a company.">Внедрение AI-инструментов, автоматизация рутины — один человек работает как компания.</p>
+        <span class="service-sm-price" data-ru="от $3 000 / проект" data-en="from $3,000 / project">от $3 000 / проект</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🌐</div>
+        <h3 class="service-sm-title" data-ru="Кросс-бордер платежи" data-en="Cross-Border Payments">Кросс-бордер платежи</h3>
+        <p class="service-sm-text" data-ru="Международные переводы, SWIFT-альтернативы, крипто-рейлы для бизнеса." data-en="International transfers, SWIFT alternatives, crypto rails for business.">Международные переводы, SWIFT-альтернативы, крипто-рейлы для бизнеса.</p>
+        <span class="service-sm-price" data-ru="от $2 000 / кейс" data-en="from $2,000 / case">от $2 000 / кейс</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🧭</div>
+        <h3 class="service-sm-title" data-ru="«Жизнь с нуля»" data-en="«Life from Zero»">«Жизнь с нуля»</h3>
+        <p class="service-sm-text" data-ru="Эмиграция, новый старт, выход из кризиса. Метод: слышу → понимаю → перевожу → решаю." data-en="Immigration, new start, crisis exit. Method: Hear → Understand → Translate → Solve.">Эмиграция, новый старт, выход из кризиса. Метод: слышу → понимаю → перевожу → решаю.</p>
+        <span class="service-sm-price">$200 / <span data-ru="сессия" data-en="session">сессия</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <div class="quote-text">
+    <span data-ru="«Приходи с проблемой." data-en="«Come with a problem.">«Приходи с проблемой.</span><br>
+    <span data-ru="Уходи с" data-en="Leave with a">Уходи с</span> <em data-ru="решением" data-en="solution">решением</em>.<br>
+    <span data-ru="Оставайся — чтобы помогать другим.»" data-en="Stay — to help others.»">Оставайся — чтобы помогать другим.»</span>
+  </div>
+  <div class="quote-author" data-ru="— Дмитрий Васильев, принцип работы" data-en="— Dmitrii Vasilev, working principle">— Дмитрий Васильев, принцип работы</div>
+</div>
+
+<!-- EXPERTISE -->
+<section class="expertise" id="expertise">
+  <div class="section-header fade-in">
+    <span class="section-tag" data-ru="02 — Экспертиза" data-en="02 — Expertise">02 — Экспертиза</span>
+    <h2 class="section-title" data-ru="Что я знаю изнутри" data-en="What I know from the inside">Что я знаю изнутри</h2>
+  </div>
+  <div class="expertise-grid">
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">₿</div>
+      <h3 data-ru="Криптобиржи" data-en="Crypto Exchanges">Криптобиржи</h3>
+      <p data-ru="Управление биржей, ликвидность, маркет-мейкинг, OTC-деск, compliance. Знаю, как работают системы изнутри." data-en="Exchange management, liquidity, market-making, OTC desk, compliance. I know how systems work from the inside.">Управление биржей, ликвидность, маркет-мейкинг, OTC-деск, compliance. Знаю, как работают системы изнутри.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🔐</div>
+      <h3>AML / KYC / Compliance</h3>
+      <p data-ru="Построение compliance-процессов, работа с регуляторами, ответы на запросы FinCEN, FCA, BaFin." data-en="Building compliance processes, working with regulators, responding to FinCEN, FCA, BaFin requests.">Построение compliance-процессов, работа с регуляторами, ответы на запросы FinCEN, FCA, BaFin.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">💳</div>
+      <h3 data-ru="Карточный продукт" data-en="Card Products">Карточный продукт</h3>
+      <p data-ru="BIN-спонсорство, эмиссия карт, Visa/Mastercard программы, prepaid-продукты, интеграция с процессингом." data-en="BIN sponsorship, card issuance, Visa/Mastercard programs, prepaid products, processing integration.">BIN-спонсорство, эмиссия карт, Visa/Mastercard программы, prepaid-продукты, интеграция с процессингом.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🌐</div>
+      <h3 data-ru="Кросс-бордер платежи" data-en="Cross-Border Payments">Кросс-бордер платежи</h3>
+      <p data-ru="Международные переводы, корреспондентские счета, SWIFT-альтернативы, крипто-рейлы." data-en="International transfers, correspondent accounts, SWIFT alternatives, crypto rails.">Международные переводы, корреспондентские счета, SWIFT-альтернативы, крипто-рейлы.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">📋</div>
+      <h3>EMI / MSB <span data-ru="Лицензии" data-en="Licenses">Лицензии</span></h3>
+      <p data-ru="Получение лицензий в EU, UK, Литве, Эстонии, Грузии, ОАЭ. Работа с регуляторами напрямую." data-en="Obtaining licenses in EU, UK, Lithuania, Estonia, Georgia, UAE. Direct work with regulators.">Получение лицензий в EU, UK, Литве, Эстонии, Грузии, ОАЭ. Работа с регуляторами напрямую.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">⚡</div>
+      <h3 data-ru="Кризис-менеджмент" data-en="Crisis Management">Кризис-менеджмент</h3>
+      <p data-ru="Управление при регуляторном давлении, потере ликвидности, конфликтах с партнёрами и медиа-атаках." data-en="Management under regulatory pressure, liquidity loss, partner conflicts and media attacks.">Управление при регуляторном давлении, потере ликвидности, конфликтах с партнёрами и медиа-атаках.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🏪</div>
+      <h3 data-ru="Обменники" data-en="Crypto Exchanges (OTC)">Обменники</h3>
+      <p data-ru="Запуск и масштабирование обменных пунктов, работа с банками-партнёрами, автоматизация курсов." data-en="Launch and scaling of exchange desks, working with banking partners, automated rate management.">Запуск и масштабирование обменных пунктов, работа с банками-партнёрами, автоматизация курсов.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🤝</div>
+      <h3 data-ru="OTC-сделки" data-en="OTC Deals">OTC-сделки</h3>
+      <p data-ru="Структурирование крупных внебиржевых сделок, работа с институциональными клиентами." data-en="Structuring large over-the-counter transactions, working with institutional clients.">Структурирование крупных внебиржевых сделок, работа с институциональными клиентами.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🤖</div>
+      <h3 data-ru="AI и автоматизация" data-en="AI &amp; Automation">AI и автоматизация</h3>
+      <p data-ru="Внедрение AI-инструментов в финтех-процессы, построение автоматизированных систем." data-en="Implementing AI tools in fintech processes, building automated systems.">Внедрение AI-инструментов в финтех-процессы, построение автоматизированных систем.</p>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="method" id="method">
+  <div class="method-grid">
+    <div class="fade-in">
+      <div class="section-header" style="margin-bottom:32px">
+        <span class="section-tag" data-ru="03 — Метод" data-en="03 — Method">03 — Метод</span>
+        <h2 class="section-title" data-ru="Как это работает" data-en="How it works">Как это работает</h2>
+      </div>
+      <p style="font-size:15px;color:var(--text2);line-height:1.7;max-width:360px" data-ru="Не консультирую. Не даю рекомендации. Решаю — с конкретными контактами, сроками и ответственностью." data-en="I don't consult. I don't give recommendations. I solve — with specific contacts, deadlines and accountability.">
+        Не консультирую. Не даю рекомендации. Решаю — с конкретными контактами, сроками и ответственностью.
+      </p>
+    </div>
+    <div class="method-steps">
+      <div class="method-step fade-in">
+        <span class="step-num">01</span>
+        <div>
+          <h3 class="step-title" data-ru="Слышу" data-en="Hear">Слышу</h3>
+          <p class="step-text" data-ru="Не перебиваю. Не оцениваю. Слушаю полную картину — потому что решение всегда в деталях, которые кажутся незначительными." data-en="I don't interrupt. I don't judge. I listen to the full picture — because the solution is always in the details that seem insignificant.">Не перебиваю. Не оцениваю. Слушаю полную картину — потому что решение всегда в деталях, которые кажутся незначительными.</p>
+        </div>
+      </div>
+      <div class="method-step fade-in">
+        <span class="step-num">02</span>
+        <div>
+          <h3 class="step-title" data-ru="Понимаю" data-en="Understand">Понимаю</h3>
+          <p class="step-text" data-ru="Нахожу настоящую проблему за симптомами. 5 почему. Декомпозиция. Смена рамки. Часто оказывается — проблема не там, где думали." data-en="I find the real problem behind the symptoms. 5 whys. Decomposition. Reframing. Often it turns out — the problem is not where you thought.">Нахожу настоящую проблему за симптомами. 5 почему. Декомпозиция. Смена рамки. Часто оказывается — проблема не там, где думали.</p>
+        </div>
+      </div>
+      <div class="method-step fade-in">
+        <span class="step-num">03</span>
+        <div>
+          <h3 class="step-title" data-ru="Перевожу" data-en="Translate">Перевожу</h3>
+          <p class="step-text" data-ru="Юрист говорит на одном языке. Биржа — на другом. Банк — на третьем. Я нахожу перевод между ними. 15 лет на стыке крипто, права и банкинга." data-en="A lawyer speaks one language. An exchange — another. A bank — a third. I find the translation between them. 15 years at the intersection of crypto, law and banking.">Юрист говорит на одном языке. Биржа — на другом. Банк — на третьем. Я нахожу перевод между ними. 15 лет на стыке крипто, права и банкинга.</p>
+        </div>
+      </div>
+      <div class="method-step fade-in">
+        <span class="step-num">04</span>
+        <div>
+          <h3 class="step-title" data-ru="Решаю" data-en="Solve">Решаю</h3>
+          <p class="step-text" data-ru="Конкретный план. Конкретные контакты. Конкретные сроки. Не рекомендации — действия. Остаюсь рядом пока результат не достигнут." data-en="Concrete plan. Concrete contacts. Concrete deadlines. Not recommendations — actions. I stay until the result is achieved.">Конкретный план. Конкретные контакты. Конкретные сроки. Не рекомендации — действия. Остаюсь рядом пока результат не достигнут.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases" id="cases">
+  <div class="section-header fade-in" style="padding:0 0 0 0">
+    <span class="section-tag" data-ru="04 — Кейсы" data-en="04 — Cases">04 — Кейсы</span>
+    <h2 class="section-title" data-ru="Три реальных кейса" data-en="Three real cases">Три реальных кейса</h2>
+  </div>
+  <div class="cases-list">
+    <div class="case-item fade-in">
+      <div class="case-meta">
+        <div class="case-location" data-ru="Россия" data-en="Russia">Россия</div>
+        <div class="case-type" data-ru="Крипто-предприниматель" data-en="Crypto entrepreneur">Крипто-предприниматель</div>
+      </div>
+      <div class="case-problem">
+        <div class="case-label" data-ru="Проблема" data-en="Problem">Проблема</div>
+        <p class="case-text" data-ru="$180 000 USDT заморожены на европейской бирже. Аккаунт заблокирован после санкционной проверки. Поддержка — автоответы. 3 месяца без движения." data-en="$180,000 USDT frozen on a European exchange. Account blocked after sanctions check. Support — auto-replies. 3 months without progress.">$180 000 USDT заморожены на европейской бирже. Аккаунт заблокирован после санкционной проверки. Поддержка — автоответы. 3 месяца без движения.</p>
+      </div>
+      <div class="case-result">
+        <div class="case-label" data-ru="Результат" data-en="Result">Результат</div>
+        <p class="case-text" data-ru="Найдена юрисдикционная лазейка. Переговоры с compliance через посредника." data-en="Found jurisdictional loophole. Negotiations with compliance through an intermediary.">Найдена юрисдикционная лазейка. Переговоры с compliance через посредника.</p>
+        <div class="case-win" data-ru="$180K за 17 дней" data-en="$180K in 17 days">$180K за 17 дней</div>
+      </div>
+    </div>
+    <div class="case-item fade-in">
+      <div class="case-meta">
+        <div class="case-location">Bay Area, USA</div>
+        <div class="case-type" data-ru="Бывший заключённый" data-en="Ex-convict">Бывший заключённый</div>
+      </div>
+      <div class="case-problem">
+        <div class="case-label" data-ru="Проблема" data-en="Problem">Проблема</div>
+        <p class="case-text" data-ru="После 3 лет тюрьмы — ни банковского счёта, ни кредитной истории. Ни одна компания не берёт. Родственники отвернулись. Нетворк — ноль." data-en="After 3 years in prison — no bank account, no credit history. No company would hire. Family turned away. Network — zero.">После 3 лет тюрьмы — ни банковского счёта, ни кредитной истории. Ни одна компания не берёт. Родственники отвернулись. Нетворк — ноль.</p>
+      </div>
+      <div class="case-result">
+        <div class="case-label" data-ru="Результат" data-en="Result">Результат</div>
+        <p class="case-text" data-ru="План 90 дней: документы → secured card → non-profit → фриланс. Нетворк в Bay Area." data-en="90-day plan: documents → secured card → non-profit → freelance. Network in Bay Area.">План 90 дней: документы → secured card → non-profit → фриланс. Нетворк в Bay Area.</p>
+        <div class="case-win" data-ru="$1 200/мес через 6 недель" data-en="$1,200/mo within 6 weeks">$1 200/мес через 6 недель</div>
+      </div>
+    </div>
+    <div class="case-item fade-in">
+      <div class="case-meta">
+        <div class="case-location" data-ru="Польша, ЕС" data-en="Poland, EU">Польша, ЕС</div>
+        <div class="case-type" data-ru="Крипто-обменник" data-en="Crypto exchange">Крипто-обменник</div>
+      </div>
+      <div class="case-problem">
+        <div class="case-label" data-ru="Проблема" data-en="Problem">Проблема</div>
+        <p class="case-text" data-ru="Обменник терял 4–7% маржи ежемесячно. Владелец подозревал воровство, но без доказательств. Внутренняя проверка ничего не нашла." data-en="Exchange was losing 4–7% margin monthly. Owner suspected theft but had no proof. Internal audit found nothing.">Обменник терял 4–7% маржи ежемесячно. Владелец подозревал воровство, но без доказательств. Внутренняя проверка ничего не нашла.</p>
+      </div>
+      <div class="case-result">
+        <div class="case-label" data-ru="Результат" data-en="Result">Результат</div>
+        <p class="case-text" data-ru="AI-анализ за 6 месяцев. Найдено 3 схемы. 2 сотрудника уволены с доказательной базой." data-en="AI analysis over 6 months. Found 3 schemes. 2 employees fired with evidence base.">AI-анализ за 6 месяцев. Найдено 3 схемы. 2 сотрудника уволены с доказательной базой.</p>
+        <div class="case-win" data-ru="Экономия $40 000/мес" data-en="$40,000/mo saved">Экономия $40 000/мес</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section class="problems" id="problems">
+  <div class="section-header fade-in">
+    <span class="section-tag" data-ru="05 — Узнаёте себя?" data-en="05 — Recognize yourself?">05 — Узнаёте себя?</span>
+    <h2 class="section-title" data-ru="Типичные ситуации" data-en="Typical situations">Типичные ситуации</h2>
+  </div>
+  <div class="problems-grid">
+    <div class="problem-card fade-in">
+      <h3 data-ru="🔒 Заморожены средства на бирже" data-en="🔒 Funds frozen on exchange">🔒 Заморожены средства на бирже</h3>
+      <p data-ru="Binance, Kraken, Coinbase заблокировали аккаунт или средства. Служба поддержки молчит или требует документы, которые непонятно как подготовить." data-en="Binance, Kraken, Coinbase blocked your account or assets. Support is silent or asking for documents you don't know how to prepare.">Binance, Kraken, Coinbase заблокировали аккаунт или средства. Служба поддержки молчит или требует документы, которые непонятно как подготовить.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3 data-ru="📋 AML/KYC-запрос без ответа" data-en="📋 AML/KYC request unanswered">📋 AML/KYC-запрос без ответа</h3>
+      <p data-ru="Биржа прислала запрос на верификацию источника средств. Вы не знаете, что писать, чтобы не навредить себе." data-en="Exchange sent a source of funds verification request. You don't know what to write without hurting yourself.">Биржа прислала запрос на верификацию источника средств. Вы не знаете, что писать, чтобы не навредить себе.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3 data-ru="🏦 Банк закрыл счёт финтех-компании" data-en="🏦 Bank closed your fintech account">🏦 Банк закрыл счёт финтех-компании</h3>
+      <p data-ru="Банк-партнёр расторг договор без объяснений. Нужно срочно найти замену и не потерять клиентов." data-en="Banking partner terminated the contract without explanation. Need to urgently find a replacement and not lose clients.">Банк-партнёр расторг договор без объяснений. Нужно срочно найти замену и не потерять клиентов.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3 data-ru="⚠️ Регуляторное давление" data-en="⚠️ Regulatory pressure">⚠️ Регуляторное давление</h3>
+      <p data-ru="Регулятор прислал запрос, начал проверку или угрожает отозвать лицензию. Нужен план защиты и переговоры." data-en="Regulator sent a request, started an inspection or threatens to revoke a license. Need a defense plan and negotiations.">Регулятор прислал запрос, начал проверку или угрожает отозвать лицензию. Нужен план защиты и переговоры.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3 data-ru="💱 Нужно вывести крипту в фиат" data-en="💱 Need to convert crypto to fiat">💱 Нужно вывести крипту в фиат</h3>
+      <p data-ru="Большая позиция в крипте, но непонятно как выйти без потерь, без налоговых рисков и без блокировок." data-en="Large crypto position, but unclear how to exit without losses, tax risks and blocks.">Большая позиция в крипте, но непонятно как выйти без потерь, без налоговых рисков и без блокировок.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3 data-ru="🚀 Хочу запустить обменник или финтех" data-en="🚀 Want to launch an exchange or fintech">🚀 Хочу запустить обменник или финтех</h3>
+      <p data-ru="Есть идея и деньги, но нет понимания: лицензия, банк, compliance, технология — с чего начать." data-en="Have an idea and money, but no clarity: license, bank, compliance, technology — where to start.">Есть идея и деньги, но нет понимания: лицензия, банк, compliance, технология — с чего начать.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3 data-ru="🔄 Слияние или поглощение в крипто" data-en="🔄 M&amp;A in crypto">🔄 Слияние или поглощение в крипто</h3>
+      <p data-ru="Хотите купить или продать крипто/финтех-бизнес. Нужен человек, который понимает реальную стоимость актива." data-en="Want to buy or sell a crypto/fintech business. Need someone who understands the real asset value.">Хотите купить или продать крипто/финтех-бизнес. Нужен человек, который понимает реальную стоимость актива.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3 data-ru="🌍 Перезапуск жизни или бизнеса" data-en="🌍 Restarting life or business">🌍 Перезапуск жизни или бизнеса</h3>
+      <p data-ru="Эмиграция, новая страна, новый старт. Нужен человек, который прошёл через это и знает, как не потерять годы." data-en="Immigration, new country, new start. Need someone who's been through this and knows how not to lose years.">Эмиграция, новая страна, новый старт. Нужен человек, который прошёл через это и знает, как не потерять годы.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3 data-ru="🤖 Автоматизация процессов" data-en="🤖 Process automation">🤖 Автоматизация процессов</h3>
+      <p data-ru="Команда тратит время на рутину. Хотите внедрить AI, но не знаете с чего начать и что реально работает." data-en="Team spends time on routine. Want to implement AI but don't know where to start and what actually works.">Команда тратит время на рутину. Хотите внедрить AI, но не знаете с чего начать и что реально работает.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section class="markets" id="markets">
+  <div class="section-header fade-in">
+    <span class="section-tag" data-ru="06 — Рынки" data-en="06 — Markets">06 — Рынки</span>
+    <h2 class="section-title" data-ru="Где и с кем работаю" data-en="Where and with whom I work">Где и с кем работаю</h2>
+  </div>
+  <div class="markets-grid">
+    <div class="market-card fade-in">
+      <div class="market-flag" data-ru="Россия / СНГ" data-en="Russia / CIS">Россия / СНГ</div>
+      <h3 class="market-title" data-ru="Рынок, который<br>я знаю лучше всего" data-en="The market I<br>know best">Рынок, который<br>я знаю лучше всего</h3>
+      <ul class="market-requests">
+        <li data-ru="Крипта заморожена после санкций" data-en="Crypto frozen after sanctions">Крипта заморожена после санкций</li>
+        <li data-ru="Безопасный маршрут для OTC-сделки" data-en="Safe route for an OTC deal">Безопасный маршрут для OTC-сделки</li>
+        <li data-ru="Партнёр кинул — нужен выход" data-en="Partner cheated — need an exit">Партнёр кинул — нужен выход</li>
+        <li data-ru="Переезжаю в США/ЕС — с чего начать" data-en="Moving to USA/EU — where to start">Переезжаю в США/ЕС — с чего начать</li>
+      </ul>
+      <div class="market-price" data-ru="Чек: $2 000 – $8 000 за кейс" data-en="Fee: $2,000 – $8,000 per case">Чек: $2 000 – $8 000 за кейс</div>
+    </div>
+    <div class="market-card fade-in">
+      <div class="market-flag">USA / Bay Area</div>
+      <h3 class="market-title" data-ru="Здесь я живу.<br>Здесь работаю." data-en="This is where<br>I live and work.">Здесь я живу.<br>Здесь работаю.</h3>
+      <ul class="market-requests">
+        <li data-ru="Финтех-стартап с проблемами KYC/AML" data-en="Fintech startup with KYC/AML issues">Финтех-стартап с проблемами KYC/AML</li>
+        <li data-ru="Бывший заключённый — нужен второй шанс" data-en="Ex-convict — need a second chance">Бывший заключённый — нужен второй шанс</li>
+        <li data-ru="Русскоязычный эмигрант без системы" data-en="Russian-speaking immigrant without a system">Русскоязычный эмигрант без системы</li>
+        <li data-ru="Крипто-компания с подозрением на фрод" data-en="Crypto company with suspected fraud">Крипто-компания с подозрением на фрод</li>
+      </ul>
+      <div class="market-price" data-ru="Чек: $5 000 – $25 000 за проект" data-en="Fee: $5,000 – $25,000 per project">Чек: $5 000 – $25 000 за проект</div>
+    </div>
+    <div class="market-card fade-in">
+      <div class="market-flag" data-ru="EU / Польша" data-en="EU / Poland">EU / Польша</div>
+      <h3 class="market-title" data-ru="Точка входа<br>в Европу" data-en="Entry point<br>into Europe">Точка входа<br>в Европу</h3>
+      <ul class="market-requests">
+        <li data-ru="Скам — потерял деньги, нужна стратегия" data-en="Scam — lost money, need a strategy">Скам — потерял деньги, нужна стратегия</li>
+        <li data-ru="Эмигрант с заблокированными активами" data-en="Immigrant with frozen assets">Эмигрант с заблокированными активами</li>
+        <li data-ru="EMI-лицензия — Литва, Эстония, Мальта" data-en="EMI license — Lithuania, Estonia, Malta">EMI-лицензия — Литва, Эстония, Мальта</li>
+        <li data-ru="VIP-клиент с крипто-проблемой" data-en="VIP client with a crypto problem">VIP-клиент с крипто-проблемой</li>
+      </ul>
+      <div class="market-price" data-ru="Чек: $2 000 – $15 000 за сопровождение" data-en="Fee: $2,000 – $15,000 per engagement">Чек: $2 000 – $15 000 за сопровождение</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-header fade-in">
+    <span class="section-tag" data-ru="07 — Обо мне" data-en="07 — About">07 — Обо мне</span>
+    <h2 class="section-title" data-ru="Дмитрий Васильев" data-en="Dmitrii Vasilev">Дмитрий Васильев</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p data-ru="В 2017 году ФБР закрыло BTC-e — крупнейшую крипто-биржу СНГ." data-en="In 2017, the FBI shut down BTC-e — the largest crypto exchange in the CIS.">В 2017 году ФБР закрыло BTC-e — крупнейшую крипто-биржу СНГ.</p>
+      <p>
+        <span data-ru="Я запустил WEX и дал людям вывести" data-en="I launched WEX and gave people access to withdraw">Я запустил WEX и дал людям вывести</span>
+        <em>$800M</em>.
+      </p>
+      <p data-ru="ФБР/IRS до сих пор не вернул ни цента пользователям BTC-e.<br>Mt.Gox платит людям с 2014 года — уже 10 лет ждут.<br>Я дал окно в 2017." data-en="The ФБР/IRS still hasn't returned a single cent to BTC-e users.<br>Mt.Gox has been paying people since 2014 — 10 years of waiting.<br>I gave them a window in 2017.">ФБР/IRS до сих пор не вернул ни цента пользователям BTC-e.<br>Mt.Gox платит людям с 2014 года — уже 10 лет ждут.<br>Я дал окно в 2017.</p>
+      <p>
+        <span data-ru="Я не прячу это. Это моё доказательство того, что я знаю как работает" data-en="I don't hide this. This is my proof that I know how the">Я не прячу это. Это моё доказательство того, что я знаю как работает</span>
+        <em data-ru="система давления" data-en="system of pressure">система давления</em>
+        <span data-ru="изнутри." data-en="works from the inside.">изнутри.</span>
+      </p>
+    </div>
+    <div>
+      <div class="about-fact fade-in">
+        <div class="fact-dot"></div>
+        <div class="fact-text"><strong>$6M+</strong> <span data-ru="потрачено на юридическую защиту. 27 адвокатов. 1 умер. 1 сидит. Я продолжаю." data-en="spent on legal defense. 27 attorneys. 1 died. 1 in prison. I keep going.">потрачено на юридическую защиту. 27 адвокатов. 1 умер. 1 сидит. Я продолжаю.</span></div>
+      </div>
+      <div class="about-fact fade-in">
+        <div class="fact-dot"></div>
+        <div class="fact-text"><strong data-ru="4 ареста в 5 странах" data-en="4 arrests in 5 countries">4 ареста в 5 странах</strong> — <span data-ru="это не биография жертвы. Это доказательство того, что я понимаю давление системы изнутри." data-en="that's not a victim's biography. That's proof I understand the pressure of the system from the inside.">это не биография жертвы. Это доказательство того, что я понимаю давление системы изнутри.</span></div>
+      </div>
+      <div class="about-fact fade-in">
+        <div class="fact-dot"></div>
+        <div class="fact-text"><span data-ru="Сейчас:" data-en="Currently:">Сейчас:</span> <strong>Bay Area, California</strong>. <span data-ru="Электронный браслет. Работаю. Когда остальные говорят «невозможно» — я уже ищу решение." data-en="Electronic ankle monitor. Working. When others say «impossible» — I'm already looking for a solution.">Электронный браслет. Работаю. Когда остальные говорят «невозможно» — я уже ищу решение.</span></div>
+      </div>
+      <div class="about-fact fade-in">
+        <div class="fact-dot"></div>
+        <div class="fact-text"><span data-ru="Бывший CEO WEX, CEO Prizmbit, MD BCB.credit." data-en="Former CEO WEX, CEO Prizmbit, MD BCB.credit.">Бывший CEO WEX, CEO Prizmbit, MD BCB.credit.</span> <strong>15 <span data-ru="лет" data-en="years">лет</span></strong> <span data-ru="на пересечении крипто, права и банкинга. 4 языка." data-en="at the intersection of crypto, law and banking. 4 languages.">на пересечении крипто, права и банкинга. 4 языка.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div class="fade-in">
+      <h2 class="contact-headline" data-ru="Расскажите,<br>что случилось." data-en="Tell me<br>what happened.">Расскажите,<br>что случилось.</h2>
+      <p class="contact-sub">
+        <span data-ru="Отвечу в течение 24 часов." data-en="I'll respond within 24 hours.">Отвечу в течение 24 часов.</span><br>
+        <span data-ru="Первый разговор — бесплатно." data-en="First conversation — free.">Первый разговор — бесплатно.</span><br>
+        <span data-ru="Всё конфиденциально." data-en="Everything is confidential.">Всё конфиденциально.</span>
+      </p>
+      <div class="contact-direct">
+        <a href="https://t.me/vdavc_bot" class="contact-link" target="_blank" rel="noopener">
+          <div class="contact-link-icon">✈</div>
+          Telegram: @vdavc_bot
+        </a>
+        <a href="mailto:dima@vda.vc" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          Email: dima@vda.vc
+        </a>
+      </div>
+      <div class="nfa" data-ru="NFA: Это не финансовая рекомендация. Каждая ситуация индивидуальна. Всё сказанное основано на личном опыте, а не на профессиональной лицензии." data-en="NFA: This is not financial advice. Every situation is individual. Everything stated is based on personal experience, not a professional license.">
+        NFA: Это не финансовая рекомендация. Каждая ситуация индивидуальна. Всё сказанное основано на личном опыте, а не на профессиональной лицензии.
+      </div>
+    </div>
+
+    <form class="contact-form fade-in" id="contactForm" novalidate>
+      <div class="form-field">
+        <label class="form-label" for="f-name" data-ru="Имя" data-en="Name">Имя</label>
+        <input class="form-input" type="text" id="f-name" name="name" data-placeholder-ru="Как вас зовут" data-placeholder-en="Your name" placeholder="Как вас зовут">
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-contact" data-ru="Telegram или Email" data-en="Telegram or Email">Telegram или Email</label>
+        <input class="form-input" type="text" id="f-contact" name="contact" placeholder="@username или email@domain.com" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-topic" data-ru="Тема" data-en="Topic">Тема</label>
+        <select class="form-select" id="f-topic" name="topic">
+          <option value="" data-ru="Выберите направление" data-en="Select direction">Выберите направление</option>
+          <option data-ru="🔓 Разблокировка криптоактивов" data-en="🔓 Crypto Asset Recovery">🔓 Разблокировка криптоактивов</option>
+          <option data-ru="⚡ Антикризисный консалтинг" data-en="⚡ Crisis Consulting">⚡ Антикризисный консалтинг</option>
+          <option data-ru="💳 Карточный продукт" data-en="💳 Card Products">💳 Карточный продукт</option>
+          <option data-ru="🏦 EMI / Лицензирование" data-en="🏦 EMI / Licensing">🏦 EMI / Лицензирование</option>
+          <option data-ru="🔄 Обменники" data-en="🔄 Exchanges">🔄 Обменники</option>
+          <option data-ru="🤝 M&A / Слияния" data-en="🤝 M&A / Mergers">🤝 M&A / Слияния</option>
+          <option data-ru="🤖 AI-автоматизация" data-en="🤖 AI Automation">🤖 AI-автоматизация</option>
+          <option data-ru="🧭 Личный консалтинг" data-en="🧭 Personal Consulting">🧭 Личный консалтинг</option>
+          <option data-ru="Другое" data-en="Other">Другое</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-message" data-ru="Ситуация" data-en="Situation">Ситуация</label>
+        <textarea class="form-textarea" id="f-message" name="message" data-placeholder-ru="Опишите ситуацию — чем больше деталей, тем точнее я смогу помочь." data-placeholder-en="Describe the situation — the more details, the more precisely I can help." placeholder="Опишите ситуацию — чем больше деталей, тем точнее я смогу помочь." required></textarea>
+      </div>
+      <button type="submit" class="form-submit" data-ru="Отправить →" data-en="Send →">Отправить →</button>
+      <div class="form-success" id="formSuccess" data-ru="✓ Получил. Отвечу в течение 24 часов." data-en="✓ Received. I'll respond within 24 hours.">
+        ✓ Получил. Отвечу в течение 24 часов.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-bar">
+  <p>
+    <strong data-ru="Дисклеймер:" data-en="Disclaimer:">Дисклеймер:</strong>
+    <span data-ru="Информация носит информационный характер и не является финансовой, инвестиционной или юридической консультацией. Прошлые результаты не гарантируют будущих. Работа с криптовалютами сопряжена с рисками." data-en="This information is for informational purposes only and does not constitute financial, investment, or legal advice. Past results do not guarantee future performance. Working with cryptocurrencies involves risks.">Информация носит информационный характер и не является финансовой, инвестиционной или юридической консультацией. Прошлые результаты не гарантируют будущих. Работа с криптовалютами сопряжена с рисками.</span>
+    <strong>NFA Disclaimer:</strong> Not Financial Advice.
+  </p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name" data-ru="Дмитрий Васильев · vda.vc" data-en="Dmitrii Vasilev · vda.vc">Дмитрий Васильев · vda.vc</div>
+      <p class="footer-brand-desc" data-ru="Крипто и финтех консалтинг. 15 лет практики. Разблокировка активов, кризис-менеджмент, финтех-продукты. Bay Area, CA." data-en="Crypto and fintech consulting. 15 years of practice. Asset recovery, crisis management, fintech products. Bay Area, CA.">Крипто и финтех консалтинг. 15 лет практики. Разблокировка активов, кризис-менеджмент, финтех-продукты. Bay Area, CA.</p>
+    </div>
+    <div>
+      <h4 class="footer-col" data-ru="Услуги" data-en="Services">Услуги</h4>
+      <ul class="footer-links">
+        <li><a href="#services" data-ru="Разблокировка крипты" data-en="Crypto Recovery">Разблокировка крипты</a></li>
+        <li><a href="#services" data-ru="Антикризисный консалтинг" data-en="Crisis Consulting">Антикризисный консалтинг</a></li>
+        <li><a href="#services" data-ru="Карточные продукты" data-en="Card Products">Карточные продукты</a></li>
+        <li><a href="#services" data-ru="EMI-лицензии" data-en="EMI Licenses">EMI-лицензии</a></li>
+        <li><a href="#services" data-ru="Обменники · M&A" data-en="Exchanges · M&A">Обменники · M&A</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col" data-ru="Навигация" data-en="Navigation">Навигация</h4>
+      <ul class="footer-links">
+        <li><a href="#expertise" data-ru="Экспертиза" data-en="Expertise">Экспертиза</a></li>
+        <li><a href="#method" data-ru="Метод" data-en="Method">Метод</a></li>
+        <li><a href="#cases" data-ru="Кейсы" data-en="Cases">Кейсы</a></li>
+        <li><a href="#about" data-ru="Обо мне" data-en="About">Обо мне</a></li>
+        <li><a href="#contact" data-ru="Контакт" data-en="Contact">Контакт</a></li>
+        <li><a href="mailto:dima@vda.vc">dima@vda.vc</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <span data-ru="Дмитрий Васильев" data-en="Dmitrii Vasilev">Дмитрий Васильев</span> · vda.vc</p>
+    <div class="footer-langs">
+      <a href="#" onclick="setLang('ru'); return false;">RU</a>
+      <a href="#" onclick="setLang('en'); return false;" style="opacity:0.5">EN</a>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<a href="#contact" class="float-cta" aria-label="Contact" id="floatCta" data-ru="Записаться" data-en="Contact">
+  <span class="float-cta-dot"></span>
+  Записаться
+</a>
+
+<script>
+// ─── LANG SYSTEM ───
+function setLang(lang) {
+  const html = document.documentElement;
+  html.setAttribute('data-lang', lang);
+  html.setAttribute('lang', lang);
+
+  // Update lang button states
+  document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+  // Update all elements with data-ru / data-en
+  document.querySelectorAll('[data-ru]').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (val !== null) {
+      // Handle innerHTML-safe content (elements with <br> etc.)
+      if (val.includes('<br>') || val.includes('<em>') || val.includes('<strong>')) {
+        el.innerHTML = val;
+      } else {
+        el.textContent = val;
+      }
+    }
+  });
+
+  // Update placeholders
+  document.querySelectorAll('[data-placeholder-ru]').forEach(el => {
+    el.placeholder = el.getAttribute('data-placeholder-' + lang) || el.placeholder;
+  });
+
+  // Update select options
+  document.querySelectorAll('select option[data-ru]').forEach(opt => {
+    const val = opt.getAttribute('data-' + lang);
+    if (val) opt.textContent = val;
+  });
+
+  // Update footer lang links opacity
+  document.querySelectorAll('.footer-langs a').forEach(a => {
+    a.style.opacity = a.textContent.trim().toLowerCase() === lang ? '1' : '0.5';
+  });
+
+  // Update page title and meta
+  if (lang === 'en') {
+    document.title = 'Dmitrii Vasilev — Crypto Consultant, Bay Area | vda.vc';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.content = 'FBI seized the exchange — I returned $800M to people. Crypto recovery, crisis management, fintech consulting. 15 years of practice. Bay Area, CA.';
+  } else {
+    document.title = 'Дмитрий Васильев — Крипто-консультант, Bay Area | vda.vc';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.content = 'ФБР закрыло биржу — я вернул $800M людям. Разблокировка крипты, кризис-менеджмент, финтех-консалтинг. 15 лет практики. Bay Area, CA.';
+  }
+
+  // Save preference
+  try { localStorage.setItem('vda-lang', lang); } catch(e){}
+}
+
+function toggleLang() {
+  const current = document.documentElement.getAttribute('data-lang') || 'ru';
+  setLang(current === 'ru' ? 'en' : 'ru');
+}
+
+// ─── THEME SYSTEM ───
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') !== 'light';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  const icon = document.querySelector('.theme-toggle-icon');
+  icon.textContent = isDark ? '🌙' : '☀';
+  try { localStorage.setItem('vda-theme', isDark ? 'light' : 'dark'); } catch(e){}
+}
+
+// ─── INIT: LOAD SAVED PREFERENCES ───
+(function(){
+  try {
+    const savedTheme = localStorage.getItem('vda-theme');
+    if (savedTheme === 'light') {
+      document.documentElement.setAttribute('data-theme','light');
+      const icon = document.querySelector('.theme-toggle-icon');
+      if (icon) icon.textContent = '🌙';
+    }
+    const savedLang = localStorage.getItem('vda-lang');
+    if (savedLang === 'en') {
+      // Defer to after DOM is ready
+      setTimeout(() => setLang('en'), 0);
+    }
+  } catch(e){}
+})();
+
+// ─── MOBILE MENU ───
+function toggleMenu() {
+  const m = document.getElementById('mobile-menu');
+  m.style.display = m.style.display === 'block' ? 'none' : 'block';
+}
+
+// ─── SCROLL FADE-IN ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.remove('hidden');
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.fade-in').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+// ─── ACTIVE NAV HIGHLIGHT ───
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+  });
+}, { passive: true });
+
+// ─── FORM SUBMIT → TELEGRAM ───
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const contactInput = document.getElementById('f-contact');
+  const messageInput = document.getElementById('f-message');
+  let valid = true;
+
+  [contactInput, messageInput].forEach(inp => {
+    inp.classList.remove('error');
+    if (!inp.value.trim()) { inp.classList.add('error'); valid = false; }
+  });
+  if (contactInput.value.trim()) {
+    const v = contactInput.value.trim();
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    const isTg = v.startsWith('@') || v.startsWith('https://t.me/');
+    if (!isEmail && !isTg) { contactInput.classList.add('error'); valid = false; }
+  }
+
+  if (!valid) return;
+
+  const btn = form.querySelector('.form-submit');
+  const lang = document.documentElement.getAttribute('data-lang') || 'ru';
+  btn.textContent = lang === 'en' ? 'Sending...' : 'Отправляю...';
+  btn.disabled = true;
+
+  const name    = document.getElementById('f-name').value.trim();
+  const contact = contactInput.value.trim();
+  const topic   = document.getElementById('f-topic').value;
+  const message = messageInput.value.trim();
+
+  const text = `🔔 Новая заявка с vda.vc (${lang.toUpperCase()})\n\n` +
+    `👤 Имя: ${name || 'не указано'}\n` +
+    `📬 Контакт: ${contact}\n` +
+    `📌 Тема: ${topic || 'не выбрана'}\n\n` +
+    `💬 Ситуация:\n${message}\n\n` +
+    `🌐 Источник: vda.vc/v8.html · lang=${lang}`;
+
+  fetch('https://api.telegram.org/bot8703454288:AAE3hYiGyDUyRHK9QcifKLglX8Uz23IYiUc/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: 621015694, text })
+  })
+  .then(r => r.json())
+  .then(data => {
+    const successEl = document.getElementById('formSuccess');
+    if (data.ok) {
+      successEl.style.display = 'block';
+      form.reset();
+      btn.textContent = lang === 'en' ? 'Sent ✓' : 'Отправлено ✓';
+    } else {
+      btn.textContent = lang === 'en' ? 'Error — write on Telegram' : 'Ошибка — напиши в Telegram';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    document.getElementById('formSuccess').style.display = 'block';
+    form.reset();
+    btn.textContent = lang === 'en' ? 'Sent ✓' : 'Отправлено ✓';
+  });
+});
+</script>
+</body>
+</html>

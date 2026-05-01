@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" data-lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="[ОПИСАНИЕ БИЗНЕСА] — [ГЛАВНОЕ ПРЕДЛОЖЕНИЕ]">
+  <title>[НАЗВАНИЕ КОМПАНИИ] — [СЛОГАН]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!--
+  ╔══════════════════════════════════════════════════════════╗
+  ║  v3-template.html — Универсальный шаблон лендинга        ║
+  ║  Создан: 10.04.2026 | vda.vc                             ║
+  ║                                                          ║
+  ║  ИНСТРУКЦИЯ ПО НАСТРОЙКЕ:                                ║
+  ║  1. Найди все [ЗАГЛАВНЫЕ_В_СКОБКАХ] и замени на данные   ║
+  ║  2. BRAND_COLOR — основной цвет (#6366F1 / #f59e0b / ...) ║
+  ║  3. HERO_PHOTO — ссылка Pexels (images.pexels.com/...)  ║
+  ║  4. Контакты: TELEGRAM, WHATSAPP, PHONE, EMAIL           ║
+  ║  5. Форма отправляет в TG — вставь BOT_TOKEN + CHAT_ID  ║
+  ╚══════════════════════════════════════════════════════════╝
+  -->
+
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── BRAND VARS — меняй здесь ── */
+    :root {
+      --brand:       #6366F1;   /* [BRAND_COLOR] */
+      --brand-dark:  #4f46e5;
+      --brand-light: #a5b4fc;
+      --gold:        #c9a84c;
+
+      --bg-dark:     #0d0f1a;
+      --bg-card:     #141624;
+      --bg-light:    #f9fafb;
+      --bg-card-lt:  #ffffff;
+
+      --text-dark:   #f0f0f5;
+      --text-muted:  #8892a4;
+      --text-light:  #111827;
+      --text-muted-lt: #6b7280;
+
+      --border-dark: rgba(255,255,255,0.08);
+      --border-lt:   #e5e7eb;
+
+      --radius: 16px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    /* ── THEME SWITCH ── */
+    body { font-family: 'Inter', sans-serif; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+    [data-theme="dark"]  body, body { background: var(--bg-dark); color: var(--text-dark); }
+    [data-theme="light"] body { background: var(--bg-light); color: var(--text-light); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,15,26,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-dark);
+      transition: background 0.3s;
+    }
+    [data-theme="light"] nav { background: rgba(249,250,251,0.9); border-color: var(--border-lt); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--brand); }
+    .nav-right { display: flex; gap: 12px; align-items: center; }
+    .nav-cta {
+      background: var(--brand); color: #fff; padding: 8px 20px;
+      border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      border: none; text-decoration: none; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--brand-dark); }
+    .theme-btn, .lang-btn {
+      background: transparent; border: 1px solid var(--border-dark);
+      color: var(--text-muted); padding: 7px 12px; border-radius: 8px;
+      font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
+    }
+    [data-theme="light"] .theme-btn, [data-theme="light"] .lang-btn { border-color: var(--border-lt); }
+    .theme-btn:hover, .lang-btn:hover { border-color: var(--brand); color: var(--brand); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      padding: 100px 40px 60px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; text-align: center;
+      /* [HERO_PHOTO] */
+      background: url('https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover no-repeat;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(13,15,26,0.88) 0%, rgba(20,22,36,0.82) 100%);
+    }
+    [data-theme="light"] .hero::before {
+      background: linear-gradient(135deg, rgba(249,250,251,0.82) 0%, rgba(240,242,248,0.78) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-badge {
+      display: inline-block; background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(99,102,241,0.3); color: var(--brand-light);
+      padding: 6px 16px; border-radius: 100px; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800; line-height: 1.15;
+      margin-bottom: 20px; color: var(--text-dark);
+    }
+    [data-theme="light"] .hero h1 { color: var(--text-light); }
+    .hero-accent { color: var(--brand); }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-muted);
+      line-height: 1.7; margin-bottom: 36px; max-width: 600px; margin-left: auto; margin-right: auto;
+    }
+    [data-theme="light"] .hero p { color: var(--text-muted-lt); }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--brand); color: #fff; padding: 14px 32px;
+      border-radius: 10px; font-size: 0.95rem; font-weight: 700;
+      text-decoration: none; transition: all 0.25s;
+      box-shadow: 0 8px 24px rgba(99,102,241,0.35);
+    }
+    .btn-primary:hover { background: var(--brand-dark); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; border: 2px solid rgba(255,255,255,0.2);
+      color: var(--text-dark); padding: 14px 32px; border-radius: 10px;
+      font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all 0.25s;
+    }
+    [data-theme="light"] .btn-outline { border-color: var(--border-lt); color: var(--text-light); }
+    .btn-outline:hover { border-color: var(--brand); color: var(--brand); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: flex; justify-content: center; gap: 0;
+      background: rgba(255,255,255,0.03); border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark);
+      padding: 28px 40px; flex-wrap: wrap;
+    }
+    [data-theme="light"] .stats-bar { background: #f3f4f6; border-color: var(--border-lt); }
+    .stat-item { text-align: center; padding: 0 40px; border-right: 1px solid var(--border-dark); }
+    .stat-item:last-child { border-right: none; }
+    [data-theme="light"] .stat-item { border-color: var(--border-lt); }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--brand); line-height: 1; }
+    .stat-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 90px 40px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-size: 0.7rem; font-weight: 700; color: var(--brand);
+      text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px;
+    }
+    h2.section-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; line-height: 1.2; margin-bottom: 16px;
+      color: var(--text-dark);
+    }
+    [data-theme="light"] h2.section-title { color: var(--text-light); }
+    .section-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 600px; margin-bottom: 50px; }
+    [data-theme="light"] .section-sub { color: var(--text-muted-lt); }
+
+    /* ── SERVICES GRID ── */
+    .services-section { background: transparent; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .svc-card {
+      background: var(--bg-card); border: 1px solid var(--border-dark);
+      border-radius: var(--radius); padding: 32px;
+      transition: all 0.3s;
+    }
+    [data-theme="light"] .svc-card { background: var(--bg-card-lt); border-color: var(--border-lt); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .svc-card:hover { border-color: var(--brand); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(99,102,241,0.15); }
+    .svc-icon { font-size: 2rem; margin-bottom: 16px; }
+    .svc-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark); }
+    [data-theme="light"] .svc-title { color: var(--text-light); }
+    .svc-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+    [data-theme="light"] .svc-desc { color: var(--text-muted-lt); }
+    .svc-price { font-size: 0.8rem; font-weight: 700; color: var(--brand); }
+
+    /* ── PHOTO CARD (флот/галерея) ── */
+    .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .fleet-card {
+      background: var(--bg-card); border: 1px solid var(--border-dark); border-radius: var(--radius); overflow: hidden;
+      transition: all 0.3s;
+    }
+    [data-theme="light"] .fleet-card { background: var(--bg-card-lt); border-color: var(--border-lt); }
+    .fleet-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .fleet-card img { width: 100%; height: 180px; object-fit: cover; transition: transform 0.5s; }
+    .fleet-card:hover img { transform: scale(1.05); }
+    .fleet-info { padding: 18px 20px 20px; }
+    .fleet-name { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+    [data-theme="light"] .fleet-name { color: var(--text-light); }
+    .fleet-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── CALCULATOR (опционально) ── */
+    .calc-section { background: rgba(255,255,255,0.02); border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark); }
+    [data-theme="light"] .calc-section { background: #f3f4f6; border-color: var(--border-lt); }
+    .calc-box {
+      background: var(--bg-card); border: 1px solid var(--border-dark);
+      border-radius: var(--radius); padding: 40px; max-width: 600px; margin: 0 auto;
+    }
+    [data-theme="light"] .calc-box { background: #fff; border-color: var(--border-lt); }
+    .calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .calc-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .calc-input {
+      width: 100%; padding: 12px 16px; border-radius: 8px;
+      border: 1px solid var(--border-dark); background: rgba(255,255,255,0.05);
+      color: var(--text-dark); font-size: 1rem; font-family: inherit;
+    }
+    [data-theme="light"] .calc-input { background: #f9fafb; border-color: var(--border-lt); color: var(--text-light); }
+    .calc-result {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 10px; padding: 20px 24px; text-align: center; margin-top: 8px;
+    }
+    .calc-result-num { font-size: 2rem; font-weight: 800; color: var(--brand); }
+    .calc-result-lbl { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* ── CONTACT SECTION ── */
+    .contact-section { background: transparent; }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+    @media (max-width: 768px) { .contact-layout { grid-template-columns: 1fr; } }
+    .contact-method { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 24px; }
+    .contact-icon { width: 44px; height: 44px; background: rgba(99,102,241,0.12); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .contact-method h4 { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .contact-method a { font-size: 1rem; font-weight: 600; color: var(--brand); text-decoration: none; }
+    .contact-method a:hover { text-decoration: underline; }
+
+    /* ── FORM ── */
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.8rem; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 13px 16px; border-radius: 10px;
+      border: 1px solid var(--border-dark); background: rgba(255,255,255,0.05);
+      color: var(--text-dark); font-size: 0.95rem; font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    [data-theme="light"] .form-group input, [data-theme="light"] .form-group textarea, [data-theme="light"] .form-group select {
+      background: #f9fafb; border-color: var(--border-lt); color: var(--text-light);
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none; border-color: var(--brand);
+    }
+    .form-group textarea { min-height: 110px; resize: vertical; }
+    .submit-btn {
+      width: 100%; padding: 15px; background: var(--brand); color: #fff;
+      border: none; border-radius: 10px; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: all 0.25s; font-family: inherit;
+    }
+    .submit-btn:hover { background: var(--brand-dark); transform: translateY(-2px); }
+    .form-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 16px; color: #10b981; font-weight: 600; font-size: 0.9rem; margin-bottom: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: rgba(0,0,0,0.4); border-top: 1px solid var(--border-dark);
+      padding: 40px; text-align: center;
+    }
+    [data-theme="light"] footer { background: #f3f4f6; border-color: var(--border-lt); }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--brand); margin-bottom: 12px; }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-links a { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--brand); }
+    .footer-copy { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ── LANG HIDE/SHOW ── */
+    .ru, .en, .es { display: none; }
+    [data-lang="ru"] .ru { display: inline; }
+    [data-lang="en"] .en { display: inline; }
+    [data-lang="es"] .es { display: inline; }
+    [data-lang="ru"] .ru-block { display: block; }
+    [data-lang="en"] .en-block { display: block; }
+    [data-lang="es"] .es-block { display: block; }
+    .ru-block, .en-block, .es-block { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      section { padding: 60px 20px; }
+      nav { padding: 14px 20px; }
+      .hero { padding: 90px 20px 50px; }
+      .stat-item { padding: 12px 20px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .calc-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">[ЛОГОТИП]</div>
+  <div class="nav-right">
+    <button class="lang-btn" onclick="cycleLang()">RU/EN</button>
+    <button class="theme-btn" onclick="toggleTheme()">☀️</button>
+    <a href="#contact" class="nav-cta">
+      <span class="ru">[CTA_КНОПКА]</span>
+      <span class="en">[CTA_BUTTON_EN]</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="ru">[НИША_RU]</span>
+      <span class="en">[НИША_EN]</span>
+    </div>
+    <h1>
+      <span class="ru">[ЗАГОЛОВОК_RU]<br><span class="hero-accent">[АКЦЕНТ_RU]</span></span>
+      <span class="en">[ЗАГОЛОВОК_EN]<br><span class="hero-accent">[АКЦЕНТ_EN]</span></span>
+    </h1>
+    <p>
+      <span class="ru">[ПОДЗАГОЛОВОК_RU — 1-2 предложения про главную выгоду]</span>
+      <span class="en">[ПОДЗАГОЛОВОК_EN]</span>
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">
+        <span class="ru">[CTA_PRIMARY_RU]</span>
+        <span class="en">[CTA_PRIMARY_EN]</span>
+      </a>
+      <a href="#services" class="btn-outline">
+        <span class="ru">[CTA_SECONDARY_RU]</span>
+        <span class="en">[CTA_SECONDARY_EN]</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">[ЦИФРА_1]<span style="font-size:1.4rem;">[СУФФИКС_1]</span></div>
+    <div class="stat-lbl"><span class="ru">[ЛЕЙБЛ_1_RU]</span><span class="en">[ЛЕЙБЛ_1_EN]</span></div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">[ЦИФРА_2]<span style="font-size:1.4rem;">[СУФФИКС_2]</span></div>
+    <div class="stat-lbl"><span class="ru">[ЛЕЙБЛ_2_RU]</span><span class="en">[ЛЕЙБЛ_2_EN]</span></div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">[ЦИФРА_3]<span style="font-size:1.4rem;">[СУФФИКС_3]</span></div>
+    <div class="stat-lbl"><span class="ru">[ЛЕЙБЛ_3_RU]</span><span class="en">[ЛЕЙБЛ_3_EN]</span></div>
+  </div>
+  <!-- Добавь .stat-item при необходимости -->
+</div>
+
+<!-- ── SERVICES ── -->
+<section class="services-section" id="services">
+  <div class="container">
+    <div class="section-tag"><span class="ru">02 — Услуги</span><span class="en">02 — Services</span></div>
+    <h2 class="section-title">
+      <span class="ru">[ЗАГОЛОВОК_УСЛУГ_RU]</span>
+      <span class="en">[ЗАГОЛОВОК_УСЛУГ_EN]</span>
+    </h2>
+    <p class="section-sub">
+      <span class="ru">[ПОДЗАГОЛОВОК_УСЛУГ_RU]</span>
+      <span class="en">[ПОДЗАГОЛОВОК_УСЛУГ_EN]</span>
+    </p>
+    <div class="services-grid">
+
+      <div class="svc-card">
+        <div class="svc-icon">[ИКОНКА_1]</div>
+        <div class="svc-title"><span class="ru">[УСЛУГА_1_RU]</span><span class="en">[УСЛУГА_1_EN]</span></div>
+        <div class="svc-desc"><span class="ru">[ОПИСАНИЕ_1_RU]</span><span class="en">[ОПИСАНИЕ_1_EN]</span></div>
+        <div class="svc-price">[ЦЕНА_1]</div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">[ИКОНКА_2]</div>
+        <div class="svc-title"><span class="ru">[УСЛУГА_2_RU]</span><span class="en">[УСЛУГА_2_EN]</span></div>
+        <div class="svc-desc"><span class="ru">[ОПИСАНИЕ_2_RU]</span><span class="en">[ОПИСАНИЕ_2_EN]</span></div>
+        <div class="svc-price">[ЦЕНА_2]</div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon">[ИКОНКА_3]</div>
+        <div class="svc-title"><span class="ru">[УСЛУГА_3_RU]</span><span class="en">[УСЛУГА_3_EN]</span></div>
+        <div class="svc-desc"><span class="ru">[ОПИСАНИЕ_3_RU]</span><span class="en">[ОПИСАНИЕ_3_EN]</span></div>
+        <div class="svc-price">[ЦЕНА_3]</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── ФОТО-БЛОК (Флот / Галерея / Категории) — убери если не нужен ── -->
+<section id="catalog" style="padding:0 40px 90px;">
+  <div class="container">
+    <div class="section-tag"><span class="ru">03 — Каталог</span><span class="en">03 — Catalog</span></div>
+    <h2 class="section-title">
+      <span class="ru">[ЗАГОЛОВОК_КАТАЛОГА_RU]</span>
+      <span class="en">[ЗАГОЛОВОК_КАТАЛОГА_EN]</span>
+    </h2>
+    <div class="fleet-grid">
+
+      <div class="fleet-card">
+        <!-- Pexels: images.pexels.com/photos/[ID]/pexels-photo-[ID].jpeg?auto=compress&cs=tinysrgb&w=800 -->
+        <img src="https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=800" alt="[НАЗВАНИЕ_1]">
+        <div class="fleet-info">
+          <div class="fleet-name"><span class="ru">[НАЗВАНИЕ_1_RU]</span><span class="en">[НАЗВАНИЕ_1_EN]</span></div>
+          <div class="fleet-desc"><span class="ru">[ОПИСАНИЕ_КАРТОЧКИ_1_RU]</span><span class="en">[ОПИСАНИЕ_КАРТОЧКИ_1_EN]</span></div>
+        </div>
+      </div>
+
+      <!-- Копируй .fleet-card для каждой позиции -->
+
+    </div>
+  </div>
+</section>
+
+<!-- ── КАЛЬКУЛЯТОР — убери если не нужен ── -->
+<section class="calc-section" id="calculator">
+  <div class="container">
+    <div class="section-tag" style="text-align:center;"><span class="ru">Калькулятор</span><span class="en">Calculator</span></div>
+    <h2 class="section-title" style="text-align:center;margin-bottom:40px;">
+      <span class="ru">[ЗАГОЛОВОК_КАЛЬКУЛЯТОРА_RU]</span>
+      <span class="en">[ЗАГОЛОВОК_КАЛЬКУЛЯТОРА_EN]</span>
+    </h2>
+    <div class="calc-box">
+      <div class="calc-row">
+        <div>
+          <div class="calc-label"><span class="ru">[ПОЛЕ_1_RU]</span><span class="en">[ПОЛЕ_1_EN]</span></div>
+          <input type="number" class="calc-input" id="calc1" value="100" oninput="calcResult()">
+        </div>
+        <div>
+          <div class="calc-label"><span class="ru">[ПОЛЕ_2_RU]</span><span class="en">[ПОЛЕ_2_EN]</span></div>
+          <select class="calc-input" id="calc2" onchange="calcResult()">
+            <option value="1000">[ВАРИАНТ_1]</option>
+            <option value="2000">[ВАРИАНТ_2]</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-num" id="calcOutput">—</div>
+        <div class="calc-result-lbl"><span class="ru">[ПОДПИСЬ_РЕЗУЛЬТАТА_RU]</span><span class="en">[ПОДПИСЬ_РЕЗУЛЬТАТА_EN]</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="section-tag"><span class="ru">05 — Контакт</span><span class="en">05 — Contact</span></div>
+    <h2 class="section-title">
+      <span class="ru">[ЗАГОЛОВОК_КОНТАКТА_RU]</span>
+      <span class="en">[ЗАГОЛОВОК_КОНТАКТА_EN]</span>
+    </h2>
+    <div class="contact-layout">
+      <div>
+        <div class="contact-method">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4><span class="ru">Телефон</span><span class="en">Phone</span></h4>
+            <a href="tel:[PHONE]">[PHONE_DISPLAY]</a>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-icon">💬</div>
+          <div>
+            <h4>WhatsApp</h4>
+            <a href="https://wa.me/[WHATSAPP]">[WHATSAPP_DISPLAY]</a>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-icon">✈️</div>
+          <div>
+            <h4>Telegram</h4>
+            <a href="https://t.me/[TELEGRAM]">@[TELEGRAM]</a>
+          </div>
+        </div>
+      </div>
+
+      <form id="contactForm">
+        <div id="formSuccess" class="form-success" style="display:none;">
+          <span class="ru">✅ Отправлено! Ответим в течение 1 часа.</span>
+          <span class="en">✅ Sent! We'll reply within 1 hour.</span>
+        </div>
+        <div class="form-group">
+          <label><span class="ru">Имя</span><span class="en">Name</span></label>
+          <input type="text" id="fname" required placeholder="[PLACEHOLDER_NAME]">
+        </div>
+        <div class="form-group">
+          <label><span class="ru">Телефон / Telegram</span><span class="en">Phone / Telegram</span></label>
+          <input type="text" id="fcontact" required placeholder="[PLACEHOLDER_CONTACT]">
+        </div>
+        <div class="form-group">
+          <label><span class="ru">Сообщение</span><span class="en">Message</span></label>
+          <textarea id="fmsg" placeholder="[PLACEHOLDER_MESSAGE_RU]"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">
+          <span class="ru">[КНОПКА_ОТПРАВКИ_RU]</span>
+          <span class="en">[КНОПКА_ОТПРАВКИ_EN]</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">[ЛОГОТИП]</div>
+  <div class="footer-links">
+    <a href="#services"><span class="ru">Услуги</span><span class="en">Services</span></a>
+    <a href="#catalog"><span class="ru">Каталог</span><span class="en">Catalog</span></a>
+    <a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a>
+  </div>
+  <div class="footer-copy">© 2026 [НАЗВАНИЕ_КОМПАНИИ]. <span class="ru">Все права защищены.</span><span class="en">All rights reserved.</span></div>
+</footer>
+
+<script>
+  // ── THEME ──
+  const root = document.documentElement;
+  function toggleTheme() {
+    const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', t);
+    localStorage.setItem('theme', t);
+    document.querySelector('.theme-btn').textContent = t === 'dark' ? '☀️' : '🌙';
+  }
+  const saved = localStorage.getItem('theme');
+  if (saved) root.setAttribute('data-theme', saved);
+
+  // ── LANG ──
+  const langs = ['ru', 'en', 'es'];
+  function cycleLang() {
+    const cur = root.getAttribute('data-lang') || 'ru';
+    const next = langs[(langs.indexOf(cur) + 1) % langs.length];
+    root.setAttribute('data-lang', next);
+    localStorage.setItem('lang', next);
+  }
+  const savedLang = localStorage.getItem('lang');
+  if (savedLang) root.setAttribute('data-lang', savedLang);
+
+  // ── CALCULATOR — настрой формулу ──
+  function calcResult() {
+    const v1 = parseFloat(document.getElementById('calc1').value) || 0;
+    const v2 = parseFloat(document.getElementById('calc2').value) || 0;
+    // [ФОРМУЛА_КАЛЬКУЛЯТОРА] — пример: v1 * v2
+    const result = v1 * v2;
+    document.getElementById('calcOutput').textContent =
+      result.toLocaleString('ru-RU') + ' [ЕДИНИЦА]';
+  }
+  calcResult();
+
+  // ── FORM → TELEGRAM ──
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const name    = document.getElementById('fname').value;
+    const contact = document.getElementById('fcontact').value;
+    const msg     = document.getElementById('fmsg').value;
+    const lang    = root.getAttribute('data-lang');
+
+    const text = `🆕 Заявка — [НАЗВАНИЕ_КОМПАНИИ]\n👤 ${name}\n📞 ${contact}\n💬 ${msg}\n🌐 Язык: ${lang}`;
+
+    try {
+      // [BOT_TOKEN] и [CHAT_ID] — замени!
+      await fetch('https://api.telegram.org/bot[BOT_TOKEN]/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: [CHAT_ID], text, parse_mode: 'HTML' })
+      });
+      document.getElementById('formSuccess').style.display = 'block';
+      this.reset();
+      setTimeout(() => { document.getElementById('formSuccess').style.display = 'none'; }, 5000);
+    } catch(err) {
+      alert('Ошибка отправки. Напишите напрямую: @[TELEGRAM]');
+    }
+  });
+</script>
+
+</body>
+</html>

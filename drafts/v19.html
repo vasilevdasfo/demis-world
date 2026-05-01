@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP-инвестиции для молодых — Дмитрий Васильев</title>
+<meta name="description" content="Закрытая практика для тех, у кого появились первые большие деньги. Не курс. Не вебинары. Дмитрий Васильев — vda.vc">
+<meta property="og:title" content="VIP-инвестиции для молодых — закрытая практика">
+<meta property="og:description" content="15-20 человек. 8-12 недель. Bay Area + онлайн. Дмитрий Васильев.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0907;
+  --bg-2:#13110d;
+  --ink:#f5f0e6;
+  --ink-dim:#a8a195;
+  --gold:#c9a84c;
+  --gold-deep:#8a6d20;
+  --line:rgba(201,168,76,0.18);
+  --danger:#d04848;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  overflow-x:hidden;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:18px clamp(20px,4vw,40px);
+  background:rgba(10,9,7,0.7);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
+.nav-row{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;gap:16px}
+.brand{font-family:'Anton',sans-serif;letter-spacing:2px;font-size:18px;color:var(--gold)}
+.brand small{display:block;font-family:'Inter',sans-serif;letter-spacing:1px;font-size:9px;color:var(--ink-dim);font-weight:500;margin-top:2px}
+.nav-cta{
+  font-size:13px;font-weight:600;letter-spacing:0.5px;
+  padding:10px 18px;border:1px solid var(--gold);color:var(--gold);
+  border-radius:2px;transition:all .25s;
+}
+.nav-cta:hover{background:var(--gold);color:#0a0907}
+.lang-toggle{display:flex;gap:0;border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.lang-toggle button{padding:8px 12px;font-size:11px;letter-spacing:1px;color:var(--ink-dim);font-weight:600}
+.lang-toggle button.active{background:var(--gold);color:#0a0907}
+
+/* HERO */
+.hero{
+  min-height:100vh;padding:140px 0 80px;
+  position:relative;
+  background:radial-gradient(ellipse at 30% 20%, rgba(201,168,76,0.12), transparent 60%);
+}
+.kicker{
+  display:inline-block;font-size:11px;letter-spacing:3px;font-weight:600;
+  color:var(--gold);text-transform:uppercase;margin-bottom:24px;
+  padding:6px 12px;border:1px solid var(--gold);border-radius:2px;
+}
+h1.hero-title{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(40px,8vw,108px);
+  line-height:0.95;letter-spacing:-1px;
+  text-transform:uppercase;
+  margin-bottom:32px;
+  position:relative;
+}
+h1.hero-title .gold{color:var(--gold)}
+h1.hero-title .glitch{
+  position:relative;display:inline-block;
+}
+h1.hero-title .glitch::before,h1.hero-title .glitch::after{
+  content:attr(data-text);position:absolute;left:0;top:0;width:100%;height:100%;
+  pointer-events:none;
+}
+h1.hero-title .glitch::before{color:var(--danger);transform:translate(-2px,1px);opacity:0.45;mix-blend-mode:screen}
+h1.hero-title .glitch::after{color:var(--gold);transform:translate(2px,-1px);opacity:0.4;mix-blend-mode:screen}
+.hero-lead{
+  font-size:clamp(16px,1.6vw,21px);
+  max-width:680px;color:var(--ink-dim);margin-bottom:40px;
+  line-height:1.6;
+}
+.hero-lead strong{color:var(--ink);font-weight:600}
+.hero-cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn-primary{
+  display:inline-block;padding:18px 32px;
+  background:var(--gold);color:#0a0907;
+  font-weight:700;letter-spacing:1px;font-size:14px;
+  text-transform:uppercase;border-radius:2px;
+  transition:all .25s;border:1px solid var(--gold);
+}
+.btn-primary:hover{background:transparent;color:var(--gold)}
+.btn-ghost{
+  display:inline-block;padding:18px 32px;
+  border:1px solid var(--line);color:var(--ink-dim);
+  font-weight:600;letter-spacing:1px;font-size:14px;
+  text-transform:uppercase;border-radius:2px;
+  transition:all .25s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.hero-meta{
+  margin-top:80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:32px;border-top:1px solid var(--line);padding-top:32px;
+}
+.hero-meta div{}
+.hero-meta .num{
+  font-family:'Anton',sans-serif;font-size:36px;color:var(--gold);
+  letter-spacing:1px;line-height:1;margin-bottom:6px;
+}
+.hero-meta .lbl{font-size:11px;letter-spacing:2px;color:var(--ink-dim);text-transform:uppercase}
+
+/* SECTION */
+section.block{padding:clamp(60px,8vw,120px) 0;border-top:1px solid var(--line)}
+.eyebrow{
+  font-size:11px;letter-spacing:3px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:20px;font-weight:600;
+}
+h2{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(32px,5vw,64px);
+  line-height:1;letter-spacing:-0.5px;
+  text-transform:uppercase;
+  margin-bottom:24px;
+}
+h2 .gold{color:var(--gold)}
+.lead{font-size:clamp(15px,1.4vw,18px);color:var(--ink-dim);max-width:720px;margin-bottom:48px;line-height:1.7}
+
+/* WHO */
+.cols-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.card{
+  border:1px solid var(--line);padding:32px;border-radius:2px;
+  background:linear-gradient(180deg,rgba(201,168,76,0.04),transparent);
+  transition:all .3s;
+}
+.card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.card.danger{border-color:rgba(208,72,72,0.3);background:linear-gradient(180deg,rgba(208,72,72,0.05),transparent)}
+.card.danger:hover{border-color:var(--danger)}
+.card h3{
+  font-family:'Anton',sans-serif;font-size:22px;letter-spacing:1px;
+  text-transform:uppercase;margin-bottom:14px;color:var(--gold);
+}
+.card.danger h3{color:var(--danger)}
+.card p{color:var(--ink-dim);font-size:14px;line-height:1.6}
+.card ul{list-style:none;margin-top:12px}
+.card li{color:var(--ink-dim);font-size:14px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,0.05)}
+.card li::before{content:"→ ";color:var(--gold)}
+.card.danger li::before{content:"✕ ";color:var(--danger)}
+.card li:last-child{border-bottom:none}
+
+/* MODULES */
+.modules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.mod{
+  background:var(--bg);padding:36px 28px;
+  position:relative;transition:all .3s;
+  min-height:280px;display:flex;flex-direction:column;
+}
+.mod:hover{background:var(--bg-2)}
+.mod .num{
+  font-family:'Anton',sans-serif;font-size:64px;color:var(--gold);
+  line-height:0.9;opacity:0.8;margin-bottom:16px;
+}
+.mod h3{
+  font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;
+  text-transform:uppercase;margin-bottom:14px;line-height:1.1;
+}
+.mod p{color:var(--ink-dim);font-size:14px;line-height:1.6;flex:1}
+.mod .tag{
+  display:inline-block;margin-top:16px;font-size:10px;
+  color:var(--gold);letter-spacing:2px;text-transform:uppercase;
+  border-top:1px solid var(--line);padding-top:12px;
+}
+
+/* PROOF */
+.proof{
+  background:var(--bg-2);
+  border:1px solid var(--gold);
+  padding:clamp(40px,6vw,80px);
+  border-radius:2px;
+  position:relative;overflow:hidden;
+}
+.proof::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 80% 20%,rgba(201,168,76,0.15),transparent 50%);
+  pointer-events:none;
+}
+.proof-quote{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,2.6vw,34px);
+  line-height:1.35;font-weight:700;
+  margin-bottom:32px;position:relative;z-index:1;
+}
+.proof-quote .gold{color:var(--gold)}
+.proof-stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:32px;margin-top:32px;
+  border-top:1px solid var(--line);padding-top:32px;
+  position:relative;z-index:1;
+}
+.proof-stats .num{
+  font-family:'Anton',sans-serif;font-size:42px;color:var(--gold);
+  letter-spacing:1px;line-height:1;
+}
+.proof-stats .lbl{font-size:12px;color:var(--ink-dim);margin-top:6px;letter-spacing:1px}
+
+/* FORMAT */
+.format-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.fmt{border:1px solid var(--line);padding:24px;border-radius:2px}
+.fmt .k{font-size:11px;color:var(--ink-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.fmt .v{font-family:'Anton',sans-serif;font-size:28px;color:var(--gold);letter-spacing:0.5px;line-height:1.1}
+.fmt .desc{font-size:13px;color:var(--ink-dim);margin-top:8px;line-height:1.5}
+
+/* FAQ */
+.faq{}
+.faq details{
+  border-bottom:1px solid var(--line);padding:24px 0;
+}
+.faq summary{
+  cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+  font-family:'Anton',sans-serif;font-size:clamp(16px,1.8vw,22px);
+  letter-spacing:0.5px;text-transform:uppercase;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";color:var(--gold);font-size:24px;font-weight:300;transition:transform .2s;flex-shrink:0;
+}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin-top:16px;color:var(--ink-dim);font-size:15px;line-height:1.7}
+
+/* FORM */
+.form-section{
+  background:linear-gradient(180deg,rgba(201,168,76,0.06),transparent);
+  border-top:1px solid var(--gold);border-bottom:1px solid var(--line);
+}
+form{max-width:680px;margin-top:40px}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:11px;letter-spacing:2px;color:var(--ink-dim);text-transform:uppercase;margin-bottom:8px;font-weight:600}
+.field input,.field textarea,.field select{
+  width:100%;background:var(--bg-2);border:1px solid var(--line);
+  color:var(--ink);padding:14px 16px;font-family:inherit;font-size:15px;
+  border-radius:2px;transition:border-color .2s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--gold)}
+.field textarea{resize:vertical;min-height:100px}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:6px}
+.checks label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-dim);cursor:pointer;letter-spacing:0;text-transform:none;font-weight:400;padding:10px 12px;border:1px solid var(--line);border-radius:2px;transition:all .2s}
+.checks label:has(input:checked){border-color:var(--gold);color:var(--ink)}
+.checks input{width:auto;accent-color:var(--gold)}
+
+/* FOOTER */
+footer{padding:60px 0;border-top:1px solid var(--line);color:var(--ink-dim);font-size:12px;line-height:1.7}
+footer .disclaimer{max-width:900px;margin-bottom:24px;font-size:12px;color:var(--ink-dim);font-style:italic}
+footer a{color:var(--gold)}
+
+/* APPROVE BUTTON */
+.approve-btn{
+  position:fixed;bottom:20px;right:20px;z-index:9999;
+  background:var(--gold);color:#0a0907;
+  padding:12px 18px;border-radius:2px;
+  font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  box-shadow:0 8px 24px rgba(201,168,76,0.3);
+  transition:transform .2s;
+}
+.approve-btn:hover{transform:translateY(-2px)}
+
+[data-lang="en"] .ru{display:none}
+[data-lang="ru"] .en{display:none}
+
+@media(max-width:720px){
+  .hero{padding:120px 0 60px}
+  .hero-meta{grid-template-columns:1fr 1fr;gap:20px}
+  .modules{grid-template-columns:1fr}
+  .nav-cta{display:none}
+  .brand{font-size:15px}
+  .brand small{font-size:8px}
+  .lang-toggle button{padding:6px 9px;font-size:10px}
+  .hero-cta-row{flex-direction:column;align-items:stretch}
+  .btn-primary,.btn-ghost{text-align:center}
+  h1.hero-title{font-size:clamp(34px,11vw,56px)}
+  .approve-btn{bottom:12px;right:12px;font-size:10px;padding:10px 14px}
+}
+</style>
+</head>
+<body data-lang="ru">
+
+<nav>
+  <div class="nav-row">
+    <a href="/" class="brand">VDA.VC <small>Дмитрий Васильев</small></a>
+    <div style="display:flex;gap:12px;align-items:center">
+      <div class="lang-toggle" role="group">
+        <button onclick="setLang('ru')" class="active" data-lang-btn="ru">RU</button>
+        <button onclick="setLang('en')" data-lang-btn="en">EN</button>
+      </div>
+      <a href="#apply" class="nav-cta">
+        <span class="ru">Записаться</span><span class="en">Apply</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">
+      <span class="ru">VIP-практика · Bay Area + онлайн</span>
+      <span class="en">VIP practice · Bay Area + online</span>
+    </span>
+    <h1 class="hero-title">
+      <span class="ru">
+        НЕ <span class="glitch" data-text="КУРС">КУРС</span>.<br>
+        НЕ ВЕБИНАРЫ.<br>
+        <span class="gold">ПЕРВЫЕ БОЛЬШИЕ ДЕНЬГИ —</span><br>
+        ПРАКТИКА.
+      </span>
+      <span class="en">
+        NOT A <span class="glitch" data-text="COURSE">COURSE</span>.<br>
+        NOT WEBINARS.<br>
+        <span class="gold">FIRST BIG MONEY —</span><br>
+        REAL PRACTICE.
+      </span>
+    </h1>
+    <p class="hero-lead">
+      <span class="ru">
+        Закрытая работа для тех, у кого <strong>появились первые большие деньги</strong> — продажа стартапа, vesting RSU, первый крипто-кэш — и нужен фидуциар-практик, а не блогер с курсом.
+        15-20 человек. 8-12 недель. Bay Area + онлайн-сессии. Договор с шага 1.
+      </span>
+      <span class="en">
+        Private cohort for founders & operators who just got their <strong>first big money</strong> — startup exit, RSU vesting, first crypto cash — and need a practitioner, not a course-seller.
+        15-20 people. 8-12 weeks. Bay Area + online. Contract from day one.
+      </span>
+    </p>
+    <div class="hero-cta-row">
+      <a href="#apply" class="btn-primary">
+        <span class="ru">Записаться в следующий поток</span>
+        <span class="en">Apply for next cohort</span>
+      </a>
+      <a href="#format" class="btn-ghost">
+        <span class="ru">Как устроено</span>
+        <span class="en">How it works</span>
+      </a>
+    </div>
+    <div class="hero-meta">
+      <div><div class="num">$800M</div><div class="lbl"><span class="ru">Возвращено в WEX</span><span class="en">Returned via WEX</span></div></div>
+      <div><div class="num">15+</div><div class="lbl"><span class="ru">Лет в крипто</span><span class="en">Years in crypto</span></div></div>
+      <div><div class="num">15-20</div><div class="lbl"><span class="ru">Человек в потоке</span><span class="en">People per cohort</span></div></div>
+      <div><div class="num">8-12</div><div class="lbl"><span class="ru">Недель работы</span><span class="en">Weeks of work</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow"><span class="ru">КОМУ ПОДХОДИТ</span><span class="en">WHO IT'S FOR</span></div>
+    <h2><span class="ru">ТРИ <span class="gold">АВАТАРА.</span><br>ОДНА ОБЩАЯ ТОЧКА.</span><span class="en">THREE <span class="gold">PROFILES.</span><br>ONE COMMON POINT.</span></h2>
+    <p class="lead">
+      <span class="ru">У вас впервые на счетах больше денег, чем вы умеете распределять. Это не про доход — это про навык. Я помогу его поставить.</span>
+      <span class="en">You have more money on your accounts than you know how to allocate. It's not about income — it's about skill. I'll help build it.</span>
+    </p>
+    <div class="cols-2">
+      <div class="card">
+        <h3><span class="ru">FOUNDER PRE-IPO</span><span class="en">Founder pre-IPO</span></h3>
+        <p><span class="ru">RSU/options Bay Area, первый ликвидный миллион через 12-24 мес. Вопрос: куда ставить, чтобы не съели налоги и не разнесла волатильность.</span>
+        <span class="en">RSU/options in Bay Area, first liquid $1M+ in 12-24 months. Question: where to allocate before taxes and volatility eat it.</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="ru">EXIT $1-5M</span><span class="en">Exit $1-5M</span></h3>
+        <p><span class="ru">Продали стартап, первый крипто-кэш или фиат-вилка. Знаете как зарабатывать — не знаете как сохранять и приумножать через сделки, а не через биржевые свечи.</span>
+        <span class="en">Sold a startup, first crypto cash or fiat windfall. You know how to make money — not how to preserve and grow it through deals vs. candle-watching.</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="ru">МОЛОДЫЕ С КЭШЕМ</span><span class="en">Young with cash</span></h3>
+        <p><span class="ru">Первый большой $$$ — наследство, ранний exit, OTC-сделки. Вокруг — инфоцыгане, банкиры с продуктами и «друзья с проектом». Нужен взрослый, у которого шкура в игре.</span>
+        <span class="en">First big money — inheritance, early exit, OTC deals. Surrounded by influencers, bankers pushing products, and "friends with a project." You need an adult with skin in the game.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow"><span class="ru">КОМУ НЕ ПОДХОДИТ</span><span class="en">WHO IT'S NOT FOR</span></div>
+    <h2><span class="ru">ЧЕСТНО — <span class="gold">КОГО Я НЕ БЕРУ.</span></span><span class="en">HONESTLY — <span class="gold">WHO I DON'T TAKE.</span></span></h2>
+    <div class="cols-2">
+      <div class="card danger">
+        <h3><span class="ru">ИЩУ «СИГНАЛЫ»</span><span class="en">Looking for "signals"</span></h3>
+        <ul>
+          <li><span class="ru">«Какую монету купить на этой неделе»</span><span class="en">"Which coin to buy this week"</span></li>
+          <li><span class="ru">Гарантии доходности</span><span class="en">Guaranteed returns</span></li>
+          <li><span class="ru">Pump-каналы и signal-боты</span><span class="en">Pump channels & signal bots</span></li>
+        </ul>
+      </div>
+      <div class="card danger">
+        <h3><span class="ru">ИНФО-ТУРИСТ</span><span class="en">Info-tourist</span></h3>
+        <ul>
+          <li><span class="ru">«Сначала курс, потом действия»</span><span class="en">"Course first, action later"</span></li>
+          <li><span class="ru">Не готов подписать NDA + Advisory</span><span class="en">Won't sign NDA + Advisory</span></li>
+          <li><span class="ru">Свободные деньги &lt; $50K</span><span class="en">Free capital &lt; $50K</span></li>
+        </ul>
+      </div>
+      <div class="card danger">
+        <h3><span class="ru">МАРКЕТМЕЙКЕР В СЕБЕ</span><span class="en">Self-styled trader</span></h3>
+        <ul>
+          <li><span class="ru">Хочет «обыграть рынок» на скальпинге</span><span class="en">Wants to scalp the market</span></li>
+          <li><span class="ru">Кредитное плечо как стратегия</span><span class="en">Leverage as a strategy</span></li>
+          <li><span class="ru">Ищет «секрет инсайдеров»</span><span class="en">Looking for "insider secret"</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="modules">
+  <div class="wrap">
+    <div class="eyebrow"><span class="ru">5 МОДУЛЕЙ</span><span class="en">5 MODULES</span></div>
+    <h2><span class="ru">ОТ <span class="gold">ПЕРВОГО ЧЕКА</span><br>ДО CO-INVESTMENT.</span><span class="en">FROM <span class="gold">FIRST CHECK</span><br>TO CO-INVESTMENT.</span></h2>
+    <p class="lead">
+      <span class="ru">Никаких лекций «что такое блокчейн». Каждый модуль = практика на ваших реальных деньгах и сделках.</span>
+      <span class="en">No "what is blockchain" lectures. Each module = practice on your real capital and deals.</span>
+    </p>
+    <div class="modules">
+      <div class="mod">
+        <div class="num">01</div>
+        <h3><span class="ru">DEAL FLOW</span><span class="en">Deal flow</span></h3>
+        <p><span class="ru">Откуда берутся лучшие сделки: founder-сети, ангельские синдикаты, OTC-десксы, закрытые Telegram-чаты. Кому платить, у кого занимать кредибилити, как попасть в правую правую часть pipeline.</span>
+        <span class="en">Where the best deals come from: founder networks, angel syndicates, OTC desks, closed Telegram rooms. Who to pay, whose credibility to borrow, how to land in the right side of the pipeline.</span></p>
+        <span class="tag"><span class="ru">2 недели · поле</span><span class="en">2 weeks · fieldwork</span></span>
+      </div>
+      <div class="mod">
+        <div class="num">02</div>
+        <h3><span class="ru">ЛИЧНЫЙ БРЕНД = ДОСТУП</span><span class="en">Brand = access</span></h3>
+        <p><span class="ru">Почему меня в 2017 пустили перезапускать BTC-e под именем WEX, и почему вас не пустят в лучшие round'ы без позиционирования. Бренд эксперта = стоимость аллокации, а не лайки.</span>
+        <span class="en">Why in 2017 I was let in to relaunch BTC-e as WEX, and why you won't get into the best rounds without positioning. Expert brand = price of allocation, not likes.</span></p>
+        <span class="tag"><span class="ru">2 недели · позиционирование</span><span class="en">2 weeks · positioning</span></span>
+      </div>
+      <div class="mod">
+        <div class="num">03</div>
+        <h3><span class="ru">ОТ $5K К $50K</span><span class="en">From $5K to $50K</span></h3>
+        <p><span class="ru">Масштабирование среднего чека: как выйти из категории «small angel» в категорию «co-investor», где другая доходность, другой data room и другие условия term-sheet.</span>
+        <span class="en">Scaling check size: graduating from "small angel" to "co-investor" tier — different returns, different data room, different term-sheet terms.</span></p>
+        <span class="tag"><span class="ru">2 недели · checks</span><span class="en">2 weeks · checks</span></span>
+      </div>
+      <div class="mod">
+        <div class="num">04</div>
+        <h3><span class="ru">DD-СКОРИНГ 0-100</span><span class="en">DD scoring 0-100</span></h3>
+        <p><span class="ru">Воронка квалификации сделок: 8 блоков, Health Score, красные флаги. Считаем по реальным компаниям из вашего pipeline. Уносите систему, а не методичку.</span>
+        <span class="en">Deal qualification funnel: 8 blocks, Health Score, red flags. We score real companies from your pipeline. You leave with a system, not a handout.</span></p>
+        <span class="tag"><span class="ru">2-3 недели · ваши сделки</span><span class="en">2-3 weeks · your deals</span></span>
+      </div>
+      <div class="mod">
+        <div class="num">05</div>
+        <h3><span class="ru">TERM-SHEET + ЗАЩИТА</span><span class="en">Term-sheet + defense</span></h3>
+        <p><span class="ru">Переговорная позиция инвестора: pro-rata, anti-dilution, liquidation preference, vesting основателей. Что подписывать никогда. На каких юрисдикциях держать долю. Когда выходить.</span>
+        <span class="en">Investor's negotiation stance: pro-rata, anti-dilution, liquidation preference, founder vesting. What never to sign. Which jurisdictions hold equity. When to exit.</span></p>
+        <span class="tag"><span class="ru">2 недели · практика</span><span class="en">2 weeks · practice</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="proof">
+      <div class="eyebrow"><span class="ru">ДОКАЗАТЕЛЬСТВО</span><span class="en">PROOF</span></div>
+      <p class="proof-quote">
+        <span class="ru">«В 2017 ФБР изъяло BTC-e. С тех пор ФБР/IRS — <span class="gold">ни цента пользователям.</span> Я восстановил биржу под именем WEX и вернул <span class="gold">$800M</span>. Плачу за это до сих пор: 4 ареста, 5 стран, браслет на ноге. Я не теоретик — практик со шрамами.»</span>
+        <span class="en">"In 2017 the FBI seized BTC-e. Since then FBI/IRS — <span class="gold">not a cent to users.</span> I rebuilt the exchange as WEX and returned <span class="gold">$800M</span>. Still paying for it: 4 arrests, 5 countries, ankle monitor. I'm not a theorist — a practitioner with scars."</span>
+      </p>
+      <div class="proof-stats">
+        <div><div class="num">$800M</div><div class="lbl"><span class="ru">Возвращено пользователям</span><span class="en">Returned to users</span></div></div>
+        <div><div class="num">$0</div><div class="lbl"><span class="ru">ФБР/IRS → пользователи</span><span class="en">ФБР/IRS → users</span></div></div>
+        <div><div class="num">4 / 5</div><div class="lbl"><span class="ru">Ареста / стран</span><span class="en">Arrests / countries</span></div></div>
+        <div><div class="num">10Y+</div><div class="lbl"><span class="ru">В deal advisory</span><span class="en">In deal advisory</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="format">
+  <div class="wrap">
+    <div class="eyebrow"><span class="ru">ФОРМАТ ПОТОКА</span><span class="en">COHORT FORMAT</span></div>
+    <h2><span class="ru">ЗАКРЫТО. <span class="gold">ОФФЛАЙН.</span> ПЛОТНО.</span><span class="en">CLOSED. <span class="gold">OFFLINE.</span> DENSE.</span></h2>
+    <p class="lead">
+      <span class="ru">Это не курс на платформе. Это закрытый поток с очной встречей в Bay Area, онлайн-сессиями и работой с вашими реальными сделками. Договор обязателен с шага 1: NDA + Advisory + Success Fee.</span>
+      <span class="en">Not a platform course. A closed cohort with in-person meetings in Bay Area, online sessions, and work on your actual deals. Contract from day one: NDA + Advisory + Success Fee.</span>
+    </p>
+    <div class="format-grid">
+      <div class="fmt"><div class="k"><span class="ru">Размер</span><span class="en">Size</span></div><div class="v">15-20</div><div class="desc"><span class="ru">человек, не больше</span><span class="en">people max</span></div></div>
+      <div class="fmt"><div class="k"><span class="ru">Длительность</span><span class="en">Duration</span></div><div class="v">8-12</div><div class="desc"><span class="ru">недель</span><span class="en">weeks</span></div></div>
+      <div class="fmt"><div class="k"><span class="ru">Чек участника</span><span class="en">Participant fee</span></div><div class="v">$3-5K</div><div class="desc"><span class="ru">фиксированно</span><span class="en">flat</span></div></div>
+      <div class="fmt"><div class="k"><span class="ru">Формат</span><span class="en">Format</span></div><div class="v"><span class="ru">Очно + онлайн</span><span class="en">In-person + online</span></div><div class="desc"><span class="ru">Bay Area / Hayward</span><span class="en">Bay Area / Hayward</span></div></div>
+      <div class="fmt"><div class="k"><span class="ru">Договор</span><span class="en">Contract</span></div><div class="v">NDA</div><div class="desc"><span class="ru">+ Advisory + Success Fee</span><span class="en">+ Advisory + Success Fee</span></div></div>
+      <div class="fmt"><div class="k"><span class="ru">Старт</span><span class="en">Start</span></div><div class="v">2026 Q3</div><div class="desc"><span class="ru">по заполнению потока</span><span class="en">when cohort fills</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2><span class="ru">ВОПРОСЫ <span class="gold">БЕЗ ОБХОДОВ.</span></span><span class="en">QUESTIONS <span class="gold">NO DODGING.</span></span></h2>
+    <div class="faq" style="margin-top:32px">
+      <details>
+        <summary><span class="ru">Это инвестсовет? Гарантируете ли доходность?</span><span class="en">Is this investment advice? Do you guarantee returns?</span></summary>
+        <p><span class="ru">Нет. Это NFA (Not Financial Advice) — образовательная и advisory-практика. Никакой гарантированной доходности я не обещаю и не имею права обещать. Все решения принимаете вы сами. Моя работа — поставить вам процесс DD и переговорной позиции, а не «дать сигнал».</span>
+        <span class="en">No. This is NFA (Not Financial Advice) — an educational + advisory practice. No guaranteed returns are promised, and I'm not licensed to promise them. All decisions are yours. My job is to install your DD process and negotiation stance, not to "give a signal."</span></p>
+      </details>
+      <details>
+        <summary><span class="ru">В какой юр.форме работаем?</span><span class="en">What legal structure?</span></summary>
+        <p><span class="ru">Advisory-договор с моим LLC (US). Стандартный пакет: NDA → Advisory Agreement → опциональный Success Fee, если участник заходит в сделку из вашего pipeline и просит конкретное углублённое сопровождение. Платежи — wire / USDC / fiat по договору.</span>
+        <span class="en">Advisory agreement with my US LLC. Standard package: NDA → Advisory Agreement → optional Success Fee if a participant closes a deal from the pipeline and asks for deeper hands-on work. Payments — wire / USDC / fiat per contract.</span></p>
+      </details>
+      <details>
+        <summary><span class="ru">Что я получу на выходе? Можно ли померить результат?</span><span class="en">What's the deliverable? Can I measure it?</span></summary>
+        <p><span class="ru">На выходе: (1) персональная карта deal flow с 5-10 проверенными источниками, (2) собственный DD-скоринг на 8 блоков с заполненными примерами по реальным компаниям, (3) минимум 3 сделки из вашего pipeline, прошедшие через все фильтры, (4) тренированная переговорная позиция на term-sheet. Это навык, не «доход за квартал».</span>
+        <span class="en">Outputs: (1) personal deal flow map with 5-10 vetted sources, (2) your own 8-block DD scoring with filled examples from real companies, (3) at least 3 deals from your pipeline filtered end-to-end, (4) trained term-sheet negotiation stance. This is a skill, not "Q1 return."</span></p>
+      </details>
+      <details>
+        <summary><span class="ru">Возврат денег если не подойдёт?</span><span class="en">Refund if it doesn't fit?</span></summary>
+        <p><span class="ru">Полный возврат до конца 2-й недели. После — pro rata за неотработанные недели только при медицинских / форс-мажорных обстоятельствах. Я не беру людей, которым «вдруг разонравилось»: первый интервью-разговор как раз и нужен, чтобы это исключить.</span>
+        <span class="en">Full refund until end of week 2. After — pro rata for remaining weeks only for medical / force-majeure cases. I don't accept people who "just lost interest": the screening interview exists precisely to filter this out.</span></p>
+      </details>
+      <details>
+        <summary><span class="ru">Кто увидит мои сделки и цифры?</span><span class="en">Who sees my deals and numbers?</span></summary>
+        <p><span class="ru">NDA подписывается с шага 1, как со мной, так и между участниками потока. Внутри потока работа над DD ведётся либо анонимно (без названий компаний), либо открыто — выбор участника. Я не делюсь чужими сделками с другими клиентами и не использую их в публичном контенте.</span>
+        <span class="en">NDA signed from day one — both with me and peer-to-peer between cohort members. DD work happens either anonymously (no company names) or openly — participant's choice. I don't share anyone's deals with other clients or use them in public content.</span></p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="block form-section" id="apply">
+  <div class="wrap">
+    <div class="eyebrow"><span class="ru">ЗАЯВКА</span><span class="en">APPLY</span></div>
+    <h2><span class="ru">ЗАПИШИТЕСЬ <span class="gold">В СЛЕДУЮЩИЙ ПОТОК.</span></span><span class="en">APPLY FOR <span class="gold">NEXT COHORT.</span></span></h2>
+    <p class="lead">
+      <span class="ru">Я лично читаю каждую заявку. Отвечаю в течение 48 часов. Если подходим друг другу — назначаю screening-разговор 30 минут.</span>
+      <span class="en">I read every application personally. Reply within 48 hours. If there's a fit — I schedule a 30-min screening call.</span>
+    </p>
+    <form onsubmit="return submitForm(event)">
+      <div class="field">
+        <label><span class="ru">Имя</span><span class="en">Name</span></label>
+        <input type="text" name="name" required>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" required>
+      </div>
+      <div class="field">
+        <label>Telegram <span style="text-transform:none;letter-spacing:0;font-weight:400">(@username)</span></label>
+        <input type="text" name="telegram" placeholder="@username">
+      </div>
+      <div class="field">
+        <label><span class="ru">Свободный капитал для аллокации</span><span class="en">Free capital for allocation</span></label>
+        <div class="checks">
+          <label><input type="radio" name="cap" value="50-200K"> $50–200K</label>
+          <label><input type="radio" name="cap" value="200K-1M"> $200K–1M</label>
+          <label><input type="radio" name="cap" value="1M+"> $1M+</label>
+          <label><input type="radio" name="cap" value="ipo"><span class="ru">RSU pre-IPO</span><span class="en">RSU pre-IPO</span></label>
+        </div>
+      </div>
+      <div class="field">
+        <label><span class="ru">Что хотите решить</span><span class="en">What you want to solve</span></label>
+        <textarea name="situation" placeholder="Откуда деньги, что пробовали, что не получилось — 3-5 предложений" required></textarea>
+      </div>
+      <div class="field">
+        <label><span class="ru">Подтверждаю</span><span class="en">I confirm</span></label>
+        <div class="checks">
+          <label><input type="checkbox" required> <span class="ru">Готов подписать NDA + Advisory</span><span class="en">Ready to sign NDA + Advisory</span></label>
+          <label><input type="checkbox" required> <span class="ru">Понимаю — это NFA, без гарантий доходности</span><span class="en">I understand — NFA, no return guarantees</span></label>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" style="margin-top:8px">
+        <span class="ru">Отправить заявку</span><span class="en">Submit application</span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer">
+      <span class="ru"><strong>Дисклеймер NFA.</strong> Информация на этой странице носит образовательный характер и не является индивидуальной инвестиционной рекомендацией, предложением о покупке/продаже ценных бумаг, цифровых активов или иных финансовых инструментов. Никакая доходность не гарантирована. Решения о размещении капитала принимаются вами самостоятельно с учётом ваших обстоятельств и применимого законодательства. Услуги предоставляются как deal advisory / финансовый консалтинг.</span>
+      <span class="en"><strong>NFA disclaimer.</strong> Information on this page is educational and is not personalized investment advice, an offer or solicitation to buy or sell securities, digital assets, or any financial instruments. No returns are guaranteed. Capital allocation decisions are yours alone, based on your circumstances and applicable law. Services are provided as deal advisory / financial consulting.</span>
+    </p>
+    <p>© 2026 Дмитрий Васильев · <a href="https://vda.vc">vda.vc</a> · dima@vda.vc · <a href="https://t.me/Posbitcoin">@Posbitcoin</a></p>
+  </div>
+</footer>
+
+<button class="approve-btn" onclick="alert('Напишите Дмитрию: «сделай v19 живым»')">
+  ✅ Approve → Live
+</button>
+
+<script>
+function setLang(lang){
+  document.body.dataset.lang = lang;
+  document.querySelectorAll('[data-lang-btn]').forEach(b=>{
+    b.classList.toggle('active', b.dataset.langBtn===lang);
+  });
+  try{localStorage.setItem('vda_lang', lang)}catch(e){}
+}
+try{
+  const saved = localStorage.getItem('vda_lang');
+  if(saved) setLang(saved);
+}catch(e){}
+
+window.addEventListener('scroll', ()=>{
+  const n = document.querySelector('nav');
+  if(window.scrollY>40) n.style.borderBottomColor='var(--gold)';
+  else n.style.borderBottomColor='var(--line)';
+});
+
+function submitForm(e){
+  e.preventDefault();
+  const f = e.target;
+  const data = Object.fromEntries(new FormData(f));
+  const txt = `VIP-инвестиции — заявка%0A%0AИмя: ${data.name}%0AEmail: ${data.email}%0ATG: ${data.telegram||'-'}%0AКапитал: ${data.cap||'-'}%0A%0A${data.situation}`;
+  window.open(`https://t.me/Posbitcoin?text=${txt}`, '_blank');
+  alert(document.body.dataset.lang==='en'
+    ? 'Application prepared in Telegram. Send it to Dmitry directly.'
+    : 'Заявка подготовлена в Telegram. Отправьте Дмитрию.');
+  return false;
+}
+</script>
+</body>
+</html>

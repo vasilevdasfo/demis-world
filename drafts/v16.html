@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дмитрий Васильев — Решаю нерешаемое</title>
+  <meta name="description" content="Крипто-консалтинг, AI-автоматизация, кризисный менеджмент. Приходи с проблемой. Уходи с решением.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0e0e0e;
+      --bg-light: #f5f2eb;
+      --accent: #c9a227;
+      --accent-soft: #f0e4b8;
+      --warm: #b8860b;
+      --warm-light: #e8d5a0;
+      --text-light: #ffffff;
+      --text-dark: #0e0e0e;
+      --muted: rgba(255,255,255,0.65);
+      --muted-dark: rgba(14,14,14,0.65);
+      --border-soft: rgba(255,255,255,0.1);
+      --shadow-card: 0 20px 60px rgba(14,14,14,0.14);
+      --radius-card: 1.25rem;
+      --container: min(100% - 4rem, 1440px);
+      --title-font: "Anton", Impact, sans-serif;
+      --body-font: "Manrope", sans-serif;
+      --t: 240ms ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--body-font);
+      background: radial-gradient(circle at top, rgba(201,162,39,0.07), transparent 30%), #111;
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+    body.menu-open { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; }
+
+    /* ── HEADER ── */
+    .site-header {
+      width: var(--container);
+      position: fixed; top: 1.5rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      padding: 1rem 1.25rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 1rem;
+      border-radius: 1.4rem;
+      background: rgba(14,14,14,0.82);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.09);
+      transition: background var(--t), border-color var(--t);
+    }
+    .site-header.scrolled {
+      background: rgba(14,14,14,0.92);
+      border-color: rgba(201,162,39,0.15);
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .brand-gem {
+      width: 0.65rem; aspect-ratio: 1;
+      background: var(--accent);
+      clip-path: polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+      box-shadow: 0 0 0 0.3rem rgba(201,162,39,0.15);
+    }
+    .site-nav {
+      display: flex; justify-content: center;
+      gap: 1.5rem; font-size: 0.72rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    .site-nav a { opacity: 0.8; position: relative; transition: opacity var(--t); }
+    .site-nav a::after {
+      content: ""; position: absolute;
+      left: 0; bottom: -0.35rem;
+      width: 100%; height: 1px;
+      background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform var(--t);
+    }
+    .site-nav a:hover { opacity: 1; }
+    .site-nav a:hover::after { transform: scaleX(1); }
+    .header-right { display: flex; align-items: center; gap: 0.75rem; }
+    .header-cta {
+      padding: 0.65rem 1rem; border-radius: 999px;
+      background: var(--accent); color: var(--text-dark);
+      font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      box-shadow: 0 10px 24px rgba(201,162,39,0.22);
+      transition: transform var(--t), box-shadow var(--t);
+    }
+    .header-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 28px rgba(201,162,39,0.32); }
+    .lang-toggle {
+      padding: 0.5rem 0.75rem; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: transparent; color: var(--text-light);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      transition: border-color var(--t), color var(--t);
+    }
+    .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .menu-toggle {
+      display: none; width: 2.8rem; height: 2.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18) !important;
+      background: transparent; color: var(--text-light);
+      align-items: center; justify-content: center; flex-direction: column; gap: 0.22rem;
+    }
+    .menu-toggle span { display: block; width: 1rem; height: 2px; background: currentColor; }
+
+    /* ── SECTIONS ── */
+    .section-dark, .section-light, .site-footer { position: relative; isolation: isolate; }
+    .section-dark::before, .site-footer::before {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 140px 140px; opacity: 0.18; pointer-events: none;
+    }
+    .section-dark { background: var(--bg-dark); color: var(--text-light); }
+    .section-light { background: var(--bg-light); color: var(--text-dark); padding-block: clamp(4rem,7vw,6rem); }
+    main section, .site-footer { padding-inline: clamp(1.5rem,3vw,3rem); }
+    .container { width: 100%; max-width: var(--container); margin-inline: auto; }
+
+    /* scroll reveal */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ── HERO ── */
+    .hero { padding-top: 6rem; padding-bottom: 2rem; min-height: 100vh; display: flex; align-items: stretch; }
+    .hero-grid {
+      width: 100%; max-width: var(--container); margin-inline: auto;
+      min-height: calc(100vh - 8rem);
+      display: grid; grid-template-columns: 1fr; align-items: end;
+    }
+    .hero-copy, .hero-visual { position: relative; grid-area: 1 / 1; }
+    .hero-copy {
+      z-index: 1; min-height: calc(100vh - 8rem);
+      display: grid; align-content: end; padding-bottom: 2.5rem;
+    }
+    .hero-copy > :not(.hero-title) { position: relative; z-index: 3; max-width: fit-content; }
+
+    .eyebrow, .section-label {
+      margin: 0; font-size: 0.8rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .section-label.dark { color: var(--text-dark); }
+
+    .hero-title {
+      margin: 0; display: block; line-height: 0.88;
+      font-family: var(--title-font); text-transform: uppercase;
+      font-size: clamp(8rem, 22vw, 20rem);
+      position: absolute; left: 50%; top: 52%;
+      transform: translate(-50%, -50%);
+      width: 100%; text-align: center;
+      z-index: 1; pointer-events: none; letter-spacing: 0.02em;
+    }
+    .hero-title-kicker {
+      position: absolute; left: 9.5%; top: -1.06em;
+      font-family: var(--title-font);
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      line-height: 1; letter-spacing: 0.03em;
+    }
+    .glitch {
+      position: relative; display: inline-block;
+      color: var(--text-light);
+      text-shadow: 1px 0 rgba(255,255,255,0.5), -1px 0 rgba(201,162,39,0.45);
+      animation: noiseShift 2.8s infinite steps(1);
+    }
+    .glitch::before, .glitch::after {
+      content: attr(data-text); position: absolute; inset: 0;
+      opacity: 0.42; mix-blend-mode: screen;
+    }
+    .glitch::before { color: rgba(255,255,255,0.72); transform: translate(-2px,1px); clip-path: inset(10% 0 58% 0); }
+    .glitch::after  { color: rgba(201,162,39,0.88); transform: translate(2px,-1px); clip-path: inset(58% 0 8% 0); }
+    @keyframes noiseShift {
+      0%,93%,100% { text-shadow: 1px 0 rgba(255,255,255,0.5), -1px 0 rgba(201,162,39,0.45); }
+      94% { text-shadow: -3px 0 rgba(201,162,39,0.8), 3px 0 rgba(255,255,255,0.4); }
+      96% { text-shadow: 3px 0 rgba(255,255,255,0.7), -3px 0 rgba(201,162,39,0.6); }
+      98% { text-shadow: 0 3px rgba(201,162,39,0.5), 0 -3px rgba(255,255,255,0.4); }
+    }
+
+    .hero-tagline, .section-copy {
+      max-width: 26rem; color: var(--muted); line-height: 1.68; font-size: 0.95rem;
+    }
+    .hero-note { margin-top: 3.5rem; display: flex; align-items: center; gap: 1rem; font-size: 1rem; text-transform: uppercase; }
+    .hero-note p { margin: 0; line-height: 1.05; }
+
+    .crosshair { width: 5rem; height: 5rem; border-radius: 50%; position: relative; box-shadow: 0 0 0 0.2rem rgba(201,162,39,0.1) inset; }
+    .crosshair::before, .crosshair::after { content: ""; position: absolute; left: 50%; top: 50%; background: rgba(201,162,39,0.8); }
+    .crosshair::before { width: 1px; height: 5rem; transform: translate(-50%,-50%); }
+    .crosshair::after  { width: 5rem; height: 1px; transform: translate(-50%,-50%); }
+
+    .hero-visual {
+      align-self: stretch; display: flex;
+      align-items: flex-end; justify-content: center;
+      z-index: 2; width: 100%;
+    }
+    .hero-portrait {
+      width: min(100%, 700px); height: min(90vh, 920px);
+      border-radius: 1.5rem 1.5rem 0 0; margin-inline: auto;
+      background:
+        radial-gradient(ellipse at 50% 20%, rgba(201,162,39,0.12), transparent 60%),
+        linear-gradient(to top, rgba(14,14,14,0.95), rgba(14,14,14,0.3) 55%, rgba(14,14,14,0.05));
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-portrait-monogram {
+      font-family: var(--title-font);
+      font-size: clamp(10rem, 24vw, 20rem);
+      color: rgba(201,162,39,0.06);
+      letter-spacing: -0.04em; user-select: none;
+      line-height: 1;
+    }
+    .hero-lines {
+      position: absolute; inset: 8% 0 18% 0;
+      border-inline: 1px solid rgba(255,255,255,0.05);
+      pointer-events: none;
+    }
+
+    .stamp-badge {
+      width: 7rem; aspect-ratio: 1; border-radius: 50%;
+      border: 1px solid rgba(201,162,39,0.4);
+      background:
+        radial-gradient(circle, #0e0e0e 0 24%, transparent 24%),
+        radial-gradient(circle, rgba(201,162,39,0.14), rgba(201,162,39,0.04));
+      color: var(--accent-soft);
+      display: grid; place-items: center;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+      box-shadow: 0 0 0 0.55rem rgba(201,162,39,0.06) inset;
+    }
+    .stamp-badge span { grid-area: 1/1; }
+    .stamp-badge span:nth-child(1) { transform: translateY(-1.35rem); }
+    .stamp-badge span:nth-child(3) { transform: translateY(1.35rem); }
+    .hero .stamp-badge { position: absolute; right: clamp(0rem,3vw,2rem); top: 44%; }
+
+    .hero-aside {
+      position: absolute; left: 0; top: 12rem;
+      max-width: 11rem; font-size: 0.72rem; line-height: 1.65; color: var(--muted);
+    }
+
+    /* ── ABOUT ── */
+    .section-intro { display: grid; grid-template-columns: 1fr minmax(0,1.1fr); gap: 1.5rem; align-items: start; }
+    .section-copy { color: var(--muted-dark); justify-self: end; }
+    .about-layout { display: grid; gap: 2rem; margin-top: 2.2rem; }
+
+    .section-title {
+      margin: 0; text-align: center;
+      font-family: var(--title-font); text-transform: uppercase;
+      letter-spacing: 0.02em; font-size: clamp(3rem,7.5vw,6rem); line-height: 0.92;
+    }
+    .section-title.oversized { max-width: 14ch; justify-self: center; }
+
+    .directions-grid {
+      display: grid; grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 1.2rem; align-items: end;
+    }
+    .direction-card {
+      overflow: hidden; border-radius: 0.95rem;
+      height: clamp(15rem,20vw,22rem);
+      box-shadow: var(--shadow-card);
+      transition: transform 320ms ease, box-shadow 320ms ease;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 1.5rem; position: relative;
+    }
+    .direction-card.tall { height: clamp(17rem,24vw,27rem); }
+    .direction-card:hover { transform: translateY(-8px); box-shadow: 0 28px 64px rgba(14,14,14,0.24); }
+    .dir-crypto  { background: linear-gradient(145deg, #1c1a0f, #0e0e0e); border: 1px solid rgba(201,162,39,0.18); }
+    .dir-ai      { background: linear-gradient(145deg, #0d160d, #0a0d0a); border: 1px solid rgba(60,200,100,0.14); }
+    .dir-crisis  { background: linear-gradient(145deg, #160d0d, #0d0a0a); border: 1px solid rgba(220,60,60,0.14); }
+    .dir-systems { background: linear-gradient(145deg, #0d0d18, #0a0a10); border: 1px solid rgba(80,110,240,0.14); }
+    .dir-bg {
+      position: absolute; inset: 0;
+      font-family: var(--title-font); font-size: clamp(5rem,10vw,8rem);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0.055; letter-spacing: -0.04em; color: white; pointer-events: none;
+    }
+    .dir-icon  { font-size: 2rem; margin-bottom: 0.75rem; position: relative; z-index: 1; }
+    .dir-label { font-family: var(--title-font); font-size: clamp(1.6rem,2.5vw,2.2rem); line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; color: white; position: relative; z-index: 1; }
+    .dir-sub   { font-size: 0.72rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.4rem; position: relative; z-index: 1; }
+
+    /* ── STATS ── */
+    .stats-section { padding-block: clamp(4rem,8vw,6rem); }
+    .stats-header  { display: grid; gap: 2rem; }
+    .progress-ornament { display: flex; align-items: center; gap: 1rem; }
+    .progress-ornament::before, .progress-ornament::after {
+      content: ""; flex: 1; height: 2px;
+      background: linear-gradient(90deg, rgba(201,162,39,0.65), rgba(201,162,39,0.05));
+    }
+    .gem      { flex: none; background: var(--accent); width: 0.8rem; height: 0.8rem; clip-path: polygon(50% 0%,100% 50%,50% 100%,0% 50%); }
+    .gem.dim  { opacity: 0.28; }
+
+    .stats-block {
+      margin-top: 3rem; padding-top: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center;
+    }
+    .stat-number { font-family: var(--title-font); font-size: clamp(5rem,11vw,9rem); line-height: 0.9; color: var(--accent); }
+    .stat-copy h2 { margin: 0; font-family: var(--title-font); font-size: clamp(2rem,4.5vw,3.5rem); line-height: 0.95; }
+    .stat-copy p  { margin: 0.8rem 0 0; font-size: 0.9rem; letter-spacing: 0.1em; color: var(--muted); }
+
+    /* ── CASES ── */
+    .cases-section { padding-block: clamp(4rem,7vw,6rem); }
+    .portfolio-intro { margin-bottom: 1rem; }
+
+    .carousel { margin-top: 2rem; display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; }
+    .carousel-track {
+      display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px,28%);
+      gap: 1.2rem; overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+      padding: 1rem 0.2rem 1.5rem; scrollbar-width: none;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-card {
+      scroll-snap-align: center; border-radius: var(--radius-card); overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 35%),
+        linear-gradient(145deg, rgba(201,162,39,0.12), rgba(14,14,14,0.92));
+      min-height: clamp(23rem,30vw,32rem);
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(201,162,39,0.1);
+      transition: transform 320ms ease, box-shadow 320ms ease;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem;
+    }
+    .carousel-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 32px 64px rgba(14,14,14,0.32); }
+    .carousel-card.tilt-l { transform: rotate(-1.5deg); } .carousel-card.tilt-l:hover { transform: rotate(0deg) translateY(-6px); }
+    .carousel-card.tilt-r { transform: rotate(1.5deg);  } .carousel-card.tilt-r:hover { transform: rotate(0deg) translateY(-6px); }
+
+    .case-year  { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .case-title { font-family: var(--title-font); font-size: clamp(1.8rem,2.8vw,2.5rem); line-height: 1; text-transform: uppercase; color: white; margin-bottom: 0.75rem; }
+    .case-desc  { font-size: 0.82rem; line-height: 1.65; color: rgba(255,255,255,0.62); }
+    .case-tag   { display: inline-block; margin-top: 1rem; padding: 0.3rem 0.8rem; border-radius: 999px; border: 1px solid rgba(201,162,39,0.3); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-soft); }
+
+    .carousel-btn {
+      width: 3rem; height: 3rem; border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.12) !important; background: white;
+      color: var(--text-dark); font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-card); flex: none;
+      transition: transform var(--t), box-shadow var(--t);
+    }
+    .carousel-btn:hover { transform: scale(1.08); box-shadow: 0 14px 32px rgba(0,0,0,0.16); }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      padding-block: clamp(5rem,10vw,9rem);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .quote-orbit-wrap { position: relative; display: flex; align-items: center; justify-content: center; width: min(340px,80vw); }
+    .circular-text { width: 100%; animation: spin 22s linear infinite; }
+    .circular-text text { font-size: 12.5px; fill: rgba(255,255,255,0.5); font-family: var(--body-font); font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .quote-image-wrap {
+      width: clamp(10rem,22vw,17rem); aspect-ratio: 1; border-radius: 50%;
+      position: absolute;
+      background: radial-gradient(circle, rgba(201,162,39,0.22), rgba(14,14,14,0.7));
+      border: 2px solid rgba(201,162,39,0.22);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--title-font); font-size: clamp(3rem,6vw,5rem);
+      color: rgba(201,162,39,0.28); overflow: hidden;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-section { padding-block: clamp(4rem,7vw,6rem); }
+    .testimonial-layout { display: grid; gap: 1.5rem; }
+    .section-title.huge { font-size: clamp(4rem,10vw,9rem); line-height: 0.88; margin-bottom: 2rem; }
+    .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .testimonial {
+      padding: 2rem; border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      transition: transform 300ms ease;
+    }
+    .testimonial:hover { transform: translateY(-4px); }
+    .testimonial.white { background: white; color: var(--text-dark); }
+    .testimonial.gold  { background: linear-gradient(145deg, var(--accent), var(--warm)); color: var(--text-dark); }
+    .stars { font-size: 0.88rem; letter-spacing: 0.1em; color: var(--accent); }
+    .testimonial.gold .stars { color: rgba(14,14,14,0.7); }
+    .testimonial p { margin: 0.75rem 0; font-size: 0.9rem; line-height: 1.65; font-style: italic; color: var(--muted-dark); }
+    .testimonial.gold p { color: rgba(14,14,14,0.78); }
+    .testimonial h3 { margin: 0; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+    .testimonial-role { font-size: 0.72rem; color: var(--muted-dark); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.2rem; }
+    .testimonial.gold .testimonial-role { color: rgba(14,14,14,0.55); }
+
+    /* ── CONTACT ── */
+    .contact-section { padding-block: clamp(5rem,9vw,8rem); text-align: center; }
+    .contact-title { font-family: var(--title-font); font-size: clamp(3.5rem,9vw,7rem); text-transform: uppercase; letter-spacing: 0.02em; line-height: 0.9; margin: 0 0 0.5rem; }
+    .contact-sub { color: var(--muted); font-size: 1rem; margin: 1rem auto 2.5rem; max-width: 36rem; line-height: 1.65; }
+    .contact-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 0.5rem; }
+    .btn-primary {
+      padding: 1rem 2rem; border-radius: 999px;
+      background: var(--accent); color: var(--text-dark);
+      font-weight: 800; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase;
+      box-shadow: 0 12px 28px rgba(201,162,39,0.28);
+      transition: transform var(--t), box-shadow var(--t);
+      display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 36px rgba(201,162,39,0.38); }
+    .btn-secondary {
+      padding: 1rem 2rem; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18) !important;
+      background: transparent; color: white;
+      font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase;
+      transition: transform var(--t), border-color var(--t), color var(--t);
+      display: inline-block;
+    }
+    .btn-secondary:hover { transform: translateY(-3px); border-color: var(--accent) !important; color: var(--accent); }
+
+    /* ── FOOTER ── */
+    .site-footer { padding-block: 2rem; border-top: 1px solid rgba(255,255,255,0.07); }
+    .footer-main { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-wordmark { font-family: var(--title-font); font-size: clamp(2.5rem,6vw,5rem); text-transform: uppercase; letter-spacing: 0.04em; color: rgba(255,255,255,0.05); }
+    .footer-links { display: flex; gap: 1.5rem; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); flex-wrap: wrap; }
+    .footer-links a:hover { color: var(--accent); }
+    .copyright { font-size: 0.72rem; color: rgba(255,255,255,0.28); text-align: center; margin-top: 1.5rem; }
+
+    /* ── APPROVE BTN ── */
+    .approve-btn {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      padding: 0.75rem 1.25rem; border-radius: 999px;
+      background: var(--accent); color: var(--text-dark);
+      font-weight: 800; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+      box-shadow: 0 8px 24px rgba(201,162,39,0.4);
+      z-index: 9999; transition: transform var(--t); border: none !important; cursor: pointer;
+    }
+    .approve-btn:hover { transform: scale(1.06); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 980px) {
+      .site-nav { display: none; }
+      .menu-toggle { display: flex; }
+      .site-nav.is-open {
+        display: flex; flex-direction: column;
+        position: fixed; inset: 0; background: rgba(14,14,14,0.97);
+        z-index: 200; align-items: center; justify-content: center;
+        gap: 2rem; font-size: 1.1rem;
+      }
+      .directions-grid { grid-template-columns: 1fr 1fr; }
+      .direction-card.tall { height: clamp(15rem,20vw,22rem); }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .section-intro { grid-template-columns: 1fr; }
+      .stats-block { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .directions-grid { grid-template-columns: 1fr 1fr; }
+      .hero-title { font-size: clamp(5.5rem,24vw,9rem); }
+      .hero-title-kicker { font-size: clamp(1.5rem,7vw,3rem); }
+      .contact-ctas { flex-direction: column; align-items: center; }
+      .hero-aside { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="site-header" id="site-header">
+  <a href="#hero" class="brand">
+    <span class="brand-gem"></span>
+    <span>DV</span>
+  </a>
+  <nav class="site-nav" id="site-nav">
+    <a href="#about"        data-ru="О себе"   data-en="About">О себе</a>
+    <a href="#cases"        data-ru="Кейсы"    data-en="Cases">Кейсы</a>
+    <a href="#testimonials" data-ru="Отзывы"   data-en="Reviews">Отзывы</a>
+    <a href="#contact"      data-ru="Контакт"  data-en="Contact">Контакт</a>
+  </nav>
+  <div class="header-right">
+    <button class="lang-toggle" id="lang-toggle" aria-label="Переключить язык">EN</button>
+    <a href="https://t.me/vdavc_bot" target="_blank" class="header-cta"
+       data-ru="Написать" data-en="Contact me">Написать</a>
+    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── HERO ── -->
+  <section class="hero section-dark reveal" id="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow" data-ru="Bay Area · Крипто · 2009" data-en="Bay Area · Crypto · 2009">Bay Area · Крипто · 2009</p>
+        <h1 class="hero-title">
+          <span class="hero-title-kicker" data-ru="ДМИТРИЙ" data-en="DMITRII">ДМИТРИЙ</span>
+          <span class="glitch" data-text="ВАСИЛЬЕВ" data-ru-text="ВАСИЛЬЕВ" data-en-text="VASILEV">ВАСИЛЬЕВ</span>
+        </h1>
+        <p class="hero-tagline" data-ru="Приходи с проблемой. Уходи с решением. Оставайся — чтобы помогать другим." data-en="Come with a problem. Leave with a solution. Stay — to help others.">
+          Приходи с проблемой. Уходи с решением. Оставайся — чтобы помогать другим.
+        </p>
+        <div class="hero-note">
+          <span class="crosshair" aria-hidden="true"></span>
+          <div>
+            <p data-ru="Решаю" data-en="Solving">Решаю</p>
+            <p data-ru="нерешаемое" data-en="the unsolvable">нерешаемое</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-lines" aria-hidden="true"></div>
+        <div class="hero-portrait">
+          <span class="hero-portrait-monogram">DV</span>
+        </div>
+        <div class="stamp-badge" aria-hidden="true">
+          <span data-ru="КРИПТО" data-en="CRYPTO">КРИПТО</span>
+          <span>·</span>
+          <span>2009</span>
+        </div>
+        <p class="hero-aside" data-ru="Крипто-консалтинг, AI-автоматизация, кризисный менеджмент, кросс-бордер платежи." data-en="Crypto consulting, AI automation, crisis management, cross-border payments.">
+          Крипто-консалтинг, AI-автоматизация, кризисный менеджмент, кросс-бордер платежи.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="section-light reveal" id="about">
+    <div class="section-intro container">
+      <div>
+        <p class="section-label dark" data-ru="О ДМИТРИИ" data-en="ABOUT DMITRII">О ДМИТРИИ</p>
+      </div>
+      <p class="section-copy" data-ru="14+ лет в крипто и финтехе. Бывший CEO WEX. 4 ареста, 5 стран, $800M возвращённых пользователям. Работаю там, где другие отказываются." data-en="14+ years in crypto and fintech. Former CEO of WEX. 4 arrests, 5 countries, $800M returned to users. I work where others refuse.">
+        14+ лет в крипто и финтехе. Бывший CEO WEX. 4 ареста, 5 стран, $800M возвращённых пользователям. Работаю там, где другие отказываются.
+      </p>
+    </div>
+    <div class="about-layout container">
+      <h2 class="section-title oversized" data-ru="РЕШАЮ ТО ЧТО ДРУГИЕ СЧИТАЮТ НЕВОЗМОЖНЫМ" data-en="SOLVING WHAT OTHERS CALL IMPOSSIBLE">
+        РЕШАЮ ТО ЧТО ДРУГИЕ СЧИТАЮТ НЕВОЗМОЖНЫМ
+      </h2>
+      <div class="directions-grid">
+        <div class="direction-card dir-crypto tall">
+          <div class="dir-bg">₿</div>
+          <div class="dir-icon">🔷</div>
+          <div class="dir-label" data-ru="КРИПТО" data-en="CRYPTO">КРИПТО</div>
+          <div class="dir-sub"  data-ru="OTC · Биржи · DeFi" data-en="OTC · Exchanges · DeFi">OTC · Биржи · DeFi</div>
+        </div>
+        <div class="direction-card dir-ai">
+          <div class="dir-bg">AI</div>
+          <div class="dir-icon">🤖</div>
+          <div class="dir-label" data-ru="AI" data-en="AI">AI</div>
+          <div class="dir-sub"  data-ru="Автоматизация · Боты · CRM" data-en="Automation · Bots · CRM">Автоматизация · Боты · CRM</div>
+        </div>
+        <div class="direction-card dir-crisis">
+          <div class="dir-bg">⚡</div>
+          <div class="dir-icon">⚡</div>
+          <div class="dir-label" data-ru="КРИЗИС" data-en="CRISIS">КРИЗИС</div>
+          <div class="dir-sub"  data-ru="Менеджмент · Реструктуризация" data-en="Management · Restructuring">Менеджмент · Реструктуризация</div>
+        </div>
+        <div class="direction-card dir-systems tall">
+          <div class="dir-bg">🌐</div>
+          <div class="dir-icon">🌐</div>
+          <div class="dir-label" data-ru="СИСТЕМЫ" data-en="SYSTEMS">СИСТЕМЫ</div>
+          <div class="dir-sub"  data-ru="EMI · IBAN · Офшор" data-en="EMI · IBAN · Offshore">EMI · IBAN · Офшор</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS ── -->
+  <section class="stats-section section-dark reveal" id="stats">
+    <div class="stats-header container">
+      <p class="section-label" style="color:rgba(255,255,255,0.75)"
+         data-ru="ЦИФРЫ, КОТОРЫЕ ГОВОРЯТ" data-en="NUMBERS THAT SPEAK">ЦИФРЫ, КОТОРЫЕ ГОВОРЯТ</p>
+      <div class="progress-ornament" aria-hidden="true">
+        <span class="gem"></span><span class="gem"></span><span class="gem"></span>
+        <span class="gem dim"></span><span class="gem dim"></span>
+      </div>
+    </div>
+    <div class="stats-block container">
+      <div class="stat-number">$800M</div>
+      <div class="stat-copy">
+        <h2 data-ru="ВОЗВРАЩЕНО ПОЛЬЗОВАТЕЛЯМ" data-en="RETURNED TO USERS">ВОЗВРАЩЕНО ПОЛЬЗОВАТЕЛЯМ</h2>
+        <p data-ru="WEX · ПЕРЕЗАПУСК БИРЖИ ПОСЛЕ ИЗЪЯТИЯ ФБР · 2017" data-en="WEX · EXCHANGE RESTART AFTER FBI SEIZURE · 2017">
+          WEX · ПЕРЕЗАПУСК БИРЖИ ПОСЛЕ ИЗЪЯТИЯ ФБР · 2017
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CASES ── -->
+  <section class="cases-section section-light reveal" id="cases">
+    <div class="section-intro portfolio-intro container">
+      <div>
+        <p class="section-label dark" data-ru="РЕАЛЬНЫЕ КЕЙСЫ" data-en="REAL CASES">РЕАЛЬНЫЕ КЕЙСЫ</p>
+      </div>
+      <p class="section-copy" data-ru="Работаю с крипто-бизнесом, финтех-стартапами и частными клиентами. Каждый кейс — реальная проблема и реальное решение." data-en="I work with crypto businesses, fintech startups and private clients. Every case is a real problem and a real solution.">
+        Работаю с крипто-бизнесом, финтех-стартапами и частными клиентами. Каждый кейс — реальная проблема и реальное решение.
+      </p>
+    </div>
+    <h2 class="section-title container" style="margin-bottom:0"
+        data-ru="КЕЙСЫ" data-en="CASES">КЕЙСЫ</h2>
+    <div class="carousel container">
+      <button class="carousel-btn prev" type="button" aria-label="Назад">&#8592;</button>
+      <div class="carousel-track" id="carouselTrack">
+
+        <article class="carousel-card tilt-l">
+          <div class="case-year">2017</div>
+          <div class="case-title" data-ru="WEX EXCHANGE" data-en="WEX EXCHANGE">WEX EXCHANGE</div>
+          <div class="case-desc" data-ru="ФБР изъяло BTC-e. Я перезапустил биржу под именем WEX и вернул пользователям доступ к $800M. Единственный в мире кейс перезапуска биржи после изъятия ФБР." data-en="FBI seized BTC-e. I relaunched it as WEX and returned $800M access to users. The only case of its kind worldwide.">
+            ФБР изъяло BTC-e. Я перезапустил биржу под именем WEX и вернул пользователям доступ к $800M. Единственный в мире кейс перезапуска биржи после изъятия ФБР.
+          </div>
+          <span class="case-tag" data-ru="Антикризис · Крипто" data-en="Crisis Mgmt · Crypto">Антикризис · Крипто</span>
+        </article>
+
+        <article class="carousel-card tilt-r">
+          <div class="case-year">2024–2025</div>
+          <div class="case-title" data-ru="PINTOPAY" data-en="PINTOPAY">PINTOPAY</div>
+          <div class="case-desc" data-ru="Антикризисное управление платёжной системой. TX-аудит, реструктуризация финансовой модели, переговоры с процессорами и банками-партнёрами." data-en="Crisis management for a payment system. TX audit, financial model restructuring, negotiations with processors and partner banks.">
+            Антикризисное управление платёжной системой. TX-аудит, реструктуризация финансовой модели, переговоры с процессорами и банками-партнёрами.
+          </div>
+          <span class="case-tag" data-ru="Финтех · Кризис" data-en="Fintech · Crisis">Финтех · Кризис</span>
+        </article>
+
+        <article class="carousel-card">
+          <div class="case-year">2025</div>
+          <div class="case-title" data-ru="GLOBAL WALLET" data-en="GLOBAL WALLET">GLOBAL WALLET</div>
+          <div class="case-desc" data-ru="Стратегический консалтинг офшорного банка с EMI-лицензией. Архитектура продукта, прайсинг 12 продуктов, конкурентное позиционирование." data-en="Strategic consulting for an offshore bank with EMI license. Product architecture, pricing 12 products, competitive positioning.">
+            Стратегический консалтинг офшорного банка с EMI-лицензией. Архитектура продукта, прайсинг 12 продуктов, конкурентное позиционирование.
+          </div>
+          <span class="case-tag" data-ru="EMI · Офшор · Банкинг" data-en="EMI · Offshore · Banking">EMI · Офшор · Банкинг</span>
+        </article>
+
+        <article class="carousel-card tilt-l">
+          <div class="case-year">2025</div>
+          <div class="case-title" data-ru="BCB.CREDIT" data-en="BCB.CREDIT">BCB.CREDIT</div>
+          <div class="case-desc" data-ru="Кредитная схема через СКОК под крипто-обеспечение. Структурирование, регуляторное сопровождение, интеграция с банковской инфраструктурой." data-en="Credit scheme via credit union with crypto collateral. Structuring, regulatory support, integration with banking infrastructure.">
+            Кредитная схема через СКОК под крипто-обеспечение. Структурирование, регуляторное сопровождение, интеграция с банковской инфраструктурой.
+          </div>
+          <span class="case-tag" data-ru="DeFi · Кредит · СКОК" data-en="DeFi · Credit">DeFi · Кредит · СКОК</span>
+        </article>
+
+        <article class="carousel-card tilt-r">
+          <div class="case-year">2025</div>
+          <div class="case-title" data-ru="AI АВТОМАТИЗАЦИЯ" data-en="AI AUTOMATION">AI АВТОМАТИЗАЦИЯ</div>
+          <div class="case-desc" data-ru="Внедрение AI-системы управления задачами, лид-бот квалификации клиентов, автоматизация переписки в Telegram с обработкой голосовых сообщений." data-en="AI task management implementation, lead qualification bot, Telegram messaging automation with voice message processing.">
+            Внедрение AI-системы управления задачами, лид-бот квалификации клиентов, автоматизация переписки в Telegram с обработкой голосовых сообщений.
+          </div>
+          <span class="case-tag" data-ru="AI · Автоматизация" data-en="AI · Automation">AI · Автоматизация</span>
+        </article>
+
+      </div>
+      <button class="carousel-btn next" type="button" aria-label="Вперёд">&#8594;</button>
+    </div>
+  </section>
+
+  <!-- ── QUOTE ── -->
+  <section class="quote-section section-dark reveal" id="quote">
+    <div class="quote-orbit-wrap">
+      <svg viewBox="0 0 300 300" class="circular-text" aria-hidden="true">
+        <defs>
+          <path id="circlePath" d="M150,150 m-110,0 a110,110 0 1,1 220,0 a110,110 0 1,1 -220,0"></path>
+        </defs>
+        <text><textPath href="#circlePath">ПРИХОДИ С ПРОБЛЕМОЙ · УХОДИ С РЕШЕНИЕМ · ОСТАВАЙСЯ · ПОМОГАТЬ ДРУГИМ ·</textPath></text>
+      </svg>
+      <div class="quote-image-wrap" aria-label="Дмитрий Васильев">DV</div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="testimonials-section section-light reveal" id="testimonials">
+    <div class="testimonial-layout container">
+      <article class="testimonial white">
+        <span class="stars">★★★★★</span>
+        <p data-ru='"Дмитрий решил за неделю то, над чем наша команда работала полгода. Не теоретик — практик с реальным опытом в регуляторных и крипто-вопросах."' data-en='"Dmitrii solved in a week what our team had been working on for six months. Not a theorist — a practitioner with real regulatory and crypto experience."'>
+          "Дмитрий решил за неделю то, над чем наша команда работала полгода. Не теоретик — практик с реальным опытом в регуляторных и крипто-вопросах."
+        </p>
+        <h3 data-ru="А. Воронович" data-en="A. Voronovich">А. Воронович</h3>
+        <div class="testimonial-role" data-ru="CEO, CashQ" data-en="CEO, CashQ">CEO, CashQ</div>
+      </article>
+
+      <h2 class="section-title huge" data-ru="ОТЗЫВЫ" data-en="REVIEWS">ОТЗЫВЫ</h2>
+
+      <div class="testimonial-grid">
+        <article class="testimonial white">
+          <span class="stars">★★★★★</span>
+          <p data-ru='"Уникальная экспертиза в крипто-регулировании. Помог структурировать сделку, которую никто другой не брался делать. Доверяю полностью."' data-en='"Unique expertise in crypto regulation. Helped structure a deal that no one else would touch. I trust him completely."'>
+            "Уникальная экспертиза в крипто-регулировании. Помог структурировать сделку, которую никто другой не брался делать. Доверяю полностью."
+          </p>
+          <h3 data-ru="А-клиент" data-en="A-client">А-клиент</h3>
+          <div class="testimonial-role" data-ru="CEO, VC партнёр" data-en="CEO, VC partner">CEO, VC партнёр (анонимизировано)</div>
+        </article>
+        <article class="testimonial gold">
+          <span class="stars">★★★★★</span>
+          <p data-ru='"Кризисный управляющий, каких мало. Вошёл в проект когда всё горело — вышел с реальным результатом. Рекомендую без оговорок."' data-en='"A crisis manager like few others. Came in when everything was on fire — delivered real results. I recommend without reservation."'>
+            "Кризисный управляющий, каких мало. Вошёл в проект когда всё горело — вышел с реальным результатом. Рекомендую без оговорок."
+          </p>
+          <h3 data-ru="EU финтех (EMI)" data-en="EU финтех (EMI)">EU финтех (EMI)</h3>
+          <div class="testimonial-role" data-ru="Клиент, платёжная система" data-en="Client, payment system">Клиент, платёжная система</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section class="contact-section section-dark reveal" id="contact">
+    <div class="container">
+      <p class="section-label" style="color:rgba(255,255,255,0.65); margin-bottom:1rem"
+         data-ru="НАЧАТЬ РАБОТУ" data-en="GET STARTED">НАЧАТЬ РАБОТУ</p>
+      <h2 class="contact-title" data-ru="ЕСТЬ ПРОБЛЕМА?" data-en="GOT A PROBLEM?">ЕСТЬ ПРОБЛЕМА?</h2>
+      <h2 class="contact-title" style="color:var(--accent)" data-ru="РАЗБЕРЁМ." data-en="LET'S SOLVE IT.">РАЗБЕРЁМ.</h2>
+      <p class="contact-sub" data-ru="Крипто, финтех, AI-автоматизация, кризисный менеджмент. Пишите в Telegram или на email — отвечаю лично." data-en="Crypto, fintech, AI automation, crisis management. Write me on Telegram or email — I reply personally.">
+        Крипто, финтех, AI-автоматизация, кризисный менеджмент. Пишите в Telegram или на email — отвечаю лично.
+      </p>
+      <div class="contact-ctas">
+        <a href="https://t.me/vdavc_bot" target="_blank" class="btn-primary"
+           data-ru="Telegram @vdavc_bot" data-en="Telegram @vdavc_bot">Telegram @vdavc_bot</a>
+        <a href="mailto:dima@vda.vc" class="btn-secondary"
+           data-ru="dima@vda.vc" data-en="dima@vda.vc">dima@vda.vc</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer section-dark">
+  <div class="footer-main container">
+    <div class="footer-wordmark">VDA.VC</div>
+    <div class="footer-links">
+      <a href="https://vda.vc"            data-ru="Сайт"   data-en="Website">Сайт</a>
+      <a href="https://t.me/vdavc_bot"   data-ru="Telegram" data-en="Telegram">Telegram</a>
+      <a href="mailto:dima@vda.vc"        data-ru="Email"  data-en="Email">Email</a>
+      <a href="https://vda.vc/press.html" data-ru="Пресса" data-en="Press">Пресса</a>
+    </div>
+  </div>
+  <p class="copyright container"
+     data-ru="© 2026 Дмитрий Васильев · dima@vda.vc · Bay Area, CA · v16"
+     data-en="© 2026 Dmitrii Vasilev · dima@vda.vc · Bay Area, CA · v16">
+    © 2026 Дмитрий Васильев · dima@vda.vc · Bay Area, CA · v16
+  </p>
+</footer>
+
+<!-- APPROVE BUTTON (только в превью) -->
+<button class="approve-btn" id="approve-btn" onclick="alert('Напишите: «сделай v16.html живым»')">
+  ✅ Approve → Live
+</button>
+
+<script>
+  // ── Lang toggle ──
+  let lang = 'ru';
+  const langBtn = document.getElementById('lang-toggle');
+  function applyLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    langBtn.textContent = l === 'ru' ? 'EN' : 'RU';
+    document.querySelectorAll('[data-ru]').forEach(el => {
+      const txt = el.dataset[l] || el.dataset.ru;
+      if (txt) el.textContent = txt;
+    });
+    // Glitch data-text sync
+    document.querySelectorAll('.glitch[data-ru-text]').forEach(el => {
+      const t = l === 'ru' ? el.dataset.ruText : el.dataset.enText;
+      if (t) { el.textContent = t; el.dataset.text = t; }
+    });
+  }
+  langBtn.addEventListener('click', () => applyLang(lang === 'ru' ? 'en' : 'ru'));
+
+  // ── Menu ──
+  const menuBtn = document.getElementById('menu-toggle');
+  const nav     = document.getElementById('site-nav');
+  menuBtn.addEventListener('click', () => {
+    const open = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', String(!open));
+    nav.classList.toggle('is-open', !open);
+    document.body.classList.toggle('menu-open', !open);
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menuBtn.setAttribute('aria-expanded', 'false');
+    nav.classList.remove('is-open');
+    document.body.classList.remove('menu-open');
+  }));
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 980) {
+      menuBtn.setAttribute('aria-expanded', 'false');
+      nav.classList.remove('is-open');
+      document.body.classList.remove('menu-open');
+    }
+  });
+
+  // ── Scroll reveal ──
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); ro.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(s => ro.observe(s));
+
+  // ── Carousel ──
+  const track = document.getElementById('carouselTrack');
+  document.querySelector('.carousel-btn.prev').addEventListener('click', () => track.scrollBy({ left: -320, behavior: 'smooth' }));
+  document.querySelector('.carousel-btn.next').addEventListener('click', () => track.scrollBy({ left:  320, behavior: 'smooth' }));
+
+  // ── Header on scroll ──
+  const hdr = document.getElementById('site-header');
+  window.addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 60), { passive: true });
+</script>
+</body>
+</html>

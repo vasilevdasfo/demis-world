@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дмитрий Васильев — Решаю нерешаемое | Крипто · Финтех · AI</title>
+    <meta name="description" content="Крипто/финтех эксперт, Bay Area. Вернул пользователям $800M, пережил 4 ареста, помогу вам.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a56db;
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --success: #059669;
+            --danger: #c0392b;
+            --bg: #ffffff;
+            --bg-subtle: #f5f7fa;
+            --bg-muted: #eef1f6;
+            --text-primary: #0f0f0f;
+            --text-secondary: #3a3a3a;
+            --text-tertiary: #6b7280;
+            --border: #e5e7eb;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a56db, #0f0f0f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 0 20px rgba(26, 86, 219, 0.4);
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* HERO */
+        .hero {
+            margin-top: 60px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(26, 86, 219, 0.1), transparent);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .eyebrow {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            animation: fadeInDown 0.8s ease 0.2s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            min-height: 140px;
+        }
+
+        .hero h1 .typewriter {
+            color: var(--text-primary);
+            border-right: 3px solid var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .hero h1 .accent {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-style: italic;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-quote {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-left: 4px solid var(--primary);
+            background: var(--bg-subtle);
+            border-radius: 8px;
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease 1s both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 1.2s both;
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* MARQUEE */
+        .marquee-section {
+            background: var(--bg-muted);
+            padding: 3rem 0;
+            overflow: hidden;
+            margin: 4rem 0;
+        }
+
+        .marquee {
+            display: flex;
+            gap: 2rem;
+            animation: marquee 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        .marquee span {
+            display: inline-block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(15, 15, 15, 0.3);
+            letter-spacing: 1px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* CAREER GRID */
+        .career-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .career-column h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        .career-column.success h3 {
+            color: var(--success);
+        }
+
+        .career-column.danger h3 {
+            color: var(--danger);
+        }
+
+        .career-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .career-column.danger .career-item {
+            animation: slideInRight 0.6s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .career-item-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: 0.3rem;
+        }
+
+        .career-item-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* DIRECTIONS */
+        .directions-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .direction-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .direction-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(26, 86, 219, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .direction-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(26, 86, 219, 0.2);
+            transform: translateY(-10px);
+        }
+
+        .direction-card:hover::before {
+            opacity: 1;
+        }
+
+        .direction-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            transition: transform 0.4s ease;
+        }
+
+        .direction-card:hover .direction-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .direction-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .direction-card p {
+            color: var(--text-tertiary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* PROOF BAR */
+        .proof-bar {
+            background: linear-gradient(90deg, #1a56db, #0f0f0f, #1a56db);
+            background-size: 200% 100%;
+            animation: gradientShift 8s ease infinite;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.8;
+            margin: 4rem 0;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        /* CONTACT SECTION */
+        .contact-section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 3rem 2rem;
+            text-align: center;
+            background: var(--bg-subtle);
+            border-radius: 16px;
+        }
+
+        .contact-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-email {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .contact-email:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* CURSOR FOLLOWER */
+        .cursor-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(26, 86, 219, 0.4), rgba(26, 86, 219, 0.1));
+            border: 1px solid rgba(26, 86, 219, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+
+        @media (hover: hover) {
+            .cursor-follower {
+                display: block;
+            }
+        }
+
+        /* SCROLL ANIMATIONS */
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                min-height: auto;
+            }
+
+            .hero-quote {
+                font-size: 1rem;
+                padding: 1.5rem;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .career-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .directions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .proof-bar {
+                font-size: 1rem;
+                padding: 1.5rem;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+            .cursor-follower {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">VDA</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Главная</a></li>
+                <li><a href="#career">История</a></li>
+                <li><a href="#directions">Услуги</a></li>
+                <li><a href="#contact">Контакты</a></li>
+                <li><a href="https://t.me/vdavc_bot" class="cta-button">Telegram</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <p class="eyebrow">Hayward, CA · Bay Area · Крипто / Финтех / AI</p>
+
+            <h1>
+                <span class="typewriter">Решаю нерешаемое.</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Безнадёжно — это когда на крышку гроба падает земля. Остальное можно исправить.
+            </p>
+
+            <blockquote class="hero-quote">
+                «15+ лет в крипте. 4 ареста. 5 стран. Нет сомнений.»
+            </blockquote>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">15<span class="accent">+</span></div>
+                    <div class="stat-label">Лет опыта</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$800<span class="accent">M</span></div>
+                    <div class="stat-label">Вернул пользователям</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">20<span class="accent">+</span></div>
+                    <div class="stat-label">Компаний с нуля</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Ареста</div>
+                </div>
+            </div>
+
+            <div class="hero-cta-group">
+                <a href="https://t.me/vdavc_bot" class="cta-button">Написать в Telegram</a>
+                <a href="mailto:dima@vda.vc" class="cta-button secondary">dima@vda.vc</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee-section">
+        <div class="marquee" id="marquee">
+            <span>OTC · </span>
+            <span>Compliance · </span>
+            <span>SWIFT · </span>
+            <span>Разблокировка · </span>
+            <span>AI-автоматизация · </span>
+            <span>Кризис · </span>
+            <span>Крипто · </span>
+            <span>Финтех · </span>
+            <span>AML · </span>
+            <span>Due Diligence · </span>
+            <span>OTC · </span>
+            <span>Compliance · </span>
+            <span>SWIFT · </span>
+            <span>Разблокировка · </span>
+            <span>AI-автоматизация · </span>
+        </div>
+    </section>
+
+    <!-- CAREER GRID -->
+    <section class="career-section" id="career">
+        <h2 class="section-title">Путь. История.</h2>
+
+        <div class="career-grid">
+            <div class="career-column success">
+                <h3>✓ Что получилось</h3>
+                <div class="career-item">
+                    <span class="career-item-icon">🚀</span>
+                    <p class="career-item-text">Купил и перезапустил крипто-биржу. Вернул пользователям доступ к $800M.</p>
+                </div>
+                <div class="career-item">
+                    <span class="career-item-icon">🌍</span>
+                    <p class="career-item-text">Путешествовал в розыске Интерпола. Выдерживаю прессинг 100+ статей.</p>
+                </div>
+                <div class="career-item">
+                    <span class="career-item-icon">💪</span>
+                    <p class="career-item-text">20+ раз с нуля. Счастливый человек. Люди мне доверяют.</p>
+                </div>
+                <div class="career-item">
+                    <span class="career-item-icon">🎯</span>
+                    <p class="career-item-text">Финтех-консалтинг, AI-автоматизация, кризис-менеджмент — доказано.</p>
+                </div>
+            </div>
+
+            <div class="career-column danger">
+                <h3>↓ Цена опыта</h3>
+                <div class="career-item">
+                    <span class="career-item-icon">📉</span>
+                    <p class="career-item-text">20+ разорений. Потерял компанию в $4B за 90 дней.</p>
+                </div>
+                <div class="career-item">
+                    <span class="career-item-icon">⚖️</span>
+                    <p class="career-item-text">4 ареста. 5 стран. Электронный браслет до сих пор.</p>
+                </div>
+                <div class="career-item">
+                    <span class="career-item-icon">💰</span>
+                    <p class="career-item-text">$6M потратил на 27 адвокатов. Судебные дела — открыто.</p>
+                </div>
+                <div class="career-item">
+                    <span class="career-item-icon">🏚️</span>
+                    <p class="career-item-text">50+ финансовых пирамид разоблачил. 3 развода. Учусь жить заново.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIRECTIONS -->
+    <section class="directions-section" id="directions">
+        <h2 class="section-title">Три уровня. Один подход.</h2>
+
+        <div class="directions-grid">
+            <div class="direction-card">
+                <div class="direction-icon">🔐</div>
+                <h3>Крипто-консалтинг</h3>
+                <p>OTC, SWIFT, AML, разблокировка счётов, кризис-менеджмент. Работаю с проблемами, которые другие боятся трогать.</p>
+            </div>
+
+            <div class="direction-card">
+                <div class="direction-icon">🤖</div>
+                <h3>AI-автоматизация</h3>
+                <p>Убираю рутину из бизнеса. Агенты, скрипты, интеграции. Ваша команда думает, машины делают.</p>
+            </div>
+
+            <div class="direction-card">
+                <div class="direction-icon">💎</div>
+                <h3>Второй шанс</h3>
+                <p>Сообщество БОМЖ-миллиардер. Люди, которые теряли всё. Бесплатно. Телеграм. Поддержка.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROOF BAR -->
+    <section class="proof-bar">
+        <p>Каждые $1000 → $10 000+ экономии клиенту. Рекорд — $1M за 15 минут.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+        <h2>Есть проблема?</h2>
+        <p>Первый ответ — бесплатно. Отвечу лично в Telegram в течение 24 часов.</p>
+
+        <div class="contact-buttons">
+            <a href="https://t.me/vdavc_bot" class="cta-button">Написать в Telegram @vdavc_bot</a>
+            <a href="mailto:dima@vda.vc" class="cta-button secondary">Email: dima@vda.vc</a>
+        </div>
+
+        <a href="mailto:dima@vda.vc" class="contact-email">dima@vda.vc</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">© 2026 Дмитрий Васильев</p>
+            <p class="footer-text">Bay Area, CA</p>
+            <div class="footer-links">
+                <a href="https://t.me/vdavc_bot">Telegram</a>
+                <a href="mailto:dima@vda.vc">Email</a>
+                <a href="#hero">Главная</a>
+                <a href="#career">История</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CURSOR FOLLOWER -->
+    <div class="cursor-follower"></div>
+
+    <!-- GSAP SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        // GSAP initialization
+        gsap.registerPlugin(ScrollTrigger);
+
+        // TYPEWRITER EFFECT
+        function typewriter(element, text, duration = 2) {
+            let index = 0;
+            const chars = text.split('');
+            element.textContent = '';
+
+            const interval = (duration * 1000) / chars.length;
+
+            function type() {
+                if (index < chars.length) {
+                    element.textContent += chars[index];
+                    index++;
+                    setTimeout(type, interval);
+                }
+            }
+
+            type();
+        }
+
+        // Start typewriter when page loads
+        window.addEventListener('load', () => {
+            const typewriterEl = document.querySelector('.typewriter');
+            if (typewriterEl) {
+                typewriterEl.textContent = '';
+                typewriter(typewriterEl, 'Решаю нерешаемое.', 2);
+            }
+        });
+
+        // COUNT UP NUMBERS
+        function countUp(element, target, duration = 2) {
+            let current = 0;
+            const increment = target / (duration * 60);
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + (element.textContent.includes('+') ? '+' : element.textContent.includes('M') ? 'M' : '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 1000 / 60);
+        }
+
+        // Trigger count-up on scroll
+        const stats = document.querySelectorAll('.stat-number');
+        stats.forEach((stat, index) => {
+            const text = stat.textContent;
+            const match = text.match(/(\d+)/);
+            if (match) {
+                const target = parseInt(match[0]);
+
+                ScrollTrigger.create({
+                    trigger: stat,
+                    onEnter: () => {
+                        countUp(stat, target, 1.5);
+                        ScrollTrigger.getById(stat).disable();
+                    }
+                });
+            }
+        });
+
+        // STAGGERED ANIMATIONS FOR CAREER ITEMS
+        const careerItems = document.querySelectorAll('.career-item');
+        careerItems.forEach((item, index) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top center'
+                },
+                opacity: 0,
+                x: index % 2 === 0 ? -30 : 30,
+                duration: 0.6,
+                delay: index * 0.1
+            });
+        });
+
+        // DIRECTION CARDS STAGGER
+        const directionCards = document.querySelectorAll('.direction-card');
+        directionCards.forEach((card, index) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top center'
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+                delay: index * 0.15
+            });
+        });
+
+        // 3D TILT EFFECT FOR CARDS
+        function tiltCard(card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) * 0.05;
+                const rotateY = (centerX - x) * 0.05;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        }
+
+        directionCards.forEach(tiltCard);
+
+        // CURSOR FOLLOWER
+        const cursorFollower = document.querySelector('.cursor-follower');
+        let mouseX = 0, mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        gsap.ticker.add(() => {
+            gsap.to(cursorFollower, {
+                x: mouseX - 10,
+                y: mouseY - 10,
+                duration: 0.5,
+                overwrite: 'auto'
+            });
+        });
+
+        // Cursor follower size on hover
+        document.querySelectorAll('a, button, .cta-button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(cursorFollower, { width: 40, height: 40, duration: 0.3 });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(cursorFollower, { width: 20, height: 20, duration: 0.3 });
+            });
+        });
+
+        // SMOOTH SCROLL ANCHOR LINKS
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                const href = anchor.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    gsap.to(window, {
+                        scrollTo: target,
+                        duration: 1
+                    });
+                }
+            });
+        });
+
+        // PARALLAX ON HERO
+        gsap.to('.hero::before', {
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            },
+            y: 200
+        });
+
+        // MARQUEE INFINITE
+        const marquee = document.getElementById('marquee');
+        gsap.fromTo(marquee,
+            { x: 0 },
+            {
+                x: -marquee.offsetWidth / 2,
+                duration: 20,
+                repeat: -1,
+                ease: 'none'
+            }
+        );
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VDA.VC — Problem Solver | Dmitrii Vasilev</title>
+<meta name="description" content="Crypto consultant, crisis manager, problem solver. 15+ years in fintech. Dmitrii Vasilev.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ===== CSS VARIABLES ===== */
+:root {
+  --bg-dark: #111111;
+  --bg-light: #f2f2f2;
+  --accent: #c9a84c;
+  --accent-soft: #e8d5a0;
+  --text-light: #ffffff;
+  --text-dark: #111111;
+  --nav-h: 64px;
+  --font-title: 'Anton', Impact, sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* ===== BILINGUAL TOGGLE ===== */
+.en { display: none !important; }
+body.lang-en .en { display: inline !important; }
+body.lang-en .ru { display: none !important; }
+/* block-level bilingual */
+span.en.block, span.ru.block { display: block !important; }
+body.lang-en span.ru.block { display: none !important; }
+body.lang-en span.en.block { display: block !important; }
+.en.flex-item { display: none !important; }
+body.lang-en .en.flex-item { display: flex !important; }
+body.lang-en .ru.flex-item { display: none !important; }
+
+/* ===== GRID OVERLAY ===== */
+.grid-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.18;
+  z-index: 0;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 60px);
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== FLOATING NAV ===== */
+.nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92%, 1100px);
+  height: var(--nav-h);
+  background: rgba(17,17,17,0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  z-index: 1000;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.nav.scrolled {
+  background: rgba(17,17,17,0.92);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+}
+.nav-logo {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lang-toggle {
+  display: flex;
+  gap: 4px;
+}
+.lang-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.5);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: var(--font-body);
+  letter-spacing: 0.5px;
+}
+.lang-btn.active {
+  background: var(--accent);
+  color: var(--text-dark);
+  border-color: var(--accent);
+}
+.nav-cta {
+  background: var(--accent);
+  color: var(--text-dark);
+  padding: 8px 22px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.nav-cta:hover {
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(201,168,76,0.3);
+}
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  width: 22px;
+  height: 2px;
+  background: var(--text-light);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: calc(var(--nav-h) + 24px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92%, 1100px);
+  background: rgba(17,17,17,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 20px;
+  padding: 24px;
+  z-index: 999;
+}
+.mobile-menu.show { display: block; }
+.mobile-menu a {
+  display: block;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.3s;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: var(--accent); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  background: var(--bg-dark);
+  padding-top: calc(var(--nav-h) + 40px);
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.06) 0%, transparent 70%),
+    linear-gradient(180deg, var(--bg-dark) 0%, #0a0a0a 100%);
+  z-index: 0;
+}
+/* Crosshair */
+.crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  z-index: 1;
+  opacity: 0.06;
+  pointer-events: none;
+}
+.crosshair::before, .crosshair::after {
+  content: '';
+  position: absolute;
+  background: var(--accent);
+}
+.crosshair::before {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+.crosshair::after {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+.crosshair-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+.hero-kicker {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+.hero-title {
+  font-family: var(--font-title);
+  font-size: clamp(7rem, 20vw, 18rem);
+  line-height: 0.88;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero-title .line2 { display: block; }
+
+/* Glitch */
+.glitch {
+  position: relative;
+  text-shadow: 1px 0 rgba(255,255,255,0.6), -1px 0 rgba(201,168,76,0.46);
+  animation: noiseShift 2.4s infinite steps(1);
+}
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  mix-blend-mode: screen;
+}
+.glitch::before {
+  color: rgba(255,255,255,0.75);
+  transform: translate(-2px, 1px);
+  clip-path: inset(12% 0 55% 0);
+}
+.glitch::after {
+  color: rgba(201,168,76,0.9);
+  transform: translate(2px, -1px);
+  clip-path: inset(55% 0 10% 0);
+}
+@keyframes noiseShift {
+  0%, 100% { clip-path: inset(0); }
+  5% { clip-path: inset(12% 0 55% 0); }
+  10% { clip-path: inset(0); }
+  15% { clip-path: inset(60% 0 5% 0); }
+  20% { clip-path: inset(0); }
+  40% { clip-path: inset(22% 0 40% 0); }
+  42% { clip-path: inset(0); }
+  70% { clip-path: inset(50% 0 20% 0); }
+  72% { clip-path: inset(0); }
+}
+
+/* Rotating subtitle */
+.hero-subtitle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+  min-height: 40px;
+}
+.hero-subtitle-prefix {
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  color: var(--accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.hero-subtitle {
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  color: rgba(255,255,255,0.7);
+  font-weight: 300;
+  overflow: hidden;
+  position: relative;
+  height: 1.5em;
+}
+.hero-subtitle span {
+  display: block;
+  position: absolute;
+  width: max-content;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+.hero-subtitle span.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CTA Buttons */
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--text-dark);
+  padding: 14px 32px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-primary:hover {
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(201,168,76,0.3);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--text-light);
+  padding: 14px 32px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Hero quote bar */
+.hero-quote-bar {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 40px;
+  padding: 10px 24px;
+  font-size: 0.85rem;
+  color: var(--accent-soft);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 40px;
+}
+
+/* Stamp badge */
+.hero-stamp {
+  position: absolute;
+  right: clamp(20px, 8vw, 120px);
+  top: 50%;
+  transform: translateY(-50%) rotate(12deg);
+  width: clamp(110px, 14vw, 180px);
+  height: clamp(110px, 14vw, 180px);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 3;
+  opacity: 0.85;
+  animation: stampFloat 4s ease-in-out infinite;
+}
+.hero-stamp::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 50%;
+}
+.hero-stamp .stamp-line {
+  font-family: var(--font-title);
+  font-size: clamp(0.7rem, 1.2vw, 1rem);
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.hero-stamp .stamp-divider {
+  width: 40%;
+  height: 1px;
+  background: var(--accent);
+  margin: 4px 0;
+  opacity: 0.5;
+}
+@keyframes stampFloat {
+  0%, 100% { transform: translateY(-50%) rotate(12deg); }
+  50% { transform: translateY(calc(-50% - 8px)) rotate(14deg); }
+}
+
+/* Stats row */
+.hero-stats {
+  display: flex;
+  gap: clamp(24px, 4vw, 60px);
+  flex-wrap: wrap;
+}
+.hero-stat {
+  text-align: left;
+}
+.hero-stat-number {
+  font-family: var(--font-title);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  color: var(--accent);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* ===== SECTION COMMON ===== */
+section { position: relative; overflow: hidden; }
+.section-dark {
+  background: var(--bg-dark);
+  color: var(--text-light);
+  padding: clamp(60px, 10vw, 120px) 0;
+}
+.section-light {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  padding: clamp(60px, 10vw, 120px) 0;
+}
+.section-title {
+  font-family: var(--font-title);
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.05;
+  margin-bottom: 60px;
+}
+.section-title .accent { color: var(--accent); }
+
+/* ===== REVEAL ANIMATION ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== FLYING BULLETS ===== */
+.bullets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+.bullet-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 32px;
+  opacity: 0;
+  transition: all 0.7s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+.bullet-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s ease 0.3s;
+}
+.bullet-card.is-visible::before { transform: scaleY(1); }
+.bullet-card.rotate-left { transform: translateX(-100px) rotate(-6deg); }
+.bullet-card.rotate-right { transform: translateX(100px) rotate(6deg); }
+.bullet-card.is-visible { opacity: 1; transform: translateX(0) rotate(0); }
+.bullet-icon {
+  font-size: 2rem;
+  margin-bottom: 14px;
+  display: block;
+}
+.bullet-problem {
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+.bullet-solution {
+  font-size: 0.9rem;
+  color: rgba(17,17,17,0.6);
+  font-weight: 400;
+  line-height: 1.5;
+}
+.bullet-arrow {
+  color: var(--accent);
+  font-weight: 700;
+  margin: 0 4px;
+}
+
+/* ===== CIRCULAR SVG SECTION ===== */
+.circular-section {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.circular-wrap {
+  position: relative;
+  width: clamp(280px, 40vw, 420px);
+  height: clamp(280px, 40vw, 420px);
+}
+.circular-text-svg {
+  position: absolute;
+  inset: 0;
+  animation: rotateSvg 20s linear infinite;
+}
+@keyframes rotateSvg {
+  100% { transform: rotate(360deg); }
+}
+.circular-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(100px, 16vw, 160px);
+  height: clamp(100px, 16vw, 160px);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17,17,17,0.9);
+}
+.circular-center::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 50%;
+}
+.circular-center-text {
+  font-family: var(--font-title);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: var(--accent);
+  letter-spacing: 3px;
+}
+
+/* ===== SERVICES ===== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+.service-card {
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 16px;
+  padding: 40px 32px;
+  background: rgba(201,168,76,0.03);
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.service-card:hover {
+  border-color: var(--accent);
+  background: rgba(201,168,76,0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(201,168,76,0.1);
+}
+.service-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.service-card:hover::after { opacity: 1; }
+.service-number {
+  font-family: var(--font-title);
+  font-size: 3.5rem;
+  color: rgba(201,168,76,0.15);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.service-title {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--text-light);
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+.service-desc {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+}
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.service-tag {
+  font-size: 0.72rem;
+  padding: 4px 12px;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 20px;
+  color: var(--accent-soft);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ===== CASES ===== */
+.cases-grid {
+  display: grid;
+  gap: 32px;
+}
+.case-card {
+  display: grid;
+  grid-template-columns: 5px 1fr;
+  gap: 28px;
+  padding: 36px 0;
+  border-bottom: 1px solid rgba(17,17,17,0.08);
+}
+.case-bar { background: var(--accent); border-radius: 4px; }
+.case-number {
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+.case-title {
+  font-family: var(--font-title);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  text-transform: uppercase;
+  color: var(--text-dark);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.case-desc {
+  font-size: 0.92rem;
+  color: rgba(17,17,17,0.6);
+  line-height: 1.7;
+  max-width: 700px;
+}
+.case-result {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(201,168,76,0.08);
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+/* ===== CONTACT ===== */
+.contact-title {
+  font-family: var(--font-title);
+  font-size: clamp(3rem, 8vw, 7rem);
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin-bottom: 32px;
+  color: var(--text-light);
+}
+.contact-title .accent { color: var(--accent); }
+.contact-subtitle {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 40px;
+  max-width: 500px;
+  line-height: 1.7;
+}
+.contact-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.contact-note {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.35);
+  font-style: italic;
+}
+.nfa {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.2);
+  margin-top: 12px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--bg-dark);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 60px 0 40px;
+}
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.footer-top-text {
+  font-family: var(--font-title);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+.footer-top-logo {
+  font-family: var(--font-title);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: var(--accent);
+  letter-spacing: 4px;
+}
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.footer-nav a {
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: color 0.3s;
+  letter-spacing: 0.5px;
+}
+.footer-nav a:hover { color: var(--accent); }
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+.footer-social a {
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s;
+}
+.footer-social a:hover { color: var(--accent); }
+.footer-wordmark {
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: clamp(4rem, 12vw, 10rem);
+  color: rgba(255,255,255,0.03);
+  letter-spacing: 10px;
+  line-height: 1;
+  margin-bottom: 24px;
+  user-select: none;
+}
+.footer-copy {
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1080px) {
+  .hero-stamp { display: none; }
+  .hero-title { font-size: clamp(5rem, 16vw, 12rem); }
+}
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .nav-cta.desktop-only { display: none; }
+  .hamburger { display: flex; }
+  .nav { padding: 0 20px; }
+  .hero { padding-top: calc(var(--nav-h) + 20px); }
+  .hero-title { font-size: clamp(3.5rem, 16vw, 8rem); }
+  .hero-stats { gap: 20px; }
+  .hero-stat-number { font-size: clamp(1.4rem, 5vw, 2rem); }
+  .bullets-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .case-card { grid-template-columns: 4px 1fr; gap: 16px; }
+  .hero-subtitle-wrap { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .footer-nav { gap: 16px; }
+  .contact-title { font-size: clamp(2.4rem, 8vw, 4rem); }
+  .section-title { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 40px; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: clamp(2.8rem, 18vw, 5rem); }
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas .btn-primary, .hero-ctas .btn-secondary { text-align: center; justify-content: center; }
+  .hero-quote-bar { font-size: 0.75rem; padding: 8px 16px; }
+  .bullet-card { padding: 28px 24px; }
+  .service-card { padding: 28px 24px; }
+  .container { padding: 0 16px; }
+  .circular-wrap { width: 260px; height: 260px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== FLOATING NAV ===== -->
+<nav class="nav" id="navbar">
+  <a href="#" class="nav-logo">VDA.VC</a>
+  <ul class="nav-links">
+    <li><a href="#about"><span class="ru">Обо мне</span><span class="en">About</span></a></li>
+    <li><a href="#services"><span class="ru">Услуги</span><span class="en">Services</span></a></li>
+    <li><a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a></li>
+    <li><a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <a href="#contact" class="nav-cta desktop-only">
+      <span class="ru">Написать &rarr;</span><span class="en">Get in touch &rarr;</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link"><span class="ru">Обо мне</span><span class="en">About</span></a>
+  <a href="#services" class="mobile-link"><span class="ru">Услуги</span><span class="en">Services</span></a>
+  <a href="#cases" class="mobile-link"><span class="ru">Кейсы</span><span class="en">Cases</span></a>
+  <a href="#contact" class="mobile-link"><span class="ru">Контакт</span><span class="en">Contact</span></a>
+  <a href="https://t.me/vdavc_bot" class="mobile-link" style="color:var(--accent);font-weight:600;">
+    <span class="ru">Написать &rarr;</span><span class="en">Get in touch &rarr;</span>
+  </a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-overlay"></div>
+  <div class="crosshair"></div>
+  <div class="crosshair-circle"></div>
+
+  <!-- Stamp badge -->
+  <div class="hero-stamp">
+    <span class="stamp-line">PROBLEM</span>
+    <div class="stamp-divider"></div>
+    <span class="stamp-line">SOLVER</span>
+    <div class="stamp-divider"></div>
+    <span class="stamp-line" style="font-size:0.65em;opacity:0.7;">15+ YRS</span>
+  </div>
+
+  <div class="container hero-content">
+    <div class="hero-kicker">CRYPTO &middot; FINTECH &middot; CRISIS MANAGEMENT</div>
+
+    <h1 class="hero-title">
+      PROBLEM<span class="line2 glitch" data-text="SOLVER">SOLVER</span>
+    </h1>
+
+    <div class="hero-subtitle-wrap">
+      <div class="hero-subtitle-prefix">
+        <span class="ru">Путь</span><span class="en">Your path</span>
+      </div>
+      <div class="hero-subtitle" id="rotatingSubtitle">
+        <!-- RU subtitles -->
+        <span class="ru sub-item active">к крипто и новым рынкам</span>
+        <span class="ru sub-item">когда ты в жопе и выхода не видно</span>
+        <span class="ru sub-item">из тюрьмы — к новой жизни</span>
+        <span class="ru sub-item">к инвестициям, которые работают</span>
+        <span class="ru sub-item">когда банк и система говорят &laquo;нет&raquo;</span>
+        <span class="ru sub-item">к AI-трансформации бизнеса</span>
+        <!-- EN subtitles -->
+        <span class="en sub-item active">to crypto and new markets</span>
+        <span class="en sub-item">when you're stuck with no way out</span>
+        <span class="en sub-item">from prison — to a new life</span>
+        <span class="en sub-item">to investments that actually work</span>
+        <span class="en sub-item">when banks and systems say "no"</span>
+        <span class="en sub-item">to AI transformation of your business</span>
+      </div>
+    </div>
+
+    <div class="hero-quote-bar">
+      <span class="ru">&#10022; 4 ареста &middot; 5 стран &middot; $800M возвращено</span>
+      <span class="en">&#10022; 4 arrests &middot; 5 countries &middot; $800M returned</span>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="https://t.me/vdavc_bot" class="btn-primary" target="_blank">
+        <span class="ru">Описать проблему &rarr;</span><span class="en">Describe your problem &rarr;</span>
+      </a>
+      <a href="#about" class="btn-secondary">
+        <span class="ru">Мой путь &darr;</span><span class="en">My story &darr;</span>
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-number">15+</div>
+        <div class="hero-stat-label"><span class="ru">лет опыта</span><span class="en">years experience</span></div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">$800M</div>
+        <div class="hero-stat-label"><span class="ru">возвращено</span><span class="en">returned</span></div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">20+</div>
+        <div class="hero-stat-label"><span class="ru">провалов</span><span class="en">failures survived</span></div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">4</div>
+        <div class="hero-stat-label"><span class="ru">ареста</span><span class="en">arrests</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FLYING BULLETS ===== -->
+<section class="section-light" id="about">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span class="ru"><span class="accent">Проблемы,</span> которые я решаю</span>
+      <span class="en"><span class="accent">Problems</span> I solve</span>
+    </h2>
+
+    <div class="bullets-grid">
+      <!-- Card 1 -->
+      <div class="bullet-card rotate-left">
+        <span class="bullet-icon">&#8383;</span>
+        <div class="bullet-problem">
+          <span class="ru">Заморозка счёта</span><span class="en">Frozen Account</span>
+        </div>
+        <div class="bullet-solution">
+          <span class="bullet-arrow">&rarr;</span>
+          <span class="ru">Разблокирую за 72 часа</span><span class="en">Unlocked in 72 hours</span>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="bullet-card rotate-right">
+        <span class="bullet-icon">&#128274;</span>
+        <div class="bullet-problem">
+          <span class="ru">Крипто-потери</span><span class="en">Crypto Losses</span>
+        </div>
+        <div class="bullet-solution">
+          <span class="bullet-arrow">&rarr;</span>
+          <span class="ru">Возврат и стратегия</span><span class="en">Recovery &amp; strategy</span>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="bullet-card rotate-left">
+        <span class="bullet-icon">&#9889;</span>
+        <div class="bullet-problem">
+          <span class="ru">Бизнес в burnout</span><span class="en">Business Burnout</span>
+        </div>
+        <div class="bullet-solution">
+          <span class="bullet-arrow">&rarr;</span>
+          <span class="ru">AI-автоматизация, &minus;$10K/мес</span><span class="en">AI automation, &minus;$10K/month</span>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="bullet-card rotate-right">
+        <span class="bullet-icon">&#127963;</span>
+        <div class="bullet-problem">
+          <span class="ru">Проблемы с законом</span><span class="en">Legal Problems</span>
+        </div>
+        <div class="bullet-solution">
+          <span class="bullet-arrow">&rarr;</span>
+          <span class="ru">27 адвокатов, 5 стран</span><span class="en">27 lawyers, 5 countries</span>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="bullet-card rotate-left">
+        <span class="bullet-icon">&#127758;</span>
+        <div class="bullet-problem">
+          <span class="ru">Жизнь с нуля</span><span class="en">Starting Over</span>
+        </div>
+        <div class="bullet-solution">
+          <span class="bullet-arrow">&rarr;</span>
+          <span class="ru">Релокация, документы, капитал</span><span class="en">Relocation, documents, capital</span>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="bullet-card rotate-right">
+        <span class="bullet-icon">&#128273;</span>
+        <div class="bullet-problem">
+          <span class="ru">Банк сказал &laquo;нет&raquo;</span><span class="en">Bank Said "No"</span>
+        </div>
+        <div class="bullet-solution">
+          <span class="bullet-arrow">&rarr;</span>
+          <span class="ru">Альтернативные пути</span><span class="en">Alternative paths</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CIRCULAR SVG SECTION ===== -->
+<section class="section-dark circular-section">
+  <div class="grid-overlay"></div>
+  <div class="circular-wrap reveal">
+    <svg class="circular-text-svg" viewBox="0 0 400 400">
+      <defs>
+        <path id="circlePath" d="M 200,200 m -150,0 a 150,150 0 1,1 300,0 a 150,150 0 1,1 -300,0" fill="none"/>
+      </defs>
+      <text fill="#c9a84c" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing="5">
+        <textPath href="#circlePath">WHERE PROBLEMS BECOME SOLUTIONS &middot; &#1055;&#1056;&#1054;&#1041;&#1051;&#1045;&#1052;&#1067; &#1057;&#1058;&#1040;&#1053;&#1054;&#1042;&#1071;&#1058;&#1057;&#1071; &#1056;&#1045;&#1064;&#1045;&#1053;&#1048;&#1071;&#1052;&#1048; &middot;</textPath>
+      </text>
+    </svg>
+    <div class="circular-center">
+      <span class="circular-center-text">VDA.VC</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="section-dark" id="services">
+  <div class="grid-overlay"></div>
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span class="ru"><span class="accent">Услуги</span></span>
+      <span class="en"><span class="accent">Services</span></span>
+    </h2>
+
+    <div class="services-grid">
+      <!-- Service 1 -->
+      <div class="service-card reveal">
+        <div class="service-number">01</div>
+        <div class="service-title">
+          <span class="ru">Крипто и Финтех</span><span class="en">Crypto &amp; Fintech</span>
+        </div>
+        <div class="service-desc">
+          <span class="ru">OTC-сделки, стратегия выхода на рынок, кросс-бордер платежи, архитектура биржевых решений. Опыт запуска и восстановления криптобирж с оборотом $800M+.</span>
+          <span class="en">OTC deals, market entry strategy, cross-border payments, exchange architecture. Track record of launching and recovering crypto exchanges handling $800M+.</span>
+        </div>
+        <div class="service-tags">
+          <span class="service-tag">OTC</span>
+          <span class="service-tag"><span class="ru">Биржи</span><span class="en">Exchanges</span></span>
+          <span class="service-tag"><span class="ru">Платежи</span><span class="en">Payments</span></span>
+          <span class="service-tag">EMI</span>
+        </div>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-card reveal">
+        <div class="service-number">02</div>
+        <div class="service-title">
+          <span class="ru">AI для Бизнеса</span><span class="en">AI for Business</span>
+        </div>
+        <div class="service-desc">
+          <span class="ru">AI-автоматизация процессов, чат-боты, интеграция LLM в существующие системы. Снижение операционных расходов на $10K+/мес за счёт интеллектуальной автоматизации.</span>
+          <span class="en">AI process automation, chatbots, LLM integration into existing systems. Operational cost reduction of $10K+/month through intelligent automation.</span>
+        </div>
+        <div class="service-tags">
+          <span class="service-tag">LLM</span>
+          <span class="service-tag"><span class="ru">Автоматизация</span><span class="en">Automation</span></span>
+          <span class="service-tag"><span class="ru">Боты</span><span class="en">Bots</span></span>
+          <span class="service-tag"><span class="ru">Интеграция</span><span class="en">Integration</span></span>
+        </div>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-card reveal">
+        <div class="service-number">03</div>
+        <div class="service-title">
+          <span class="ru">Второй Шанс</span><span class="en">Second Chance</span>
+        </div>
+        <div class="service-desc">
+          <span class="ru">Кризисный менеджмент, навигация по правовым системам 5 стран, релокация, стратегия выхода из сложных ситуаций. Личный опыт 4 арестов и перезапуска жизни с нуля.</span>
+          <span class="en">Crisis management, navigating legal systems across 5 countries, relocation, exit strategies from impossible situations. Personal experience of 4 arrests and rebuilding from zero.</span>
+        </div>
+        <div class="service-tags">
+          <span class="service-tag"><span class="ru">Кризис</span><span class="en">Crisis</span></span>
+          <span class="service-tag"><span class="ru">Релокация</span><span class="en">Relocation</span></span>
+          <span class="service-tag"><span class="ru">Юридическая навигация</span><span class="en">Legal Navigation</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CASES ===== -->
+<section class="section-light" id="cases">
+  <div class="container">
+    <h2 class="section-title reveal">
+      <span class="ru"><span class="accent">Кейсы</span></span>
+      <span class="en"><span class="accent">Cases</span></span>
+    </h2>
+
+    <div class="cases-grid">
+      <!-- Case 1 -->
+      <div class="case-card reveal">
+        <div class="case-bar"></div>
+        <div>
+          <div class="case-number">CASE 01</div>
+          <h3 class="case-title">
+            <span class="ru">WEX/BTC-e и ФБР</span><span class="en">WEX/BTC-e &amp; FBI</span>
+          </h3>
+          <p class="case-desc">
+            <span class="ru">В 2017 ФБР изъяло BTC-e. С тех пор ни цента не вернули пользователям. Я восстановил биржу под именем WEX, вернул пользователям доступ к $800M. Единственный в мире кейс перезапуска биржи после федерального изъятия с реальным возвратом средств.</span>
+            <span class="en">In 2017 the FBI seized BTC-e. Since then, not a cent returned to users. I rebuilt the exchange as WEX and restored user access to $800M. The only case in history of relaunching a seized exchange with actual fund recovery.</span>
+          </p>
+          <div class="case-result">
+            <span class="ru">&#10003; $800M возвращено пользователям</span>
+            <span class="en">&#10003; $800M returned to users</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="case-card reveal">
+        <div class="case-bar"></div>
+        <div>
+          <div class="case-number">CASE 02</div>
+          <h3 class="case-title">
+            <span class="ru">OTC-сделка на $2M</span><span class="en">$2M OTC Deal</span>
+          </h3>
+          <p class="case-desc">
+            <span class="ru">Структурировал и провёл OTC-сделку с криптовалютой на $2M для институционального клиента. Полная compliance-проверка, AML/KYC, безопасное исполнение через проверенную сеть контрагентов.</span>
+            <span class="en">Structured and executed a $2M cryptocurrency OTC transaction for an institutional client. Full compliance review, AML/KYC, secure execution through a vetted counterparty network.</span>
+          </p>
+          <div class="case-result">
+            <span class="ru">&#10003; Сделка закрыта за 48 часов</span>
+            <span class="en">&#10003; Deal closed in 48 hours</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="case-card reveal">
+        <div class="case-bar"></div>
+        <div>
+          <div class="case-number">CASE 03</div>
+          <h3 class="case-title">
+            <span class="ru">AI-автоматизация</span><span class="en">AI Automation</span>
+          </h3>
+          <p class="case-desc">
+            <span class="ru">Внедрил AI-систему автоматизации для финтех-компании: чат-боты, автоматическая обработка заявок, интеграция с CRM. Сэкономил клиенту $10K+ ежемесячно на операционных расходах.</span>
+            <span class="en">Deployed an AI automation system for a fintech company: chatbots, automated application processing, CRM integration. Saved the client $10K+ monthly in operational costs.</span>
+          </p>
+          <div class="case-result">
+            <span class="ru">&#10003; &minus;$10K/мес операционных расходов</span>
+            <span class="en">&#10003; &minus;$10K/month in operational costs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="section-dark" id="contact">
+  <div class="grid-overlay"></div>
+  <div class="container">
+    <h2 class="contact-title reveal">
+      <span class="ru">Расскажи<br><span class="accent">проблему</span></span>
+      <span class="en">Tell me<br><span class="accent">your problem</span></span>
+    </h2>
+    <p class="contact-subtitle reveal">
+      <span class="ru">Первый разговор бесплатно. Напиши в Telegram или на почту, расскажи ситуацию — и я скажу, могу ли помочь.</span>
+      <span class="en">First consultation is free. Reach out via Telegram or email, describe your situation, and I'll tell you if I can help.</span>
+    </p>
+    <div class="contact-buttons reveal">
+      <a href="https://t.me/vdavc_bot" class="btn-primary" target="_blank">
+        Telegram &rarr;
+      </a>
+      <a href="mailto:dima@vda.vc" class="btn-secondary">
+        dima@vda.vc
+      </a>
+    </div>
+    <p class="contact-note reveal">
+      <span class="ru">Отвечаю в течение 24 часов</span>
+      <span class="en">Response within 24 hours</span>
+    </p>
+    <p class="nfa reveal">
+      <span class="ru">Не является финансовой рекомендацией (NFA)</span>
+      <span class="en">Not financial advice (NFA)</span>
+    </p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <span class="footer-top-text">THANK YOU</span>
+      <span class="footer-top-logo">VDA.VC</span>
+      <span class="footer-top-text">FOR VIEWING</span>
+    </div>
+
+    <div class="footer-nav">
+      <a href="#hero"><span class="ru">Главная</span><span class="en">Home</span></a>
+      <a href="#about"><span class="ru">Обо мне</span><span class="en">About</span></a>
+      <a href="#services"><span class="ru">Услуги</span><span class="en">Services</span></a>
+      <a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a>
+      <a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a>
+    </div>
+
+    <div class="footer-social">
+      <a href="https://t.me/Posbitcoin" target="_blank">Telegram</a>
+      <a href="mailto:dima@vda.vc">Email</a>
+      <a href="https://vda.vc" target="_blank">vda.vc</a>
+    </div>
+
+    <div class="footer-wordmark">VDA.VC</div>
+
+    <p class="footer-copy">
+      &copy; 2026 Dmitrii Vasilev. All rights reserved. Bay Area, CA.
+    </p>
+  </div>
+</footer>
+
+<!-- Approve button -->
+<div style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#c9a227;color:#000;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.4)" onclick="alert('Напишите: сделай v14-a.html живым')">Approve</div>
+
+<script>
+/* ===== LANGUAGE TOGGLE ===== */
+(function() {
+  const saved = localStorage.getItem('vda-lang');
+  if (saved === 'en') document.body.classList.add('lang-en');
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const lang = this.dataset.lang;
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      if (lang === 'en') {
+        document.body.classList.add('lang-en');
+        localStorage.setItem('vda-lang', 'en');
+      } else {
+        document.body.classList.remove('lang-en');
+        localStorage.setItem('vda-lang', 'ru');
+      }
+      // Reset subtitle rotation for new language
+      currentSubIndex = 0;
+      rotateSubtitle();
+    });
+  });
+
+  // Update active button on load
+  if (saved === 'en') {
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === 'en');
+    });
+  }
+})();
+
+/* ===== NAVBAR SCROLL EFFECT ===== */
+(function() {
+  const nav = document.getElementById('navbar');
+  let ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+})();
+
+/* ===== HAMBURGER MENU ===== */
+(function() {
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', function() {
+    this.classList.toggle('open');
+    mobileMenu.classList.toggle('show');
+  });
+  // Close on link click
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('show');
+    });
+  });
+})();
+
+/* ===== ROTATING SUBTITLE ===== */
+var currentSubIndex = 0;
+function rotateSubtitle() {
+  const isEn = document.body.classList.contains('lang-en');
+  const langClass = isEn ? 'en' : 'ru';
+  const items = document.querySelectorAll('#rotatingSubtitle .sub-item.' + langClass);
+  items.forEach((item, i) => {
+    item.classList.toggle('active', i === currentSubIndex % items.length);
+  });
+}
+setInterval(function() {
+  const isEn = document.body.classList.contains('lang-en');
+  const langClass = isEn ? 'en' : 'ru';
+  const items = document.querySelectorAll('#rotatingSubtitle .sub-item.' + langClass);
+  currentSubIndex = (currentSubIndex + 1) % items.length;
+  rotateSubtitle();
+}, 2800);
+
+/* ===== SCROLL REVEAL ===== */
+(function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+})();
+
+/* ===== FLYING BULLETS ===== */
+(function() {
+  const bulletObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.bullet-card').forEach(function(card) {
+    bulletObserver.observe(card);
+  });
+})();
+
+/* ===== SMOOTH SCROLL ===== */
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

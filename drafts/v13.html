@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Дмитрий Васильев — крипто/финтех эксперт. Решу вашу проблему. WEX, $800M, 15+ лет опыта.">
+  <meta property="og:title" content="Дмитрий Васильев — Крипто & Финтех Консалтинг">
+  <meta property="og:description" content="Решаю нерешаемое. Крипто-консалтинг, AI-автоматизация, кризис-менеджмент.">
+  <meta property="og:image" content="https://vda.vc/og-image.jpg">
+  <title>Дмитрий Васильев — Решаю нерешаемое</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #0f0f0f;
+      background-color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* === GLOBALS === */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    section {
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* === NOISE OVERLAY === */
+    svg.noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.025;
+      z-index: 9999;
+      mix-blend-mode: multiply;
+    }
+
+    /* === CURSOR FOLLOWER === */
+    .cursor-follower {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(201, 168, 76, 0.3);
+      border: 1px solid rgba(201, 168, 76, 0.6);
+      pointer-events: none;
+      z-index: 9998;
+      mix-blend-mode: difference;
+      display: none;
+    }
+
+    @media (min-width: 769px) {
+      .cursor-follower {
+        display: block;
+      }
+    }
+
+    /* === NAVBAR === */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 24px;
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      background-color: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(24px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #0f0f0f;
+      transition: color 0.3s ease;
+    }
+
+    nav.scrolled .nav-logo {
+      color: #0f0f0f;
+    }
+
+    .nav-logo:hover {
+      color: #c9a84c;
+    }
+
+    .nav-menu {
+      display: none;
+      gap: 40px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-menu li a {
+      font-size: 14px;
+      color: #3a3a3a;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-menu li a:hover {
+      color: #c9a84c;
+    }
+
+    .nav-menu li a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #c9a84c;
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu li a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid #c9a84c;
+      color: #c9a84c;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      background: #c9a84c;
+      color: #0f0f0f;
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #0f0f0f;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    @media (min-width: 1025px) {
+      .nav-menu {
+        display: flex;
+      }
+      .hamburger {
+        display: none;
+      }
+    }
+
+    /* === HERO === */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: white;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.5));
+      z-index: 2;
+    }
+
+    canvas#particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 4;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 24px;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 30px;
+      font-weight: 600;
+      opacity: 0;
+      animation: fadeInDown 1s ease-out 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 8vw, 72px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero-title span {
+      display: inline-block;
+      opacity: 0;
+      animation: slideUp 0.6s ease-out forwards;
+    }
+
+    .hero-title span:nth-child(1) { animation-delay: 0.4s; }
+    .hero-title span:nth-child(2) { animation-delay: 0.6s; }
+    .hero-title span:nth-child(3) {
+      animation-delay: 0.8s;
+      color: #c9a84c;
+      animation: slideUp 0.6s ease-out 0.8s, pulse 2s ease-in-out 1.4s infinite;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 1s forwards;
+    }
+
+    .hero-quote {
+      font-size: 16px;
+      font-style: italic;
+      border-left: 3px solid #c9a84c;
+      padding-left: 20px;
+      margin: 40px 0;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 1.2s forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out 1.4s forwards;
+    }
+
+    .btn-primary {
+      background: #c9a84c;
+      color: #0f0f0f;
+      padding: 15px 35px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .btn-primary:hover {
+      background: #d4af37;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 13px 33px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: #0f0f0f;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 60px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 1.6s forwards;
+    }
+
+    @media (max-width: 768px) {
+      .hero-stats {
+        gap: 20px;
+      }
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 900;
+      color: #c9a84c;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 2s forwards;
+    }
+
+    .chevron {
+      width: 24px;
+      height: 24px;
+      border-left: 2px solid #c9a84c;
+      border-bottom: 2px solid #c9a84c;
+      transform: rotate(-45deg);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: rotate(-45deg) translateY(0);
+      }
+      40% {
+        transform: rotate(-45deg) translateY(8px);
+      }
+      60% {
+        transform: rotate(-45deg) translateY(4px);
+      }
+    }
+
+    /* === TRUST BAR === */
+    .trust-bar {
+      background: #ffffff;
+      padding: 60px 24px;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .trust-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .trust-content {
+        gap: 20px;
+        justify-content: center;
+      }
+    }
+
+    .trust-item {
+      text-align: center;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .trust-item:nth-child(1) { animation-delay: 0s; }
+    .trust-item:nth-child(2) { animation-delay: 0.1s; }
+    .trust-item:nth-child(3) { animation-delay: 0.2s; }
+    .trust-item:nth-child(4) { animation-delay: 0.3s; }
+
+    .trust-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #c9a84c;
+      line-height: 1;
+    }
+
+    .trust-label {
+      font-size: 12px;
+      color: #3a3a3a;
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* === MARQUEE === */
+    .marquee-section {
+      background: #0a0a0a;
+      color: white;
+      padding: 40px 0;
+      overflow: hidden;
+    }
+
+    .marquee {
+      display: flex;
+      width: fit-content;
+      animation: scroll 20s linear infinite;
+    }
+
+    .marquee-item {
+      padding: 0 30px;
+      white-space: nowrap;
+      font-size: 16px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      opacity: 0.7;
+    }
+
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      background: #c9a84c;
+      border-radius: 50%;
+    }
+
+    .marquee.reverse {
+      animation: scroll-reverse 20s linear infinite;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes scroll-reverse {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    /* === ABOUT SECTION === */
+    .about {
+      background: #ffffff;
+      padding: 100px 24px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-number {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #c9a84c;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 900;
+      color: #0f0f0f;
+      margin-bottom: 15px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: #3a3a3a;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    .about-card {
+      padding: 40px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .about-card.success {
+      background: #f0fdf4;
+      border: 1px solid #c6f6d5;
+    }
+
+    .about-card.challenge {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .about-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .about-card.success .about-card-title {
+      color: #16a34a;
+    }
+
+    .about-card.challenge .about-card-title {
+      color: #dc2626;
+    }
+
+    .about-card ul {
+      list-style: none;
+    }
+
+    .about-card li {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #3a3a3a;
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .about-card.success li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #16a34a;
+      font-weight: 700;
+    }
+
+    .about-card.challenge li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: #dc2626;
+      font-weight: 700;
+    }
+
+    .about-card {
+      opacity: 0;
+    }
+
+    /* === SERVICES === */
+    .services {
+      background: #f8f9fc;
+      padding: 100px 24px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .service-card {
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .service-card:hover {
+      border-color: #c9a84c;
+      box-shadow: 0 20px 40px rgba(201, 168, 76, 0.15);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-icon {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .service-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f0f0f;
+      margin-bottom: 12px;
+    }
+
+    .service-desc {
+      font-size: 14px;
+      color: #3a3a3a;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .service-tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .service-tag.crypto {
+      background: rgba(201, 168, 76, 0.1);
+      color: #8b6914;
+    }
+
+    .service-tag.ai {
+      background: rgba(26, 86, 219, 0.1);
+      color: #1a56db;
+    }
+
+    .service-tag.life {
+      background: rgba(236, 72, 153, 0.1);
+      color: #be185d;
+    }
+
+    /* === PROOF BAR === */
+    .proof-bar {
+      background: linear-gradient(135deg, #c9a84c 0%, #d4af37 100%);
+      color: #0f0f0f;
+      padding: 50px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proof-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    .proof-text {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* === CASES === */
+    .cases {
+      background: #ffffff;
+      padding: 100px 24px;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .case-card {
+      border-left: 4px solid #c9a84c;
+      padding: 30px;
+      background: #f8f9fc;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .case-card:hover {
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .case-problem {
+      font-size: 12px;
+      color: #c9a84c;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .case-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f0f0f;
+      margin-bottom: 15px;
+    }
+
+    .case-desc {
+      font-size: 14px;
+      color: #3a3a3a;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .case-result {
+      font-size: 13px;
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    /* === TESTIMONIALS === */
+    .testimonials {
+      padding: 80px 24px;
+      background: #f8f9fc;
+    }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .test-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px 28px;
+      border: 1px solid #e5e7eb;
+      position: relative;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .test-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      border-color: #c9a84c;
+    }
+
+    .test-quote {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #3a3a3a;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .test-quote::before {
+      content: '"';
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      color: #c9a84c;
+      opacity: 0.3;
+      display: block;
+      line-height: 1;
+      margin-bottom: -10px;
+    }
+
+    .test-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .test-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c9a84c, #1a56db);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .test-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: #0f0f0f;
+    }
+
+    .test-role {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .test-stars {
+      color: #c9a84c;
+      font-size: 14px;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .test-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* === CONTACT === */
+    .contact {
+      background: #f8f9fc;
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .contact-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 6vw, 48px);
+      font-weight: 900;
+      color: #0f0f0f;
+      margin-bottom: 20px;
+    }
+
+    .contact-subtitle {
+      font-size: 16px;
+      color: #3a3a3a;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .btn-telegram {
+      background: #c9a84c;
+      color: #0f0f0f;
+      padding: 18px 40px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-telegram:hover {
+      background: #d4af37;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
+    }
+
+    .contact-email {
+      font-size: 16px;
+      color: #3a3a3a;
+      margin-top: 20px;
+    }
+
+    .contact-email a {
+      color: #c9a84c;
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+
+    .contact-email a:hover {
+      color: #d4af37;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: #0f0f0f;
+      color: white;
+      padding: 60px 24px 30px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: #c9a84c;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .footer-section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section a {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: #c9a84c;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* === MOBILE MENU === */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-size: 24px;
+      color: white;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      color: #c9a84c;
+    }
+
+    /* === PREFERS REDUCED MOTION === */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* === RESPONSIVE HERO === */
+    @media (max-width: 768px) {
+      .hero-subtitle {
+        font-size: 14px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    /* === LANG TOGGLE === */
+    .lang-toggle {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: #3a3a3a;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .lang-btn:hover {
+      border-color: #c9a84c;
+      color: #c9a84c;
+    }
+
+    .lang-btn.active {
+      background: #c9a84c;
+      color: #0f0f0f;
+      border-color: #c9a84c;
+    }
+
+    @media (max-width: 768px) {
+      .lang-toggle {
+        display: none;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Дмитрий Васильев",
+    "alternateName": "Dmitrii Vasilev",
+    "url": "https://vda.vc",
+    "jobTitle": "Crypto & Fintech Consultant",
+    "description": "Crisis management, crypto consulting, AI automation. 15+ years in crypto. Bay Area, CA.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hayward",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "url": "https://t.me/vdavc_bot",
+      "email": "dima@vda.vc"
+    },
+    "sameAs": [
+      "https://t.me/vdavc_bot"
+    ],
+    "knowsAbout": ["Cryptocurrency", "Fintech", "Crisis Management", "AI Automation", "OTC Trading", "Cross-border Payments"]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- NOISE OVERLAY -->
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="2" />
+      <feColorMatrix type="saturate" values="0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise)" />
+  </svg>
+
+  <!-- CURSOR FOLLOWER -->
+  <div class="cursor-follower"></div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-content">
+      <div class="nav-logo">vda.vc</div>
+      <ul class="nav-menu">
+        <li><a href="#about"><span class="ru">Обо мне</span><span class="en">About</span></a></li>
+        <li><a href="#services"><span class="ru">Услуги</span><span class="en">Services</span></a></li>
+        <li><a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a></li>
+        <li><a href="#testimonials"><span class="ru">Отзывы</span><span class="en">Testimonials</span></a></li>
+        <li><a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a></li>
+        <li><button class="nav-cta"><span class="ru">Написать →</span><span class="en">Get in touch →</span></button></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu">
+    <a href="#about"><span class="ru">Обо мне</span><span class="en">About</span></a>
+    <a href="#services"><span class="ru">Услуги</span><span class="en">Services</span></a>
+    <a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a>
+    <a href="#testimonials"><span class="ru">Отзывы</span><span class="en">Testimonials</span></a>
+    <a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Crect fill='%230a0a0a' width='1920' height='1080'/%3E%3C/svg%3E">
+      <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4">
+      <source src="https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="ru">КРИПТО · ФИНТЕХ · AI · КРИЗИС-МЕНЕДЖМЕНТ</span><span class="en">CRYPTO · FINTECH · AI · CRISIS MANAGEMENT</span></div>
+
+      <h1 class="hero-title">
+        <span><span class="ru">Решаю</span><span class="en">I solve</span></span>
+        <span><span class="ru">нерешаемое</span><span class="en">the unsolvable</span></span>
+      </h1>
+
+      <p class="hero-subtitle">
+        <span class="ru">Когда юристы и банкиры разводят руками — я нахожу выход. Потому что я уже был там, где вы сейчас.</span>
+        <span class="en">When lawyers and bankers throw up their hands — I find a way. Because I've already been where you are now.</span>
+      </p>
+
+      <div class="hero-quote">
+        <span class="ru">✦ Безнадёжно — это когда на крышку гроба падает земля. Остальное можно исправить.</span>
+        <span class="en">✦ Hopeless is when dirt falls on the coffin lid. Everything else can be fixed.</span>
+      </div>
+
+      <div class="hero-buttons">
+        <button class="btn-primary"><span class="ru">Описать проблему →</span><span class="en">Describe your problem →</span></button>
+        <a href="#about" class="btn-secondary"><span class="ru">Мой путь ↓</span><span class="en">My story ↓</span></a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number" data-target="15">15</div>
+          <div class="stat-label"><span class="ru">+ лет опыта</span><span class="en">+ years in crypto</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" data-target="800" data-format="currency">800</div>
+          <div class="stat-label"><span class="ru">М возвращено</span><span class="en">M returned</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" data-target="20">20</div>
+          <div class="stat-label"><span class="ru">+ разорений</span><span class="en">+ failures</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-number" data-target="4">4</div>
+          <div class="stat-label"><span class="ru">ареста</span><span class="en">arrests</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="chevron"></div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <section class="trust-bar">
+    <div class="trust-content">
+      <div class="trust-item">
+        <div class="trust-number">100+</div>
+        <div class="trust-label"><span class="ru">статей в прессе</span><span class="en">negative articles</span></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-number">5</div>
+        <div class="trust-label"><span class="ru">стран</span><span class="en">countries</span></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-number">27</div>
+        <div class="trust-label"><span class="ru">адвокатов</span><span class="en">lawyers</span></div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-number">$6M</div>
+        <div class="trust-label"><span class="ru">в защиту</span><span class="en">on defense</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="marquee-section">
+    <div class="marquee">
+      <div class="marquee-item">OTC<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Compliance<span class="marquee-dot"></span></div>
+      <div class="marquee-item">SWIFT<span class="marquee-dot"></span></div>
+      <div class="marquee-item">AML<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Due Diligence<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Разблокировка<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Escrow<span class="marquee-dot"></span></div>
+      <div class="marquee-item">OTC<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Compliance<span class="marquee-dot"></span></div>
+      <div class="marquee-item">SWIFT<span class="marquee-dot"></span></div>
+    </div>
+    <div class="marquee reverse" style="margin-top: 20px;">
+      <div class="marquee-item">AI-автоматизация<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Кризис-менеджмент<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Крипто-консалтинг<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Финтех<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Токенизация<span class="marquee-dot"></span></div>
+      <div class="marquee-item">AI-автоматизация<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Кризис-менеджмент<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Крипто-консалтинг<span class="marquee-dot"></span></div>
+      <div class="marquee-item">Финтех<span class="marquee-dot"></span></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number"><span class="ru">01 — Обо мне</span><span class="en">01 — About me</span></div>
+        <h2 class="section-title"><span class="ru">Успехи и провалы.<br>В одном человеке.</span><span class="en">Wins and losses.<br>In one person.</span></h2>
+        <p class="section-subtitle">
+          <span class="ru">Это не вдохновляющая история. Это хроника человека, который падал — и вставал.</span>
+          <span class="en">This is not an inspirational story. It's a chronicle of a man who kept falling — and getting back up.</span>
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card success">
+          <h3 class="about-card-title"><span class="ru">Что получилось</span><span class="en">What worked</span></h3>
+          <ul>
+            <li><span class="ru">В 30 лет купил и перезапустил крупнейшую российскую криптобиржу</span><span class="en">At 30, I bought and relaunched Russia's largest crypto exchange</span></li>
+            <li><span class="ru">Вернул пользователям доступ к $800M после закрытия ФБР</span><span class="en">Returned $800M access to users after FBI seizure</span></li>
+            <li><span class="ru">Путешествовал по миру 5 лет — будучи в розыске Интерпола</span><span class="en">Traveled the world for 5 years while wanted by Interpol</span></li>
+            <li><span class="ru">Выдерживаю прессинг: 100+ негативных статей, угрозы</span><span class="en">Withstand pressure: 100+ negative articles, threats</span></li>
+            <li><span class="ru">10 раз начинал жизнь с нуля</span><span class="en">Started from zero 10 times</span></li>
+            <li><span class="ru">Счастливый человек</span><span class="en">I'm a happy person</span></li>
+          </ul>
+        </div>
+
+        <div class="about-card challenge">
+          <h3 class="about-card-title"><span class="ru">Цена опыта</span><span class="en">The price of experience</span></h3>
+          <ul>
+            <li><span class="ru">Разорялся более 20 раз</span><span class="en">Bankrupted 20+ times</span></li>
+            <li><span class="ru">Потерял компанию стоимостью $4 000 000 000</span><span class="en">Lost a $4B company</span></li>
+            <li><span class="ru">Арестован 4 раза в 5 странах</span><span class="en">Arrested 4 times in 5 countries</span></li>
+            <li><span class="ru">$6 000 000 на 27 адвокатов в 5 странах</span><span class="en">$6M on 27 lawyers in 5 countries</span></li>
+            <li><span class="ru">Обжёгся на 50+ скамах — теперь чую их за версту</span><span class="en">Burned by 50+ scams — now I spot them a mile away</span></li>
+            <li><span class="ru">3 развода, предательства</span><span class="en">3 divorces, betrayals</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number"><span class="ru">02 — Услуги</span><span class="en">02 — Services</span></div>
+        <h2 class="section-title"><span class="ru">Направления работы</span><span class="en">Three directions. One goal.</span></h2>
+        <p class="section-subtitle">
+          <span class="ru">Помогаю с проблемами, которые кажутся неразрешимыми.</span>
+          <span class="en">Solving your problems.</span>
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🔐</div>
+          <h3 class="service-title"><span class="ru">Крипто и финтех</span><span class="en">Crypto & Fintech</span></h3>
+          <p class="service-desc">
+            <span class="ru">Разблокировка счетов, OTC-сделки, юридическая стратегия, кросс-бордер платежи, запуск биржи.</span>
+            <span class="en">Account unblocking, OTC deals, legal strategy, cross-border payments, exchange launch</span>
+          </p>
+          <span class="service-tag crypto"><span class="ru">Крипто-консалтинг</span><span class="en">Crypto consulting</span></span>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🤖</div>
+          <h3 class="service-title"><span class="ru">AI для бизнеса</span><span class="en">AI for Business</span></h3>
+          <p class="service-desc">
+            <span class="ru">Автоматизация, внедрение AI, подбор специалистов. Экономия 2-4 часа/день.</span>
+            <span class="en">Automation, AI implementation, talent sourcing. Save 2-4 hours/day and $10K+/month</span>
+          </p>
+          <span class="service-tag ai"><span class="ru">AI-автоматизация</span><span class="en">AI automation</span></span>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">💎</div>
+          <h3 class="service-title"><span class="ru">Второй шанс</span><span class="en">Second Chance</span></h3>
+          <p class="service-desc">
+            <span class="ru">Кризис-менеджмент, личные проблемы, переезд, рестарт жизни.</span>
+            <span class="en">Crisis management, personal issues, relocation, restart after losses. I've been through it — I can help</span>
+          </p>
+          <span class="service-tag life"><span class="ru">Жизнь и кризис</span><span class="en">Life & crisis</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF BAR -->
+  <section class="proof-bar">
+    <div class="proof-text">
+      <span class="ru">✦ Каждые $1 000 в мою консультацию = $10 000+ экономии клиенту. Рекорд — $1M за 15 минут.</span>
+      <span class="en">✦ Every $1,000 in my consulting = $10,000+ saved for the client. Record — $1M in 15 minutes.</span>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="cases" id="cases">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number"><span class="ru">03 — Кейсы</span><span class="en">03 — Case Studies</span></div>
+        <h2 class="section-title"><span class="ru">Реальные истории</span><span class="en">Real stories</span></h2>
+        <p class="section-subtitle">
+          <span class="ru">Проблемы → Решения → Результаты</span>
+          <span class="en">Problems → Solutions → Results</span>
+        </p>
+      </div>
+
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="case-problem"><span class="ru">Проблема</span><span class="en">Problem</span></div>
+          <h3 class="case-title"><span class="ru">WEX/BTC-e и ФБР</span><span class="en">WEX/BTC-e & FBI</span></h3>
+          <p class="case-desc">
+            <span class="ru">ФБР изъяло биржу и заморозило $800M пользователей. ФБР/IRS ничего не вернул пользователям.</span>
+            <span class="en">FBI seized the exchange and froze $800M of users. FBI/IRS returned nothing to users.</span>
+          </p>
+          <div class="case-result"><span class="ru">Решение: восстановил биржу, вернул деньги пользователям</span><span class="en">Solution: relaunched exchange, returned users' funds</span></div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-problem"><span class="ru">Проблема</span><span class="en">Problem</span></div>
+          <h3 class="case-title"><span class="ru">OTC-сделка $2M</span><span class="en">$2M OTC Deal</span></h3>
+          <p class="case-desc">
+            <span class="ru">Клиент заблокирован на $2 млн. Банк требует $100K за разблокировку. Юристы не помогают.</span>
+            <span class="en">Client frozen on $2M. Bank demands $100K unblock fee. Lawyers can't help.</span>
+          </p>
+          <div class="case-result"><span class="ru">Решение: разблокировка за 72 часа, комиссия 0</span><span class="en">Solution: unlocked in 72 hours, zero commission</span></div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-problem"><span class="ru">Проблема</span><span class="en">Problem</span></div>
+          <h3 class="case-title"><span class="ru">AI-автоматизация</span><span class="en">AI Automation</span></h3>
+          <p class="case-desc">
+            <span class="ru">Компания тратила $15K/мес на рутинную работу. Сотрудники в burnout. Доход не растёт.</span>
+            <span class="en">Company spent $15K/month on routine work. Staff in burnout. Revenue stalled.</span>
+          </p>
+          <div class="case-result"><span class="ru">Решение: внедрил AI, экономия $10K/мес, лучше команда</span><span class="en">Solution: deployed AI, saved $10K/month, happier team</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials reveal" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number"><span class="ru">04 — Отзывы</span><span class="en">04 — Testimonials</span></div>
+        <h2 class="section-title"><span class="ru">Что говорят клиенты</span><span class="en">What clients say</span></h2>
+        <p class="section-subtitle">
+          <span class="ru">Реальные отзывы от людей, которым я помог решить их проблемы.</span>
+          <span class="en">Real feedback from people I've helped solve their problems.</span>
+        </p>
+      </div>
+
+      <div class="test-grid">
+        <div class="test-card reveal">
+          <div class="test-stars">★★★★★</div>
+          <div class="test-quote">
+            <span class="ru">За 15 минут разговора Дмитрий увидел проблему, которую мои юристы не могли найти 3 месяца. Сэкономил мне больше миллиона долларов — буквально.</span>
+            <span class="en">In a 15-minute conversation, Dmitrii spotted a problem my lawyers couldn't find in 3 months. Literally saved me over a million dollars.</span>
+          </div>
+          <div class="test-author">
+            <div class="test-avatar">CEO</div>
+            <div>
+              <div class="test-name"><span class="ru">CEO криптокомпании</span><span class="en">Crypto company CEO</span></div>
+              <div class="test-role"><span class="ru">OTC и разблокировка счетов</span><span class="en">OTC & account unblocking</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-card reveal">
+          <div class="test-stars">★★★★★</div>
+          <div class="test-quote">
+            <span class="ru">Внедрили AI-автоматизацию за 2 недели. Команда из 12 человек теперь делает за день то, что раньше занимало неделю. ROI окупился в первый месяц.</span>
+            <span class="en">Implemented AI automation in 2 weeks. A team of 12 now does in a day what used to take a week. ROI paid off in the first month.</span>
+          </div>
+          <div class="test-author">
+            <div class="test-avatar">FD</div>
+            <div>
+              <div class="test-name"><span class="ru">Финансовый директор</span><span class="en">Financial Director</span></div>
+              <div class="test-role"><span class="ru">AI-автоматизация бизнеса</span><span class="en">Business AI automation</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-card reveal">
+          <div class="test-stars">★★★★★</div>
+          <div class="test-quote">
+            <span class="ru">Я был на грани. Потерял бизнес, деньги, семью. Дмитрий не просто дал совет — он прошёл через то же самое. Сейчас я снова на ногах, с новым проектом.</span>
+            <span class="en">I was on the edge. Lost my business, money, family. Dmitrii didn't just give advice — he'd been through the same thing. Now I'm back on my feet with a new project.</span>
+          </div>
+          <div class="test-author">
+            <div class="test-avatar">PN</div>
+            <div>
+              <div class="test-name"><span class="ru">Предприниматель</span><span class="en">Entrepreneur</span></div>
+              <div class="test-role"><span class="ru">Кризис-менеджмент и рестарт</span><span class="en">Crisis management & restart</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number"><span class="ru">05 — Контакт</span><span class="en">05 — Contact</span></div>
+      </div>
+      <h2 class="contact-title"><span class="ru">Есть проблема?<br>Напишите.</span><span class="en">Got a problem?<br>Write to me.</span></h2>
+      <p class="contact-subtitle">
+        <span class="ru">Первый ответ — бесплатно. Отвечу лично в Telegram в течение 24 часов.</span>
+        <span class="en">First response — free. I'll reply personally on Telegram within 24 hours.</span>
+      </p>
+
+      <div class="contact-buttons">
+        <button class="btn-telegram"><span class="ru">Написать в Telegram →</span><span class="en">Message on Telegram →</span></button>
+      </div>
+
+      <div class="contact-email">
+        или <a href="mailto:dima@vda.vc">dima@vda.vc</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div>
+        <div class="footer-logo">vda.vc</div>
+        <p style="font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6;">
+          <span class="ru">Крипто & финтех консалтинг<br>
+          AI-автоматизация<br>
+          Кризис-менеджмент</span>
+          <span class="en">Crypto & Fintech consulting<br>
+          AI automation<br>
+          Crisis management</span>
+        </p>
+      </div>
+
+      <div class="footer-section">
+        <h3><span class="ru">Навигация</span><span class="en">Navigation</span></h3>
+        <ul>
+          <li><a href="#about"><span class="ru">Обо мне</span><span class="en">About</span></a></li>
+          <li><a href="#services"><span class="ru">Услуги</span><span class="en">Services</span></a></li>
+          <li><a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a></li>
+          <li><a href="#testimonials"><span class="ru">Отзывы</span><span class="en">Testimonials</span></a></li>
+          <li><a href="#contact"><span class="ru">Контакт</span><span class="en">Contact</span></a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Проекты</h3>
+        <ul>
+          <li><a href="/ai-service.html">AI-консалтинг</a></li>
+          <li><a href="/quiz.html">AI-диагностика</a></li>
+          <li><span>VC партнёр (USA)</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Контакт</h3>
+        <ul>
+          <li><a href="https://t.me/vdavc_bot" target="_blank">Telegram</a></li>
+          <li><a href="mailto:dima@vda.vc">Email</a></li>
+          <li style="margin-top: 15px; font-size: 12px; color: rgba(255,255,255,0.5);">Hayward, CA</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div><span class="ru">© 2026 Дмитрий Васильев. Все права защищены.</span><span class="en">© 2026 Dmitrii Vasilev. All rights reserved.</span></div>
+      <div><span class="ru">Сделано с пониманием в Bay Area</span><span class="en">Made with insight in Bay Area</span></div>
+    </div>
+  </footer>
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ===== PARTICLES =====
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particleCount = window.innerWidth > 768 ? 60 : 25;
+    const particles = [];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.opacity = Math.random() * 0.35 + 0.15;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+      }
+
+      update() {
+        this.x += this.vx + Math.sin(Date.now() * 0.0005) * 0.1;
+        this.y += this.vy + Math.cos(Date.now() * 0.0007) * 0.1;
+
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+
+      draw() {
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function drawLines() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 150)})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      drawLines();
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // ===== NAVBAR SCROLL =====
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // ===== HAMBURGER MENU =====
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    // ===== CURSOR FOLLOWER =====
+    const cursorFollower = document.querySelector('.cursor-follower');
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function updateCursor() {
+      followerX += (mouseX - followerX) * 0.2;
+      followerY += (mouseY - followerY) * 0.2;
+
+      cursorFollower.style.left = followerX - 10 + 'px';
+      cursorFollower.style.top = followerY - 10 + 'px';
+
+      requestAnimationFrame(updateCursor);
+    }
+
+    updateCursor();
+
+    // ===== MAGNETIC BUTTONS =====
+    const magneticButtons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-telegram');
+
+    magneticButtons.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distX = e.clientX - centerX;
+        const distY = e.clientY - centerY;
+        const distance = Math.sqrt(distX * distX + distY * distY);
+
+        if (distance < 60) {
+          const force = (60 - distance) / 60;
+          btn.style.transform = `translate(${distX * force * 0.3}px, ${distY * force * 0.3}px)`;
+        }
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+
+    // ===== COUNTER ANIMATION =====
+    const stats = document.querySelectorAll('.stat-number');
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          const target = parseInt(entry.target.dataset.target);
+          const format = entry.target.dataset.format;
+          let current = 0;
+          const increment = target / 30;
+
+          const counter = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              if (format === 'currency') {
+                entry.target.textContent = '$' + target + 'M';
+              } else {
+                entry.target.textContent = target;
+              }
+              clearInterval(counter);
+            } else {
+              if (format === 'currency') {
+                entry.target.textContent = '$' + Math.floor(current) + 'M';
+              } else {
+                entry.target.textContent = Math.floor(current);
+              }
+            }
+          }, 30);
+
+          entry.target.dataset.counted = 'true';
+        }
+      });
+    }, { threshold: 0.5 });
+
+    stats.forEach(stat => counterObserver.observe(stat));
+
+    // ===== SCROLL ANIMATIONS =====
+    gsap.utils.toArray('.service-card').forEach((card, index) => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: index * 0.1,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    gsap.utils.toArray('.case-card').forEach((card, index) => {
+      gsap.fromTo(card,
+        { opacity: 0, x: -30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.6,
+          delay: index * 0.1,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    gsap.fromTo('.about-card',
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: '.about',
+          start: 'top 60%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+
+    // ===== 3D TILT CARDS =====
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        const rotX = (y - 0.5) * 10;
+        const rotY = (x - 0.5) * -10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+      });
+    });
+
+    // ===== CTA BUTTON ACTIONS =====
+    document.querySelectorAll('.btn-primary, .btn-telegram, .nav-cta').forEach(btn => {
+      btn.addEventListener('click', () => {
+        window.open('https://t.me/vdavc_bot', '_blank');
+      });
+    });
+
+    // ===== LANGUAGE TOGGLE =====
+    function setLang(l) {
+      document.querySelectorAll('.ru').forEach(el => el.style.display = l === 'ru' ? '' : 'none');
+      document.querySelectorAll('.en').forEach(el => el.style.display = l === 'en' ? '' : 'none');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick*="${l}"]`).classList.add('active');
+      localStorage.setItem('vda-lang', l);
+    }
+
+    // Initialize language on page load
+    const savedLang = localStorage.getItem('vda-lang') || 'ru';
+    setLang(savedLang);
+
+// ===== PREFERS REDUCED MOTION =====
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      document.documentElement.style.scrollBehavior = 'auto';
+    }
+  </script>
+
+</body>
+</html>

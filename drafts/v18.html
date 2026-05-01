@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Dmitrii Vasilev — Role-Adaptive Pitch · v18</title>
+<meta name="description" content="Dmitrii Vasilev — крипто/финтех консультант. Investor pitch · Client brief · Partner manifesto · Community. Выбери свою роль.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{
+  --bg:#0a0a0a;
+  --bg-2:#111;
+  --fg:#f5f0e1;
+  --fg-muted:#a8a296;
+  --gold:#c9a961;
+  --gold-bright:#e8c97a;
+  --gold-dim:#8a7238;
+  --line:rgba(201,169,97,.2);
+  --line-strong:rgba(201,169,97,.45);
+  --accent:#c9a961;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{max-width:100%;overflow-x:hidden}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--gold-bright);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+a:hover{border-bottom-color:var(--gold-bright)}
+
+/* ============ TOP BAR ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 24px;
+  background:rgba(10,10,10,.85);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+.topbar .brand{
+  font-family:var(--serif);
+  font-size:18px;
+  color:var(--gold-bright);
+  letter-spacing:.02em;
+}
+.topbar .brand b{color:var(--fg)}
+.topbar .right{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.topbar .right a{color:var(--fg-muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.topbar .right a:hover{color:var(--gold-bright)}
+.lang-toggle{display:flex;gap:4px;border:1px solid var(--line);border-radius:20px;padding:3px}
+.lang-toggle button{
+  background:transparent;color:var(--fg-muted);border:0;
+  padding:4px 10px;font:inherit;font-size:11px;cursor:pointer;
+  border-radius:16px;letter-spacing:.06em;
+}
+.lang-toggle button.active{background:var(--gold);color:#111}
+
+/* ============ ROLE SWITCHER ============ */
+.role-switcher{
+  position:sticky;top:52px;z-index:90;
+  background:rgba(10,10,10,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  padding:14px 24px;
+}
+.role-switcher-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;gap:8px;align-items:center;
+  overflow-x:auto;scrollbar-width:none;
+}
+.role-switcher-inner::-webkit-scrollbar{display:none}
+.role-switcher .label{
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--fg-muted);margin-right:8px;white-space:nowrap;
+}
+.role-btn{
+  background:transparent;
+  color:var(--fg-muted);
+  border:1px solid var(--line);
+  padding:8px 16px;
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-radius:22px;
+  transition:all .2s;
+  white-space:nowrap;
+}
+.role-btn:hover{border-color:var(--gold);color:var(--fg)}
+.role-btn.active{
+  background:var(--gold);
+  color:#111;
+  border-color:var(--gold);
+}
+
+/* ============ LAYOUT ============ */
+main{padding-top:110px}
+section{
+  padding:70px 24px;
+  max-width:1200px;
+  margin:0 auto;
+  border-bottom:1px solid var(--line);
+}
+section:last-of-type{border-bottom:0}
+.eyebrow{
+  font-size:11px;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:18px;
+  font-weight:600;
+}
+h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:-.01em;line-height:1.15}
+h1{font-size:clamp(40px,7vw,78px);margin-bottom:18px}
+h2{font-size:clamp(28px,4.2vw,48px);margin-bottom:22px}
+h3{font-size:clamp(20px,2.4vw,28px);margin-bottom:12px}
+p{color:var(--fg-muted);margin-bottom:14px;max-width:720px}
+p.lead{font-size:clamp(17px,1.8vw,22px);color:var(--fg);line-height:1.5;max-width:800px}
+
+.btn{
+  display:inline-block;
+  padding:14px 26px;
+  font-family:var(--sans);
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  border-radius:32px;
+  border:1px solid var(--gold);
+  background:var(--gold);
+  color:#111;
+  cursor:pointer;
+  transition:all .2s;
+  text-align:center;
+}
+.btn:hover{background:var(--gold-bright);border-color:var(--gold-bright);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--gold-bright)}
+.btn.ghost:hover{background:var(--gold);color:#111}
+
+/* ============ HERO ============ */
+.hero{padding-top:60px;padding-bottom:80px}
+.hero .eyebrow{color:var(--gold-bright)}
+.hero h1 span{color:var(--gold-bright);font-style:italic;font-weight:400}
+.hero .metrics{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:28px;
+  margin-top:50px;
+  padding-top:40px;
+  border-top:1px solid var(--line);
+}
+.metric .num{
+  font-family:var(--serif);
+  font-size:clamp(32px,4vw,48px);
+  color:var(--gold-bright);
+  font-weight:700;
+  line-height:1;
+}
+.metric .lbl{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--fg-muted);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.hero .ctas{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap}
+
+/* ============ GRID CARDS ============ */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:36px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-top:36px}
+.card{
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:rgba(201,169,97,.02);
+  transition:border-color .2s;
+}
+.card:hover{border-color:var(--line-strong)}
+.card h3{color:var(--fg);margin-bottom:10px}
+.card p{margin-bottom:0}
+.card .tag{
+  display:inline-block;
+  font-size:10px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:10px;
+}
+
+/* ============ WEX TIMELINE ============ */
+.wex{background:linear-gradient(180deg,transparent,rgba(201,169,97,.04))}
+.wex-stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:20px;margin-top:32px;margin-bottom:40px;
+}
+.wex-stat{border-left:2px solid var(--gold);padding-left:16px}
+.wex-stat .num{font-family:var(--serif);font-size:36px;color:var(--gold-bright);line-height:1}
+.wex-stat .lbl{font-size:11px;color:var(--fg-muted);letter-spacing:.08em;text-transform:uppercase;margin-top:8px}
+
+/* ============ TABLE ============ */
+table.fin{width:100%;border-collapse:collapse;margin-top:28px;font-size:14px}
+table.fin th,table.fin td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line)}
+table.fin th{color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+table.fin td{color:var(--fg-muted)}
+table.fin tr:last-child td{border-bottom:0}
+table.fin td:first-child{color:var(--fg)}
+
+/* ============ AI ASSISTANT WIDGET ============ */
+.ai-fab{
+  position:fixed;bottom:24px;right:24px;z-index:200;
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold-bright) 100%);
+  color:#111;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-weight:700;font-size:14px;
+  box-shadow:0 10px 32px rgba(201,169,97,.35);
+  transition:transform .2s;
+}
+.ai-fab:hover{transform:scale(1.06)}
+.ai-fab .dot{
+  position:absolute;top:8px;right:8px;
+  width:10px;height:10px;background:#5cffb0;border-radius:50%;
+  box-shadow:0 0 10px #5cffb0;
+}
+.ai-panel{
+  position:fixed;bottom:100px;right:24px;z-index:200;
+  width:min(380px,calc(100vw - 48px));
+  max-height:min(580px,calc(100vh - 140px));
+  display:none;flex-direction:column;
+  background:#0f0f0f;border:1px solid var(--line-strong);
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+.ai-panel.open{display:flex}
+.ai-head{
+  padding:16px 20px;border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+  background:linear-gradient(90deg,rgba(201,169,97,.08),transparent);
+}
+.ai-head .t{font-family:var(--serif);font-size:16px;color:var(--gold-bright)}
+.ai-head .s{font-size:11px;color:var(--fg-muted);margin-top:2px;letter-spacing:.05em}
+.ai-head button{background:none;border:0;color:var(--fg-muted);font-size:20px;cursor:pointer;padding:4px 8px}
+.ai-body{
+  flex:1;overflow-y:auto;padding:16px;
+  display:flex;flex-direction:column;gap:10px;
+  font-size:14px;
+}
+.ai-msg{
+  padding:10px 14px;border-radius:12px;max-width:85%;
+  line-height:1.5;
+}
+.ai-msg.bot{background:rgba(201,169,97,.08);color:var(--fg);align-self:flex-start;border:1px solid var(--line)}
+.ai-msg.me{background:var(--gold);color:#111;align-self:flex-end;font-weight:500}
+.ai-sugg{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.ai-sugg button{
+  background:transparent;border:1px solid var(--line);color:var(--fg-muted);
+  padding:6px 12px;border-radius:18px;font-size:11px;cursor:pointer;font-family:inherit;
+}
+.ai-sugg button:hover{border-color:var(--gold);color:var(--fg)}
+.ai-input{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:#0a0a0a}
+.ai-input input{
+  flex:1;background:#1a1a1a;border:1px solid var(--line);
+  color:var(--fg);padding:10px 14px;border-radius:22px;font-family:inherit;font-size:13px;
+  outline:none;
+}
+.ai-input input:focus{border-color:var(--gold)}
+.ai-input button{
+  background:var(--gold);border:0;color:#111;
+  padding:0 18px;border-radius:22px;font-weight:600;cursor:pointer;font-family:inherit;font-size:13px;
+}
+
+/* ============ PDF EXPORT BAR ============ */
+.pdf-bar{
+  margin:40px auto 0;max-width:1200px;padding:0 24px;
+  display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+}
+.pdf-bar .hint{font-size:12px;color:var(--fg-muted);letter-spacing:.05em}
+
+/* ============ APPROVE BUTTON ============ */
+.approve-fab{
+  position:fixed;bottom:24px;left:24px;z-index:150;
+  padding:10px 18px;font-size:12px;font-weight:600;
+  background:rgba(20,40,20,.9);color:#5cffb0;
+  border:1px solid #5cffb0;border-radius:22px;
+  cursor:pointer;letter-spacing:.05em;
+  backdrop-filter:blur(8px);
+}
+.approve-fab:hover{background:rgba(30,60,30,.95)}
+
+/* ============ FOOTER ============ */
+footer{
+  padding:50px 24px;max-width:1200px;margin:0 auto;
+  border-top:1px solid var(--line);
+  color:var(--fg-muted);font-size:13px;
+}
+footer .row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer .nfa{
+  margin-top:28px;padding-top:20px;border-top:1px solid var(--line);
+  font-size:11px;line-height:1.6;letter-spacing:.02em;
+}
+
+/* ============ MOBILE ============ */
+@media (max-width:640px){
+  html,body{overflow-x:hidden;max-width:100vw}
+  main{padding-top:120px}
+  section{padding:50px 20px}
+  .topbar{padding:10px 16px}
+  .topbar .brand{font-size:15px}
+  .role-switcher{padding:12px 16px;top:44px;overflow:hidden}
+  .role-switcher-inner{min-width:0;flex-wrap:nowrap;padding-bottom:2px}
+  .role-btn{padding:7px 12px;font-size:11px;letter-spacing:.03em;flex-shrink:0}
+  .hero{padding-top:40px}
+  .hero .metrics{gap:20px;margin-top:36px}
+  .metric .num{font-size:28px}
+  .ai-fab{width:56px;height:56px;bottom:18px;right:18px;font-size:12px}
+  .ai-panel{bottom:86px;right:18px;left:18px;width:auto;max-height:70vh}
+  .approve-fab{bottom:18px;left:18px;font-size:11px;padding:8px 14px}
+  .btn{padding:12px 20px;font-size:12px}
+  /* table horizontal-scroll on mobile — !important to beat role-visibility specificity */
+  table.fin{display:block !important;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;font-size:12px;max-width:100%}
+  table.fin th,table.fin td{padding:8px 10px}
+}
+
+/* ============ ROLE VISIBILITY ============ */
+[data-role-show]{display:none}
+body[data-role="investor"] [data-role-show="investor"]{display:block}
+body[data-role="client"] [data-role-show="client"]{display:block}
+body[data-role="partner"] [data-role-show="partner"]{display:block}
+body[data-role="friend"] [data-role-show="friend"]{display:block}
+
+/* grid/flex visible variants */
+body[data-role="investor"] .grid-2[data-role-show="investor"],
+body[data-role="client"]   .grid-2[data-role-show="client"],
+body[data-role="partner"]  .grid-2[data-role-show="partner"],
+body[data-role="friend"]   .grid-2[data-role-show="friend"]{display:grid}
+
+body[data-role="investor"] .grid-3[data-role-show="investor"],
+body[data-role="client"]   .grid-3[data-role-show="client"],
+body[data-role="partner"]  .grid-3[data-role-show="partner"],
+body[data-role="friend"]   .grid-3[data-role-show="friend"]{display:grid}
+
+body[data-role="investor"] .ctas[data-role-show="investor"],
+body[data-role="client"]   .ctas[data-role-show="client"],
+body[data-role="partner"]  .ctas[data-role-show="partner"],
+body[data-role="friend"]   .ctas[data-role-show="friend"]{display:flex}
+
+body[data-role="investor"] table[data-role-show="investor"],
+body[data-role="client"]   table[data-role-show="client"],
+body[data-role="partner"]  table[data-role-show="partner"],
+body[data-role="friend"]   table[data-role-show="friend"]{display:table}
+</style>
+</head>
+<body data-role="investor" data-lang="ru">
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand"><b>DMITRII</b> VASILEV<span style="color:var(--fg-muted);font-size:11px;margin-left:10px;letter-spacing:.2em">v18</span></div>
+  <div class="right">
+    <a href="/versions/">VERSIONS</a>
+    <a href="/">← vda.vc</a>
+    <div class="lang-toggle">
+      <button data-lang="ru" class="active">RU</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </div>
+</div>
+
+<!-- ROLE SWITCHER -->
+<div class="role-switcher">
+  <div class="role-switcher-inner">
+    <span class="label" data-i18n="role.label">Я —</span>
+    <button class="role-btn active" data-role="investor" data-i18n="role.investor">Инвестор</button>
+    <button class="role-btn" data-role="client" data-i18n="role.client">Клиент</button>
+    <button class="role-btn" data-role="partner" data-i18n="role.partner">Партнёр</button>
+    <button class="role-btn" data-role="friend" data-i18n="role.friend">Друг / Сообщество</button>
+  </div>
+</div>
+
+<main id="capture-root">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow" data-i18n="hero.eyebrow">Executive Summary · 2026</div>
+
+  <!-- INVESTOR HERO -->
+  <div data-role-show="investor">
+    <h1>Единственный кейс в мире:<br><span>возврат $800M пользователям</span><br>после изъятия ФБР.</h1>
+    <p class="lead">Дмитрий Васильев — крипто/финтех оператор с 15+ годами track record. Сейчас строю <b>DEMI Agent Club</b> — сеть AI-операторов поверх доменной экспертизы. Инвестирую свой репутационный капитал. Ищу co-investors на Y1-Y5.</p>
+    <div class="ctas" data-role-show="investor">
+      <button class="btn" onclick="openAI('Расскажи про инвест-возможность DEMI Agent Club и юнит-экономику')">Запросить pitch-deck</button>
+      <a class="btn ghost" href="mailto:dima@vda.vc?subject=Investment inquiry">dima@vda.vc</a>
+    </div>
+  </div>
+
+  <!-- CLIENT HERO -->
+  <div data-role-show="client">
+    <h1>Крипто, финтех, EMI-лицензии.<br><span>Приходи с проблемой — уходи с решением.</span></h1>
+    <p class="lead">Ex-CEO WEX. MD BCB.credit. Кризисный менеджмент, EMI/PSP-лицензии, OTC, P2P, cross-border платежи. Работаю с founders у которых «горит» — от $500/час до retainer $10K+/мес.</p>
+    <div class="ctas" data-role-show="client">
+      <button class="btn" onclick="openAI('У меня задача по крипто/финтеху — можешь помочь?')">Обсудить задачу</button>
+      <a class="btn ghost" href="https://t.me/Posbitcoin">Telegram</a>
+    </div>
+  </div>
+
+  <!-- PARTNER HERO -->
+  <div data-role-show="partner">
+    <h1>Operators with scars.<br><span>DEMI Agent Club ищет core-круг.</span></h1>
+    <p class="lead">Если ты прошёл кризис — личный, бизнесовый, юридический — и остался в строю, у нас есть место. Network equity, не зарплата. Шрамы как условие входа.</p>
+    <div class="ctas" data-role-show="partner">
+      <a class="btn" href="/manifest">Manifesto</a>
+      <button class="btn ghost" onclick="openAI('Как стать партнёром DEMI Agent Club?')">Подать заявку</button>
+    </div>
+  </div>
+
+  <!-- FRIEND HERO -->
+  <div data-role-show="friend">
+    <h1>Bay Area. Океан. Команда.<br><span>Жизнь после фонда.</span></h1>
+    <p class="lead">Hayward, California. 4 ареста, 5 стран, браслет до сих пор. И при этом — семья, друзья, проекты с людьми, которым не всё равно. Если ты хочешь подключиться — напиши.</p>
+    <div class="ctas" data-role-show="friend">
+      <a class="btn" href="https://t.me/Posbitcoin">Написать в Telegram</a>
+      <a class="btn ghost" href="/life">Про жизнь</a>
+    </div>
+  </div>
+
+  <!-- METRICS (role-adaptive) -->
+  <div class="metrics">
+    <!-- investor metrics -->
+    <div class="metric" data-role-show="investor"><div class="num">$800M</div><div class="lbl">возврат пользователям BTC-e</div></div>
+    <div class="metric" data-role-show="investor"><div class="num">15+ лет</div><div class="lbl">в крипто / финтех</div></div>
+    <div class="metric" data-role-show="investor"><div class="num">4</div><div class="lbl">EMI/PSP сделок закрыто</div></div>
+    <div class="metric" data-role-show="investor"><div class="num">Y1-Y5</div><div class="lbl">DEMI Club roadmap</div></div>
+
+    <!-- client metrics -->
+    <div class="metric" data-role-show="client"><div class="num">$500/ч</div><div class="lbl">разовая консультация</div></div>
+    <div class="metric" data-role-show="client"><div class="num">$10K+/мес</div><div class="lbl">retainer от</div></div>
+    <div class="metric" data-role-show="client"><div class="num">72ч</div><div class="lbl">диагностика кейса</div></div>
+    <div class="metric" data-role-show="client"><div class="num">NDA</div><div class="lbl">с первого звонка</div></div>
+
+    <!-- partner metrics -->
+    <div class="metric" data-role-show="partner"><div class="num">Core 4</div><div class="lbl">операторы сети</div></div>
+    <div class="metric" data-role-show="partner"><div class="num">Network</div><div class="lbl">equity, не зарплата</div></div>
+    <div class="metric" data-role-show="partner"><div class="num">3</div><div class="lbl">уровня входа</div></div>
+    <div class="metric" data-role-show="partner"><div class="num">Scars</div><div class="lbl">обязательны</div></div>
+
+    <!-- friend metrics -->
+    <div class="metric" data-role-show="friend"><div class="num">Hayward</div><div class="lbl">California, USA</div></div>
+    <div class="metric" data-role-show="friend"><div class="num">PT UTC-7</div><div class="lbl">timezone</div></div>
+    <div class="metric" data-role-show="friend"><div class="num">@Posbitcoin</div><div class="lbl">Telegram</div></div>
+    <div class="metric" data-role-show="friend"><div class="num">Open</div><div class="lbl">door policy</div></div>
+  </div>
+</section>
+
+<!-- WHY THIS MATTERS (role-adaptive) -->
+<section>
+  <div class="eyebrow">Why this matters for you</div>
+
+  <div data-role-show="investor">
+    <h2>Инвестор получает: <span style="color:var(--gold-bright)">дефицитный актив — оператора, который вернул деньги.</span></h2>
+    <p class="lead">ФБР/IRS с 2017 года не вернул пользователям BTC-e ни цента. Mt.Gox — люди ждут выплат с 2014-го. Я за 2 года запустил WEX и вернул $800M. Это единственный задокументированный кейс перезапуска биржи после ФБР.</p>
+    <div class="grid-2" data-role-show="investor">
+      <div class="card"><span class="tag">Moat</span><h3>Репутационный капитал</h3><p>Сеть в OTC/EMI/юр-сообществе 10+ стран. Не реплицируется за деньги.</p></div>
+      <div class="card"><span class="tag">Product</span><h3>DEMI Agent Club</h3><p>AI-операторы поверх доменной экспертизы. Patentable IP в pipeline.</p></div>
+    </div>
+  </div>
+
+  <div data-role-show="client">
+    <h2>Клиент получает: <span style="color:var(--gold-bright)">оператора, а не теоретика.</span></h2>
+    <p class="lead">Большинство консультантов читали про кризис в книжках. Я жил в нём: 4 ареста, $800M под управлением, 27 адвокатов в 5 странах. Знаю как система работает изнутри — поэтому вижу решения, которые остальные не видят.</p>
+    <div class="grid-2" data-role-show="client">
+      <div class="card"><span class="tag">Кризис</span><h3>Реструктуризация / банкротство</h3><p>Разобрал EU финтех (EMI), кросс-бордер lending кейс, реструктуризация холдинга. Когда у других «всё пропало».</p></div>
+      <div class="card"><span class="tag">Лицензии</span><h3>EMI / PSP / VASP</h3><p>Работающие юрисдикции по состоянию на 04.2026. Не «купи за неделю».</p></div>
+    </div>
+  </div>
+
+  <div data-role-show="partner">
+    <h2>Партнёр получает: <span style="color:var(--gold-bright)">платформу, где твои шрамы — преимущество.</span></h2>
+    <p class="lead">DEMI Club — не коворкинг и не мастермайнд. Это сеть операторов, каждый из которых прошёл личный огонь. Мы не продаём успех — мы помогаем друг другу не упасть снова.</p>
+    <div class="grid-2" data-role-show="partner">
+      <div class="card"><span class="tag">Core</span><h3>Core-круг из 4</h3><p>Дмитрий · Даниил · Антон · Миша (Sheva). Закрытый.</p></div>
+      <div class="card"><span class="tag">Network</span><h3>Ref-архитектура</h3><p>У каждого оператора — свой сайт и ref-ссылка в общую сеть.</p></div>
+    </div>
+  </div>
+
+  <div data-role-show="friend">
+    <h2>Друг узнаёт: <span style="color:var(--gold-bright)">что со мной всё в порядке.</span></h2>
+    <p class="lead">Я живу в Hayward с Олей, работаю из дома, бегаю вдоль океана. Меньше суеты, больше дела. Если давно не виделись — напиши, не стесняйся.</p>
+    <div class="grid-2" data-role-show="friend">
+      <div class="card"><span class="tag">Жизнь</span><h3>Bay Area · 2026</h3><p>После 5 стран наконец-то одна точка. Hayward, CA.</p></div>
+      <div class="card"><span class="tag">Проекты</span><h3>Что строю</h3><p>DEMI Club, vda.vc, AI-tooling для консультантов. Без пафоса.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- YOUR SCENARIO -->
+<section>
+  <div class="eyebrow">Your Scenario</div>
+
+  <div data-role-show="investor">
+    <h2>Как я деплою твой capital</h2>
+    <p class="lead">Раунд привязан к milestone'ам, не к вере. Каждая tranche — конкретный deliverable: пилот, лицензия, MRR.</p>
+    <div class="grid-3" data-role-show="investor">
+      <div class="card"><span class="tag">Seed</span><h3>DEMI MVP</h3><p>$250K → 6 месяцев → 10 операторов + AI-ассистент в проде.</p></div>
+      <div class="card"><span class="tag">A</span><h3>Licensing</h3><p>$1M → 12 мес → EMI/VASP в 2 юрисдикциях + первый B2B2C клиент.</p></div>
+      <div class="card"><span class="tag">B</span><h3>Scale</h3><p>$5M → 24 мес → 100 операторов, $2M ARR, patent filed.</p></div>
+    </div>
+  </div>
+
+  <div data-role-show="client">
+    <h2>Как проходит работа</h2>
+    <div class="grid-3" data-role-show="client">
+      <div class="card"><span class="tag">День 1</span><h3>Диагностика</h3><p>60 минут голосом. NDA. Честный ответ: беру / не беру / к кому обратиться.</p></div>
+      <div class="card"><span class="tag">Неделя 1</span><h3>Разбор</h3><p>Документ «Точка A → Точка B» + 3 сценария + первые действия.</p></div>
+      <div class="card"><span class="tag">Месяц 1+</span><h3>Сопровождение</h3><p>Retainer, weekly-sync, sparring до результата. Выход в любой момент.</p></div>
+    </div>
+  </div>
+
+  <div data-role-show="partner">
+    <h2>Путь партнёра</h2>
+    <div class="grid-3" data-role-show="partner">
+      <div class="card"><span class="tag">L1</span><h3>Observer</h3><p>Читаешь DEMIs·world, подписан на manifest. Бесплатно.</p></div>
+      <div class="card"><span class="tag">L2</span><h3>Operator</h3><p>Свой сайт на vda-vc инфраструктуре. Ref-сеть. Revenue-share.</p></div>
+      <div class="card"><span class="tag">L3</span><h3>Core</h3><p>По приглашению. Equity в DEMI Club. Голос в архитектуре.</p></div>
+    </div>
+  </div>
+
+  <div data-role-show="friend">
+    <h2>Как мы можем увидеться</h2>
+    <div class="grid-3" data-role-show="friend">
+      <div class="card"><span class="tag">Онлайн</span><h3>Звонок</h3><p>Telegram audio/video — любое время, я на PT UTC-7.</p></div>
+      <div class="card"><span class="tag">Bay Area</span><h3>Кофе</h3><p>Hayward / SF / Oakland. Пиши — договоримся.</p></div>
+      <div class="card"><span class="tag">Travel</span><h3>Приеду сам</h3><p>2-3 поездки в год. LA, NYC, Майами, Тбилиси, Дубай — возможно.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WEX / BTC-E (universal section) -->
+<section class="wex">
+  <div class="eyebrow">Track record · Moat</div>
+  <h2>WEX / BTC-e · $800M · Единственный кейс в мире</h2>
+  <p class="lead">В 2017 году ФБР изъяло BTC-e. Я восстановил биржу под именем WEX и вернул пользователям доступ к $800M. ФБР/IRS с 2017-го не вернул ни цента. Mt.Gox ждёт с 2014-го. Я дал окно в 2017-м.</p>
+
+  <div class="wex-stats">
+    <div class="wex-stat"><div class="num">$800M</div><div class="lbl">возврат</div></div>
+    <div class="wex-stat"><div class="num">$0</div><div class="lbl">от ФБР/IRS за 8 лет</div></div>
+    <div class="wex-stat"><div class="num">4</div><div class="lbl">ареста</div></div>
+    <div class="wex-stat"><div class="num">5</div><div class="lbl">стран</div></div>
+    <div class="wex-stat"><div class="num">27</div><div class="lbl">адвокатов</div></div>
+    <div class="wex-stat"><div class="num">1</div><div class="lbl">браслет (до сих пор)</div></div>
+  </div>
+
+  <p style="font-size:14px;border-left:2px solid var(--gold);padding-left:16px;font-style:italic;color:var(--fg)">
+    «Система наказывает тех, кто возвращает деньги людям. Я плачу за это до сих пор — и не жалею.»
+  </p>
+</section>
+
+<!-- BUSINESS MODEL + FINANCIALS (investor-focused, but visible to all) -->
+<section>
+  <div class="eyebrow">Business Model</div>
+
+  <div data-role-show="investor">
+    <h2>Как DEMI Club зарабатывает</h2>
+    <div class="grid-3" data-role-show="investor">
+      <div class="card"><span class="tag">B2C</span><h3>Consulting</h3><p>$500-$3K/час (оператор), revenue-share 70/30. Сеть = distribution.</p></div>
+      <div class="card"><span class="tag">B2B</span><h3>AI-operators</h3><p>$10-50K / интеграция клиенту. White-label AI-ассистентов.</p></div>
+      <div class="card"><span class="tag">B2B2C</span><h3>Licensing stack</h3><p>EMI/VASP/PSP пакет для fintech-стартапов. $100K+/год.</p></div>
+    </div>
+
+    <h3 style="margin-top:50px">Financials Y1-Y5 (модель)</h3>
+    <table class="fin" data-role-show="investor">
+      <thead><tr><th>Год</th><th>Операторы</th><th>Revenue</th><th>EBITDA %</th><th>Cumulative burn</th></tr></thead>
+      <tbody>
+        <tr><td>Y1 '26</td><td>10</td><td>$250K</td><td>-40%</td><td>$(350K)</td></tr>
+        <tr><td>Y2 '27</td><td>35</td><td>$1.2M</td><td>5%</td><td>$(600K)</td></tr>
+        <tr><td>Y3 '28</td><td>80</td><td>$4.5M</td><td>18%</td><td>$(200K)</td></tr>
+        <tr><td>Y4 '29</td><td>150</td><td>$11M</td><td>26%</td><td>+$2.4M</td></tr>
+        <tr><td>Y5 '30</td><td>250</td><td>$24M</td><td>32%</td><td>+$9.5M</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;margin-top:12px">Модель консервативная. Assumptions и sensitivity — в полном deck по запросу.</p>
+  </div>
+
+  <div data-role-show="client">
+    <h2>Тарифы</h2>
+    <div class="grid-3" data-role-show="client">
+      <div class="card"><span class="tag">Point</span><h3>$500 / час</h3><p>Разовая голосовая консультация. Любой вопрос.</p></div>
+      <div class="card"><span class="tag">Sprint</span><h3>$3K / неделя</h3><p>Погружение в задачу, диагностика, план выхода.</p></div>
+      <div class="card"><span class="tag">Retainer</span><h3>$10K+ / мес</h3><p>Постоянное сопровождение. Advisor / board seat.</p></div>
+    </div>
+  </div>
+
+  <div data-role-show="partner">
+    <h2>Экономика оператора</h2>
+    <table class="fin" data-role-show="partner">
+      <thead><tr><th>Уровень</th><th>Split</th><th>Что даёт сеть</th></tr></thead>
+      <tbody>
+        <tr><td>L2 Operator</td><td>70 / 30</td><td>Сайт, AI-ассистент, lead-flow, NDA-инфра</td></tr>
+        <tr><td>L3 Core</td><td>85 / 15 + equity</td><td>Всё выше + голос в roadmap + co-investments</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div data-role-show="friend">
+    <h2>Как дела с деньгами</h2>
+    <p class="lead">Консультирую, строю DEMI. Денег хватает, живём спокойно. Не беспокойся — если буду просить помощи, скажу прямо. Пока — сам разбираюсь.</p>
+  </div>
+</section>
+
+<!-- ROADMAP (investor + partner) -->
+<section data-role-show="investor">
+  <div class="eyebrow" data-role-show="investor">24-month Strategic Roadmap</div>
+  <div class="grid-3" data-role-show="investor">
+    <div class="card"><span class="tag">Q1-Q2 '26</span><h3>MVP</h3><p>DEMI Club site, 10 operators onboarded, AI-ассистент в проде, первый B2B пилот.</p></div>
+    <div class="card"><span class="tag">Q3-Q4 '26</span><h3>Licensing</h3><p>EMI application, первая юрисдикция. Raise A round.</p></div>
+    <div class="card"><span class="tag">'27 H1</span><h3>Scale</h3><p>35 operators, $1M+ ARR, 3 B2B2C клиента.</p></div>
+    <div class="card"><span class="tag">'27 H2</span><h3>Patent</h3><p>Role-adaptive operator platform — provisional filed.</p></div>
+    <div class="card"><span class="tag">'28</span><h3>International</h3><p>2 юрисдикции, 80 operators, EBITDA break-even.</p></div>
+    <div class="card"><span class="tag">'28 exit opt.</span><h3>Strategic</h3><p>CVC / strategic buyer / IPO path — optionality.</p></div>
+  </div>
+</section>
+
+<section data-role-show="investor">
+  <div class="eyebrow">Use of Funds · Seed $250K</div>
+  <table class="fin" data-role-show="investor">
+    <thead><tr><th>Category</th><th>Amount</th><th>Outcome</th></tr></thead>
+    <tbody>
+      <tr><td>Product / AI infra</td><td>$110K (44%)</td><td>DEMI platform v1, AI-operator engine</td></tr>
+      <tr><td>Operator onboarding</td><td>$60K (24%)</td><td>10 operators со своими сайтами, обучение</td></tr>
+      <tr><td>Legal / licensing prep</td><td>$45K (18%)</td><td>EMI discovery в 2 юрисдикциях</td></tr>
+      <tr><td>Founder runway</td><td>$35K (14%)</td><td>6 мес full-time execution</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- CORE CIRCLE (universal) -->
+<section>
+  <div class="eyebrow">Core Circle · Operators with scars</div>
+  <h2>Четверо, которые знают цену</h2>
+  <div class="grid-3">
+    <div class="card"><span class="tag">Architect</span><h3>Дмитрий Васильев</h3><p>Bay Area. WEX / BCB / Prizmbit. Крипто/финтех. 4 ареста.</p></div>
+    <div class="card"><span class="tag">Engineer</span><h3>Даниил</h3><p>AI-tooling, MCP, automation. Core DEMI infra.</p></div>
+    <div class="card"><span class="tag">Operator</span><h3>Антон</h3><p>Ops, partnerships, Bычковский network.</p></div>
+    <div class="card"><span class="tag">Guard</span><h3>Миша «Sheva»</h3><p>Security-detector, incident response, low-level.</p></div>
+  </div>
+</section>
+
+<!-- PATENT / MOAT (investor) -->
+<section data-role-show="investor" class="wex">
+  <div class="eyebrow">Patent · Defensive Moat</div>
+  <h2>Role-adaptive operator platform</h2>
+  <p class="lead">Идея патента: платформа, где один оператор предъявляет себя разным аудиториям (investor / client / partner / community) через единый content graph + AI-ассистент, адаптирующий коммуникацию под role. Этот самый сайт — working prototype.</p>
+  <div class="grid-2" data-role-show="investor">
+    <div class="card"><span class="tag">Claim 1</span><h3>Role-context switching</h3><p>Single content graph → 4+ role-specific views + metrics + CTAs.</p></div>
+    <div class="card"><span class="tag">Claim 2</span><h3>AI agent with role awareness</h3><p>Ассистент знает выбранную роль пользователя и tailor'ит ответ.</p></div>
+  </div>
+</section>
+
+<!-- LINKS / ECOSYSTEM -->
+<section>
+  <div class="eyebrow">Ecosystem</div>
+  <h2>Куда идти дальше</h2>
+  <div class="grid-3">
+    <div class="card"><a href="https://demis.world" target="_blank"><h3>demis.world →</h3></a><p>Каталог AI-операторов DEMI сети. Обновляется еженедельно.</p></div>
+    <div class="card"><a href="/manifest"><h3>/manifest →</h3></a><p>Operators with Scars — публичный manifesto.</p></div>
+    <div class="card"><a href="/"><h3>vda.vc →</h3></a><p>Живой сайт Дмитрия. Кейсы, услуги, контент.</p></div>
+  </div>
+
+  <div class="pdf-bar">
+    <button class="btn ghost" onclick="exportPDF()">📄 Скачать one-pager под твою роль</button>
+    <span class="hint">PDF генерируется локально · 1 страница · персонализированный под выбранную роль</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="row">
+    <div>
+      <div style="font-family:var(--serif);color:var(--gold-bright);font-size:18px;margin-bottom:8px">Dmitrii Vasilev</div>
+      <div>dima@vda.vc · <a href="https://t.me/Posbitcoin">@Posbitcoin</a> · Hayward, California</div>
+    </div>
+    <div style="text-align:right;font-size:11px;letter-spacing:.1em;color:var(--fg-muted)">
+      v18 · Role-adaptive pitch<br>2026-04-22
+    </div>
+  </div>
+  <div class="nfa">
+    <b>Disclaimer:</b> This page is informational. Nothing here is financial, investment, legal or tax advice (NFA). Past performance (incl. WEX / BTC-e) does not guarantee future results. There is an active legal process in the United States — Dmitrii discusses it openly as operational experience, not as admission or denial of specific claims. Cryptocurrency and fintech activity may be regulated in your jurisdiction — consult your own advisors before acting.
+  </div>
+</footer>
+
+</main>
+
+<!-- AI ASSISTANT -->
+<button class="ai-fab" id="aiFab" onclick="toggleAI()" title="Ask Demi">
+  <span class="dot"></span>
+  <span>Demi</span>
+</button>
+
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-head">
+    <div>
+      <div class="t">Demi AI</div>
+      <div class="s" id="aiSub">Готов ответить · роль: инвестор</div>
+    </div>
+    <button onclick="toggleAI()">×</button>
+  </div>
+  <div class="ai-body" id="aiBody">
+    <div class="ai-msg bot" id="aiGreeting">Привет. Я Demi — AI-представитель Дмитрия. Спроси про продукт, кейсы, цены, инвестиции, WEX. Отвечаю под выбранную роль.</div>
+    <div class="ai-sugg" id="aiSugg"></div>
+  </div>
+  <div class="ai-input">
+    <input id="aiInput" placeholder="Напиши вопрос..." onkeydown="if(event.key==='Enter')sendAI()">
+    <button onclick="sendAI()">→</button>
+  </div>
+</div>
+
+<!-- APPROVE -->
+<button class="approve-fab" onclick="showApprove()">✅ Approve → сделать живым</button>
+
+<script>
+// ============ I18N ============
+const i18n = {
+  ru: {
+    'role.label':'Я —',
+    'role.investor':'Инвестор',
+    'role.client':'Клиент',
+    'role.partner':'Партнёр',
+    'role.friend':'Друг / Сообщество',
+    'hero.eyebrow':'Executive Summary · 2026'
+  },
+  en: {
+    'role.label':'I am —',
+    'role.investor':'Investor',
+    'role.client':'Client',
+    'role.partner':'Partner',
+    'role.friend':'Friend / Community',
+    'hero.eyebrow':'Executive Summary · 2026'
+  }
+};
+function setLang(lang){
+  document.body.dataset.lang = lang;
+  document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.toggle('active', b.dataset.lang===lang));
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(i18n[lang] && i18n[lang][k]) el.textContent = i18n[lang][k];
+  });
+  localStorage.setItem('v18_lang', lang);
+}
+document.querySelectorAll('.lang-toggle button').forEach(b=>{
+  b.addEventListener('click', ()=> setLang(b.dataset.lang));
+});
+
+// ============ ROLE SWITCHING ============
+const ROLE_LABELS = {
+  investor:{ru:'инвестор',en:'investor'},
+  client:{ru:'клиент',en:'client'},
+  partner:{ru:'партнёр',en:'partner'},
+  friend:{ru:'друг',en:'friend'}
+};
+function setRole(role){
+  document.body.dataset.role = role;
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.toggle('active', b.dataset.role===role));
+  const lang = document.body.dataset.lang || 'ru';
+  document.getElementById('aiSub').textContent = (lang==='ru'?'Готов ответить · роль: ':'Ready · role: ') + ROLE_LABELS[role][lang];
+  renderAISuggestions(role);
+  localStorage.setItem('v18_role', role);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.role-btn').forEach(b=>{
+  b.addEventListener('click', ()=> setRole(b.dataset.role));
+});
+
+// restore prefs
+(() => {
+  const savedRole = localStorage.getItem('v18_role');
+  const savedLang = localStorage.getItem('v18_lang');
+  if(savedLang) setLang(savedLang);
+  if(savedRole) setRole(savedRole);
+  else renderAISuggestions('investor');
+})();
+
+// ============ AI ASSISTANT ============
+const AI_SUGGESTIONS = {
+  investor:['Кейс WEX','Юнит-экономика','Use of funds','Exit-сценарий'],
+  client:['Как начать работу','EMI-лицензии','Сколько стоит','Реструктуризация'],
+  partner:['Как стать оператором','Core-круг','Revenue split','Что даёт сеть'],
+  friend:['Как дела','Где ты сейчас','Можно позвонить','Что строишь']
+};
+// static fallback answers
+const AI_ANSWERS = {
+  'кейс wex':'В 2017 ФБР изъяло BTC-e. Я запустил WEX и вернул пользователям доступ к $800M. ФБР/IRS с 2017-го не вернул ни цента — это единственный задокументированный кейс возврата после изъятия биржи. Цена: 4 ареста, 5 стран, браслет до сих пор.',
+  'юнит-экономика':'Y1: 10 операторов, $250K revenue, EBITDA -40%. Y3: 80 ops, $4.5M, +18%. Y5: 250 ops, $24M, +32%. Break-even в Y4. Полная модель с sensitivity — по запросу.',
+  'use of funds':'Seed $250K: 44% product/AI, 24% operator onboarding, 18% legal/licensing discovery, 14% founder runway. Milestone-gated.',
+  'exit-сценарий':'24 мес план: Q4 27 — patent filed, Y4 — EBITDA break-even, '28 — strategic options (CVC / strategic buyer / IPO path). Optionality, не vision.',
+  'как начать работу':'60 мин голосом под NDA — диагностика. Честный ответ: беру / не беру / к кому обратиться. Дальше — разовая ($500/ч), спринт ($3K/нед) или retainer ($10K+/мес).',
+  'emi-лицензии':'Работаю с действующими (UK FCA, Литва, Грузия BoG, Армения, ОАЭ DIFC/ADGM). Цена зависит от юрисдикции и фазы — от $50K discovery до $300K+ full setup. Сроки 6-18 мес. NFA.',
+  'сколько стоит':'$500/час разово. $3K/неделя спринт. $10K+/мес retainer. Обычно начинаем с 60-мин диагностики бесплатно — чтобы понять, нужен ли я тебе вообще.',
+  'реструктуризация':'Делал EU финтех (EMI), кросс-бордер lending кейс, реструктуризация холдинга. Подход: сначала stop-bleeding (30 дней), потом структура (90 дней), потом рост. Без магии, только систематика.',
+  'как стать оператором':'L1 Observer — free. L2 Operator — по собеседованию, свой сайт + revenue-share 70/30. L3 Core — по приглашению, equity. Шрамы обязательны.',
+  'core-круг':'Дмитрий Васильев · Даниил · Антон · Миша (Sheva). Четверо. Закрытый круг. Расширение — только по консенсусу.',
+  'revenue split':'L2 оператор — 70/30 (ты / сеть). L3 core — 85/15 + equity в DEMI Club. Сеть даёт: сайт, AI, lead-flow, NDA-инфру, ref-систему.',
+  'что даёт сеть':'Твой сайт на vda-vc infra, AI-ассистент под тебя, lead-flow из общего потока, юр/NDA-шаблоны, ref-сеть с другими операторами. Ты фокусируешься на экспертизе.',
+  'как дела':'Живу в Hayward с Олей, работаю из дома, бегаю вдоль океана. После 5 стран наконец одна точка. Браслет до сих пор — но это уже быт, не драма.',
+  'где ты сейчас':'Hayward, California, Bay Area. PT UTC-7. Дома почти всегда. В SF / Oakland выезжаю — могу встретить за кофе.',
+  'можно позвонить':'Конечно. Telegram @Posbitcoin — пиши когда удобно, я отвечу. Созвон аудио/видео тоже через TG.',
+  'что строишь':'DEMI Agent Club — сеть AI-операторов поверх доменной экспертизы. Consulting ✕ AI ✕ network equity. vda.vc — мой публичный сайт. demis.world — каталог сети.'
+};
+function renderAISuggestions(role){
+  const box = document.getElementById('aiSugg');
+  box.innerHTML='';
+  (AI_SUGGESTIONS[role]||[]).forEach(q=>{
+    const b = document.createElement('button');
+    b.textContent = q;
+    b.onclick = () => { document.getElementById('aiInput').value = q; sendAI(); };
+    box.appendChild(b);
+  });
+}
+function toggleAI(){
+  document.getElementById('aiPanel').classList.toggle('open');
+}
+function openAI(presetQ){
+  document.getElementById('aiPanel').classList.add('open');
+  if(presetQ){
+    document.getElementById('aiInput').value = presetQ;
+    setTimeout(sendAI, 300);
+  }
+}
+function addMsg(text, who){
+  const body = document.getElementById('aiBody');
+  const m = document.createElement('div');
+  m.className = 'ai-msg ' + who;
+  m.textContent = text;
+  body.appendChild(m);
+  body.scrollTop = body.scrollHeight;
+}
+async function sendAI(){
+  const input = document.getElementById('aiInput');
+  const q = (input.value||'').trim();
+  if(!q) return;
+  input.value='';
+  addMsg(q, 'me');
+  // try API; fallback to static
+  try{
+    const role = document.body.dataset.role;
+    const lang = document.body.dataset.lang;
+    const r = await fetch('/api/ask-demi', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({q, role, lang, agent_id:'dmitrii'})
+    });
+    if(r.ok){
+      const j = await r.json();
+      if(j && j.answer){ addMsg(j.answer, 'bot'); return; }
+    }
+  }catch(e){ /* fall through */ }
+  // fallback static
+  const key = q.toLowerCase();
+  let best = null;
+  for(const k in AI_ANSWERS){
+    if(key.includes(k.split(' ')[0])) { best = AI_ANSWERS[k]; break; }
+  }
+  if(!best){
+    // match by any word overlap
+    for(const k in AI_ANSWERS){
+      if(k.split(' ').some(w => key.includes(w))) { best = AI_ANSWERS[k]; break; }
+    }
+  }
+  addMsg(best || 'Хороший вопрос. Напиши Дмитрию напрямую в Telegram — @Posbitcoin. Отвечает обычно в течение дня.', 'bot');
+}
+
+// ============ PDF EXPORT ============
+async function exportPDF(){
+  const { jsPDF } = window.jspdf;
+  const role = document.body.dataset.role;
+  const lang = document.body.dataset.lang || 'ru';
+  const roleLabel = {
+    investor:{ru:'Инвестор',en:'Investor'},
+    client:{ru:'Клиент',en:'Client'},
+    partner:{ru:'Партнёр',en:'Partner'},
+    friend:{ru:'Друг',en:'Friend'}
+  }[role][lang];
+
+  const doc = new jsPDF({unit:'pt',format:'a4'});
+  const W = doc.internal.pageSize.getWidth();
+  const H = doc.internal.pageSize.getHeight();
+
+  // page bg
+  doc.setFillColor(10,10,10);
+  doc.rect(0,0,W,H,'F');
+
+  // header
+  doc.setTextColor(232,201,122);
+  doc.setFont('times','bold');
+  doc.setFontSize(24);
+  doc.text('DMITRII VASILEV', 40, 60);
+
+  doc.setTextColor(168,162,150);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.text('One-pager · v18 · role: ' + roleLabel.toUpperCase(), 40, 78);
+
+  // role-specific headline + content
+  const content = {
+    investor:{
+      h:'$800M returned. Y1-Y5 DEMI Club roadmap. Seeking co-investors.',
+      bullets:[
+        'WEX/BTC-e: returned users $800M after FBI seizure — only documented case globally',
+        'DEMI Agent Club: network of AI-operators on top of domain expertise',
+        'Seed $250K: 44% product, 24% ops, 18% legal, 14% runway',
+        'Y5 projection: 250 operators, $24M revenue, 32% EBITDA',
+        'Moat: patent (role-adaptive platform) + reputational network'
+      ],
+      cta:'Request full deck: dima@vda.vc'
+    },
+    client:{
+      h:'Crisis management · Fintech · EMI licensing · OTC · Cross-border',
+      bullets:[
+        'Ex-CEO WEX, MD BCB.credit — operator, not theorist',
+        'Diagnostic call: 60 min under NDA, honest take',
+        'Pricing: $500/hr · $3K/week sprint · $10K+/mo retainer',
+        'Jurisdictions: UK, Lithuania, Georgia, Armenia, UAE (2026 state)',
+        'Cases: EU финтех (EMI), кросс-бордер lending кейс, реструктуризация холдинга — real restructurings'
+      ],
+      cta:'Telegram @Posbitcoin · dima@vda.vc'
+    },
+    partner:{
+      h:'Operators with scars. DEMI Agent Club is recruiting core circle.',
+      bullets:[
+        'Philosophy: scars are the entry requirement, not a liability',
+        'L1 Observer — free · L2 Operator — 70/30 split · L3 Core — equity',
+        'Network gives: site, AI, leads, NDA infra, ref-system',
+        'Core 4: Dmitrii · Daniil · Anton · Misha (Sheva)',
+        'Network-equity model, not salary'
+      ],
+      cta:'Apply via @Posbitcoin'
+    },
+    friend:{
+      h:'Bay Area · Ocean · Team · Life after the fund.',
+      bullets:[
+        'Location: Hayward, California (PT UTC-7)',
+        '4 arrests, 5 countries, ankle bracelet — still here, still building',
+        'With Olga, running by the ocean, less noise more work',
+        'Projects: DEMI Club, vda.vc, AI-tooling',
+        'Open door policy — text me'
+      ],
+      cta:'Telegram @Posbitcoin'
+    }
+  }[role];
+
+  doc.setTextColor(245,240,225);
+  doc.setFont('times','italic');
+  doc.setFontSize(16);
+  const hlines = doc.splitTextToSize(content.h, W-80);
+  doc.text(hlines, 40, 120);
+
+  // divider
+  doc.setDrawColor(201,169,97);
+  doc.setLineWidth(0.5);
+  doc.line(40, 170, W-40, 170);
+
+  // bullets
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(11);
+  doc.setTextColor(245,240,225);
+  let y = 200;
+  content.bullets.forEach(b=>{
+    doc.setTextColor(201,169,97);
+    doc.text('•', 40, y);
+    doc.setTextColor(245,240,225);
+    const lines = doc.splitTextToSize(b, W-80);
+    doc.text(lines, 58, y);
+    y += lines.length * 15 + 8;
+  });
+
+  // stats block
+  y += 10;
+  doc.setDrawColor(201,169,97);
+  doc.line(40, y, W-40, y);
+  y += 30;
+  doc.setFont('times','bold');
+  doc.setFontSize(20);
+  doc.setTextColor(232,201,122);
+  doc.text('$800M', 40, y);
+  doc.text('4', 180, y);
+  doc.text('5', 280, y);
+  doc.text('15+', 380, y);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(8);
+  doc.setTextColor(168,162,150);
+  doc.text('RETURNED TO USERS', 40, y+14);
+  doc.text('ARRESTS', 180, y+14);
+  doc.text('COUNTRIES', 280, y+14);
+  doc.text('YEARS OPERATING', 380, y+14);
+
+  // CTA
+  y = H - 80;
+  doc.setFillColor(201,169,97);
+  doc.rect(40, y, W-80, 36, 'F');
+  doc.setTextColor(17,17,17);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(12);
+  doc.text(content.cta, W/2, y+22, {align:'center'});
+
+  // footer
+  doc.setTextColor(138,114,56);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(8);
+  doc.text('vda.vc · Generated ' + new Date().toISOString().split('T')[0] + ' · NFA · role: ' + roleLabel, 40, H-20);
+
+  doc.save('dmitrii-vasilev-v18-'+role+'.pdf');
+}
+
+// ============ APPROVE ============
+function showApprove(){
+  alert('Чтобы сделать v18 живым → напиши Дмитрию в Telegram @Posbitcoin:\n\n«сделай v18 живым»\n\nОн скопирует содержимое v18.html в index.html и запушит.');
+}
+
+// ============ MOBILE SANITY ============
+window.addEventListener('load', () => {
+  if(document.body.scrollWidth > window.innerWidth + 2){
+    console.warn('v18: horizontal overflow detected', document.body.scrollWidth, 'vs', window.innerWidth);
+  }
+});
+</script>
+</body>
+</html>

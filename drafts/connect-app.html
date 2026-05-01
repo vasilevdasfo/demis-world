@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>VDA Connect</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root {
+    --bg: var(--tg-theme-bg-color, #0a0b10);
+    --card: var(--tg-theme-secondary-bg-color, #13151d);
+    --text: var(--tg-theme-text-color, #e8ecf4);
+    --hint: var(--tg-theme-hint-color, #8892a8);
+    --button: var(--tg-theme-button-color, #d4a843);
+    --button-text: var(--tg-theme-button-text-color, #000);
+    --gold: #d4a843;
+    --green: #4ade80;
+    --red: #f87171;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 80px;
+  }
+
+  /* ── Header ── */
+  .header {
+    padding: 16px 20px 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .header h1 span { color: var(--gold); }
+  .balance-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  .balance-item {
+    text-align: center;
+  }
+  .balance-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+  }
+  .balance-label {
+    font-size: 12px;
+    color: var(--hint);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex;
+    padding: 8px 16px;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: transparent;
+    color: var(--hint);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .tab.active {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+  }
+
+  /* ── Match Cards ── */
+  .cards-container {
+    position: relative;
+    height: 520px;
+    margin: 16px 20px;
+    perspective: 800px;
+  }
+  .match-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--card);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s, opacity 0.4s;
+    cursor: grab;
+    touch-action: pan-y;
+    position: relative;
+    will-change: transform, opacity;
+    overflow: hidden;
+  }
+  /* Animated gradient background */
+  .match-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from var(--card-angle, 0deg),
+      rgba(212,168,67,0.08) 0%,
+      rgba(74,222,128,0.05) 25%,
+      rgba(96,165,250,0.06) 50%,
+      rgba(248,113,113,0.05) 75%,
+      rgba(212,168,67,0.08) 100%
+    );
+    animation: rotateGradient 8s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .match-card > * { position: relative; z-index: 1; }
+  @keyframes rotateGradient {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Avatar */
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .card-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .card-avatar-placeholder {
+    background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+  }
+  .avatar-hot { background: linear-gradient(135deg, #f87171 0%, #dc2626 100%); }
+  .avatar-warm { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); }
+  .card-header-info { flex: 1; }
+
+  /* Swipe stamp overlays */
+  .stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg) scale(0);
+    font-size: 52px;
+    font-weight: 900;
+    padding: 12px 32px;
+    border-radius: 16px;
+    border: 5px solid;
+    opacity: 0;
+    pointer-events: none;
+    transition: none;
+    z-index: 20;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+  .stamp-like {
+    color: var(--green);
+    border-color: var(--green);
+    transform: translate(-50%, -50%) rotate(-15deg) scale(0);
+  }
+  .stamp-nope {
+    color: var(--red);
+    border-color: var(--red);
+    transform: translate(-50%, -50%) rotate(15deg) scale(0);
+  }
+
+  /* Smoother exit */
+  .match-card.exit-right {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    transform: translateX(150%) rotate(20deg) !important;
+    opacity: 0 !important;
+  }
+  .match-card.exit-left {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    transform: translateX(-150%) rotate(-20deg) !important;
+    opacity: 0 !important;
+  }
+  .card-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  .score-hot {
+    background: rgba(248,113,113,0.15);
+    color: var(--red);
+  }
+  .score-warm {
+    background: rgba(251,191,36,0.15);
+    color: #fbbf24;
+  }
+  .card-name {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+  .card-meta {
+    font-size: 14px;
+    color: var(--hint);
+    margin-top: 2px;
+  }
+  .card-bio {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-top: 16px;
+    flex: 1;
+    overflow: hidden;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .card-tag {
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    background: rgba(212,168,67,0.1);
+    color: var(--gold);
+    border: 1px solid rgba(212,168,67,0.2);
+  }
+  .card-reason {
+    font-size: 15px;
+    color: var(--green);
+    margin-top: auto;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(74,222,128,0.06), rgba(96,165,250,0.06));
+    border-radius: 12px;
+    border: 1px solid rgba(74,222,128,0.12);
+    backdrop-filter: blur(4px);
+  }
+
+  /* ── Action Buttons ── */
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px;
+  }
+  .action-btn {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.1);
+    background: var(--card);
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .action-btn:active {
+    transform: scale(0.9);
+  }
+  .btn-skip { border-color: rgba(248,113,113,0.3); }
+  .btn-skip:hover { background: rgba(248,113,113,0.1); border-color: var(--red); }
+  .btn-like { border-color: rgba(74,222,128,0.3); width: 84px; height: 84px; font-size: 36px; }
+  .btn-like:hover { background: rgba(74,222,128,0.1); border-color: var(--green); }
+  .btn-info { border-color: rgba(96,165,250,0.3); }
+  .btn-info:hover { background: rgba(96,165,250,0.1); }
+
+  /* ── Empty State ── */
+  .empty-state {
+    text-align: center;
+    padding: 60px 30px;
+  }
+  .empty-state .icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+  }
+  .empty-state h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .empty-state p {
+    font-size: 17px;
+    color: var(--hint);
+    line-height: 1.6;
+  }
+  .invite-btn {
+    margin-top: 20px;
+    padding: 16px 32px;
+    border-radius: 14px;
+    background: var(--gold);
+    color: #000;
+    font-weight: 800;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* ── Profile Tab ── */
+  .profile-section {
+    padding: 20px;
+    display: none;
+  }
+  .profile-section.active { display: block; }
+  .profile-field {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .profile-label {
+    font-size: 13px;
+    color: var(--hint);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .profile-value {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .matches-section { display: block; }
+  .matches-section.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🤝 VDA <span>Connect</span></h1>
+  <div class="balance-bar">
+    <div class="balance-item">
+      <div class="balance-num" id="bal-count">3</div>
+      <div class="balance-label">баланс</div>
+    </div>
+    <div class="balance-item">
+      <div class="balance-num" id="match-count">0</div>
+      <div class="balance-label">мэтчей</div>
+    </div>
+    <div class="balance-item">
+      <div class="balance-num" id="mutual-count">0</div>
+      <div class="balance-label">взаимных</div>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('matches')">🔥 Мэтчи</button>
+  <button class="tab" onclick="showTab('profile')">👤 Профиль</button>
+  <button class="tab" onclick="showTab('invite')">🎁 Пригласить</button>
+</div>
+
+<!-- Matches Tab -->
+<div class="matches-section" id="tab-matches">
+  <div class="cards-container" id="cards-container"></div>
+  <div class="actions" id="actions">
+    <button class="action-btn btn-skip" onclick="swipe('left')">👎</button>
+    <button class="action-btn btn-like" onclick="swipe('right')">🤝</button>
+    <button class="action-btn btn-info" onclick="showInfo()">ℹ️</button>
+  </div>
+</div>
+
+<!-- Profile Tab -->
+<div class="profile-section" id="tab-profile"></div>
+
+<!-- Invite Tab -->
+<div class="profile-section" id="tab-invite">
+  <div class="empty-state">
+    <div class="icon">🎁</div>
+    <h3>Пригласи друга</h3>
+    <p>Каждый друг, который заполнит профиль = +1 к твоему балансу</p>
+    <button class="invite-btn" onclick="shareInvite()">📤 Поделиться ссылкой</button>
+  </div>
+</div>
+
+<script>
+// ── Config ──
+const API_URL = 'https://exclude-brick-logged-october.trycloudflare.com'; // Cloudflare tunnel → bot API
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.ready();
+  tg.expand();
+  tg.enableClosingConfirmation();
+}
+const initData = tg?.initData || '';
+const tgUser = tg?.initDataUnsafe?.user || null;
+
+// API helper
+async function apiCall(endpoint, method = 'GET', body = null) {
+  if (!API_URL) return null;
+  const opts = {
+    method,
+    headers: { 'Content-Type': 'application/json', 'X-Telegram-Init-Data': initData },
+  };
+  if (body) opts.body = JSON.stringify(body);
+  try {
+    const res = await fetch(API_URL + endpoint, opts);
+    return await res.json();
+  } catch (e) { console.error('API:', e); return null; }
+}
+
+// ── Demo Data ──
+const DEMO_MATCHES = [
+  {
+    target_id: 1,
+    name: "Ирина Попова",
+    city: "Таллин", age: 41,
+    bio: "Юрист, специализация: крипто-регуляция, EMI, VASP лицензии в ЕС.",
+    skills: ["Юрист", "Консалтинг", "Финансы"],
+    needs: ["Клиент", "Партнёр"],
+    score: 176,
+    tags: ["юрист", "крипто", "compliance"],
+    reason: "Может помочь с VASP лицензией и compliance"
+  },
+  {
+    target_id: 2,
+    name: "Максим (VC Fund)",
+    city: "Сингапур", age: 48,
+    bio: "Управляющий партнёр крипто-фонда. Инвестируем в DeFi, инфраструктуру, RWA.",
+    skills: ["Финансы", "Менеджмент", "Консалтинг"],
+    needs: ["Разработчик", "CTO", "Партнёр"],
+    score: 264,
+    tags: ["инвестиции", "defi", "rwa"],
+    reason: "Ищет проекты для инвестирования — идеальный инвестор"
+  },
+  {
+    target_id: 3,
+    name: "Андрей (AI Builder)",
+    city: "Bay Area", age: 34,
+    bio: "Строю AI-агентов для бизнеса. Автоматизация CRM, ботов, воронок.",
+    skills: ["AI/ML", "Разработка", "Консалтинг"],
+    needs: ["Клиент", "Партнёр", "Инвестор"],
+    score: 154,
+    tags: ["ai", "автоматизация", "боты"],
+    reason: "AI-разработчик в Bay Area — потенциальный партнёр по автоматизации"
+  },
+  {
+    target_id: 4,
+    name: "Елена (Broker)",
+    city: "Москва", age: 33,
+    bio: "Брокер, работаю с крупными клиентами. Ищу крипто-направление.",
+    skills: ["Финансы", "Продажи", "Маркетинг"],
+    needs: ["Ментор", "Консультант", "Партнёр"],
+    score: 248,
+    tags: ["финансы", "брокер", "крипто"],
+    reason: "Ищет ментора в крипто — ты идеальный кандидат"
+  },
+  {
+    target_id: 5,
+    name: "А-клиент (партнёрская сеть)",
+    city: "Лондон", age: 42,
+    bio: "VC partner / EMI structure (анонимизировано)",
+    skills: ["Финтех", "Финансы", "Менеджмент"],
+    needs: ["Консультант", "Юрист", "Партнёр"],
+    score: 220,
+    tags: ["финтех", "emi", "банки"],
+    reason: "EMI + крипто-регуляция — взаимная экспертиза"
+  }
+];
+
+let matches = [...DEMO_MATCHES];
+let currentIndex = 0;
+let balance = 3;
+
+// ── Swipe State ──
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let currentX = 0;
+let dragCard = null;
+let backCard = null;
+
+function renderCards() {
+  const container = document.getElementById('cards-container');
+  container.innerHTML = '';
+
+  if (currentIndex >= matches.length || balance <= 0) {
+    document.getElementById('actions').style.display = 'none';
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">${balance <= 0 ? '💰' : '🎉'}</div>
+        <h3>${balance <= 0 ? 'Баланс закончился' : 'Все просмотрены!'}</h3>
+        <p>${balance <= 0 ? 'Пригласи друга чтобы получить +1' : 'Новые мэтчи появятся скоро'}</p>
+        <button class="invite-btn" onclick="shareInvite()">🎁 Пригласить друга</button>
+      </div>
+    `;
+    return;
+  }
+
+  document.getElementById('actions').style.display = 'flex';
+
+  // Render back card first (lower z-index)
+  if (currentIndex + 1 < matches.length) {
+    const m = matches[currentIndex + 1];
+    const back = createCardElement(m, false);
+    back.style.transform = 'scale(0.95) translateY(10px)';
+    back.style.opacity = '0.7';
+    back.style.zIndex = '5';
+    back.id = 'back-card';
+    container.appendChild(back);
+  }
+
+  // Render front card
+  const m = matches[currentIndex];
+  const front = createCardElement(m, true);
+  front.style.zIndex = '10';
+  front.id = 'front-card';
+
+  // Add stamp overlays
+  const likeStamp = document.createElement('div');
+  likeStamp.className = 'stamp stamp-like';
+  likeStamp.id = 'stamp-like';
+  likeStamp.textContent = 'LIKE';
+  front.appendChild(likeStamp);
+
+  const nopeStamp = document.createElement('div');
+  nopeStamp.className = 'stamp stamp-nope';
+  nopeStamp.id = 'stamp-nope';
+  nopeStamp.textContent = 'NOPE';
+  front.appendChild(nopeStamp);
+
+  // Touch handlers
+  front.addEventListener('touchstart', onTouchStart, { passive: true });
+  front.addEventListener('touchmove', onTouchMove, { passive: false });
+  front.addEventListener('touchend', onTouchEnd);
+  front.addEventListener('mousedown', onMouseDown);
+
+  container.appendChild(front);
+  document.getElementById('match-count').textContent = matches.length - currentIndex;
+}
+
+// Avatar colors by name hash
+const AVATAR_GRADIENTS = [
+  ['#f87171','#dc2626'], ['#fb923c','#ea580c'], ['#fbbf24','#d97706'],
+  ['#4ade80','#16a34a'], ['#60a5fa','#2563eb'], ['#a78bfa','#7c3aed'],
+  ['#f472b6','#db2777'], ['#d4a843','#b8860b'], ['#2dd4bf','#0d9488'],
+];
+
+function getAvatarGradient(name) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  const idx = Math.abs(hash) % AVATAR_GRADIENTS.length;
+  return AVATAR_GRADIENTS[idx];
+}
+
+function getInitials(name) {
+  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+}
+
+function createCardElement(m, isFront) {
+  const scoreClass = m.score >= 200 ? 'score-hot' : 'score-warm';
+  const scoreIcon = m.score >= 200 ? '🔥' : '🟡';
+  const [c1, c2] = getAvatarGradient(m.name);
+  const initials = getInitials(m.name);
+  const avatarUrl = m.photo_url || '';
+
+  const card = document.createElement('div');
+  card.className = 'match-card';
+  card.innerHTML = `
+    <div class="card-header">
+      <div class="card-avatar" style="background:linear-gradient(135deg,${c1},${c2})">
+        ${avatarUrl ? `<img src="${avatarUrl}" alt="${m.name}">` : initials}
+      </div>
+      <div class="card-header-info">
+        <div class="card-name">${m.name}</div>
+        <div class="card-meta">📍 ${m.city}, ${m.age} лет</div>
+      </div>
+      <div class="card-score ${scoreClass}">${scoreIcon} ${m.score}%</div>
+    </div>
+    <div class="card-bio">${m.bio}</div>
+    <div class="card-tags">
+      ${m.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}
+    </div>
+    <div class="card-reason">🤖 ${m.reason}</div>
+  `;
+  return card;
+}
+
+// ── Touch / Mouse Handlers ──
+function onTouchStart(e) {
+  startDrag(e.touches[0].clientX, e.touches[0].clientY);
+}
+function onTouchMove(e) {
+  e.preventDefault();
+  moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+}
+function onTouchEnd(e) {
+  endDrag(e.changedTouches[0].clientX);
+}
+function onMouseDown(e) {
+  startDrag(e.clientX, e.clientY);
+  const onMove = (ev) => moveDrag(ev.clientX, ev.clientY);
+  const onUp = (ev) => {
+    endDrag(ev.clientX);
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+  };
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+}
+
+function startDrag(x, y) {
+  isDragging = true;
+  startX = x;
+  startY = y;
+  currentX = 0;
+  dragCard = document.getElementById('front-card');
+  backCard = document.getElementById('back-card');
+  if (dragCard) dragCard.style.transition = 'none';
+}
+
+function moveDrag(x, y) {
+  if (!isDragging || !dragCard) return;
+  currentX = x - startX;
+  const rotation = currentX * 0.08; // max ~12deg at 150px
+  const absX = Math.abs(currentX);
+
+  dragCard.style.transform = `translateX(${currentX}px) rotate(${rotation}deg)`;
+
+  // Show stamps
+  const likeStamp = document.getElementById('stamp-like');
+  const nopeStamp = document.getElementById('stamp-nope');
+  const stampProgress = Math.min(absX / 100, 1);
+
+  if (currentX > 20) {
+    likeStamp.style.opacity = stampProgress;
+    likeStamp.style.transform = `translate(-50%, -50%) rotate(-15deg) scale(${0.5 + stampProgress * 0.5})`;
+    nopeStamp.style.opacity = 0;
+    nopeStamp.style.transform = `translate(-50%, -50%) rotate(15deg) scale(0)`;
+  } else if (currentX < -20) {
+    nopeStamp.style.opacity = stampProgress;
+    nopeStamp.style.transform = `translate(-50%, -50%) rotate(15deg) scale(${0.5 + stampProgress * 0.5})`;
+    likeStamp.style.opacity = 0;
+    likeStamp.style.transform = `translate(-50%, -50%) rotate(-15deg) scale(0)`;
+  } else {
+    likeStamp.style.opacity = 0;
+    nopeStamp.style.opacity = 0;
+  }
+
+  // Scale back card
+  if (backCard) {
+    const scale = 0.95 + 0.05 * stampProgress;
+    const translateY = 10 - 10 * stampProgress;
+    const opacity = 0.7 + 0.3 * stampProgress;
+    backCard.style.transition = 'none';
+    backCard.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+    backCard.style.opacity = opacity;
+  }
+}
+
+function endDrag(endX) {
+  if (!isDragging || !dragCard) return;
+  isDragging = false;
+
+  const diff = endX - startX;
+  const threshold = 80;
+
+  if (Math.abs(diff) > threshold) {
+    // Swipe complete
+    const direction = diff > 0 ? 'right' : 'left';
+    executeSwipe(direction);
+  } else {
+    // Spring back
+    dragCard.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s';
+    dragCard.style.transform = 'translateX(0) rotate(0deg)';
+
+    const likeStamp = document.getElementById('stamp-like');
+    const nopeStamp = document.getElementById('stamp-nope');
+    if (likeStamp) { likeStamp.style.transition = 'opacity 0.3s'; likeStamp.style.opacity = 0; }
+    if (nopeStamp) { nopeStamp.style.transition = 'opacity 0.3s'; nopeStamp.style.opacity = 0; }
+
+    if (backCard) {
+      backCard.style.transition = 'transform 0.4s ease, opacity 0.3s';
+      backCard.style.transform = 'scale(0.95) translateY(10px)';
+      backCard.style.opacity = '0.7';
+    }
+  }
+}
+
+function executeSwipe(direction) {
+  const card = document.getElementById('front-card');
+  if (!card) return;
+
+  // Haptic
+  if (tg) tg.HapticFeedback?.impactOccurred(direction === 'right' ? 'heavy' : 'medium');
+
+  // Exit animation
+  card.classList.add(direction === 'right' ? 'exit-right' : 'exit-left');
+
+  // Back card transitions to front
+  if (backCard) {
+    backCard.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease';
+    backCard.style.transform = 'scale(1) translateY(0)';
+    backCard.style.opacity = '1';
+  }
+
+  // API call
+  const m = matches[currentIndex];
+  if (API_URL && m.target_id) {
+    apiCall('/api/swipe', 'POST', { target_id: m.target_id, direction: direction })
+      .then(data => {
+        if (data) {
+          balance = data.balance;
+          document.getElementById('bal-count').textContent = balance;
+          if (data.mutual) {
+            tg?.showPopup({
+              title: '🎉 Взаимный мэтч!',
+              message: `${data.mutual_user.name} тоже хочет познакомиться!${data.mutual_user.username ? ' @' + data.mutual_user.username : ''}`,
+              buttons: [{type: 'ok'}]
+            });
+          }
+        }
+      });
+  } else {
+    // Demo mode
+    balance--;
+    document.getElementById('bal-count').textContent = balance;
+  }
+
+  if (direction === 'right') {
+    document.getElementById('mutual-count').textContent =
+      parseInt(document.getElementById('mutual-count').textContent) + 1;
+
+    if (!API_URL && tg) {
+      tg.showPopup({
+        title: '🤝 Лайк отправлен!',
+        message: `Если ${m.name} тоже лайкнет — познакомлю вас!`,
+        buttons: [{type: 'ok'}]
+      });
+    }
+  }
+
+  setTimeout(() => {
+    currentIndex++;
+    renderCards();
+  }, 450);
+}
+
+// Button swipes
+function swipe(direction) {
+  if (isDragging) return;
+  const card = document.getElementById('front-card');
+  if (!card) return;
+
+  // Animate stamp briefly
+  const stamp = direction === 'right' ? document.getElementById('stamp-like') : document.getElementById('stamp-nope');
+  if (stamp) {
+    stamp.style.transition = 'opacity 0.2s, transform 0.2s';
+    stamp.style.opacity = '1';
+    stamp.style.transform = stamp.className.includes('like')
+      ? 'translate(-50%, -50%) rotate(-15deg) scale(1)'
+      : 'translate(-50%, -50%) rotate(15deg) scale(1)';
+  }
+
+  setTimeout(() => executeSwipe(direction), 150);
+}
+
+function showInfo() {
+  if (currentIndex >= matches.length) return;
+  const m = matches[currentIndex];
+  if (tg) {
+    tg.showPopup({
+      title: m.name,
+      message: `${m.bio}\n\n💪 ${m.skills.join(', ')}\n🔍 Ищет: ${m.needs.join(', ')}\n\n💡 ${m.reason}`,
+      buttons: [{type: 'ok'}]
+    });
+  } else {
+    alert(`${m.name}\n${m.bio}\n\nСкиллы: ${m.skills.join(', ')}\nИщет: ${m.needs.join(', ')}`);
+  }
+}
+
+function shareInvite() {
+  const text = 'Присоединяйся к VDA Connect — умный бот для бизнес-знакомств! https://t.me/VDACLUB_bot';
+  if (tg) {
+    tg.switchInlineQuery(text, ['users']);
+  } else {
+    navigator.clipboard?.writeText(text);
+    alert('Ссылка скопирована!');
+  }
+}
+
+function showTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.getElementById('tab-matches').classList.add('hidden');
+  document.getElementById('tab-profile').classList.remove('active');
+  document.getElementById('tab-invite').classList.remove('active');
+
+  if (tab === 'matches') {
+    document.getElementById('tab-matches').classList.remove('hidden');
+  } else if (tab === 'profile') {
+    loadProfile();
+  } else if (tab === 'invite') {
+    document.getElementById('tab-invite').classList.add('active');
+  }
+}
+
+async function loadProfile() {
+  const el = document.getElementById('tab-profile');
+  el.classList.add('active');
+
+  // Try API first
+  const data = await apiCall('/api/profile');
+  const p = data || {
+    name: tgUser?.first_name || 'Дмитрий Васильев',
+    bio: 'Крипто/финтех эксперт. AI-автоматизация.',
+    skills: ['Крипто', 'Финтех', 'Консалтинг', 'AI/ML'],
+    needs: ['Клиент', 'Партнёр', 'Инвестор'],
+  };
+
+  el.innerHTML = `
+    <div class="profile-field">
+      <div class="profile-label">Имя</div>
+      <div class="profile-value">${p.name}</div>
+    </div>
+    <div class="profile-field">
+      <div class="profile-label">Bio</div>
+      <div class="profile-value">${p.bio || '—'}</div>
+    </div>
+    <div class="profile-field">
+      <div class="profile-label">Скиллы</div>
+      <div class="profile-value">${(p.skills || []).join(', ')}</div>
+    </div>
+    <div class="profile-field">
+      <div class="profile-label">Ищу</div>
+      <div class="profile-value">${(p.needs || []).join(', ')}</div>
+    </div>
+    <div class="profile-field">
+      <div class="profile-label">Баланс</div>
+      <div class="profile-value" style="color:var(--gold);font-weight:700">${p.balance ?? balance} мэтчей</div>
+    </div>
+  `;
+}
+
+// ── Init ──
+async function init() {
+  // Try loading real matches from API
+  const data = await apiCall('/api/matches');
+  if (data && data.matches && data.matches.length > 0) {
+    matches = data.matches;
+    balance = data.balance || 0;
+    document.getElementById('bal-count').textContent = balance;
+    document.getElementById('match-count').textContent = data.total || matches.length;
+  }
+  renderCards();
+}
+
+init();
+</script>
+</body>
+</html>

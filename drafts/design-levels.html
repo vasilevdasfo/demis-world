@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Design Levels — AI-powered сервис создания сайтов за часы, не за месяцы. Выберите уровень сложности дизайна.">
+    <meta property="og:title" content="Design Levels — Your Website in Hours">
+    <meta property="og:description" content="Choose your design complexity level. AI-powered process by Dmitrii Vasilev.">
+    <meta property="og:image" content="https://vda.vc/og-design-levels.jpg">
+    <meta property="og:url" content="https://vda.vc/design-levels.html">
+    <meta property="og:type" content="website">
+    <title>Design Levels — Сайт за часы, не за месяцы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a56db;
+            --gold: #c9a84c;
+            --text: #1a202c;
+            --light: #f5f7fa;
+            --border: #e2e8f0;
+            --white: #ffffff;
+        }
+
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .lang-toggle {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .lang-toggle.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--white) 0%, var(--light) 100%);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #4a5568;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        /* Levels Section */
+        .levels-container {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .level-card {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .level-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(26, 86, 219, 0.1);
+            transform: translateY(-8px);
+        }
+
+        .level-card.gold {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, var(--white) 0%, #fffbf5 100%);
+        }
+
+        .level-card.gold:hover {
+            box-shadow: 0 20px 50px rgba(201, 168, 76, 0.2);
+        }
+
+        .level-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .level-card.gold .level-badge {
+            background: var(--gold);
+        }
+
+        .level-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .level-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .level-card.gold .level-price {
+            color: var(--gold);
+        }
+
+        .level-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .level-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+
+        .level-features li::before {
+            content: "✓";
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 1.5;
+            margin-right: 0.75rem;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .level-card.gold .level-features li::before {
+            background: var(--gold);
+        }
+
+        .level-time {
+            font-size: 0.95rem;
+            color: #718096;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            text-align: left;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 4rem 2rem;
+            background: var(--light);
+        }
+
+        .process-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .process h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .step-number {
+            display: inline-flex;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .process-step h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .process-step p {
+            font-size: 0.95rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Why Section */
+        .why {
+            padding: 4rem 2rem;
+            background: var(--white);
+        }
+
+        .why-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .why h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .why-card {
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            background: var(--light);
+            border-radius: 0.5rem;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .why-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .why-card p {
+            font-size: 0.95rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Examples Section */
+        .examples {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--light) 0%, var(--white) 100%);
+        }
+
+        .examples-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .examples h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text);
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .example-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .example-preview {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #fce7f3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .example-info {
+            padding: 1.5rem;
+        }
+
+        .example-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .example-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .example-link:hover {
+            background: #1447b8;
+            transform: translateX(4px);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #0f42b0 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--gold);
+            color: var(--text);
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #d4b650;
+            transform: scale(1.05);
+        }
+
+        .cta-disclaimer {
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            background: var(--text);
+            color: var(--white);
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin: 0.25rem 0;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .levels-container,
+            .process-content,
+            .why-content,
+            .examples-content,
+            .cta-content {
+                padding: 2rem 1rem;
+            }
+
+            .level-card {
+                padding: 1.5rem;
+            }
+
+            .levels-grid,
+            .process-steps,
+            .why-grid,
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .animate-left {
+            animation: fadeInLeft 0.6s ease forwards;
+        }
+
+        .animate-scale {
+            animation: scaleIn 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="/" class="logo">vda.vc</a>
+        <nav>
+            <button class="lang-toggle active" data-lang="ru">РУ</button>
+            <button class="lang-toggle" data-lang="en">EN</button>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1 data-ru="Design Levels — Ваш сайт за часы, не за месяцы" data-en="Design Levels — Your Website in Hours, Not Months">Design Levels — Ваш сайт за часы, не за месяцы</h1>
+        <p data-ru="Выберите уровень сложности дизайна. Получите готовый сайт с видео, анимациями и 3D-эффектами. AI-powered процесс от Дмитрия Васильева." data-en="Choose your design complexity level. Get a production-ready website with video, animations, and 3D effects. AI-powered process by Dmitrii Vasilev.">Выберите уровень сложности дизайна. Получите готовый сайт с видео, анимациями и 3D-эффектами. AI-powered процесс от Дмитрия Васильева.</p>
+    </section>
+
+    <!-- Levels -->
+    <section class="levels-container">
+        <h2 data-ru="3 уровня сложности" data-en="3 Complexity Levels" style="text-align: center; font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem;">3 уровня сложности</h2>
+
+        <div class="levels-grid">
+            <!-- Level 1 -->
+            <div class="level-card">
+                <div class="level-badge" data-ru="Уровень 1" data-en="Level 1">Уровень 1</div>
+                <h3 class="level-title" data-ru="Clean & Fast" data-en="Clean & Fast">Clean & Fast</h3>
+                <div class="level-price">$500</div>
+                <ul class="level-features">
+                    <li data-ru="Чистая типографика, минимализм" data-en="Clean typography, minimalism">Чистая типографика, минимализм</li>
+                    <li data-ru="CSS only, IntersectionObserver" data-en="CSS only, IntersectionObserver">CSS only, IntersectionObserver</li>
+                    <li data-ru="Мультиязычность до 3 языков" data-en="Multilingual up to 3 languages">Мультиязычность до 3 языков</li>
+                    <li data-ru="Mobile-first responsive" data-en="Mobile-first responsive">Mobile-first responsive</li>
+                    <li data-ru="< 25KB, загрузка < 1 сек" data-en="< 25KB, load < 1 sec">< 25KB, загрузка < 1 сек</li>
+                </ul>
+                <div class="level-time">
+                    <strong data-ru="Идеально:" data-en="Perfect for:">Идеально:</strong> <span data-ru="лендинги, визитки, портфолио" data-en="landings, business cards, portfolios">лендинги, визитки, портфолио</span><br>
+                    <strong data-ru="Срок:" data-en="Timeline:">Срок:</strong> <s style="color: #999; text-decoration: line-through;"><span data-ru="2-4 часа" data-en="2-4 hours">2-4 часа</span></s> <span style="color: #c9a84c; font-weight: bold;">⚡ 50 мин</span>
+                </div>
+            </div>
+
+            <!-- Level 2 -->
+            <div class="level-card">
+                <div class="level-badge" data-ru="Уровень 2" data-en="Level 2">Уровень 2</div>
+                <h3 class="level-title" data-ru="Premium" data-en="Premium">Premium</h3>
+                <div class="level-price">$1,500</div>
+                <ul class="level-features">
+                    <li data-ru="GSAP ScrollTrigger анимации" data-en="GSAP ScrollTrigger animations">GSAP ScrollTrigger анимации</li>
+                    <li data-ru="Typewriter, cursor follower, 3D tilt" data-en="Typewriter, cursor follower, 3D tilt">Typewriter, cursor follower, 3D tilt</li>
+                    <li data-ru="Калькулятор и интерактив" data-en="Calculator & interactive elements">Калькулятор и интерактив</li>
+                    <li data-ru="Marquee, staggered reveals" data-en="Marquee, staggered reveals">Marquee, staggered reveals</li>
+                    <li data-ru="30-40KB" data-en="30-40KB">30-40KB</li>
+                </ul>
+                <div class="level-time">
+                    <strong data-ru="Идеально:" data-en="Perfect for:">Идеально:</strong> <span data-ru="бизнес-сайты, услуги, SaaS" data-en="business sites, services, SaaS">бизнес-сайты, услуги, SaaS</span><br>
+                    <strong data-ru="Срок:" data-en="Timeline:">Срок:</strong> <s style="color: #999; text-decoration: line-through;"><span data-ru="4-8 часов" data-en="4-8 hours">4-8 часов</span></s> <span style="color: #c9a84c; font-weight: bold;">⚡ 150 мин</span>
+                </div>
+            </div>
+
+            <!-- Level 3 -->
+            <div class="level-card gold">
+                <div class="level-badge" data-ru="Уровень 3 ✨" data-en="Level 3 ✨">Уровень 3 ✨</div>
+                <h3 class="level-title" data-ru="Cinematic" data-en="Cinematic">Cinematic</h3>
+                <div class="level-price">$3,000</div>
+                <ul class="level-features">
+                    <li data-ru="Видео-фон, Canvas particles" data-en="Video background, Canvas particles">Видео-фон, Canvas particles</li>
+                    <li data-ru="Smooth scroll (Lenis-стиль)" data-en="Smooth scroll (Lenis-style)">Smooth scroll (Lenis-стиль)</li>
+                    <li data-ru="Magnetic buttons, noise overlay" data-en="Magnetic buttons, noise overlay">Magnetic buttons, noise overlay</li>
+                    <li data-ru="3D-карточки, animated timelines" data-en="3D cards, animated timelines">3D-карточки, animated timelines</li>
+                    <li data-ru="40-55KB" data-en="40-55KB">40-55KB</li>
+                </ul>
+                <div class="level-time">
+                    <strong data-ru="Идеально:" data-en="Perfect for:">Идеально:</strong> <span data-ru="luxury бренды, event production" data-en="luxury brands, event production">luxury бренды, event production</span><br>
+                    <strong data-ru="Срок:" data-en="Timeline:">Срок:</strong> <s style="color: #999; text-decoration: line-through;"><span data-ru="8-16 часов" data-en="8-16 hours">8-16 часов</span></s> <span style="color: #c9a84c; font-weight: bold;">⚡ 300 мин</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process">
+        <div class="process-content">
+            <h2 data-ru="Процесс создания" data-en="Creation Process">Процесс создания</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3 data-ru="Бриф" data-en="Brief">Бриф</h3>
+                    <p data-ru="30 минут — рассказываете о бизнесе, показываете референсы" data-en="30 min — tell us about your business, show references">30 минут — рассказываете о бизнесе, показываете референсы</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3 data-ru="Концепт" data-en="Concept">Концепт</h3>
+                    <p data-ru="1-2 часа — выбираем уровень, утверждаем структуру" data-en="1-2 hours — choose level, approve structure">1-2 часа — выбираем уровень, утверждаем структуру</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3 data-ru="Создание" data-en="Creation">Создание</h3>
+                    <p data-ru="2-16 часов — AI-powered разработка с ручной полировкой" data-en="2-16 hours — AI-powered development with manual polish">2-16 часов — AI-powered разработка с ручной полировкой</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3 data-ru="Деплой" data-en="Deploy">Деплой</h3>
+                    <p data-ru="Сайт live на вашем домене, Vercel/Netlify" data-en="Live on your domain, Vercel/Netlify">Сайт live на вашем домене, Vercel/Netlify</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Section -->
+    <section class="why">
+        <div class="why-content">
+            <h2 data-ru="Почему это работает" data-en="Why It Works">Почему это работает</h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <h4 data-ru="⚡ Скорость" data-en="⚡ Speed">⚡ Скорость</h4>
+                    <p data-ru="AI делает за часы то, что агентство — за недели" data-en="AI does in hours what agencies do in weeks">AI делает за часы то, что агентство — за недели</p>
+                </div>
+                <div class="why-card">
+                    <h4 data-ru="🎯 Автономность" data-en="🎯 Independence">🎯 Автономность</h4>
+                    <p data-ru="Каждый файл самодостаточный — 1 HTML = весь сайт" data-en="Each file is self-contained — 1 HTML = entire site">Каждый файл самодостаточный — 1 HTML = весь сайт</p>
+                </div>
+                <div class="why-card">
+                    <h4 data-ru="🔧 Минимум зависимостей" data-en="🔧 No Dependencies">🔧 Минимум зависимостей</h4>
+                    <p data-ru="Нет CMS, фреймворков — только чистый HTML/CSS/JS" data-en="No CMS, frameworks — pure HTML/CSS/JS">Нет CMS, фреймворков — только чистый HTML/CSS/JS</p>
+                </div>
+                <div class="why-card">
+                    <h4 data-ru="🚀 Мгновенный деплой" data-en="🚀 Instant Deploy">🚀 Мгновенный деплой</h4>
+                    <p data-ru="Через Vercel/Netlify — сайт live за секунды" data-en="Via Vercel/Netlify — live in seconds">Через Vercel/Netlify — сайт live за секунды</p>
+                </div>
+                <div class="why-card">
+                    <h4 data-ru="🌍 Мультиязычность" data-en="🌍 Multilingual">🌍 Мультиязычность</h4>
+                    <p data-ru="Из коробки — RU/EN/etc без лишних библиотек" data-en="Out of the box — RU/EN/etc without extra libs">Из коробки — RU/EN/etc без лишних библиотек</p>
+                </div>
+                <div class="why-card">
+                    <h4 data-ru="🔍 SEO-ready" data-en="🔍 SEO-Ready">🔍 SEO-ready</h4>
+                    <p data-ru="Schema.org, OG tags, метаданные — всё встроено" data-en="Schema.org, OG tags, metadata — all built-in">Schema.org, OG tags, метаданные — всё встроено</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples -->
+    <section class="examples">
+        <div class="examples-content">
+            <h2 data-ru="Примеры уровней" data-en="Level Examples">Примеры уровней</h2>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-preview">🎨</div>
+                    <div class="example-info">
+                        <h4 data-ru="Личный бренд" data-en="Personal Brand">Личный бренд</h4>
+                        <p data-ru="Все 3 уровня в действии" data-en="All 3 levels in action">Все 3 уровня в действии</p>
+                        <a href="/levels.html" class="example-link" data-ru="Смотреть →" data-en="View →">Смотреть →</a>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <div class="example-preview">🎬</div>
+                    <div class="example-info">
+                        <h4 data-ru="Event Production" data-en="Event Production">Event Production</h4>
+                        <p data-ru="Level 3 Cinematic версия" data-en="Level 3 Cinematic version">Level 3 Cinematic версия</p>
+                        <span class="example-link muted">(пример скрыт)</span>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <div class="example-preview">💼</div>
+                    <div class="example-info">
+                        <h4 data-ru="SaaS Dashboard" data-en="SaaS Dashboard">SaaS Dashboard</h4>
+                        <p data-ru="Level 2 Premium интерактив" data-en="Level 2 Premium interactive">Level 2 Premium интерактив</p>
+                        <a href="/saas-demo.html" class="example-link" data-ru="Смотреть →" data-en="View →">Смотреть →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2 data-ru="Готовы начать?" data-en="Ready to Start?">Готовы начать?</h2>
+            <p data-ru="Выберите уровень и напишите нам в Telegram. Бриф займёт 30 минут, сайт будет готов за часы." data-en="Choose your level and message us on Telegram. Brief takes 30 min, site ready in hours.">Выберите уровень и напишите нам в Telegram. Бриф займёт 30 минут, сайт будет готов за часы.</p>
+            <a href="https://t.me/vdavc_bot" target="_blank" rel="noopener" class="cta-button" data-ru="Выбрать уровень →" data-en="Choose Level →">Выбрать уровень →</a>
+            <div class="cta-disclaimer" data-ru="NFA: Цены ориентировочные. Финальная стоимость зависит от объёма контента и сложности интеграций." data-en="NFA: Prices are indicative. Final cost depends on content volume and integration complexity.">NFA: Цены ориентировочные. Финальная стоимость зависит от объёма контента и сложности интеграций.</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>vda.vc · Dmitrii Vasilev</p>
+        <p data-ru="Bay Area, CA" data-en="Bay Area, CA">Bay Area, CA</p>
+        <p style="margin-top: 1rem;"><a href="/">vda.vc</a> · <a href="https://t.me/vdavc_bot">Telegram</a></p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Language Toggle
+        const langToggles = document.querySelectorAll('.lang-toggle');
+        let currentLang = 'ru';
+
+        langToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                currentLang = toggle.dataset.lang;
+
+                langToggles.forEach(t => t.classList.remove('active'));
+                toggle.classList.add('active');
+
+                document.querySelectorAll('[data-ru][data-en]').forEach(el => {
+                    const text = currentLang === 'ru' ? el.dataset.ru : el.dataset.en;
+                    el.textContent = text;
+                });
+
+                // Handle complex elements
+                document.querySelectorAll('[data-ru]').forEach(el => {
+                    if (!el.dataset.en) return;
+                    const text = currentLang === 'ru' ? el.dataset.ru : el.dataset.en;
+                    if (el.tagName === 'A') {
+                        el.textContent = text;
+                    }
+                });
+            });
+        });
+
+        // Scroll Animations
+        const cards = document.querySelectorAll('.level-card');
+        cards.forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: index * 0.15,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%',
+                        once: true
+                    }
+                }
+            );
+        });
+
+        const processSteps = document.querySelectorAll('.process-step');
+        processSteps.forEach((step, index) => {
+            gsap.fromTo(step,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: index * 0.15,
+                    scrollTrigger: {
+                        trigger: step,
+                        start: 'top 80%',
+                        once: true
+                    }
+                }
+            );
+        });
+
+        const whyCards = document.querySelectorAll('.why-card');
+        whyCards.forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, x: -30 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%',
+                        once: true
+                    }
+                }
+            );
+        });
+
+        const exampleCards = document.querySelectorAll('.example-card');
+        exampleCards.forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, scale: 0.95 },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.6,
+                    delay: index * 0.15,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%',
+                        once: true
+                    }
+                }
+            );
+        });
+
+        // Hover effects for level cards
+        document.querySelectorAll('.level-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, { duration: 0.3, y: -8 });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, { duration: 0.3, y: 0 });
+            });
+        });
+
+        // Stagger animation on hero
+        gsap.from('.hero h1', {
+            duration: 0.8,
+            opacity: 0,
+            y: 30,
+            delay: 0.1
+        });
+
+        gsap.from('.hero p', {
+            duration: 0.8,
+            opacity: 0,
+            y: 20,
+            delay: 0.3
+        });
+    </script>
+</body>
+</html>

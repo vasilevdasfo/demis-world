@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Дмитрий Васильев — крипто/финтех консультант. Решаю криптографические, финансовые и технологические задачи. Bay Area.">
+    <title>Дмитрий Васильев — Решаю нерешаемое</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-alt: #f5f7fa;
+            --text: #0f0f0f;
+            --text-light: #6b7280;
+            --accent: #1a56db;
+            --accent-hover: #1e40af;
+            --green: #059669;
+            --red: #c0392b;
+            --border: #e5e7eb;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: clamp(16px, 2vw, 18px);
+            overflow-x: hidden;
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-logo {
+                font-size: 20px;
+            }
+        }
+
+        /* HERO */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(3rem, 10vh, 6rem) 2rem;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 8vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-h1 .accent {
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            color: var(--text-light);
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-quote {
+            font-style: italic;
+            color: var(--text);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 2rem auto 3rem;
+            padding: 1.5rem;
+            border-left: 3px solid var(--accent);
+            background: var(--bg-alt);
+            border-radius: 4px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 2px solid;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 6vw, 48px);
+            font-weight: 900;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* CAREER GRID */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(3rem, 10vh, 6rem) 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 6vw, 52px);
+            font-weight: 900;
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .career-card {
+            padding: 2rem;
+            background: var(--bg-alt);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .career-card:hover {
+            background: var(--bg);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
+        }
+
+        .career-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .career-card-title.success {
+            color: var(--green);
+        }
+
+        .career-card-title.challenge {
+            color: var(--red);
+        }
+
+        .career-card ul {
+            list-style: none;
+            line-height: 1.8;
+        }
+
+        .career-card li {
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .career-card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* DIRECTIONS */
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .direction-card {
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg) 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .direction-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
+        }
+
+        .direction-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .direction-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .direction-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* PROOF BAR */
+        .proof-bar {
+            background: var(--accent);
+            color: white;
+            text-align: center;
+            padding: 2.5rem;
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        /* CONTACT */
+        .contact {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(3rem, 10vh, 6rem) 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 6vw, 48px);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .contact-sub {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .contact-link:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .footer-nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        /* REVEAL ANIMATION */
+        .reveal {
+            opacity: 0;
+            animation: reveal 0.6s ease-out forwards;
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero-h1 {
+                font-size: 40px;
+            }
+
+            .hero-buttons {
+                gap: 0.8rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .career-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .directions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <nav-container>
+        <div class="nav-logo">vda.vc</div>
+        <ul class="nav-links">
+            <li><a href="#directions">Услуги</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Написать</a>
+    </nav-container>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-eyebrow">Hayward CA · Bay Area · Крипто / Финтех / AI</div>
+    <h1 class="hero-h1">Решаю <span class="accent">нерешаемое.</span></h1>
+    <p class="hero-sub">
+        Крипта, финтех, AI-автоматизация, кризисный менеджмент.
+        Когда юристы и банкиры разводят руками — я нахожу выход.
+    </p>
+    <div class="hero-quote">
+        «Безнадёжно — это когда на крышку гроба падает земля.
+        Остальное можно исправить.»
+    </div>
+    <div class="hero-buttons">
+        <a href="https://t.me/vdavc_bot" class="btn btn-primary">Telegram</a>
+        <a href="mailto:dima@vda.vc" class="btn btn-secondary">Email</a>
+    </div>
+
+    <div class="hero-stats">
+        <div class="stat reveal">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Лет в крипте</div>
+        </div>
+        <div class="stat reveal">
+            <div class="stat-number">20+</div>
+            <div class="stat-label">Разорений</div>
+        </div>
+        <div class="stat reveal">
+            <div class="stat-number">$6M</div>
+            <div class="stat-label">На 27 адвокатов</div>
+        </div>
+        <div class="stat reveal">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Ареста, 5 стран</div>
+        </div>
+    </div>
+</section>
+
+<!-- CAREER -->
+<section class="section">
+    <h2 class="section-title">Что получилось vs Цена опыта</h2>
+    <div class="career-grid">
+        <div class="career-card reveal">
+            <h3 class="career-card-title success">✓ Что получилось</h3>
+            <ul>
+                <li>Купил и перезапустил крупнейшую криптобиржу</li>
+                <li>Вернул пользователям $800M</li>
+                <li>Путешествовал в розыске Интерпола</li>
+                <li>100+ материалов в СМИ (99% критических)</li>
+                <li>10 полных рестартов с нуля</li>
+                <li>Счастливый человек</li>
+            </ul>
+        </div>
+
+        <div class="career-card reveal">
+            <h3 class="career-card-title challenge">✗ Цена опыта</h3>
+            <ul>
+                <li>20+ компаний разорены</li>
+                <li>Потерял проект стоимостью $4 млрд</li>
+                <li>4 уголовных ареста</li>
+                <li>Розыск в 5 странах</li>
+                <li>$6 млн на 27 адвокатов</li>
+                <li>Электронный браслет (досих пор)</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- DIRECTIONS -->
+<section class="section" id="directions">
+    <h2 class="section-title">Куда я могу помочь</h2>
+    <div class="directions-grid">
+        <div class="direction-card reveal">
+            <div class="direction-icon">🔐</div>
+            <h3>Крипто и финтех</h3>
+            <p>
+                Разблокировка счетов, OTC-торговля, юридическая стратегия,
+                кросс-бордер платежи, установка корресчетов, восстановление
+                репутации компании.
+            </p>
+        </div>
+
+        <div class="direction-card reveal">
+            <div class="direction-icon">🤖</div>
+            <h3>AI для бизнеса</h3>
+            <p>
+                Автоматизация workflows, внедрение Claude API, экономия
+                2-4 часа на сотрудника в день, интеграция в ERP,
+                оптимизация процессов.
+            </p>
+        </div>
+
+        <div class="direction-card reveal">
+            <div class="direction-icon">💎</div>
+            <h3>Второй шанс</h3>
+            <p>
+                Кризис-менеджмент, восстановление после банкротства,
+                переговоры с кредиторами, структурирование долга,
+                рестарт бизнеса.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- PROOF BAR -->
+<section class="proof-bar">
+    📊 Каждые $1000 в консультации → в среднем $10 000+ экономии
+    (по расчётам клиентов после первого месяца)
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+    <h2>Первый ответ — бесплатно</h2>
+    <p class="contact-sub">
+        Отвечу лично в течение 24 часов. Никаких звонков,
+        никаких ассистентов.
+    </p>
+    <div class="contact-links">
+        <a href="https://t.me/vdavc_bot" class="contact-link">
+            💬 Telegram: @vdavc_bot
+        </a>
+        <a href="mailto:dima@vda.vc" class="contact-link">
+            ✉️ Email: dima@vda.vc
+        </a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-nav">
+        <a href="#directions">Услуги</a>
+        <a href="#contact">Контакты</a>
+        <a href="https://t.me/vdavc_bot">Telegram</a>
+        <a href="mailto:dima@vda.vc">Email</a>
+    </div>
+    <p>© 2026 Дмитрий Васильев. Все права зарезервированы.</p>
+</footer>
+
+<script>
+    // Reveal Animation with IntersectionObserver
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+
+    // Smooth scroll behavior for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && document.querySelector(href)) {
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

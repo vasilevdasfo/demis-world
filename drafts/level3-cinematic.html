@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VDA.VC — Дмитрий Васильев | Крипто Консалтинг</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #0f0f0f;
+            background: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* NOISE OVERLAY */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="2"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* =========== NAV =========== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            backdrop-filter: blur(24px);
+            background: rgba(255, 255, 255, 0);
+            z-index: 1000;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0);
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f0f0f;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #1a56db, #0099ff);
+            box-shadow: 0 0 20px rgba(26, 86, 219, 0.6);
+            transition: width 0.3s ease;
+        }
+
+        .nav-logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #0f0f0f;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1a56db;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1a56db;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: #1a56db;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .nav-cta:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        nav.scrolled .nav-cta {
+            background: linear-gradient(135deg, #1a56db, #0099ff);
+            box-shadow: 0 8px 24px rgba(26, 86, 219, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* =========== HERO =========== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding-top: 70px;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.3) 100%);
+            z-index: 1;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-eyebrow {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .word {
+            display: inline-block;
+            opacity: 0;
+            margin-right: 0.15em;
+            animation: fadeInScale 0.6s ease forwards;
+        }
+
+        .word.pulse {
+            animation: fadeInScale 0.6s ease forwards, pulse 2s ease-in-out 1s infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease forwards 0.4s;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-quote {
+            font-style: italic;
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 48px;
+            animation: fadeInUp 0.8s ease forwards 0.6s;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 40px;
+            margin-bottom: 48px;
+            animation: fadeInUp 0.8s ease forwards 0.8s;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 1.2s, bounce 2s ease-in-out 1.2s infinite;
+            z-index: 3;
+        }
+
+        .chevron {
+            color: white;
+            font-size: 24px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* =========== TRANSITION ZONE =========== */
+        .transition-zone {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(255,255,255,1) 100%);
+            z-index: 5;
+        }
+
+        /* =========== MARQUEE =========== */
+        .marquee-section {
+            background: #f5f7fa;
+            padding: 40px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-container {
+            display: flex;
+            gap: 60px;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            white-space: nowrap;
+            opacity: 0.4;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-container.reverse {
+            animation: marquee-reverse 30s linear infinite;
+        }
+
+        .marquee-item {
+            flex-shrink: 0;
+            color: #0f0f0f;
+        }
+
+        .marquee-item::before {
+            content: '•';
+            margin-right: 60px;
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+
+        @keyframes marquee-reverse {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* =========== CAREER GRID =========== */
+        .career-section {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .career-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            perspective: 1000px;
+        }
+
+        .career-card:hover {
+            border-color: rgba(26, 86, 219, 0.2);
+            box-shadow: 0 20px 60px rgba(26, 86, 219, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .career-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 24px;
+            color: #0f0f0f;
+        }
+
+        .career-card ul {
+            list-style: none;
+        }
+
+        .career-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            font-size: 15px;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .career-card li:last-child {
+            border-bottom: none;
+        }
+
+        .career-card:nth-child(1) li:nth-child(1) { animation-delay: 0.1s; }
+        .career-card:nth-child(1) li:nth-child(2) { animation-delay: 0.2s; }
+        .career-card:nth-child(1) li:nth-child(3) { animation-delay: 0.3s; }
+        .career-card:nth-child(1) li:nth-child(4) { animation-delay: 0.4s; }
+        .career-card:nth-child(1) li:nth-child(5) { animation-delay: 0.5s; }
+
+        .career-card:nth-child(2) li:nth-child(1) { animation-delay: 0.1s; }
+        .career-card:nth-child(2) li:nth-child(2) { animation-delay: 0.2s; }
+        .career-card:nth-child(2) li:nth-child(3) { animation-delay: 0.3s; }
+        .career-card:nth-child(2) li:nth-child(4) { animation-delay: 0.4s; }
+        .career-card:nth-child(2) li:nth-child(5) { animation-delay: 0.5s; }
+
+        /* =========== DIRECTIONS =========== */
+        .directions-section {
+            padding: 100px 40px;
+            background: #ffffff;
+        }
+
+        .directions-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .direction-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+            padding: 48px 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(26, 86, 219, 0.1);
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInScale 0.6s ease forwards;
+        }
+
+        .direction-card:nth-child(1) { animation-delay: 0.1s; }
+        .direction-card:nth-child(2) { animation-delay: 0.2s; }
+        .direction-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .direction-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(26, 86, 219, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .direction-card:hover::before {
+            opacity: 1;
+        }
+
+        .direction-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: #1a56db;
+            box-shadow: 0 30px 60px rgba(26, 86, 219, 0.2);
+        }
+
+        .direction-emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .direction-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .direction-card p {
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        /* =========== PROOF BAR =========== */
+        .proof-bar {
+            background: linear-gradient(90deg, #1a56db, #0099ff);
+            padding: 48px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proof-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .proof-text {
+            position: relative;
+            z-index: 1;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* =========== CONTACT =========== */
+        .contact-section {
+            padding: 100px 40px;
+            background: #f5f7fa;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 6vw, 60px);
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .contact-subtitle {
+            font-size: 18px;
+            opacity: 0.7;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-button {
+            padding: 16px 48px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            min-width: 280px;
+        }
+
+        .contact-button.primary {
+            background: #1a56db;
+            color: white;
+        }
+
+        .contact-button.primary:hover {
+            background: #0f3aa8;
+            box-shadow: 0 20px 40px rgba(26, 86, 219, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .contact-button.secondary {
+            background: white;
+            color: #0f0f0f;
+            border: 2px solid #0f0f0f;
+        }
+
+        .contact-button.secondary:hover {
+            background: #0f0f0f;
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        .contact-info {
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        /* =========== FOOTER =========== */
+        footer {
+            background: #0f0f0f;
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+
+        footer a {
+            color: #1a56db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #0099ff;
+        }
+
+        /* =========== CURSOR FOLLOWER =========== */
+        .cursor-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(26, 86, 219, 0.8);
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 10000;
+            display: none;
+            box-shadow: 0 0 20px rgba(26, 86, 219, 0.6);
+        }
+
+        .cursor-follower.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .career-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .directions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-cta {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+            .contact-button {
+                min-width: 100%;
+            }
+
+            .cursor-follower {
+                display: none !important;
+            }
+
+            .marquee-container {
+                font-size: 20px;
+                gap: 40px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cursor-follower {
+                display: none !important;
+            }
+
+            .marquee-container {
+                animation: none;
+            }
+
+            .proof-bar::before {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="nav-logo">vda.vc</a>
+        <ul class="nav-links">
+            <li><a href="#career">Путь</a></li>
+            <li><a href="#directions">Специализация</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+        <button class="nav-cta" onclick="scrollToSection('contact')">Написать</button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <video
+            class="hero-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Crect fill='%23000000' width='1920' height='1080'/%3E%3C/svg%3E"
+        >
+            <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4">
+            <source src="https://videos.pexels.com/video-files/1093662/1093662-hd_1920_1080_30fps.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <canvas id="hero-canvas"></canvas>
+
+        <div class="hero-content">
+            <div class="hero-eyebrow">Hayward CA · Bay Area</div>
+            <h1 class="hero-title" id="hero-title-text">Решаю нерешаемое.</h1>
+            <p class="hero-subtitle">Крипто-консалтинг, AI-автоматизация, кризисный менеджмент и восстановление бизнеса</p>
+            <p class="hero-quote">«Безнадёжно — это когда на крышку гроба падает земля. Остальное можно исправить.»</p>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number" data-count="15">0</div>
+                    <div class="stat-label">лет в крипте</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" data-count="800">0</div>
+                    <div class="stat-label">M$ вернул</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" data-count="5">0</div>
+                    <div class="stat-label">стран опыта</div>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="chevron">↓</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRANSITION -->
+    <div class="transition-zone"></div>
+
+    <!-- MARQUEE -->
+    <section class="marquee-section">
+        <div class="marquee-container">
+            <span class="marquee-item">OTC</span>
+            <span class="marquee-item">Compliance</span>
+            <span class="marquee-item">SWIFT</span>
+            <span class="marquee-item">Разблокировка</span>
+            <span class="marquee-item">AI</span>
+            <span class="marquee-item">Кризис</span>
+            <span class="marquee-item">Крипто</span>
+            <span class="marquee-item">Финтех</span>
+            <span class="marquee-item">AML</span>
+            <span class="marquee-item">Due Diligence</span>
+        </div>
+        <div class="marquee-container reverse">
+            <span class="marquee-item">OTC</span>
+            <span class="marquee-item">Compliance</span>
+            <span class="marquee-item">SWIFT</span>
+            <span class="marquee-item">Разблокировка</span>
+            <span class="marquee-item">AI</span>
+            <span class="marquee-item">Кризис</span>
+            <span class="marquee-item">Крипто</span>
+            <span class="marquee-item">Финтех</span>
+            <span class="marquee-item">AML</span>
+            <span class="marquee-item">Due Diligence</span>
+        </div>
+    </section>
+
+    <!-- CAREER -->
+    <section class="career-section" id="career">
+        <h2 class="section-title">Путь в цифрах</h2>
+        <div class="career-grid">
+            <div class="career-card">
+                <h3>✓ Что получилось</h3>
+                <ul>
+                    <li>Купил и перезапустил крипто-биржу после ФБР</li>
+                    <li>Вернул $800M пользователям BTC-e</li>
+                    <li>Путешествовал в розыске Интерпола</li>
+                    <li>200+ публикаций в крупных СМИ</li>
+                    <li>Счастливый, здоровый, живу как хочу</li>
+                </ul>
+            </div>
+            <div class="career-card">
+                <h3>💯 Цена опыта</h3>
+                <ul>
+                    <li>20+ полных разорений (начинал с нуля)</li>
+                    <li>Потерял $4B чужих денег (и своих)</li>
+                    <li>4 ареста в 5 странах, электронный браслет</li>
+                    <li>$6M на адвокатов, судебные издержки</li>
+                    <li>3 развода, потеря доверия — восстановили</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIRECTIONS -->
+    <section class="directions-section" id="directions">
+        <div class="directions-container">
+            <h2 class="section-title">Специализация</h2>
+            <div class="directions-grid">
+                <div class="direction-card">
+                    <div class="direction-emoji">🔐</div>
+                    <h3>Крипто</h3>
+                    <p>Биржи, OTC, исследования блокчейна, токеномика, AML-compliance. WEX + BTC-e = $800M пользователей.</p>
+                </div>
+                <div class="direction-card">
+                    <div class="direction-emoji">🤖</div>
+                    <h3>AI & Автоматизация</h3>
+                    <p>Внедрение LLM в бизнес-процессы, чат-боты, системы аналитики, интеграция с 1C/ERP, оптимизация операций.</p>
+                </div>
+                <div class="direction-card">
+                    <div class="direction-emoji">💎</div>
+                    <h3>Кризис-менеджмент</h3>
+                    <p>Судебная защита, переговоры с регуляторами, банкротство, реструктуризация, возвращение активов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROOF BAR -->
+    <section class="proof-bar">
+        <p class="proof-text">Каждые $1000 → $10 000+ экономии. Рекорд — $1M за 15 минут.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+        <div class="contact-content">
+            <h2>Есть проблема? Напишите.</h2>
+            <p class="contact-subtitle">Первый ответ — бесплатно. Отвечу лично в Telegram в течение 24 часов.</p>
+
+            <div class="contact-buttons">
+                <a href="https://t.me/vdavc_bot" target="_blank" class="contact-button primary">💬 Telegram @vdavc_bot</a>
+                <a href="mailto:dima@vda.vc" class="contact-button secondary">📧 dima@vda.vc</a>
+            </div>
+
+            <p class="contact-info">Ответ в течение 24 часов или ваша проблема нерешаемая (маловероятно)</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>vda.vc — Дмитрий Васильев</p>
+        <p>Bay Area, CA · Крипто-консалтинг · Финтех</p>
+        <p><a href="https://t.me/vdavc_bot" target="_blank">Telegram</a> · <a href="mailto:dima@vda.vc">Email</a></p>
+    </footer>
+
+    <!-- CURSOR FOLLOWER -->
+    <div class="cursor-follower"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        // ============ SMOOTH SCROLL (Lenis-style) ============
+        const html = document.documentElement;
+        let velocity = 0;
+        let position = 0;
+        let target = 0;
+        const lerp = 0.1;
+
+        function updateScroll() {
+            target = window.scrollY;
+            position += (target - position) * lerp;
+            window.scrollTo(0, target);
+        }
+
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', updateScroll, { passive: true });
+        }
+
+        // ============ NAV SCROLL EFFECT ============
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // ============ HERO TITLE SPLIT ANIMATION ============
+        const titleText = document.getElementById('hero-title-text');
+        const titleContent = titleText.textContent;
+        titleText.innerHTML = '';
+
+        const words = titleContent.split(' ');
+        words.forEach((word, idx) => {
+            const span = document.createElement('span');
+            span.className = word === 'нерешаемое.' ? 'word pulse' : 'word';
+            span.textContent = word;
+            span.style.animationDelay = `${0.1 + idx * 0.15}s`;
+            titleText.appendChild(span);
+
+            if (idx < words.length - 1) {
+                titleText.appendChild(document.createTextNode(' '));
+            }
+        });
+
+        // ============ COUNTER ANIMATION ============
+        function countUp(element) {
+            const target = parseInt(element.dataset.count);
+            let current = 0;
+            const increment = target / 60;
+
+            const interval = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(interval);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    countUp(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+
+        // ============ PARTICLES SYSTEM (Canvas) ============
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.4 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = window.innerWidth > 768 ? 80 : 30;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            drawConnections();
+
+            if (window.scrollY < window.innerHeight + 200) {
+                requestAnimationFrame(animateParticles);
+            }
+        }
+
+        if (window.innerWidth > 768) {
+            initParticles();
+            animateParticles();
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // ============ CURSOR FOLLOWER ============
+        if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const cursorFollower = document.querySelector('.cursor-follower');
+            cursorFollower.classList.add('active');
+            let mouseX = 0, mouseY = 0;
+            let followerX = 0, followerY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function updateFollower() {
+                followerX += (mouseX - followerX) * 0.15;
+                followerY += (mouseY - followerY) * 0.15;
+
+                cursorFollower.style.left = followerX - 10 + 'px';
+                cursorFollower.style.top = followerY - 10 + 'px';
+
+                requestAnimationFrame(updateFollower);
+            }
+
+            updateFollower();
+
+            document.addEventListener('mouseenter', () => cursorFollower.classList.add('active'));
+            document.addEventListener('mouseleave', () => cursorFollower.classList.remove('active'));
+        }
+
+        // ============ GSAP SCROLL TRIGGERS ============
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray('.career-card').forEach((card, idx) => {
+            gsap.from(card, {
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+                delay: idx * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        gsap.utils.toArray('.direction-card').forEach((card, idx) => {
+            gsap.from(card, {
+                opacity: 0,
+                y: 30,
+                duration: 0.6,
+                delay: idx * 0.1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // ============ SCROLL TO SECTION ============
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // ============ MAGNETIC BUTTON EFFECT ============
+        document.querySelectorAll('.nav-cta, .contact-button').forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            });
+
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // ============ VIDEO FALLBACK ============
+        const video = document.querySelector('.hero-video');
+        if (!video.canPlayType) {
+            const hero = document.querySelector('.hero');
+            hero.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)';
+        }
+    </script>
+</body>
+</html>

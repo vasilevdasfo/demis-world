@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дмитрий Васильев · Финтех-консалтинг | VDA.VC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-light: #F8F9FA;
+            --text-dark: #1B2A4A;
+            --primary-blue: #0F4C81;
+            --primary-blue-light: #E8F0FE;
+            --accent-green: #10B981;
+            --border-gray: #E5E7EB;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-gray);
+            padding: 0.75rem 1rem;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-cta {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-cta:hover {
+            background-color: #0a3458;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            nav a {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background-color: var(--white);
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #0a3458;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-blue-light);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            background-color: var(--primary-blue-light);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .hero-ctas {
+                gap: 0.75rem;
+            }
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ===== SERVICES ===== */
+        .services {
+            background-color: var(--bg-light);
+            padding: 4rem 1rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+            border-color: var(--primary-blue);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .service-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            font-size: 0.95rem;
+        }
+
+        .service-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-gray);
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ===== EXPERTISE ===== */
+        .expertise {
+            background-color: var(--white);
+            padding: 4rem 1rem;
+        }
+
+        .expertise-tags {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .expertise-tag {
+            background-color: var(--primary-blue-light);
+            color: var(--primary-blue);
+            padding: 0.75rem 1.25rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 1px solid var(--border-gray);
+        }
+
+        @media (max-width: 768px) {
+            .expertise-tags {
+                gap: 0.75rem;
+            }
+            .expertise-tag {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ===== CASE STUDIES ===== */
+        .case-studies {
+            background-color: var(--bg-light);
+            padding: 4rem 1rem;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .case-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+        }
+
+        .case-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .case-location {
+            display: inline-block;
+            background-color: var(--primary-blue-light);
+            color: var(--primary-blue);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .case-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .case-result {
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 768px) {
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== GEOGRAPHY ===== */
+        .geography {
+            background-color: var(--white);
+            padding: 4rem 1rem;
+        }
+
+        .geography-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .geo-card {
+            background-color: var(--primary-blue-light);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .geo-region {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .geo-price {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .geo-description {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #0a3458 100%);
+            color: var(--white);
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* ===== FORM ===== */
+        .form-section {
+            background-color: var(--bg-light);
+            padding: 4rem 1rem;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-gray);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px var(--primary-blue-light);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+
+        .form-submit {
+            width: 100%;
+            background-color: var(--accent-green);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        .form-submit:hover {
+            background-color: #059669;
+        }
+
+        .form-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 2rem 1rem;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-disclaimer {
+            margin-bottom: 1rem;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
+
+        .footer-copyright {
+            opacity: 0.7;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* ===== UTILITY ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        .success-message {
+            background-color: #D1FAE5;
+            color: #065F46;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border: 1px solid #6EE7B7;
+        }
+
+        .error-message {
+            background-color: #FEE2E2;
+            color: #991B1B;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border: 1px solid #FECACA;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">VDA.VC</a>
+            <nav>
+                <a href="#services">Услуги</a>
+                <a href="#expertise">Экспертиза</a>
+                <a href="#cases">Кейсы</a>
+                <a href="#contact" class="nav-cta">Контакт</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Дмитрий Васильев · Финтех-консалтинг</h1>
+            <div class="hero-subtitle">15 лет на пересечении крипто, права и банкинга</div>
+            <p class="hero-description">
+                Лицензии. Compliance. Запуск обменников. M&A. Кросс-бордер платежи. Бывший CEO WEX, CEO Prizmbit, MD BCB.credit.
+            </p>
+            <div class="hero-ctas">
+                <a href="#contact" class="btn btn-primary">Обсудить проект →</a>
+                <button class="btn btn-outline" onclick="alert('Кейсы в разработке')">Скачать кейсы</button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">15+</div>
+                    <div class="stat-label">лет практики</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">юрисдикции</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">$800M+</div>
+                    <div class="stat-label">управляемых активов</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">12+</div>
+                    <div class="stat-label">лицензий</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="services">
+        <div class="section-container">
+            <h2 class="section-title">Услуги</h2>
+            <p class="section-subtitle">Полный спектр консалтинга для финтех-компаний</p>
+
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card">
+                    <div class="service-icon">🏦</div>
+                    <h3 class="service-title">EMI / MSB Лицензии</h3>
+                    <p class="service-description">
+                        Получение EMI, MSB, VASP в EU, UK, CIS. Работа с регуляторами напрямую.
+                    </p>
+                    <div class="service-price">от $8 000 / проект</div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3 class="service-title">Антикризисный консалтинг</h3>
+                    <p class="service-description">
+                        Регуляторное давление, потеря лицензии, конфликт с партнёрами. Разбираю за 24 часа.
+                    </p>
+                    <div class="service-price">от $3 000 / мес</div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card">
+                    <div class="service-icon">💳</div>
+                    <h3 class="service-title">Карточный продукт</h3>
+                    <p class="service-description">
+                        BIN-спонсорство, эмиссия карт, Visa/MC compliance, интеграция с процессингом.
+                    </p>
+                    <div class="service-price">от $5 000 / проект</div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card">
+                    <div class="service-icon">🔄</div>
+                    <h3 class="service-title">Консалтинг для обменников</h3>
+                    <p class="service-description">
+                        Запуск, масштабирование, compliance, работа с банками-партнёрами.
+                    </p>
+                    <div class="service-price">от $2 000 / мес</div>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card">
+                    <div class="service-icon">🤝</div>
+                    <h3 class="service-title">M&A в крипто</h3>
+                    <p class="service-description">
+                        Due diligence, оценка активов, структурирование сделок. Кросс-бордер опыт.
+                    </p>
+                    <div class="service-price">по договорённости</div>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3 class="service-title">Кросс-бордер платежи</h3>
+                    <p class="service-description">
+                        Международные переводы, SWIFT-альтернативы, крипто-рейлы для бизнеса.
+                    </p>
+                    <div class="service-price">от $2 000 / кейс</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERTISE -->
+    <section id="expertise" class="expertise">
+        <div class="section-container">
+            <h2 class="section-title">Экспертиза</h2>
+            <p class="section-subtitle">Профильная компетенция в 8 ключевых направлениях</p>
+
+            <div class="expertise-tags">
+                <div class="expertise-tag">Криптобиржи</div>
+                <div class="expertise-tag">AML/KYC/Compliance</div>
+                <div class="expertise-tag">Карточный продукт</div>
+                <div class="expertise-tag">Кросс-бордер</div>
+                <div class="expertise-tag">EMI/MSB лицензии</div>
+                <div class="expertise-tag">Кризис-менеджмент</div>
+                <div class="expertise-tag">OTC-сделки</div>
+                <div class="expertise-tag">AI-автоматизация</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="cases" class="case-studies">
+        <div class="section-container">
+            <h2 class="section-title">Кейсы</h2>
+            <p class="section-subtitle">Примеры успешных проектов</p>
+
+            <div class="cases-grid">
+                <!-- Case 1 -->
+                <div class="case-card">
+                    <span class="case-location">Крипто-обменник, Польша</span>
+                    <h3 class="case-title">AI-анализ риска за 6 месяцев</h3>
+                    <p>Внедрил AI-модель анализа транзакций. Найдено 3 схемы отмывания. Экономия платформе $40,000/месяц на операционных расходах.</p>
+                    <div style="margin-top: 1rem;">
+                        <div class="case-result">✓ Экономия: $40K/мес</div>
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="case-card">
+                    <span class="case-location">Туристический финтех, СНГ</span>
+                    <h3 class="case-title">EMI-лицензия вместо офшорного банка</h3>
+                    <p>Выбрал оптимальную юрисдикцию и структуру. Лицензия вместо риска банка. Архитектура всей системы за 1 сессию. Экономия себестоимости ~10-15%.</p>
+                    <div style="margin-top: 1rem;">
+                        <div class="case-result">✓ Экономия: -10-15% себестоимости</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GEOGRAPHY -->
+    <section class="geography">
+        <div class="section-container">
+            <h2 class="section-title">География и тарифы</h2>
+            <p class="section-subtitle">Ориентировочные цены по регионам</p>
+
+            <div class="geography-grid">
+                <div class="geo-card">
+                    <div class="geo-region">Россия / СНГ</div>
+                    <div class="geo-price">$2K — $8K</div>
+                    <div class="geo-description">Консалтинг, регуляторные вопросы, лицензирование</div>
+                </div>
+
+                <div class="geo-card">
+                    <div class="geo-region">USA / Bay Area</div>
+                    <div class="geo-price">$5K — $25K</div>
+                    <div class="geo-description">M&A, комплексный консалтинг, стратегия выхода</div>
+                </div>
+
+                <div class="geo-card">
+                    <div class="geo-region">EU / Европа</div>
+                    <div class="geo-price">$2K — $15K</div>
+                    <div class="geo-description">EMI-лицензии, GDPR, cross-border интеграция</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <h2>Готовы обсудить ваш проект?</h2>
+        <p>Первая консультация — абсолютно бесплатно. Обещаю честную оценку и конкретные рекомендации.</p>
+        <a href="#contact" class="btn btn-outline">Напишите внизу ↓</a>
+    </section>
+
+    <!-- FORM -->
+    <section id="contact" class="form-section">
+        <div class="form-container">
+            <h2 class="form-title">Контакт</h2>
+            <p class="form-subtitle">Обсудим вашу задачу</p>
+
+            <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                <div id="formMessage"></div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">Компания *</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Имя *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="telegram">Telegram (рекомендуется)</label>
+                        <input type="text" id="telegram" name="telegram" placeholder="@username или +7...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="direction">Направление *</label>
+                    <select id="direction" name="direction" required>
+                        <option value="">-- Выберите --</option>
+                        <option value="EMI/MSB">EMI / MSB Лицензии</option>
+                        <option value="Anticrisis">Антикризисный консалтинг</option>
+                        <option value="Cards">Карточный продукт</option>
+                        <option value="Exchange">Консалтинг обменников</option>
+                        <option value="MA">M&A в крипто</option>
+                        <option value="Payments">Кросс-бордер платежи</option>
+                        <option value="Other">Другое</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Описание задачи *</label>
+                    <textarea id="message" name="message" required placeholder="Расскажите кратко о вашей задаче, ситуации, сроках..."></textarea>
+                </div>
+
+                <button type="submit" class="form-submit">Отправить запрос</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-disclaimer">
+                <strong>Дисклеймер:</strong> Содержание этого сайта не является финансовым, инвестиционным или юридическим советом.
+                Все проекты рассматриваются индивидуально в соответствии с юрисдикцией и местным законодательством.
+            </div>
+            <div class="footer-copyright">
+                © 2026 VDA.VC · Дмитрий Васильев · Fintech Consulting
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const formData = {
+                company: document.getElementById('company').value,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                telegram: document.getElementById('telegram').value,
+                direction: document.getElementById('direction').value,
+                message: document.getElementById('message').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Log to console (in production, send to backend)
+            console.log('Form submitted:', formData);
+
+            // Show success message
+            const messageDiv = document.getElementById('formMessage');
+            messageDiv.innerHTML = '<div class="success-message">✓ Спасибо! Ваш запрос получен. Свяжемся в течение 24 часов.</div>';
+
+            // Reset form
+            document.getElementById('contactForm').reset();
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 5000);
+
+            // Scroll to message
+            messageDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Smooth scroll enhancement for mobile
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

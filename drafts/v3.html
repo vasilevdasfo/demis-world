@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Крипта заблокирована? Деньги застряли? — vda.vc</title>
+  <meta name="description" content="Разблокировка крипты, KYC/AML, кризисный менеджмент. 15 лет в крипте, бывший CEO биржи, Bay Area. Первый разбор — бесплатно." />
+  <meta property="og:title" content="Крипта заблокирована. Деньги застряли. Я решаю." />
+  <meta property="og:description" content="Если биржа заморозила активы или KYC не проходит — есть решение. Первый разбор бесплатно." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vda.vc/v3.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #E8B84B;
+      --accent-hover: #d4a43a;
+      --accent-soft: rgba(232,184,75,0.12);
+      --bg: #0a0f16;
+      --bg2: #111820;
+      --bg3: #161e28;
+      --border: rgba(255,255,255,0.07);
+      --text: #F0F4F8;
+      --text2: #8fa8c0;
+      --text3: #4a6070;
+      --shadow: 0 2px 16px rgba(0,0,0,0.4);
+      --font-head: 'Unbounded', sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --radius: 4px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ====== NAV ====== */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,15,22,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex; align-items: center;
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1080px; margin: 0 auto; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 15px; font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex; gap: 28px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px; color: var(--text2);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #0a0f16;
+      font-size: 12px; font-weight: 600;
+      padding: 8px 18px; border-radius: var(--radius);
+      border: none; cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--accent-hover); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 1px;
+    }
+    nav.mobile-menu {
+      display: none; position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--bg2); z-index: 99;
+      padding: 24px; flex-direction: column; gap: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    nav.mobile-menu.open { display: flex; }
+    nav.mobile-menu a { font-size: 15px; color: var(--text2); }
+
+    /* ====== SECTION BASE ====== */
+    section { padding: 88px 0; }
+    .section-tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); border: 1px solid rgba(232,184,75,0.35);
+      border-radius: 2px; padding: 3px 10px; margin-bottom: 18px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(22px, 3.5vw, 34px);
+      font-weight: 700; line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--text2); max-width: 600px;
+      line-height: 1.65;
+    }
+
+    /* ====== HERO — ЗНАЮ ====== */
+    #hero {
+      padding: 72px 0 80px;
+      background: linear-gradient(160deg, #0a0f16 0%, #0d1520 100%);
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; top: -180px; right: -120px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,184,75,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); border: 1px solid rgba(232,184,75,0.35);
+      border-radius: 2px; padding: 3px 10px; margin-bottom: 24px;
+    }
+    .hero-headline {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 5vw, 54px);
+      font-weight: 900; line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .hero-headline .accent { color: var(--accent); }
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text2); margin-bottom: 36px;
+      max-width: 620px; line-height: 1.65;
+    }
+
+    /* Три боли ЦА */
+    .pain-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-bottom: 40px;
+    }
+    .pain-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .pain-card:hover {
+      border-left-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .pain-icon { font-size: 22px; margin-bottom: 10px; }
+    .pain-title {
+      font-family: var(--font-head);
+      font-size: 13px; font-weight: 700;
+      margin-bottom: 8px; color: var(--text);
+      line-height: 1.3;
+    }
+    .pain-desc {
+      font-size: 13px; color: var(--text2); line-height: 1.55;
+    }
+    .pain-card.yes {
+      background: rgba(232,184,75,0.05);
+      border-color: rgba(232,184,75,0.2);
+      border-left-color: var(--accent);
+    }
+
+    .hero-cta-row {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent); color: #0a0f16;
+      font-size: 14px; font-weight: 700;
+      padding: 14px 28px; border-radius: var(--radius);
+      border: none; cursor: pointer; transition: background 0.2s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-outline {
+      background: transparent; color: var(--text2);
+      font-size: 13px; font-weight: 500;
+      padding: 12px 22px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      cursor: pointer; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-outline:hover { border-color: var(--text3); color: var(--text); }
+    .hero-trust {
+      margin-top: 28px;
+      font-size: 12px; color: var(--text3);
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .hero-trust span { display: flex; align-items: center; gap: 6px; }
+    .hero-trust span::before { content: '✓'; color: var(--accent); }
+
+    /* ====== ПОНИМАЮ — почему сложно ====== */
+    #why {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px; margin-top: 40px;
+    }
+    .why-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+    .why-num {
+      font-family: var(--font-head);
+      font-size: 11px; font-weight: 700;
+      color: var(--accent); letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .why-title {
+      font-family: var(--font-head);
+      font-size: 15px; font-weight: 700;
+      margin-bottom: 10px; line-height: 1.3;
+    }
+    .why-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+    /* ====== ВЕРЮ — Кейсы ====== */
+    #cases { background: var(--bg); }
+    .cases-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; margin-top: 40px;
+    }
+    .case-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .case-geo {
+      font-size: 11px; color: var(--text3);
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .case-block-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--text3); margin-bottom: 6px;
+    }
+    .case-block-text { font-size: 13px; color: var(--text2); line-height: 1.55; }
+    .case-result {
+      background: rgba(232,184,75,0.06);
+      border: 1px solid rgba(232,184,75,0.2);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .case-result .case-block-label { color: var(--accent); }
+    .case-result .case-block-text { color: var(--text); font-weight: 500; }
+    .case-timeline {
+      font-size: 12px; color: var(--text3);
+      border-top: 1px solid var(--border);
+      padding-top: 12px; margin-top: auto;
+    }
+    .case-timeline span { color: var(--accent); font-weight: 600; }
+
+    /* ====== ВЕРЮ — Обо мне (коротко) ====== */
+    #about {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.6fr;
+      gap: 56px; align-items: center; margin-top: 40px;
+    }
+    .about-credentials {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .cred-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px 20px;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .cred-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .cred-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+    .cred-text strong { color: var(--text); display: block; font-size: 14px; margin-bottom: 2px; }
+    .about-statement {
+      font-family: var(--font-head);
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 700; line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .about-statement span { color: var(--accent); }
+    .about-body {
+      font-size: 15px; color: var(--text2); line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .about-scar {
+      background: rgba(232,184,75,0.06);
+      border: 1px solid rgba(232,184,75,0.18);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      font-size: 13px; color: var(--text2); line-height: 1.6;
+      font-style: italic;
+    }
+    .about-scar strong { color: var(--text); font-style: normal; }
+
+    /* ====== ПОКУПАЮ — Услуги ====== */
+    #services { background: var(--bg); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; margin-top: 40px;
+    }
+    .service-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex; flex-direction: column; gap: 0;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .service-card:hover {
+      border-color: rgba(232,184,75,0.35);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    .service-badge {
+      position: absolute; top: -1px; right: 20px;
+      background: var(--accent); color: #0a0f16;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      padding: 3px 10px; border-radius: 0 0 4px 4px;
+      text-transform: uppercase;
+    }
+    .service-icon { font-size: 28px; margin-bottom: 14px; }
+    .service-name {
+      font-family: var(--font-head);
+      font-size: 14px; font-weight: 700;
+      margin-bottom: 10px; line-height: 1.3;
+    }
+    .service-pain {
+      font-size: 13px; color: var(--text2); line-height: 1.55;
+      margin-bottom: 20px; padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .service-pain em {
+      font-style: normal; color: var(--text);
+      font-weight: 500;
+    }
+    .service-what {
+      font-size: 13px; color: var(--text2); line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .service-what ul {
+      list-style: none; padding: 0; margin-top: 8px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .service-what ul li {
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+    .service-what ul li::before {
+      content: '→'; color: var(--accent); flex-shrink: 0;
+      font-size: 12px; margin-top: 2px;
+    }
+    .service-price-row {
+      display: flex; flex-direction: column; gap: 4px;
+      margin-bottom: 20px;
+    }
+    .price-line {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px;
+    }
+    .price-label { color: var(--text3); }
+    .price-value { color: var(--text); font-weight: 600; font-size: 13px; }
+    .service-cta {
+      margin-top: auto;
+      background: transparent; color: var(--accent);
+      font-size: 13px; font-weight: 600;
+      padding: 11px 20px; border-radius: var(--radius);
+      border: 1px solid rgba(232,184,75,0.4);
+      cursor: pointer; transition: all 0.2s;
+      text-align: center; display: block;
+    }
+    .service-cta:hover {
+      background: var(--accent); color: #0a0f16;
+    }
+
+    /* ====== КОНТАКТ ====== */
+    #contact { background: var(--bg2); }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 56px; align-items: start;
+    }
+    .contact-title {
+      font-family: var(--font-head);
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 700; line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .contact-title span { color: var(--accent); }
+    .contact-desc {
+      font-size: 15px; color: var(--text2); margin-bottom: 28px;
+      line-height: 1.65;
+    }
+    .contact-channels {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .contact-channel {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.2s;
+    }
+    .contact-channel:hover { border-color: rgba(232,184,75,0.35); }
+    .channel-icon { font-size: 18px; flex-shrink: 0; }
+    .channel-text { font-size: 14px; color: var(--text2); }
+    .channel-text strong { color: var(--text); display: block; font-size: 12px; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--font-head); }
+
+    /* Contact form */
+    .contact-form {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px;
+    }
+    .form-title {
+      font-family: var(--font-head);
+      font-size: 14px; font-weight: 700;
+      margin-bottom: 24px; color: var(--text);
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-label {
+      display: block; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--text3); margin-bottom: 8px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; background: var(--bg2);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--text); font-family: var(--font-body); font-size: 14px;
+      padding: 10px 14px; transition: border-color 0.2s; outline: none;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: rgba(232,184,75,0.5); }
+    .form-textarea { resize: vertical; min-height: 100px; line-height: 1.55; }
+    .form-select { cursor: pointer; }
+    .form-submit {
+      width: 100%; background: var(--accent); color: #0a0f16;
+      font-size: 14px; font-weight: 700;
+      padding: 14px 24px; border-radius: var(--radius);
+      border: none; cursor: pointer; transition: background 0.2s;
+      margin-top: 4px;
+    }
+    .form-submit:hover { background: var(--accent-hover); }
+    .form-note {
+      font-size: 11px; color: var(--text3); margin-top: 10px; text-align: center;
+    }
+    #form-success {
+      display: none; text-align: center; padding: 24px;
+    }
+    #form-success .ok-icon { font-size: 40px; margin-bottom: 12px; }
+    #form-success p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+
+    /* ====== FOOTER ====== */
+    footer {
+      background: var(--bg); border-top: 1px solid var(--border);
+      padding: 28px 24px; text-align: center;
+      font-size: 12px; color: var(--text3);
+    }
+    footer a { color: var(--text3); transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 900px) {
+      .pain-cards { grid-template-columns: 1fr; gap: 12px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .cases-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 56px 0; }
+      #hero { padding: 48px 0 56px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="nav-inner">
+    <div class="nav-logo">vda<span>.</span>vc</div>
+    <ul class="nav-links">
+      <li><a href="#why">Почему сложно</a></li>
+      <li><a href="#cases">Кейсы</a></li>
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#about">Обо мне</a></li>
+    </ul>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="#contact" class="nav-cta">Описать проблему →</a>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu">
+  <a href="#why" onclick="this.closest('.mobile-menu').classList.remove('open')">Почему сложно</a>
+  <a href="#cases" onclick="this.closest('.mobile-menu').classList.remove('open')">Кейсы</a>
+  <a href="#services" onclick="this.closest('.mobile-menu').classList.remove('open')">Услуги</a>
+  <a href="#about" onclick="this.closest('.mobile-menu').classList.remove('open')">Обо мне</a>
+  <a href="#contact" onclick="this.closest('.mobile-menu').classList.remove('open')">Написать</a>
+</nav>
+
+<!-- ===== HERO — ЗНАЮ ===== -->
+<section id="hero">
+  <div class="container">
+
+    <div class="hero-tag">Узнаёшь ситуацию?</div>
+
+    <h1 class="hero-headline">
+      Деньги есть.<br>
+      Добраться до них —<br>
+      <span class="accent">нельзя.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Биржа заморозила. KYC не проходит. Банк отказал.
+      Юрист разводит руками. Это решаемо — если знать систему изнутри.
+    </p>
+
+    <!-- Три боли ЦА -->
+    <div class="pain-cards">
+
+      <div class="pain-card yes">
+        <div class="pain-icon">🔒</div>
+        <div class="pain-title">Крипто-активы заморожены</div>
+        <div class="pain-desc">
+          Биржа заблокировала вывод. KYC не проходит третий месяц.
+          AML-система сработала без объяснений. $50K лежат — не двигаются.
+        </div>
+      </div>
+
+      <div class="pain-card yes">
+        <div class="pain-icon">🏦</div>
+        <div class="pain-title">Банк / платёжная система отказала</div>
+        <div class="pain-desc">
+          Счёт закрыт без предупреждения. SWIFT не проходит.
+          Корреспондентский банк завернул транзакцию. Деньги зависли.
+        </div>
+      </div>
+
+      <div class="pain-card yes">
+        <div class="pain-icon">⚠️</div>
+        <div class="pain-title">Бизнес теряет деньги — непонятно где</div>
+        <div class="pain-desc">
+          Оборот есть, прибыли нет. Подозрение на фрод или воровство.
+          Нужен аудит транзакций — но никто не умеет этого в крипте.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-cta-row">
+      <a href="#contact" class="btn-primary">Описать ситуацию →</a>
+      <a href="#cases" class="btn-outline">Смотреть кейсы</a>
+    </div>
+
+    <div class="hero-trust">
+      <span>15 лет в крипте и финтехе</span>
+      <span>Bay Area, CA</span>
+      <span>Первый разбор — бесплатно</span>
+      <span>Отвечаю в течение 24 часов</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== ПОНИМАЮ — почему сложно решить самому ===== -->
+<section id="why">
+  <div class="container">
+    <div class="section-tag">Почему это сложно</div>
+    <h2 class="section-title">Система не работает на тебя.</h2>
+    <p class="section-sub">Четыре причины, почему обычные пути не работают — и что с этим делать.</p>
+
+    <div class="why-grid">
+
+      <div class="why-card">
+        <div class="why-num">01 —</div>
+        <div class="why-title">Compliance говорит на своём языке</div>
+        <div class="why-text">
+          Юристы не знают крипту. Крипто-специалисты не знают банковское compliance.
+          Стандартный ответ AML-отдела — «ваш запрос рассматривается» — может означать что угодно.
+          Нужно знать что именно написать, кому, в каком формате.
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-num">02 —</div>
+        <div class="why-title">У тебя нет нужных контактов</div>
+        <div class="why-text">
+          Официальный support биржи — это скрипт, не люди.
+          Решения принимаются на уровне compliance-менеджеров и риск-офицеров.
+          К ним не попасть через тикет-систему — только через прямые связи.
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-num">03 —</div>
+        <div class="why-title">Одна ошибка — и всё сначала</div>
+        <div class="why-text">
+          Неправильно собранный пакет документов → отказ → ещё 2–3 месяца ожидания.
+          Обращение в неправильный отдел → блокировка аккаунта навсегда.
+          В этих делах важен порядок действий, не только сам результат.
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-num">04 —</div>
+        <div class="why-title">Время работает против тебя</div>
+        <div class="why-text">
+          Пока ты ждёшь — курс меняется, контрагенты уходят, бизнес-возможности закрываются.
+          Стандартное время разблокировки «своими силами» — 3–6 месяцев.
+          Со знанием системы — 2–4 недели.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ВЕРЮ — Кейсы ===== -->
+<section id="cases">
+  <div class="container">
+    <div class="section-tag">Реальные результаты</div>
+    <h2 class="section-title">Не теория. Конкретные задачи — конкретные цифры.</h2>
+    <p class="section-sub">Имена и детали изменены. Механика и результат — сохранены.</p>
+
+    <div class="cases-grid">
+
+      <div class="case-card">
+        <div class="case-geo">🇷🇺 Россия · Крипто-компания</div>
+        <div>
+          <div class="case-block-label">Проблема</div>
+          <div class="case-block-text">$2M заморожены на бирже из-за автоматической AML-блокировки. Compliance не отвечает. Ждали 3 месяца — безрезультатно.</div>
+        </div>
+        <div>
+          <div class="case-block-label">Что сделано</div>
+          <div class="case-block-text">Переговоры с compliance-командой напрямую. Пакет документов по международному стандарту. Эскалация через правильный канал.</div>
+        </div>
+        <div class="case-result">
+          <div class="case-block-label">Результат</div>
+          <div class="case-block-text">$2M разблокированы. Деньги на счету.</div>
+        </div>
+        <div class="case-timeline">Срок: <span>14 дней</span></div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-geo">🇺🇸 США, Bay Area · Частное лицо</div>
+        <div>
+          <div class="case-block-label">Проблема</div>
+          <div class="case-block-text">После судимости — невозможно открыть банковский счёт, получить кредит, найти жильё. Адвокаты давали противоречивые советы.</div>
+        </div>
+        <div>
+          <div class="case-block-label">Что сделано</div>
+          <div class="case-block-text">План действий на 90 дней. Банковский счёт через специализированный продукт. Система credit building — пошагово.</div>
+        </div>
+        <div class="case-result">
+          <div class="case-block-label">Результат</div>
+          <div class="case-block-text">Счёт — 2 недели. Первый кредит — через 6 месяцев. Нормальная жизнь.</div>
+        </div>
+        <div class="case-timeline">Первый план: <span>48 часов</span></div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-geo">🇵🇱 Польша / ЕС · Финтех</div>
+        <div>
+          <div class="case-block-label">Проблема</div>
+          <div class="case-block-text">€800K оборота в месяц, прибыль не растёт. Подозрение на фрод со стороны сотрудников. Нужна прозрачность транзакций.</div>
+        </div>
+        <div>
+          <div class="case-block-label">Что сделано</div>
+          <div class="case-block-text">AI-анализ транзакций за 6 месяцев. Аномалии в трёх паттернах. Два сотрудника с подозрительной активностью — выявлены.</div>
+        </div>
+        <div class="case-result">
+          <div class="case-block-label">Результат</div>
+          <div class="case-block-text">+18% прибыли. AI-алерты на фрод в реальном времени — внедрены.</div>
+        </div>
+        <div class="case-timeline">Первые находки: <span>72 часа</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ВЕРЮ — Обо мне ===== -->
+<section id="about">
+  <div class="container">
+    <div class="section-tag">Почему именно я</div>
+
+    <div class="about-grid">
+
+      <div class="about-credentials">
+        <div class="cred-row">
+          <div class="cred-icon">🏦</div>
+          <div class="cred-text">
+            <strong>Бывший CEO криптобиржи WEX</strong>
+            Оборот $1B+. Знаю как устроены биржи изнутри — compliance, риски, блокировки.
+          </div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-icon">📍</div>
+          <div class="cred-text">
+            <strong>Bay Area, Hayward, CA</strong>
+            Работаю в юрисдикции США, понимаю европейское и российское право одновременно.
+          </div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-icon">🌐</div>
+          <div class="cred-text">
+            <strong>RU · EN · PL · 3 рынка</strong>
+            Говорю на языке трейдеров, банкиров, адвокатов и разработчиков одновременно.
+          </div>
+        </div>
+        <div class="cred-row">
+          <div class="cred-icon">⚙️</div>
+          <div class="cred-text">
+            <strong>15 лет в крипте и финтехе</strong>
+            CEO Prizmbit, MD BCB.credit. Крипта, банки, SWIFT — как единая система.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="about-statement">
+          Я не консультант.<br>
+          Я <span>решаю проблемы</span>,<br>которые остальные считают нерешаемыми.
+        </h2>
+        <p class="about-body">
+          Большинство консультантов дают советы. Я прихожу туда, где советы уже дали — и ничего не изменилось.
+          Работаю напрямую с compliance-командами бирж, банков и регуляторов.
+          Знаю систему изнутри — потому что сам через неё прошёл.
+        </p>
+        <div class="about-scar">
+          <strong>Это не биография.</strong>
+          В 2017 году ФБР изъяло BTC-e. Я восстановил биржу под именем WEX и вернул пользователям доступ к $800M —
+          когда ФБР/IRS не вернул ни цента. Цена: 4 ареста, 5 стран, браслет на ноге.
+          Я знаю как работает система — потому что боролся с ней лично.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ПОКУПАЮ — Услуги ===== -->
+<section id="services">
+  <div class="container">
+    <div class="section-tag">Услуги</div>
+    <h2 class="section-title">Выбери свою ситуацию.</h2>
+    <p class="section-sub">Три направления работы. Первый разбор всегда бесплатно — скажу честно, смогу ли помочь.</p>
+
+    <div class="services-grid">
+
+      <!-- Разблокировка -->
+      <div class="service-card">
+        <div class="service-badge">Срочно</div>
+        <div class="service-icon">🔓</div>
+        <div class="service-name">Разблокировка крипты и счетов</div>
+        <p class="service-pain">
+          <em>Ситуация:</em> активы на бирже, но вывести нельзя. KYC не проходит. Аккаунт заморожен. Деньги нужны срочно.
+        </p>
+        <div class="service-what">
+          <div style="font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px;">Что делаю</div>
+          <ul>
+            <li>Переговоры с compliance-командой напрямую</li>
+            <li>Пакет KYC/AML-документов под конкретную биржу</li>
+            <li>Escalation через правильный канал</li>
+            <li>Binance, Kraken, Coinbase, OKX и другие</li>
+          </ul>
+        </div>
+        <div class="service-price-row">
+          <div class="price-line">
+            <span class="price-label">Стоимость</span>
+            <span class="price-value">$2 000 – $5 000</span>
+          </div>
+          <div class="price-line">
+            <span class="price-label">Срок</span>
+            <span class="price-value">7 – 21 день</span>
+          </div>
+          <div class="price-line">
+            <span class="price-label">Рынки</span>
+            <span class="price-value">RU · USA · EU</span>
+          </div>
+        </div>
+        <a href="#contact" class="service-cta">Описать ситуацию →</a>
+      </div>
+
+      <!-- Второй шанс -->
+      <div class="service-card">
+        <div class="service-icon">🔄</div>
+        <div class="service-name">Второй шанс: перезапуск жизни</div>
+        <p class="service-pain">
+          <em>Ситуация:</em> переезд в новую страну, выход из тюрьмы, старт после кризиса. Система непонятна — нужен проводник.
+        </p>
+        <div class="service-what">
+          <div style="font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px;">Что делаю</div>
+          <ul>
+            <li>Конкретный план на 30 / 60 / 90 дней</li>
+            <li>Банковский счёт, кредит, документы</li>
+            <li>Переговоры с адвокатом — объясняю по-человечески</li>
+            <li>Личный опыт: Bay Area, домашний арест, старт с нуля</li>
+          </ul>
+        </div>
+        <div class="service-price-row">
+          <div class="price-line">
+            <span class="price-label">Пакет</span>
+            <span class="price-value">$1 000 – $3 000</span>
+          </div>
+          <div class="price-line">
+            <span class="price-label">Почасовая</span>
+            <span class="price-value">$150 – $300 / ч</span>
+          </div>
+          <div class="price-line">
+            <span class="price-label">Первый план</span>
+            <span class="price-value">48 часов</span>
+          </div>
+        </div>
+        <a href="https://t.me/vdavc_bot" target="_blank" class="service-cta">Описать ситуацию →</a>
+      </div>
+
+      <!-- AI-аудит -->
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <div class="service-name">AI-аудит финансовых операций</div>
+        <p class="service-pain">
+          <em>Ситуация:</em> не знаешь где теряешь деньги. Подозреваешь фрод. Хочешь использовать AI в бизнесе — но не знаешь как.
+        </p>
+        <div class="service-what">
+          <div style="font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:8px;">Что делаю</div>
+          <ul>
+            <li>AI-анализ транзакций — нахожу аномалии</li>
+            <li>Конкретные цифры потерь и виновные</li>
+            <li>Настройка real-time алертов на фрод</li>
+            <li>Внедрение AI-процессов для роста прибыли</li>
+          </ul>
+        </div>
+        <div class="service-price-row">
+          <div class="price-line">
+            <span class="price-label">Аудит</span>
+            <span class="price-value">$5 000 – $25 000</span>
+          </div>
+          <div class="price-line">
+            <span class="price-label">Ретейнер</span>
+            <span class="price-value">$3 000 – $10 000 / мес</span>
+          </div>
+          <div class="price-line">
+            <span class="price-label">Первые находки</span>
+            <span class="price-value">72 часа</span>
+          </div>
+        </div>
+        <a href="#contact" class="service-cta">Заказать аудит →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== КОНТАКТ ===== -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+
+      <div>
+        <div class="section-tag">Написать</div>
+        <h2 class="contact-title">
+          Опишите ситуацию.<br>Отвечу за <span>24 часа</span>.
+        </h2>
+        <p class="contact-desc">
+          Первый разбор — бесплатно. Скажу честно: можно ли помочь, как, и сколько займёт.
+          Если не смогу — скажу тоже.
+        </p>
+        <div class="contact-channels">
+          <a href="https://t.me/vdavc_bot" target="_blank" class="contact-channel">
+            <div class="channel-icon">🤖</div>
+            <div class="channel-text">
+              <strong>AI-ассистент</strong>
+              @vdavc_bot — ответит сразу, 24/7
+            </div>
+          </a>
+          <a href="https://t.me/vdavc_bot" target="_blank" class="contact-channel">
+            <div class="channel-icon">✈️</div>
+            <div class="channel-text">
+              <strong>Telegram напрямую</strong>
+              @vdavc_bot
+            </div>
+          </a>
+          <a href="mailto:dima@vda.vc" class="contact-channel">
+            <div class="channel-icon">✉️</div>
+            <div class="channel-text">
+              <strong>Email</strong>
+              dima@vda.vc
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div id="form-main">
+          <div class="form-title">Описать ситуацию</div>
+          <form id="contactForm" onsubmit="submitForm(event)">
+            <div class="form-group">
+              <label class="form-label" for="fname">Имя</label>
+              <input type="text" id="fname" name="name" class="form-input" placeholder="Дмитрий" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ftg">Telegram / WhatsApp</label>
+              <input type="text" id="ftg" name="contact" class="form-input" placeholder="@username или +7..." required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ftype">Тип запроса</label>
+              <select id="ftype" name="type" class="form-select form-input">
+                <option value="">— выбрать —</option>
+                <option value="crypto">Разблокировка крипты</option>
+                <option value="bank">Проблема со счётом / банком</option>
+                <option value="audit">AI-аудит / фрод</option>
+                <option value="second">Второй шанс / переезд</option>
+                <option value="other">Другое</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fmsg">Ситуация</label>
+              <textarea id="fmsg" name="message" class="form-textarea" placeholder="Что случилось, сколько застряло, как давно..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">Отправить →</button>
+            <p class="form-note">Первый разбор бесплатно. Отвечу в течение 24 часов.</p>
+          </form>
+        </div>
+        <div id="form-success">
+          <div class="ok-icon">✅</div>
+          <p>Получил. Отвечу в течение 24 часов.<br>Если срочно — напиши напрямую в @vdavc_bot.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>© 2026 Dmitrii Vasilev · <a href="mailto:dima@vda.vc">dima@vda.vc</a> · Bay Area, CA</p>
+  <p style="margin-top:6px;">NFA. Это не финансовая рекомендация. Консультация не является юридической.</p>
+</footer>
+
+<script>
+  function submitForm(e) {
+    e.preventDefault();
+    const form = document.getElementById('contactForm');
+    const data = new FormData(form);
+    // Отправка через formsubmit.co или собственный endpoint
+    fetch('https://formsubmit.co/ajax/dima@vda.vc', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    }).catch(() => {});
+    document.getElementById('form-main').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>

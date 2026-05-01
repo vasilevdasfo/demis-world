@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дмитрий Васильев — Крипто-консультант, Bay Area | vda.vc</title>
+<meta name="description" content="ФБР закрыло биржу — я вернул $800M людям. Разблокировка крипты, кризис-менеджмент, финтех-консалтинг. 15 лет практики. Bay Area, CA.">
+<meta name="keywords" content="крипто консалтинг, разблокировка криптоактивов, кризис-менеджмент, EMI лицензия, финтех, Дмитрий Васильев, vda.vc">
+<meta name="author" content="Дмитрий Васильев">
+<meta property="og:title" content="Дмитрий Васильев — Крипто-консультант, Bay Area">
+<meta property="og:description" content="ФБР закрыло биржу — я вернул $800M людям. Разблокировка крипты, кризис-менеджмент, финтех.">
+<meta property="og:url" content="https://vda.vc/v6.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold:       #C9A84C;
+  --gold-light: #E2C87A;
+  --gold-dim:   #8B6D2A;
+  --bg:         #0A0A0A;
+  --bg2:        #111111;
+  --bg3:        #161616;
+  --line:       rgba(201,168,76,0.15);
+  --text1:      #F0EAD8;
+  --text2:      #9A8E78;
+  --text3:      #5A5040;
+  --red:        #C0392B;
+  --green:      #4ade80;
+  --max-w:      1200px;
+  --transition: 0.25s ease;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text1);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+a { text-decoration: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.97), transparent);
+  backdrop-filter: blur(10px);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.05em;
+}
+.nav-logo span { color: var(--text2); font-weight: 400; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-size: 13px; font-weight: 400; color: var(--text2);
+  letter-spacing: 0.04em; transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px;
+  border: 1px solid var(--gold-dim);
+  color: var(--gold); font-size: 13px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: all var(--transition);
+}
+.nav-cta:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+.nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.nav-burger span { width: 24px; height: 2px; background: var(--text2); border-radius: 2px; transition: all 0.2s; display: block; }
+
+/* Mobile overlay */
+#mobile-menu {
+  display: none; position: fixed; top: 64px; left: 0; right: 0;
+  background: rgba(10,10,10,0.98); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line); z-index: 99; padding: 28px 24px;
+}
+#mobile-menu a {
+  display: block; padding: 12px 0;
+  font-size: 1rem; color: var(--text1);
+  border-bottom: 1px solid var(--line);
+  transition: color var(--transition);
+}
+#mobile-menu a:last-child { border-bottom: none; }
+#mobile-menu a:hover { color: var(--gold); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 48px 80px;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 70% 40%, rgba(201,168,76,0.06) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
+}
+.hero-line {
+  position: absolute; top: 0; left: 48px;
+  width: 1px; height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent);
+  opacity: 0.3;
+}
+.hero-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); opacity: 0.8; margin-bottom: 32px;
+  display: flex; align-items: center; gap: 16px;
+}
+.hero-label::before {
+  content: ''; display: block; width: 40px; height: 1px; background: var(--gold-dim);
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 700; line-height: 1.05; letter-spacing: -0.01em;
+  max-width: 820px; margin-bottom: 40px;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-weight: 300; line-height: 1.65;
+  color: var(--text2); max-width: 520px; margin-bottom: 48px;
+}
+.hero-sub strong { color: var(--text1); font-weight: 500; }
+.hero-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 36px; background: var(--gold); color: var(--bg);
+  font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+  border: none; cursor: pointer; transition: all var(--transition);
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 32px; border: 1px solid var(--line); color: var(--text2);
+  font-size: 14px; font-weight: 400; letter-spacing: 0.04em;
+  cursor: pointer; transition: all var(--transition); background: transparent;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-ghost:hover { border-color: var(--gold-dim); color: var(--text1); }
+.hero-tags {
+  margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px;
+  font-size: 12px; color: var(--text3); letter-spacing: 0.06em;
+}
+.hero-tags span { padding: 5px 12px; border: 1px solid rgba(201,168,76,0.1); }
+.scroll-indicator {
+  position: absolute; bottom: 40px; right: 48px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.5;
+}
+.scroll-text {
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text3); writing-mode: vertical-rl;
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* ─── LIGHT THEME ─── */
+[data-theme="light"] {
+  --gold:       #A07830;
+  --gold-light: #C09840;
+  --gold-dim:   #C09840;
+  --bg:         #FAFAF7;
+  --bg2:        #F2F0EB;
+  --bg3:        #E8E5DE;
+  --line:       rgba(160,120,48,0.15);
+  --text1:      #1A1610;
+  --text2:      #5C5040;
+  --text3:      #9A8E78;
+  --red:        #C0392B;
+  --green:      #16a34a;
+}
+
+[data-theme="light"] nav {
+  background: linear-gradient(to bottom, rgba(250,250,247,0.97), transparent);
+}
+[data-theme="light"] #mobile-menu {
+  background: rgba(250,250,247,0.98);
+}
+[data-theme="light"] .hero-bg {
+  background: radial-gradient(ellipse 60% 60% at 70% 40%, rgba(160,120,48,0.08) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 50% at 20% 80%, rgba(160,120,48,0.05) 0%, transparent 60%);
+}
+[data-theme="light"] .quote-section {
+  background: linear-gradient(135deg, #F2F0EB 0%, #EDE8DF 100%);
+}
+[data-theme="light"] .form-select option { background: var(--bg2); color: var(--text1); }
+
+/* ─── THEME TOGGLE ─── */
+.theme-toggle {
+  position: relative;
+  width: 44px; height: 24px;
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover { border-color: var(--gold-dim); }
+.theme-toggle-knob {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.3s;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; line-height: 1;
+}
+[data-theme="light"] .theme-toggle-knob {
+  transform: translateX(20px);
+}
+.theme-toggle-icon { pointer-events: none; }
+
+
+/* ─── STATS ─── */
+.stats {
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 48px; display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.stat { padding: 0 32px; border-right: 1px solid var(--line); }
+.stat:first-child { padding-left: 0; }
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text2); margin-bottom: 4px;
+}
+.stat-sub { font-size: 11px; color: var(--text3); font-style: italic; line-height: 1.4; }
+
+/* ─── SECTION COMMON ─── */
+.section-header { display: flex; align-items: center; gap: 20px; margin-bottom: 64px; }
+.section-tag {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold-dim); opacity: 0.8;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px); font-weight: 700; line-height: 1.1;
+}
+.section-center {
+  text-align: center; margin-bottom: 56px; display: flex;
+  flex-direction: column; align-items: center;
+}
+.section-center .section-title { margin-bottom: 12px; }
+.section-center .section-sub {
+  font-size: 1rem; color: var(--text2); max-width: 560px; line-height: 1.7;
+}
+.badge-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(201,168,76,0.08); color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.2); border-radius: 100px;
+  padding: 5px 14px; font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px;
+}
+.badge-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+/* ─── SERVICES ─── */
+.services { padding: 96px 48px; background: var(--bg); }
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--line); border: 1px solid var(--line);
+}
+.service-card {
+  background: var(--bg); padding: 36px 32px;
+  display: flex; flex-direction: column; position: relative; overflow: hidden;
+  transition: background var(--transition);
+}
+.service-card:hover { background: var(--bg2); }
+.service-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.service-card:hover::after { transform: scaleX(1); }
+.service-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 700;
+  color: rgba(201,168,76,0.08); line-height: 1; margin-bottom: 20px; letter-spacing: -0.02em;
+}
+.service-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700;
+  margin-bottom: 20px; line-height: 1.3;
+}
+.service-pain { font-size: 15px; color: var(--text3); line-height: 1.6; margin-bottom: 16px; font-style: italic; }
+.service-solution { font-size: 15px; color: var(--text2); line-height: 1.7; margin-bottom: 24px; flex: 1; }
+.service-solution strong { color: var(--text1); }
+.service-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--line); padding-top: 20px; margin-top: auto;
+}
+.service-price { font-size: 20px; font-weight: 600; color: var(--gold); font-family: 'Cormorant Garamond', serif; }
+.service-link {
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text3); display: flex; align-items: center; gap: 6px;
+  transition: color var(--transition);
+}
+.service-link:hover { color: var(--gold); }
+.service-link::after { content: '→'; }
+
+/* Extended services grid (8 items) */
+.services-wide {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 1px;
+}
+.service-card-sm {
+  background: var(--bg2); padding: 32px 28px;
+  display: flex; flex-direction: column; position: relative; overflow: hidden;
+  transition: background var(--transition);
+}
+.service-card-sm:hover { background: var(--bg3); }
+.service-card-sm::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.service-card-sm:hover::after { transform: scaleX(1); }
+.service-sm-icon { font-size: 1.5rem; margin-bottom: 14px; }
+.service-sm-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700;
+  margin-bottom: 10px; line-height: 1.2;
+}
+.service-sm-text { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 16px; flex: 1; }
+.service-sm-price { font-size: 15px; font-weight: 600; color: var(--gold); font-family: 'Cormorant Garamond', serif; }
+
+/* ─── QUOTE ─── */
+.quote-section {
+  padding: 80px 48px;
+  background: linear-gradient(135deg, #0d0d0d 0%, #141209 100%);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 600;
+  color: var(--text1); line-height: 1.4; margin-bottom: 20px;
+  max-width: 760px; margin-left: auto; margin-right: auto;
+}
+.quote-text em { color: var(--gold); font-style: italic; }
+.quote-author { font-size: 13px; color: var(--text3); letter-spacing: 0.06em; }
+
+/* ─── EXPERTISE ─── */
+.expertise { padding: 96px 48px; background: var(--bg2); }
+.expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
+.expertise-item {
+  background: var(--bg2); padding: 36px 32px;
+  transition: background var(--transition);
+}
+.expertise-item:hover { background: var(--bg3); }
+.expertise-icon { font-size: 1.6rem; margin-bottom: 14px; }
+.expertise-item h3 {
+  font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700;
+  margin-bottom: 10px;
+}
+.expertise-item p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+
+/* ─── METHOD ─── */
+.method {
+  padding: 96px 48px; background: var(--bg);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.method-steps { display: flex; flex-direction: column; }
+.method-step {
+  display: grid; grid-template-columns: 60px 1fr;
+  padding: 28px 0; border-bottom: 1px solid var(--line);
+}
+.method-step:last-child { border-bottom: none; }
+.step-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 600;
+  color: var(--gold); padding-top: 3px; letter-spacing: 0.05em;
+}
+.step-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.step-text { font-size: 14px; color: var(--text2); line-height: 1.7; }
+
+/* ─── CASES ─── */
+.cases { padding: 96px 48px; background: var(--bg2); }
+.cases-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); }
+.case-item {
+  background: var(--bg2); display: grid; grid-template-columns: 200px 1fr 1fr;
+  padding: 48px 40px; border-left: 3px solid transparent;
+  transition: all var(--transition);
+}
+.case-item:hover { background: var(--bg3); border-left-color: var(--gold); }
+.case-location { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.case-type { font-size: 13px; color: var(--text3); }
+.case-problem { padding: 0 40px; border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+.case-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
+.case-text { font-size: 14px; color: var(--text2); line-height: 1.7; }
+.case-win { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--gold); margin-top: 12px; }
+
+/* ─── PROBLEMS ─── */
+.problems { padding: 96px 48px; background: var(--bg); }
+.problems-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
+.problem-card {
+  background: var(--bg); padding: 32px 28px;
+  border-left: 3px solid transparent; transition: all var(--transition);
+}
+.problem-card:hover { background: var(--bg2); border-left-color: var(--gold); }
+.problem-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.problem-card p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+
+/* ─── MARKETS ─── */
+.markets {
+  padding: 96px 48px; background: var(--bg2);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.markets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); }
+.market-card { background: var(--bg2); padding: 40px 36px; transition: background var(--transition); }
+.market-card:hover { background: var(--bg3); }
+.market-flag {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.market-flag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold-dim); }
+.market-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+.market-requests { list-style: none; margin-bottom: 28px; }
+.market-requests li {
+  font-size: 13px; color: var(--text2); padding: 6px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.06); line-height: 1.5;
+}
+.market-requests li::before { content: '— '; color: var(--text3); }
+.market-price { font-size: 13px; color: var(--text3); font-style: italic; }
+
+/* ─── ABOUT ─── */
+.about { padding: 96px 48px; background: var(--bg); }
+.about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 96px; align-items: start; }
+.about-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 2.8vw, 34px); font-weight: 400; line-height: 1.45; color: var(--text1);
+}
+.about-text em { font-style: italic; color: var(--gold); }
+.about-text p + p { margin-top: 1.2em; }
+.about-fact {
+  display: flex; align-items: flex-start; gap: 20px;
+  padding: 22px 0; border-bottom: 1px solid var(--line);
+}
+.about-fact:first-child { border-top: 1px solid var(--line); }
+.fact-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
+.fact-text { font-size: 15px; color: var(--text2); line-height: 1.6; }
+.fact-text strong { color: var(--text1); }
+
+/* ─── CONTACT ─── */
+.contact {
+  padding: 96px 48px 120px; background: var(--bg2);
+  border-top: 1px solid var(--line);
+}
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: start; }
+.contact-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 48px); font-weight: 700; line-height: 1.15; margin-bottom: 20px;
+}
+.contact-sub { font-size: 15px; color: var(--text2); line-height: 1.7; margin-bottom: 40px; }
+.contact-direct { display: flex; flex-direction: column; gap: 16px; }
+.contact-link {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 15px; color: var(--text1); transition: color var(--transition);
+}
+.contact-link:hover { color: var(--gold); }
+.contact-link-icon {
+  width: 36px; height: 36px; border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--gold-dim);
+}
+.nfa { margin-top: 40px; font-size: 12px; color: var(--text3); line-height: 1.6; padding-top: 20px; border-top: 1px solid var(--line); font-style: italic; }
+
+/* FORM */
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-field { display: flex; flex-direction: column; gap: 8px; }
+.form-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); }
+.form-input, .form-textarea, .form-select {
+  background: var(--bg); border: 1px solid var(--line); color: var(--text1);
+  font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 14px 16px;
+  outline: none; transition: border-color var(--transition); width: 100%; appearance: none;
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--gold-dim); }
+.form-input.error, .form-textarea.error { border-color: var(--red) !important; }
+.form-input::placeholder, .form-textarea::placeholder { color: var(--text3); }
+.form-textarea { resize: vertical; min-height: 120px; }
+.form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A5040' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; cursor: pointer; }
+.form-select option { background: var(--bg2); }
+.form-submit {
+  padding: 16px 36px; background: var(--gold); color: var(--bg);
+  font-size: 14px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+  border: none; cursor: pointer; letter-spacing: 0.04em;
+  transition: all var(--transition); align-self: flex-start;
+}
+.form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+.form-success {
+  display: none; padding: 20px; background: rgba(201,168,76,0.08);
+  border: 1px solid var(--gold-dim); font-size: 14px; color: var(--gold); text-align: center;
+}
+
+/* ─── DISCLAIMER ─── */
+.disclaimer-bar { background: var(--bg); border-top: 1px solid var(--line); padding: 16px 48px; }
+.disclaimer-bar p { font-size: 0.75rem; color: var(--text3); max-width: var(--max-w); margin: 0 auto; line-height: 1.5; }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 48px 48px 32px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+.footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+.footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--gold); margin-bottom: 12px; }
+.footer-brand-desc { font-size: 13px; color: var(--text3); line-height: 1.65; max-width: 300px; }
+.footer-col h4 { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text2); margin-bottom: 16px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 13px; color: var(--text3); transition: color var(--transition); }
+.footer-links a:hover { color: var(--gold); }
+.footer-bottom {
+  border-top: 1px solid var(--line); padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.footer-bottom p { font-size: 12px; color: var(--text3); }
+.footer-langs { display: flex; gap: 16px; }
+.footer-langs a { font-size: 12px; color: var(--text3); transition: color var(--transition); }
+.footer-langs a:hover { color: var(--gold); }
+
+/* ─── FLOATING CTA ─── */
+.float-cta {
+  position: fixed; bottom: 28px; right: 28px; z-index: 99;
+  background: var(--gold); color: var(--bg);
+  padding: 12px 22px; font-family: 'DM Sans', sans-serif;
+  font-weight: 500; font-size: 13px; letter-spacing: 0.04em;
+  display: flex; align-items: center; gap: 8px;
+  transition: all var(--transition);
+}
+.float-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
+.float-cta-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
+/* ─── FADE IN ─── */
+.fade-in { opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.hidden { opacity: 0; transform: translateY(20px); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .services-wide { grid-template-columns: repeat(2, 1fr); }
+  .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+  .problems-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-burger { display: flex; }
+  .hero { padding: 80px 24px 60px; min-height: auto; padding-top: 120px; }
+  .hero-line { left: 24px; }
+  .stats { grid-template-columns: repeat(2, 1fr); padding: 32px 24px; }
+  .stat { border-right: none; padding: 16px 0; }
+  .stat:nth-child(odd) { border-right: 1px solid var(--line); }
+  .services, .cases, .markets, .about, .contact, .method, .expertise, .problems { padding: 64px 24px; }
+  .services-grid, .markets-grid { grid-template-columns: 1fr; }
+  .services-wide { grid-template-columns: 1fr; }
+  .expertise-grid, .problems-grid { grid-template-columns: 1fr; }
+  .case-item { grid-template-columns: 1fr; gap: 24px; }
+  .case-problem { padding: 0; border: none; }
+  .method-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  .scroll-indicator { display: none; }
+  .disclaimer-bar, footer { padding-left: 24px; padding-right: 24px; }
+  .quote-section { padding: 60px 24px; }
+  .float-cta { bottom: 16px; right: 16px; padding: 10px 18px; font-size: 12px; }
+}
+@media (max-width: 480px) {
+  .stats { grid-template-columns: 1fr; }
+  .stat:nth-child(odd) { border-right: none; }
+  .hero-title { font-size: 42px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">VDA<span>.VC</span></a>
+  <div class="nav-links">
+    <a href="#services">Услуги</a>
+    <a href="#expertise">Экспертиза</a>
+    <a href="#method">Метод</a>
+    <a href="#cases">Кейсы</a>
+    <a href="#about">Обо мне</a>
+    <a href="#markets">Рынки</a>
+  </div>
+  <a class="nav-cta" href="#contact">Описать проблему</a>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" aria-label="Переключить тему" title="Светлая / тёмная тема">
+    <div class="theme-toggle-knob"><span class="theme-toggle-icon">☀</span></div>
+  </button>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <a href="#services" onclick="toggleMenu()">Услуги</a>
+  <a href="#expertise" onclick="toggleMenu()">Экспертиза</a>
+  <a href="#method" onclick="toggleMenu()">Метод</a>
+  <a href="#cases" onclick="toggleMenu()">Кейсы</a>
+  <a href="#about" onclick="toggleMenu()">Обо мне</a>
+  <a href="#markets" onclick="toggleMenu()">Рынки</a>
+  <a href="#contact" onclick="toggleMenu()" style="color:var(--gold);">Описать проблему →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-label">Дмитрий Васильев · Bay Area, California</div>
+  <h1 class="hero-title fade-in">
+    ФБР закрыло биржу.<br>
+    Я вернул <em>$800M</em> людям.<br>
+    Теперь помогаю тебе.
+  </h1>
+  <p class="hero-sub fade-in">
+    Крипта заблокирована. Деньги застряли. Система давит.<br>
+    Я знаю этот маршрут изнутри —
+    <strong>4 ареста, 5 стран, 27 адвокатов.</strong><br>
+    Прихожу, когда остальные сдались.
+  </p>
+  <div class="hero-actions fade-in">
+    <a href="#contact" class="btn-primary">Описать проблему →</a>
+    <a href="#about" class="btn-ghost">Кто я такой</a>
+  </div>
+  <div class="hero-tags fade-in">
+    <span>🔓 Разблокировка крипты</span>
+    <span>🔄 Второй шанс</span>
+    <span>🤖 AI-аудит финансов</span>
+    <span>⚖️ Кризис-менеджмент</span>
+    <span>💳 Финтех-лицензии</span>
+  </div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">scroll</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat fade-in">
+    <div class="stat-num">$6M+</div>
+    <div class="stat-label">На адвокатов</div>
+    <div class="stat-sub">27 юристов<br>1 умер · 1 сидит</div>
+  </div>
+  <div class="stat fade-in">
+    <div class="stat-num">15 лет</div>
+    <div class="stat-label">В крипте</div>
+    <div class="stat-sub">С 2009 года</div>
+  </div>
+  <div class="stat fade-in">
+    <div class="stat-num">4 рынка</div>
+    <div class="stat-label">Присутствие</div>
+    <div class="stat-sub">RU · USA · EU · PL</div>
+  </div>
+  <div class="stat fade-in">
+    <div class="stat-num">4 яз</div>
+    <div class="stat-label">Языки</div>
+    <div class="stat-sub">RU · EN · PL · ES</div>
+  </div>
+</div>
+
+<!-- SERVICES — 3 ключевых -->
+<section class="services" id="services">
+  <div class="section-header fade-in">
+    <span class="section-tag">01 — Услуги</span>
+    <h2 class="section-title">Три задачи, которые я решаю</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-num">01</div>
+      <h3 class="service-title">Разблокировка крипты — <em style="color:var(--gold);">$800M опыт</em></h3>
+      <p class="service-pain">«Деньги на бирже — не вывести. KYC не проходит. Аккаунт заморожен. Поддержка молчит третью неделю.»</p>
+      <div class="service-solution">
+        Я восстанавливал биржу с <strong>$800M замороженных активов</strong>. Знаю все маршруты разблокировки — через обменники, юрисдикции и прямые контакты.<br>
+        <strong>Результат: 7–21 день.</strong>
+      </div>
+      <div class="service-footer">
+        <span class="service-price">от $2 000</span>
+        <a href="#contact" class="service-link">Описать ситуацию</a>
+      </div>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-num">02</div>
+      <h3 class="service-title">AI-аудит финансов — <em style="color:var(--gold);">за 72 часа</em></h3>
+      <p class="service-pain">«Компания теряет деньги — не знаю где. Подозреваю фрод. Цифры не сходятся — никто не объяснит.»</p>
+      <div class="service-solution">
+        Применяю AI для анализа транзакций. Нахожу аномалии, фрод, недоработки — <strong>за 72 часа</strong>. Результат: конкретные цифры потерь и виновные.<br>
+        <em style="color:var(--text3)">Побочный эффект: часть команды придётся уволить.</em>
+      </div>
+      <div class="service-footer">
+        <span class="service-price">от $5 000</span>
+        <a href="#contact" class="service-link">Заказать аудит</a>
+      </div>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-num">03</div>
+      <h3 class="service-title">Второй шанс — <em style="color:var(--gold);">личный маршрут</em></h3>
+      <p class="service-pain">«Новая страна. Тюрьма. Банкротство.»</p>
+      <div class="service-solution">
+        Я сам прошёл через это. Домашний арест. Пять стран. Старт с нуля. <strong>Не теория — личный маршрут.</strong> Провожу за руку: банк, документы, первые деньги, план на 90 дней.
+      </div>
+      <div class="service-footer">
+        <span class="service-price">Бесплатно / За отзыв</span>
+        <a href="#contact" class="service-link">Рассказать ситуацию</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Расширенный список услуг -->
+  <div style="margin-top:48px;">
+    <div class="section-header fade-in" style="margin-bottom:32px;">
+      <span class="section-tag">Полный прайс</span>
+      <h3 class="section-title" style="font-size:clamp(24px,3vw,36px);">Все направления</h3>
+    </div>
+    <div class="services-wide">
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">⚡</div>
+        <h3 class="service-sm-title">Антикризисный консалтинг</h3>
+        <p class="service-sm-text">Регуляторное давление, потеря лицензии, конфликт с партнёрами. Разбираю за 24 часа.</p>
+        <span class="service-sm-price">от $3 000 / мес</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">💳</div>
+        <h3 class="service-sm-title">Карточный продукт</h3>
+        <p class="service-sm-text">BIN-спонсорство, эмиссия карт, Visa/MC compliance, интеграция с процессингом.</p>
+        <span class="service-sm-price">от $5 000 / проект</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🏦</div>
+        <h3 class="service-sm-title">EMI / MSB Лицензии</h3>
+        <p class="service-sm-text">Получение и поддержание EMI, MSB, VASP в EU, UK, CIS. Работа с регуляторами напрямую.</p>
+        <span class="service-sm-price">от $8 000 / проект</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🔄</div>
+        <h3 class="service-sm-title">Консалтинг для обменников</h3>
+        <p class="service-sm-text">Запуск, масштабирование, compliance, работа с банками-партнёрами.</p>
+        <span class="service-sm-price">от $2 000 / мес</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🤝</div>
+        <h3 class="service-sm-title">M&A в крипто</h3>
+        <p class="service-sm-text">Due diligence, оценка активов, структурирование сделок. Кросс-бордер опыт.</p>
+        <span class="service-sm-price">по договорённости</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🤖</div>
+        <h3 class="service-sm-title">AI-автоматизация</h3>
+        <p class="service-sm-text">Внедрение AI-инструментов, автоматизация рутины — один человек работает как компания.</p>
+        <span class="service-sm-price">от $3 000 / проект</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🌐</div>
+        <h3 class="service-sm-title">Кросс-бордер платежи</h3>
+        <p class="service-sm-text">Международные переводы, SWIFT-альтернативы, крипто-рейлы для бизнеса.</p>
+        <span class="service-sm-price">от $2 000 / кейс</span>
+      </div>
+      <div class="service-card-sm fade-in">
+        <div class="service-sm-icon">🧭</div>
+        <h3 class="service-sm-title">«Жизнь с нуля»</h3>
+        <p class="service-sm-text">Эмиграция, новый старт, выход из кризиса. Метод: слышу → понимаю → перевожу → решаю.</p>
+        <span class="service-sm-price">$200 / сессия</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <div class="quote-text">
+    «Приходи с проблемой.<br>
+    Уходи с <em>решением</em>.<br>
+    Оставайся — чтобы помогать другим.»
+  </div>
+  <div class="quote-author">— Дмитрий Васильев, принцип работы</div>
+</div>
+
+<!-- EXPERTISE -->
+<section class="expertise" id="expertise">
+  <div class="section-header fade-in">
+    <span class="section-tag">02 — Экспертиза</span>
+    <h2 class="section-title">Что я знаю изнутри</h2>
+  </div>
+  <div class="expertise-grid">
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">₿</div>
+      <h3>Криптобиржи</h3>
+      <p>Управление биржей, ликвидность, маркет-мейкинг, OTC-деск, compliance. Знаю, как работают системы изнутри.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🔐</div>
+      <h3>AML / KYC / Compliance</h3>
+      <p>Построение compliance-процессов, работа с регуляторами, ответы на запросы FinCEN, FCA, BaFin.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">💳</div>
+      <h3>Карточный продукт</h3>
+      <p>BIN-спонсорство, эмиссия карт, Visa/Mastercard программы, prepaid-продукты, интеграция с процессингом.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🌐</div>
+      <h3>Кросс-бордер платежи</h3>
+      <p>Международные переводы, корреспондентские счета, SWIFT-альтернативы, крипто-рейлы.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">📋</div>
+      <h3>EMI / MSB Лицензии</h3>
+      <p>Получение лицензий в EU, UK, Литве, Эстонии, Грузии, ОАЭ. Работа с регуляторами напрямую.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">⚡</div>
+      <h3>Кризис-менеджмент</h3>
+      <p>Управление при регуляторном давлении, потере ликвидности, конфликтах с партнёрами и медиа-атаках.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🏪</div>
+      <h3>Обменники</h3>
+      <p>Запуск и масштабирование обменных пунктов, работа с банками-партнёрами, автоматизация курсов.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🤝</div>
+      <h3>OTC-сделки</h3>
+      <p>Структурирование крупных внебиржевых сделок, работа с институциональными клиентами.</p>
+    </div>
+    <div class="expertise-item fade-in">
+      <div class="expertise-icon">🤖</div>
+      <h3>AI и автоматизация</h3>
+      <p>Внедрение AI-инструментов в финтех-процессы, построение автоматизированных систем.</p>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="method" id="method">
+  <div class="method-grid">
+    <div class="fade-in">
+      <div class="section-header" style="margin-bottom:32px">
+        <span class="section-tag">03 — Метод</span>
+        <h2 class="section-title">Как это работает</h2>
+      </div>
+      <p style="font-size:15px;color:var(--text2);line-height:1.7;max-width:360px">
+        Не консультирую. Не даю рекомендации. Решаю — с конкретными контактами, сроками и ответственностью.
+      </p>
+    </div>
+    <div class="method-steps">
+      <div class="method-step fade-in">
+        <span class="step-num">01</span>
+        <div>
+          <h3 class="step-title">Слышу</h3>
+          <p class="step-text">Не перебиваю. Не оцениваю. Слушаю полную картину — потому что решение всегда в деталях, которые кажутся незначительными.</p>
+        </div>
+      </div>
+      <div class="method-step fade-in">
+        <span class="step-num">02</span>
+        <div>
+          <h3 class="step-title">Понимаю</h3>
+          <p class="step-text">Нахожу настоящую проблему за симптомами. 5 почему. Декомпозиция. Смена рамки. Часто оказывается — проблема не там, где думали.</p>
+        </div>
+      </div>
+      <div class="method-step fade-in">
+        <span class="step-num">03</span>
+        <div>
+          <h3 class="step-title">Перевожу</h3>
+          <p class="step-text">Юрист говорит на одном языке. Биржа — на другом. Банк — на третьем. Я нахожу перевод между ними. 15 лет на стыке крипто, права и банкинга.</p>
+        </div>
+      </div>
+      <div class="method-step fade-in">
+        <span class="step-num">04</span>
+        <div>
+          <h3 class="step-title">Решаю</h3>
+          <p class="step-text">Конкретный план. Конкретные контакты. Конкретные сроки. Не рекомендации — действия. Остаюсь рядом пока результат не достигнут.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases" id="cases">
+  <div class="section-header fade-in" style="padding:0 0 0 0">
+    <span class="section-tag">04 — Кейсы</span>
+    <h2 class="section-title">Три реальных кейса</h2>
+  </div>
+  <div class="cases-list">
+    <div class="case-item fade-in">
+      <div class="case-meta">
+        <div class="case-location">Россия</div>
+        <div class="case-type">Крипто-предприниматель</div>
+      </div>
+      <div class="case-problem">
+        <div class="case-label">Проблема</div>
+        <p class="case-text">$180 000 USDT заморожены на европейской бирже. Аккаунт заблокирован после санкционной проверки. Поддержка — автоответы. 3 месяца без движения.</p>
+      </div>
+      <div class="case-result">
+        <div class="case-label">Результат</div>
+        <p class="case-text">Найдена юрисдикционная лазейка. Переговоры с compliance через посредника.</p>
+        <div class="case-win">$180K за 17 дней</div>
+      </div>
+    </div>
+    <div class="case-item fade-in">
+      <div class="case-meta">
+        <div class="case-location">Bay Area, USA</div>
+        <div class="case-type">Бывший заключённый</div>
+      </div>
+      <div class="case-problem">
+        <div class="case-label">Проблема</div>
+        <p class="case-text">После 3 лет тюрьмы — ни банковского счёта, ни кредитной истории. Ни одна компания не берёт. Родственники отвернулись. Нетворк — ноль.</p>
+      </div>
+      <div class="case-result">
+        <div class="case-label">Результат</div>
+        <p class="case-text">План 90 дней: документы → secured card → non-profit → фриланс. Нетворк в Bay Area.</p>
+        <div class="case-win">$1 200/мес через 6 недель</div>
+      </div>
+    </div>
+    <div class="case-item fade-in">
+      <div class="case-meta">
+        <div class="case-location">Польша, ЕС</div>
+        <div class="case-type">Крипто-обменник</div>
+      </div>
+      <div class="case-problem">
+        <div class="case-label">Проблема</div>
+        <p class="case-text">Обменник терял 4–7% маржи ежемесячно. Владелец подозревал воровство, но без доказательств. Внутренняя проверка ничего не нашла.</p>
+      </div>
+      <div class="case-result">
+        <div class="case-label">Результат</div>
+        <p class="case-text">AI-анализ за 6 месяцев. Найдено 3 схемы. 2 сотрудника уволены с доказательной базой.</p>
+        <div class="case-win">Экономия $40 000/мес</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section class="problems" id="problems">
+  <div class="section-header fade-in">
+    <span class="section-tag">05 — Узнаёте себя?</span>
+    <h2 class="section-title">Типичные ситуации</h2>
+  </div>
+  <div class="problems-grid">
+    <div class="problem-card fade-in">
+      <h3>🔒 Заморожены средства на бирже</h3>
+      <p>Binance, Kraken, Coinbase заблокировали аккаунт или средства. Служба поддержки молчит или требует документы, которые непонятно как подготовить.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3>📋 AML/KYC-запрос без ответа</h3>
+      <p>Биржа прислала запрос на верификацию источника средств. Вы не знаете, что писать, чтобы не навредить себе.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3>🏦 Банк закрыл счёт финтех-компании</h3>
+      <p>Банк-партнёр расторг договор без объяснений. Нужно срочно найти замену и не потерять клиентов.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3>⚠️ Регуляторное давление</h3>
+      <p>Регулятор прислал запрос, начал проверку или угрожает отозвать лицензию. Нужен план защиты и переговоры.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3>💱 Нужно вывести крипту в фиат</h3>
+      <p>Большая позиция в крипте, но непонятно как выйти без потерь, без налоговых рисков и без блокировок.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3>🚀 Хочу запустить обменник или финтех</h3>
+      <p>Есть идея и деньги, но нет понимания: лицензия, банк, compliance, технология — с чего начать.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3>🔄 Слияние или поглощение в крипто</h3>
+      <p>Хотите купить или продать крипто/финтех-бизнес. Нужен человек, который понимает реальную стоимость актива.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3>🌍 Перезапуск жизни или бизнеса</h3>
+      <p>Эмиграция, новая страна, новый старт. Нужен человек, который прошёл через это и знает, как не потерять годы.</p>
+    </div>
+    <div class="problem-card fade-in">
+      <h3>🤖 Автоматизация процессов</h3>
+      <p>Команда тратит время на рутину. Хотите внедрить AI, но не знаете с чего начать и что реально работает.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section class="markets" id="markets">
+  <div class="section-header fade-in">
+    <span class="section-tag">06 — Рынки</span>
+    <h2 class="section-title">Где и с кем работаю</h2>
+  </div>
+  <div class="markets-grid">
+    <div class="market-card fade-in">
+      <div class="market-flag">Россия / СНГ</div>
+      <h3 class="market-title">Рынок, который<br>я знаю лучше всего</h3>
+      <ul class="market-requests">
+        <li>Крипта заморожена после санкций</li>
+        <li>Безопасный маршрут для OTC-сделки</li>
+        <li>Партнёр кинул — нужен выход</li>
+        <li>Переезжаю в США/ЕС — с чего начать</li>
+      </ul>
+      <div class="market-price">Чек: $2 000 – $8 000 за кейс</div>
+    </div>
+    <div class="market-card fade-in">
+      <div class="market-flag">USA / Bay Area</div>
+      <h3 class="market-title">Здесь я живу.<br>Здесь работаю.</h3>
+      <ul class="market-requests">
+        <li>Финтех-стартап с проблемами KYC/AML</li>
+        <li>Бывший заключённый — нужен второй шанс</li>
+        <li>Русскоязычный эмигрант без системы</li>
+        <li>Крипто-компания с подозрением на фрод</li>
+      </ul>
+      <div class="market-price">Чек: $5 000 – $25 000 за проект</div>
+    </div>
+    <div class="market-card fade-in">
+      <div class="market-flag">EU / Польша</div>
+      <h3 class="market-title">Точка входа<br>в Европу</h3>
+      <ul class="market-requests">
+        <li>Скам — потерял деньги, нужна стратегия</li>
+        <li>Эмигрант с заблокированными активами</li>
+        <li>EMI-лицензия — Литва, Эстония, Мальта</li>
+        <li>VIP-клиент с крипто-проблемой</li>
+      </ul>
+      <div class="market-price">Чек: $2 000 – $15 000 за сопровождение</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-header fade-in">
+    <span class="section-tag">07 — Обо мне</span>
+    <h2 class="section-title">Дмитрий Васильев</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>В 2017 году ФБР закрыло BTC-e — крупнейшую крипто-биржу СНГ.</p>
+      <p>Я запустил WEX и дал людям вывести <em>$800M</em>.</p>
+      <p>ФБР/IRS до сих пор не вернул ни цента пользователям BTC-e.<br>Mt.Gox платит людям с 2014 года — уже 10 лет ждут.<br>Я дал окно в 2017.</p>
+      <p>Я не прячу это. Это моё доказательство того, что я знаю как работает <em>система давления</em> изнутри.</p>
+    </div>
+    <div>
+      <div class="about-fact fade-in">
+        <div class="fact-dot"></div>
+        <div class="fact-text"><strong>$6M+</strong> потрачено на юридическую защиту. 27 адвокатов. 1 умер. 1 сидит. Я продолжаю.</div>
+      </div>
+      <div class="about-fact fade-in">
+        <div class="fact-dot"></div>
+        <div class="fact-text"><strong>4 ареста в 5 странах</strong> — это не биография жертвы. Это доказательство того, что я понимаю давление системы изнутри.</div>
+      </div>
+      <div class="about-fact fade-in">
+        <div class="fact-dot"></div>
+        <div class="fact-text">Сейчас: <strong>Bay Area, California</strong>. Электронный браслет. Работаю. Когда остальные говорят «невозможно» — я уже ищу решение.</div>
+      </div>
+      <div class="about-fact fade-in">
+        <div class="fact-dot"></div>
+        <div class="fact-text">Бывший CEO WEX, CEO Prizmbit, MD BCB.credit. <strong>15 лет</strong> на пересечении крипто, права и банкинга. 4 языка.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div class="fade-in">
+      <h2 class="contact-headline">Расскажите,<br>что случилось.</h2>
+      <p class="contact-sub">
+        Отвечу в течение 24 часов.<br>
+        Первый разговор — бесплатно.<br>
+        Всё конфиденциально.
+      </p>
+      <div class="contact-direct">
+        <a href="https://t.me/vdavc_bot" class="contact-link" target="_blank" rel="noopener">
+          <div class="contact-link-icon">✈</div>
+          Telegram: @vdavc_bot
+        </a>
+        <a href="mailto:dima@vda.vc" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          Email: dima@vda.vc
+        </a>
+      </div>
+      <div class="nfa">
+        NFA: Это не финансовая рекомендация. Каждая ситуация индивидуальна. Всё сказанное основано на личном опыте, а не на профессиональной лицензии.
+      </div>
+    </div>
+
+    <form class="contact-form fade-in" id="contactForm" novalidate>
+      <div class="form-field">
+        <label class="form-label" for="f-name">Имя</label>
+        <input class="form-input" type="text" id="f-name" name="name" placeholder="Как вас зовут">
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-contact">Telegram или Email</label>
+        <input class="form-input" type="text" id="f-contact" name="contact" placeholder="@username или email@domain.com" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-topic">Тема</label>
+        <select class="form-select" id="f-topic" name="topic">
+          <option value="">Выберите направление</option>
+          <option>🔓 Разблокировка криптоактивов</option>
+          <option>⚡ Антикризисный консалтинг</option>
+          <option>💳 Карточный продукт</option>
+          <option>🏦 EMI / Лицензирование</option>
+          <option>🔄 Обменники</option>
+          <option>🤝 M&A / Слияния</option>
+          <option>🤖 AI-автоматизация</option>
+          <option>🧭 Личный консалтинг</option>
+          <option>Другое</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="f-message">Ситуация</label>
+        <textarea class="form-textarea" id="f-message" name="message" placeholder="Опишите ситуацию — чем больше деталей, тем точнее я смогу помочь." required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Отправить →</button>
+      <div class="form-success" id="formSuccess">
+        ✓ Получил. Отвечу в течение 24 часов.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-bar">
+  <p>
+    <strong>Дисклеймер:</strong> Информация носит информационный характер и не является финансовой, инвестиционной или юридической консультацией. Прошлые результаты не гарантируют будущих. Работа с криптовалютами сопряжена с рисками. <strong>NFA Disclaimer:</strong> Not Financial Advice.
+  </p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Дмитрий Васильев · vda.vc</div>
+      <p class="footer-brand-desc">Крипто и финтех консалтинг. 15 лет практики. Разблокировка активов, кризис-менеджмент, финтех-продукты. Bay Area, CA.</p>
+    </div>
+    <div>
+      <h4 class="footer-col">Услуги</h4>
+      <ul class="footer-links">
+        <li><a href="#services">Разблокировка крипты</a></li>
+        <li><a href="#services">Антикризисный консалтинг</a></li>
+        <li><a href="#services">Карточные продукты</a></li>
+        <li><a href="#services">EMI-лицензии</a></li>
+        <li><a href="#services">Обменники · M&A</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col">Навигация</h4>
+      <ul class="footer-links">
+        <li><a href="#expertise">Экспертиза</a></li>
+        <li><a href="#method">Метод</a></li>
+        <li><a href="#cases">Кейсы</a></li>
+        <li><a href="#about">Обо мне</a></li>
+        <li><a href="#contact">Контакт</a></li>
+        <li><a href="mailto:dima@vda.vc">dima@vda.vc</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Дмитрий Васильев · vda.vc</p>
+    <div class="footer-langs">
+      <a href="#">RU</a>
+      <a href="#" style="opacity:0.4">EN</a>
+      <a href="#" style="opacity:0.4">PL</a>
+      <a href="#" style="opacity:0.4">ES</a>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<a href="#contact" class="float-cta" aria-label="Записаться на консультацию">
+  <span class="float-cta-dot"></span>
+  Записаться
+</a>
+
+<script>
+// Mobile menu
+function toggleMenu() {
+  const m = document.getElementById('mobile-menu');
+  m.style.display = m.style.display === 'block' ? 'none' : 'block';
+}
+
+// Scroll fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.remove('hidden');
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.fade-in').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+// Active nav highlight
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+  });
+}, { passive: true });
+
+// Form submit → Telegram
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const contactInput = document.getElementById('f-contact');
+  const messageInput = document.getElementById('f-message');
+  let valid = true;
+
+  [contactInput, messageInput].forEach(inp => {
+    inp.classList.remove('error');
+    if (!inp.value.trim()) { inp.classList.add('error'); valid = false; }
+  });
+  if (contactInput.value.trim()) {
+    const v = contactInput.value.trim();
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    const isTg = v.startsWith('@') || v.startsWith('https://t.me/');
+    if (!isEmail && !isTg) { contactInput.classList.add('error'); valid = false; }
+  }
+
+  if (!valid) return;
+
+  const btn = form.querySelector('.form-submit');
+  btn.textContent = 'Отправляю...';
+  btn.disabled = true;
+
+  const name    = document.getElementById('f-name').value.trim();
+  const contact = contactInput.value.trim();
+  const topic   = document.getElementById('f-topic').value;
+  const message = messageInput.value.trim();
+
+  const text = `🔔 Новая заявка с vda.vc\n\n` +
+    `👤 Имя: ${name || 'не указано'}\n` +
+    `📬 Контакт: ${contact}\n` +
+    `📌 Тема: ${topic || 'не выбрана'}\n\n` +
+    `💬 Ситуация:\n${message}\n\n` +
+    `🌐 Источник: vda.vc/v6.html`;
+
+  fetch('https://api.telegram.org/bot8703454288:AAE3hYiGyDUyRHK9QcifKLglX8Uz23IYiUc/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: 621015694, text })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok) {
+      document.getElementById('formSuccess').style.display = 'block';
+      form.reset();
+      btn.textContent = 'Отправлено ✓';
+    } else {
+      btn.textContent = 'Ошибка — напиши в Telegram';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    document.getElementById('formSuccess').style.display = 'block';
+    form.reset();
+    btn.textContent = 'Отправлено ✓';
+  });
+});
+
+// Theme toggle
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') !== 'light';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  const icon = document.querySelector('.theme-toggle-icon');
+  icon.textContent = isDark ? '🌙' : '☀';
+  try { localStorage.setItem('vda-theme', isDark ? 'light' : 'dark'); } catch(e){}
+}
+
+// Load saved theme
+(function(){
+  try {
+    const saved = localStorage.getItem('vda-theme');
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme','light');
+      const icon = document.querySelector('.theme-toggle-icon');
+      if (icon) icon.textContent = '🌙';
+    }
+  } catch(e){}
+})();
+
+</script>
+</body>
+</html>

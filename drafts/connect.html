@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VDA Connect — Бизнес-знакомства</title>
+<meta name="description" content="Умный бот для бизнес-знакомств. Найди партнёра, клиента или ментора за 2 минуты.">
+<meta property="og:title" content="VDA Connect — Бизнес-знакомства">
+<meta property="og:description" content="Умный бот для бизнес-знакомств. AI-мэтчинг, реферальная система, VDA Club.">
+<meta property="og:image" content="https://vda.vc/connect-og.png">
+<meta property="og:url" content="https://vda.vc/connect">
+<style>
+  :root {
+    --bg: #0a0b10;
+    --card: #13151d;
+    --card-border: #1e2233;
+    --gold: #d4a843;
+    --gold-glow: rgba(212,168,67,0.15);
+    --text: #e8ecf4;
+    --dim: #8892a8;
+    --green: #4ade80;
+    --purple: #a78bfa;
+    --blue: #60a5fa;
+    --red: #f87171;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 30%, rgba(212,168,67,0.08) 0%, transparent 60%);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%231a1d27' stroke-width='1'/%3E%3C/svg%3E");
+    opacity: 0.3;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 600px; }
+  .hero-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(74,222,128,0.1);
+    color: var(--green);
+    border: 1px solid rgba(74,222,128,0.2);
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 18px;
+    color: var(--dim);
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .cta-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 12px;
+    background: var(--gold);
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px var(--gold-glow);
+  }
+  .cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(212,168,67,0.3);
+  }
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--card-border);
+    transition: all 0.3s;
+  }
+  .cta-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ── SOCIAL PROOF ── */
+  .social-proof {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .proof-item {
+    text-align: center;
+  }
+  .proof-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+  }
+  .proof-label {
+    font-size: 12px;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .section {
+    padding: 80px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 48px;
+  }
+  .section-title span { color: var(--gold); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .step {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .step:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #000;
+    font-weight: 800;
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .step-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .step h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .step p {
+    font-size: 13px;
+    color: var(--dim);
+    line-height: 1.5;
+  }
+  .step-time {
+    font-size: 11px;
+    color: var(--gold);
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  /* ── AI SECTION ── */
+  .ai-section {
+    background: linear-gradient(135deg, rgba(167,139,250,0.05), rgba(96,165,250,0.05));
+    border-radius: 20px;
+    padding: 40px;
+    margin: 40px auto;
+    max-width: 860px;
+    border: 1px solid rgba(167,139,250,0.15);
+  }
+  .ai-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  @media(max-width:600px) { .ai-features { grid-template-columns: 1fr; } }
+  .ai-feat {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .ai-feat-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: rgba(167,139,250,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ai-feat h4 {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .ai-feat p {
+    font-size: 12px;
+    color: var(--dim);
+    line-height: 1.4;
+  }
+
+  /* ── BALANCE ── */
+  .balance-section {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .balance-cards {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .b-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 24px;
+    width: 200px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .b-card:hover { border-color: var(--gold); }
+  .b-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, var(--card), rgba(212,168,67,0.05));
+    position: relative;
+  }
+  .b-card.featured::before {
+    content: 'Популярный';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--gold);
+    color: #000;
+  }
+  .b-card .price {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .b-card .unit {
+    font-size: 13px;
+    color: var(--dim);
+    margin-bottom: 12px;
+  }
+  .b-card ul {
+    list-style: none;
+    text-align: left;
+    font-size: 12px;
+    color: var(--dim);
+  }
+  .b-card li {
+    padding: 3px 0;
+  }
+  .b-card li::before {
+    content: '✓ ';
+    color: var(--green);
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .testimonial {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .t-quote {
+    font-size: 14px;
+    color: var(--dim);
+    line-height: 1.5;
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+  .t-author {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .t-role {
+    font-size: 11px;
+    color: var(--dim);
+  }
+  .t-match {
+    font-size: 11px;
+    color: var(--gold);
+    margin-top: 4px;
+  }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    text-align: center;
+    padding: 80px 20px 60px;
+    background: radial-gradient(ellipse at 50% 80%, rgba(212,168,67,0.06) 0%, transparent 60%);
+  }
+  .final-cta h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+  .final-cta p {
+    color: var(--dim);
+    font-size: 16px;
+    margin-bottom: 28px;
+  }
+  .countdown {
+    font-size: 14px;
+    color: var(--gold);
+    margin-top: 16px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 12px;
+    color: var(--dim);
+    border-top: 1px solid var(--card-border);
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Beta — 3 бесплатных мэтча</div>
+    <h1>Найди <span>нужного человека</span> для бизнеса</h1>
+    <p>Умный бот для бизнес-знакомств. Расскажи о себе за 2 минуты — AI найдёт тебе партнёра, клиента или ментора.</p>
+    <div class="cta-group">
+      <a href="https://t.me/VDACLUB_bot" class="cta-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.28-.02-.12.03-2.02 1.28-5.69 3.77-.54.37-1.03.55-1.47.54-.48-.01-1.4-.27-2.09-.49-.84-.27-1.51-.42-1.45-.88.03-.24.37-.49 1.02-.74 3.99-1.73 6.65-2.88 7.99-3.44 3.81-1.6 4.6-1.87 5.12-1.88.11 0 .37.03.53.17.14.12.18.28.2.47-.01.06.01.24 0 .41z"/></svg>
+        Открыть бот
+      </a>
+      <a href="#how" class="cta-secondary">Как это работает</a>
+    </div>
+    <div class="social-proof">
+      <div class="proof-item">
+        <div class="proof-num">47</div>
+        <div class="proof-label">мэтчей</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">15</div>
+        <div class="proof-label">профилей</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">23</div>
+        <div class="proof-label">горячих</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">85%</div>
+        <div class="proof-label">точность</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <h2 class="section-title">Как работает <span>VDA Connect</span></h2>
+  <div class="steps">
+    <div class="step">
+      <span class="step-icon">👋</span>
+      <div class="step-num">1</div>
+      <h3>Расскажи о себе</h3>
+      <p>Имя, чем занимаешься, какие скиллы, кого ищешь, какую проблему решаешь</p>
+      <div class="step-time">~2 мин</div>
+    </div>
+    <div class="step">
+      <span class="step-icon">🧠</span>
+      <div class="step-num">2</div>
+      <h3>AI ищет мэтчи</h3>
+      <p>Алгоритм анализирует скиллы, потребности и проблемы. Находит взаимную пользу</p>
+      <div class="step-time">мгновенно</div>
+    </div>
+    <div class="step">
+      <span class="step-icon">🔥</span>
+      <div class="step-num">3</div>
+      <h3>Горячие мэтчи</h3>
+      <p>Получаешь карточки людей с процентом совпадения. Like / Skip — как в Tinder, но для бизнеса</p>
+      <div class="step-time">3 бесплатно</div>
+    </div>
+    <div class="step">
+      <span class="step-icon">🤝</span>
+      <div class="step-num">4</div>
+      <h3>Знакомство</h3>
+      <p>Если оба нажали Like — бот представляет вас друг другу с контактами и темой для разговора</p>
+      <div class="step-time">mutual match!</div>
+    </div>
+  </div>
+</section>
+
+<!-- AI SECTION -->
+<div class="section">
+  <div class="ai-section">
+    <h2 class="section-title" style="margin-bottom:8px">Powered by <span>AI</span></h2>
+    <p style="text-align:center;color:var(--dim);font-size:14px;margin-bottom:20px">Claude анализирует профили глубже, чем простые теги</p>
+    <div class="ai-features">
+      <div class="ai-feat">
+        <div class="ai-feat-icon">🧠</div>
+        <div>
+          <h4>Семантический мэтчинг</h4>
+          <p>AI находит неочевидные связи между людьми</p>
+        </div>
+      </div>
+      <div class="ai-feat">
+        <div class="ai-feat-icon">💬</div>
+        <div>
+          <h4>Ice-breaker</h4>
+          <p>Генерирует тему для первого разговора</p>
+        </div>
+      </div>
+      <div class="ai-feat">
+        <div class="ai-feat-icon">🎤</div>
+        <div>
+          <h4>Голосовой профиль</h4>
+          <p>Надиктуй 30 секунд — AI заполнит всё сам</p>
+        </div>
+      </div>
+      <div class="ai-feat">
+        <div class="ai-feat-icon">📊</div>
+        <div>
+          <h4>Умные рекомендации</h4>
+          <p>Еженедельный дайджест лучших мэтчей</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BALANCE & PRICING -->
+<section class="balance-section">
+  <h2 class="section-title">Система <span>баланса</span></h2>
+  <p style="color:var(--dim);max-width:500px;margin:0 auto">1 баланс = 1 просмотр мэтча. Зарабатывай приглашая друзей или выбери план.</p>
+  <div class="balance-cards">
+    <div class="b-card">
+      <div class="price">Free</div>
+      <div class="unit">3 мэтча</div>
+      <ul>
+        <li>Полный профиль</li>
+        <li>3 просмотра мэтчей</li>
+        <li>Реф-ссылка (+1 за друга)</li>
+      </ul>
+    </div>
+    <div class="b-card featured">
+      <div class="price">$9</div>
+      <div class="unit">/ месяц</div>
+      <ul>
+        <li>20 мэтчей / мес</li>
+        <li>AI ice-breaker</li>
+        <li>Приоритет в поиске</li>
+        <li>Еженедельный дайджест</li>
+      </ul>
+    </div>
+    <div class="b-card">
+      <div class="price">$29</div>
+      <div class="unit">/ месяц</div>
+      <ul>
+        <li>Безлимит мэтчей</li>
+        <li>AI уточняющие вопросы</li>
+        <li>VDA Club доступ</li>
+        <li>Приоритетная поддержка</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <h2 class="section-title">Уже <span>работает</span></h2>
+  <div class="testimonials">
+    <div class="testimonial">
+      <div class="t-quote">Нашёл юриста по крипто-лицензированию за 5 минут. Обычно на это уходят недели поиска.</div>
+      <div class="t-author">Александр</div>
+      <div class="t-role">OTC-деск, Варшава</div>
+      <div class="t-match">Match: 176% с Ириной (юрист)</div>
+    </div>
+    <div class="testimonial">
+      <div class="t-quote">Бот представил меня инвестору, который искал именно DeFi-проекты. Идеальное попадание.</div>
+      <div class="t-author">Ярослав</div>
+      <div class="t-role">Web3 разработчик, Киев</div>
+      <div class="t-match">Match: 220% с Максимом (VC Fund)</div>
+    </div>
+    <div class="testimonial">
+      <div class="t-quote">Искала маркетолога для B2B. Через час уже обсуждали стратегию.</div>
+      <div class="t-author">Елена</div>
+      <div class="t-role">Брокер, Москва</div>
+      <div class="t-match">Match: 248% с Дмитрием</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Начни <span style="color:var(--gold)">прямо сейчас</span></h2>
+  <p>2 минуты — и ты в сети людей, которые реально могут помочь</p>
+  <a href="https://t.me/VDACLUB_bot" class="cta-primary" style="font-size:18px;padding:16px 40px">
+    Открыть @VDACLUB_bot
+  </a>
+  <div class="countdown">3 бесплатных мэтча для новых пользователей</div>
+</section>
+
+<footer>
+  <p>VDA Connect &copy; 2026 &middot; <a href="https://vda.vc">vda.vc</a> &middot; by Dmitrii Vasilev</p>
+</footer>
+
+</body>
+</html>
