@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEMI Academy — AI training for business · demis.world</title>
+<meta name="description" content="DEMI Academy on demis.world. We embed AI in your business with before/after metrics. Pay only when your company saves or earns $10K+. CIS · Europe · USA. RU/EN/ES/PL.">
+<link rel="canonical" href="https://demis.world/academy">
+<meta property="og:title" content="DEMI Academy — AI training for business">
+<meta property="og:description" content="Pay when you earn $10K+. AI training with measurable outcomes. demis.world.">
+<meta property="og:url" content="https://demis.world/academy">
+<style>
+:root {
+  --gold: #c9a96e;
+  --gold-dark: #a88848;
+  --ink: #1a1a1a;
+  --paper: #fafaf7;
+  --line: #e8e4dc;
+  --muted: #6b6b6b;
+  --green: #16a34a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 16px;
+  padding-top: 48px;
+}
+.level-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  font-size: 13px;
+}
+.level-bar a { color: var(--ink); text-decoration: none; margin-left: 12px; }
+.level-bar a:hover { color: var(--gold-dark); }
+.level-bar strong { color: var(--gold-dark); }
+.lang-switch { display: inline-flex; gap: 6px; margin-left: 16px; }
+.lang-switch button {
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--muted);
+}
+.lang-switch button.active { background: var(--ink); color: white; border-color: var(--ink); }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* HERO */
+.hero { padding: 80px 0 60px; text-align: center; border-bottom: 1px solid var(--line); }
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.hero h1 .gold { color: var(--gold-dark); }
+.hero .subtitle {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--muted);
+  max-width: 720px;
+  margin: 0 auto 32px;
+}
+.hero .guarantee {
+  display: inline-block;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary, .btn-secondary {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: var(--gold-dark); }
+.btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+.btn-secondary:hover { background: var(--ink); color: var(--paper); }
+
+/* REGIONS */
+.regions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.region {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+}
+.region .flags { display: inline-flex; gap: 4px; }
+.region .flag { font-size: 18px; }
+
+/* SECTIONS */
+section { padding: 60px 0; border-bottom: 1px solid var(--line); }
+.section-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+.section-sub { color: var(--muted); margin-bottom: 40px; max-width: 680px; }
+
+/* GUARANTEE BIG */
+.guarantee-box {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  color: white;
+  padding: 48px;
+  border-radius: 24px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* REFERRAL CTA */
+.referral-cta {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: white;
+  padding: 40px 32px;
+  border-radius: 24px;
+  text-align: center;
+  margin: 24px 0;
+  box-shadow: 0 8px 32px rgba(168, 136, 72, 0.25);
+}
+.referral-cta .badge { display: inline-block; background: rgba(255,255,255,0.22); padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; margin-bottom: 14px; letter-spacing: 0.04em; text-transform: uppercase; }
+.referral-cta h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; margin-bottom: 10px; line-height: 1.2; }
+.referral-cta p { opacity: 0.95; font-size: 15px; max-width: 620px; margin: 0 auto 22px; line-height: 1.55; }
+.referral-cta .btn-claude {
+  display: inline-block;
+  background: white;
+  color: var(--gold-dark);
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 15px;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.referral-cta .btn-claude:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+.referral-cta .fineprint { display: block; margin-top: 14px; font-size: 12px; opacity: 0.75; }
+.guarantee-box h3 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+.guarantee-box p { opacity: 0.95; font-size: 16px; max-width: 720px; margin: 0 auto; }
+.guarantee-formula {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  padding: 8px 16px;
+  border-radius: 999px;
+  margin-top: 16px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* AUDIENCES with metrics */
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.audience-card {
+  padding: 28px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: all 0.2s;
+}
+.audience-card:hover { border-color: var(--gold-dark); transform: translateY(-2px); }
+.audience-icon { font-size: 32px; margin-bottom: 12px; }
+.audience-name { font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+.audience-pain { color: var(--muted); font-size: 14px; margin-bottom: 16px; min-height: 42px; }
+.audience-metrics {
+  border-top: 1px dashed var(--line);
+  padding-top: 14px;
+  margin-top: 14px;
+}
+.audience-metrics-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gold-dark);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.audience-metrics ul { list-style: none; padding: 0; }
+.audience-metrics li {
+  font-size: 13px;
+  padding: 4px 0;
+  color: var(--ink);
+}
+.audience-metrics li::before { content: "• "; color: var(--gold-dark); font-weight: 700; }
+
+/* PROCESS */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  counter-reset: step;
+}
+.step {
+  position: relative;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  counter-increment: step;
+}
+.step::before {
+  content: counter(step);
+  position: absolute;
+  top: -16px;
+  left: 24px;
+  width: 32px;
+  height: 32px;
+  background: var(--gold-dark);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+.step-title { font-weight: 700; margin-bottom: 8px; margin-top: 8px; }
+.step-desc { color: var(--muted); font-size: 14px; }
+.step-hours {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--gold-dark);
+  font-weight: 700;
+}
+
+/* PACKAGES (no prices, just hours + outcome) */
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.package {
+  padding: 32px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  position: relative;
+}
+.package.featured {
+  border-color: var(--gold-dark);
+  border-width: 2px;
+}
+.package.featured::before {
+  content: "⭐";
+  position: absolute;
+  top: -16px;
+  left: 24px;
+  background: var(--gold-dark);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.package-name {
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.package-hours { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
+.package-period { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+.package ul { list-style: none; padding: 0; }
+.package li { padding: 8px 0; font-size: 14px; border-bottom: 1px dashed var(--line); }
+.package li::before { content: "✓ "; color: var(--gold-dark); font-weight: 700; }
+.package-outcome {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #15803d;
+}
+.package-outcome strong { color: var(--green); }
+
+/* TEAM */
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 600px) { .team-grid { grid-template-columns: 1fr; } }
+.team-card {
+  padding: 28px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.team-name { font-weight: 700; font-size: 20px; margin-bottom: 4px; }
+.team-role { color: var(--gold-dark); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+.team-bio { color: var(--muted); font-size: 14px; }
+
+footer { padding: 40px 0; text-align: center; color: var(--muted); font-size: 13px; }
+footer a { color: var(--gold-dark); text-decoration: none; }
+
+/* APPROVE BUTTON */
+.approve-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #16a34a;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 8px 24px rgba(22,163,74,0.3);
+  z-index: 90;
+  transition: all 0.2s;
+}
+.approve-btn:hover { background: #15803d; transform: translateY(-2px); }
+.approve-msg {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  background: white;
+  border: 2px solid #16a34a;
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 13px;
+  max-width: 280px;
+  display: none;
+  z-index: 91;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+/* hide/show for i18n — base rule, JS handles fallback */
+[data-lang] { display: none; }
+[data-lang].is-active { display: inline; }
+</style>
+</head>
+<body>
+
+<nav class="level-bar">
+  <strong>📚 DEMI Academy</strong>
+  <div>
+    <span class="lang-switch">
+      <button id="lang-ru" class="active" onclick="setLang('ru')">RU</button>
+      <button id="lang-en" onclick="setLang('en')">EN</button>
+      <button id="lang-es" onclick="setLang('es')">ES</button>
+      <button id="lang-pl" onclick="setLang('pl')">PL</button>
+    </span>
+    <a href="#partners">
+      <span data-lang="ru">Партнёры</span>
+      <span data-lang="en">Partners</span>
+      <span data-lang="es">Socios</span>
+      <span data-lang="pl">Partnerzy</span>
+    </a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <span class="guarantee">
+      <span data-lang="ru">💰 Гарантия результата: платите когда заработали $10K+</span>
+      <span data-lang="en">💰 Pay when you earn or save $10K+</span>
+    </span>
+
+    <h1>
+      <span data-lang="ru">Поставим <span class="gold">Claude</span>.<br>Научим команду.<br>Измерим результат.</span>
+      <span data-lang="en">Set up <span class="gold">Claude</span>.<br>Train your team.<br>Measure outcomes.</span>
+    </h1>
+
+    <p class="subtitle">
+      <span data-lang="ru">Не курсы «AI for everyone». Внедряем AI в бизнес с замером эффективности до и после. Если не сэкономили или не заработали $10K+ — не платите.</span>
+      <span data-lang="en">Not «AI for everyone». We embed AI in your business with before/after performance metrics. No savings or revenue of $10K+ — no payment.</span>
+    </p>
+
+    <div class="cta-row">
+      <a href="#contact" class="btn-primary">
+        <span data-lang="ru">Discovery 30 мин — бесплатно</span>
+        <span data-lang="en">Free 30-min Discovery</span>
+      </a>
+      <a href="#how" class="btn-secondary">
+        <span data-lang="ru">Как это работает</span>
+        <span data-lang="en">How it works</span>
+      </a>
+    </div>
+
+    <div class="regions">
+      <span class="region">
+        <span data-lang="ru">🌐 СНГ</span>
+        <span data-lang="en">🌐 CIS</span>
+        <span data-lang="es">🌐 CEI</span>
+        <span data-lang="pl">🌐 WNP</span>
+      </span>
+      <span class="region">
+        <span class="flags"><span class="flag">🇪🇸</span><span class="flag">🇵🇱</span></span>
+        <span data-lang="ru">Европа</span>
+        <span data-lang="en">Europe</span>
+        <span data-lang="es">Europa</span>
+        <span data-lang="pl">Europa</span>
+      </span>
+      <span class="region">
+        <span class="flag">🇺🇸</span>
+        <span data-lang="ru">США</span>
+        <span data-lang="en">USA</span>
+        <span data-lang="es">EE.UU.</span>
+        <span data-lang="pl">USA</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section>
+  <div class="container">
+    <div class="guarantee-box">
+      <h3>
+        <span data-lang="ru">Платите за результат, не за часы</span>
+        <span data-lang="en">Pay for results, not hours</span>
+      </h3>
+      <p>
+        <span data-lang="ru">Мы засекаем метрики «до» (задач в день, время на задачу, стоимость задачи) → внедряем AI → измеряем «после». Если ваша компания за 3 месяца не сэкономила или не заработала минимум $10 000 — наш счёт обнуляется. Гарантия в договоре.</span>
+        <span data-lang="en">We benchmark before (tasks/day, time per task, cost per task) → embed AI → measure after. If your company doesn't save or earn at least $10,000 in 3 months — our invoice resets to zero. Guarantee in contract.</span>
+      </p>
+      <div class="guarantee-formula">
+        <span data-lang="ru">$10K+ результат → платите · меньше → не платите</span>
+        <span data-lang="en">$10K+ result → you pay · less → you don't</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCES with metrics -->
+<section>
+  <div class="container">
+    <h2 class="section-title">
+      <span data-lang="ru">Под кого настраиваем — и как считаем</span>
+      <span data-lang="en">Who we serve — and how we measure</span>
+    </h2>
+    <p class="section-sub">
+      <span data-lang="ru">Каждая роль = свои метрики «до/после». Без замера — без работы.</span>
+      <span data-lang="en">Every role = its own before/after metrics. No measurement — no work.</span>
+    </p>
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon">📊</div>
+        <div class="audience-name">
+          <span data-lang="ru">Финансист / CFO</span>
+          <span data-lang="en">CFO / Finance</span>
+        </div>
+        <div class="audience-pain">
+          <span data-lang="ru">Закрытие месяца — 3 дня в Excel. Прогноз cashflow — догадки.</span>
+          <span data-lang="en">Month-end close takes 3 days. Cashflow forecast = guesswork.</span>
+        </div>
+        <div class="audience-metrics">
+          <div class="audience-metrics-title">
+            <span data-lang="ru">Метрики до/после</span>
+            <span data-lang="en">Before/After metrics</span>
+          </div>
+          <ul>
+            <li><span data-lang="ru">Часов на закрытие месяца</span><span data-lang="en">Hours on month-end close</span></li>
+            <li><span data-lang="ru">Время на 1 отчёт</span><span data-lang="en">Time per report</span></li>
+            <li><span data-lang="ru">Точность cashflow прогноза</span><span data-lang="en">Cashflow forecast accuracy</span></li>
+            <li><span data-lang="ru">Стоимость 1 DD контрагента</span><span data-lang="en">Cost per counterparty DD</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-icon">👔</div>
+        <div class="audience-name">
+          <span data-lang="ru">Владелец / Founder</span>
+          <span data-lang="en">Owner / Founder</span>
+        </div>
+        <div class="audience-pain">
+          <span data-lang="ru">Заваленные встречи, прогрев лидов вручную, нет времени на стратегию.</span>
+          <span data-lang="en">Overloaded with meetings, manual lead warming, no time for strategy.</span>
+        </div>
+        <div class="audience-metrics">
+          <div class="audience-metrics-title">
+            <span data-lang="ru">Метрики до/после</span>
+            <span data-lang="en">Before/After metrics</span>
+          </div>
+          <ul>
+            <li><span data-lang="ru">Часов в неделю на стратегию</span><span data-lang="en">Hours/week on strategy</span></li>
+            <li><span data-lang="ru">Конверсия лид → клиент</span><span data-lang="en">Lead-to-client conversion</span></li>
+            <li><span data-lang="ru">Время подготовки к встрече</span><span data-lang="en">Time to prep meeting</span></li>
+            <li><span data-lang="ru">Решений принято в неделю</span><span data-lang="en">Decisions/week</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-icon">📋</div>
+        <div class="audience-name">
+          <span data-lang="ru">Главный бухгалтер</span>
+          <span data-lang="en">Chief Accountant</span>
+        </div>
+        <div class="audience-pain">
+          <span data-lang="ru">Рутина с документами, ошибки в проводках, много звонков с уточнениями.</span>
+          <span data-lang="en">Document routine, posting errors, lots of clarification calls.</span>
+        </div>
+        <div class="audience-metrics">
+          <div class="audience-metrics-title">
+            <span data-lang="ru">Метрики до/после</span>
+            <span data-lang="en">Before/After metrics</span>
+          </div>
+          <ul>
+            <li><span data-lang="ru">Документов обработано в день</span><span data-lang="en">Docs processed/day</span></li>
+            <li><span data-lang="ru">Ошибок в проводках</span><span data-lang="en">Posting errors rate</span></li>
+            <li><span data-lang="ru">Часов на сверки</span><span data-lang="en">Hours on reconciliation</span></li>
+            <li><span data-lang="ru">% задач закрытых самостоятельно</span><span data-lang="en">% tasks closed solo</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-icon">🎯</div>
+        <div class="audience-name">
+          <span data-lang="ru">Ассистент владельца</span>
+          <span data-lang="en">Executive Assistant</span>
+        </div>
+        <div class="audience-pain">
+          <span data-lang="ru">Календарь, переписка, отчёты — всё вручную, владелец перегружен мелочами.</span>
+          <span data-lang="en">Calendar, email, reports — all manual, owner buried in details.</span>
+        </div>
+        <div class="audience-metrics">
+          <div class="audience-metrics-title">
+            <span data-lang="ru">Метрики до/после</span>
+            <span data-lang="en">Before/After metrics</span>
+          </div>
+          <ul>
+            <li><span data-lang="ru">Задач закрыто в день</span><span data-lang="en">Tasks closed/day</span></li>
+            <li><span data-lang="ru">Время на email-обработку</span><span data-lang="en">Email processing time</span></li>
+            <li><span data-lang="ru">Брифов подготовлено в неделю</span><span data-lang="en">Briefs prepared/week</span></li>
+            <li><span data-lang="ru">Время отвлечения владельца</span><span data-lang="en">Owner interruption time</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- REFERRAL CTA -->
+<section>
+  <div class="container">
+    <div class="referral-cta">
+      <span class="badge">
+        <span data-lang="ru">🎁 Старт бесплатный</span>
+        <span data-lang="en">🎁 Free start</span>
+      </span>
+      <h3>
+        <span data-lang="ru">$5 кредита на Claude — ≈неделя бесплатного обучения</span>
+        <span data-lang="en">$5 Claude credit — ≈one free week of learning</span>
+      </h3>
+      <p>
+        <span data-lang="ru">Скачай Claude и зарегься по нашей реферальной ссылке — Anthropic дарит $5 каждому новому пользователю. Как раз хватит на первые шаги в обучении.</span>
+        <span data-lang="en">Download Claude and sign up via our referral — Anthropic gives $5 to every new user. Enough to cover your first steps of training.</span>
+      </p>
+      <a href="https://claude.ai/referral/VDIurtpiew" target="_blank" rel="noopener" class="btn-claude">
+        <span data-lang="ru">Получить $5 на Claude →</span>
+        <span data-lang="en">Get $5 on Claude →</span>
+      </a>
+      <span class="fineprint">
+        <span data-lang="ru">claude.ai · бонус начисляется при регистрации новым пользователем</span>
+        <span data-lang="en">claude.ai · bonus credited upon new-user signup</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <h2 class="section-title">
+      <span data-lang="ru">Как это работает</span>
+      <span data-lang="en">How it works</span>
+    </h2>
+    <p class="section-sub">
+      <span data-lang="ru">5 этапов. От замера «до» — до результата с гарантией.</span>
+      <span data-lang="en">5 stages. From baseline measurement to guaranteed outcome.</span>
+    </p>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-title">
+          <span data-lang="ru">Discovery</span>
+          <span data-lang="en">Discovery</span>
+        </div>
+        <div class="step-desc">
+          <span data-lang="ru">Знакомство, задачи, текущий стек, бюджет.</span>
+          <span data-lang="en">Intro, tasks, current stack, budget.</span>
+        </div>
+        <span class="step-hours">⏱ 30 мин</span>
+      </div>
+      <div class="step">
+        <div class="step-title">
+          <span data-lang="ru">Замер «до»</span>
+          <span data-lang="en">Baseline</span>
+        </div>
+        <div class="step-desc">
+          <span data-lang="ru">Фиксируем метрики каждой роли — задач/день, часов на отчёт.</span>
+          <span data-lang="en">Lock metrics per role — tasks/day, hours per report.</span>
+        </div>
+        <span class="step-hours">⏱ 1 неделя</span>
+      </div>
+      <div class="step">
+        <div class="step-title">
+          <span data-lang="ru">Setup</span>
+          <span data-lang="en">Setup</span>
+        </div>
+        <div class="step-desc">
+          <span data-lang="ru">Claude Code + Klotka, кастомные скиллы под роль.</span>
+          <span data-lang="en">Claude Code + Klotka, role-tailored custom skills.</span>
+        </div>
+        <span class="step-hours">⏱ 1-3 ч на человека</span>
+      </div>
+      <div class="step">
+        <div class="step-title">
+          <span data-lang="ru">Сопровождение</span>
+          <span data-lang="en">Support</span>
+        </div>
+        <div class="step-desc">
+          <span data-lang="ru">Bot 24/7, weekly check-in, контроль через переписку и отчёты.</span>
+          <span data-lang="en">Bot 24/7, weekly check-in, control via chat + reports.</span>
+        </div>
+        <span class="step-hours">⏱ 1-3 мес</span>
+      </div>
+      <div class="step">
+        <div class="step-title">
+          <span data-lang="ru">Замер «после»</span>
+          <span data-lang="en">Post-measure</span>
+        </div>
+        <div class="step-desc">
+          <span data-lang="ru">Те же метрики, что в начале. Считаем дельту в $.</span>
+          <span data-lang="en">Same metrics as baseline. Calculate $-delta.</span>
+        </div>
+        <span class="step-hours">⏱ 1 неделя</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES (hours instead of prices) -->
+<section>
+  <div class="container">
+    <h2 class="section-title">
+      <span data-lang="ru">Пакеты — по часам сопровождения</span>
+      <span data-lang="en">Packages — by support hours</span>
+    </h2>
+    <p class="section-sub">
+      <span data-lang="ru">Цена — функция результата. Часы — функция размера команды и сложности задач.</span>
+      <span data-lang="en">Price = function of result. Hours = function of team size and task complexity.</span>
+    </p>
+    <div class="package-grid">
+
+      <div class="package">
+        <div class="package-name">
+          <span data-lang="ru">Pilot</span>
+          <span data-lang="en">Pilot</span>
+        </div>
+        <div class="package-hours">8 ч</div>
+        <div class="package-period">
+          <span data-lang="ru">за 2 недели</span>
+          <span data-lang="en">over 2 weeks</span>
+        </div>
+        <ul>
+          <li><span data-lang="ru">Discovery + замер «до»</span><span data-lang="en">Discovery + baseline</span></li>
+          <li><span data-lang="ru">2 сценария</span><span data-lang="en">2 scenarios</span></li>
+          <li><span data-lang="ru">1 сотрудник</span><span data-lang="en">1 team member</span></li>
+          <li><span data-lang="ru">Bot 24/7</span><span data-lang="en">24/7 bot</span></li>
+        </ul>
+        <div class="package-outcome">
+          <strong><span data-lang="ru">Цель:</span><span data-lang="en">Goal:</span></strong>
+          <span data-lang="ru"> доказать концепцию, метрики ×2</span>
+          <span data-lang="en"> prove concept, metrics ×2</span>
+        </div>
+      </div>
+
+      <div class="package featured">
+        <div class="package-name">
+          <span data-lang="ru">Pro</span>
+          <span data-lang="en">Pro</span>
+        </div>
+        <div class="package-hours">40 ч</div>
+        <div class="package-period">
+          <span data-lang="ru">за 1 месяц</span>
+          <span data-lang="en">over 1 month</span>
+        </div>
+        <ul>
+          <li><span data-lang="ru">Полный onboarding</span><span data-lang="en">Full onboarding</span></li>
+          <li><span data-lang="ru">5 кастомных сценариев</span><span data-lang="en">5 custom scenarios</span></li>
+          <li><span data-lang="ru">До 5 сотрудников</span><span data-lang="en">Up to 5 members</span></li>
+          <li><span data-lang="ru">Weekly check-in</span><span data-lang="en">Weekly check-in</span></li>
+          <li><span data-lang="ru">Кастомный скилл под роль</span><span data-lang="en">Role-specific custom skill</span></li>
+        </ul>
+        <div class="package-outcome">
+          <strong><span data-lang="ru">Цель:</span><span data-lang="en">Goal:</span></strong>
+          <span data-lang="ru"> $10K+ результат, метрики ×3-5</span>
+          <span data-lang="en"> $10K+ outcome, metrics ×3-5</span>
+        </div>
+      </div>
+
+      <div class="package">
+        <div class="package-name">
+          <span data-lang="ru">Enterprise</span>
+          <span data-lang="en">Enterprise</span>
+        </div>
+        <div class="package-hours">100+ ч</div>
+        <div class="package-period">
+          <span data-lang="ru">3 месяца retainer</span>
+          <span data-lang="en">3-month retainer</span>
+        </div>
+        <ul>
+          <li><span data-lang="ru">Корпоративная установка</span><span data-lang="en">Corporate setup</span></li>
+          <li><span data-lang="ru">Вся команда (10+)</span><span data-lang="en">Whole team (10+)</span></li>
+          <li><span data-lang="ru">Интеграция с базами</span><span data-lang="en">DB integration</span></li>
+          <li><span data-lang="ru">Кастомные скиллы под отделы</span><span data-lang="en">Department-level skills</span></li>
+          <li><span data-lang="ru">SLA 15 мин на эскалацию</span><span data-lang="en">15-min escalation SLA</span></li>
+        </ul>
+        <div class="package-outcome">
+          <strong><span data-lang="ru">Цель:</span><span data-lang="en">Goal:</span></strong>
+          <span data-lang="ru"> $50K-500K результат за квартал</span>
+          <span data-lang="en"> $50K-500K outcome per quarter</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section>
+  <div class="container">
+    <h2 class="section-title">
+      <span data-lang="ru">Кто учит</span>
+      <span data-lang="en">Who teaches</span>
+    </h2>
+    <p class="section-sub">
+      <span data-lang="ru">Двое практиков. У каждого — свой опыт и свой подход.</span>
+      <span data-lang="en">Two practitioners. Each with their own experience and approach.</span>
+    </p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-name">
+          <span data-lang="ru">Дмитрий Васильев</span>
+          <span data-lang="en">Dmitrii Vasilev</span>
+        </div>
+        <div class="team-role">
+          <span data-lang="ru">Со-основатель · Bay Area</span>
+          <span data-lang="en">Co-founder · Bay Area</span>
+        </div>
+        <div class="team-bio">
+          <span data-lang="ru">15 лет в крипто/финтех. Кризисный менеджмент, кросс-бордер платежи, AI-автоматизация для бизнеса. CFO/Founders.</span>
+          <span data-lang="en">15 years in crypto/fintech. Crisis management, cross-border payments, AI automation for business. CFO/Founders.</span>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-name">
+          <span data-lang="ru">Александр</span>
+          <span data-lang="en">Alexander</span>
+        </div>
+        <div class="team-role">
+          <span data-lang="ru">Со-основатель · Bot инфраструктура</span>
+          <span data-lang="en">Co-founder · Bot infrastructure</span>
+        </div>
+        <div class="team-bio">
+          <span data-lang="ru">Telegram-боты на Hetzner 24/7. P2P-инфраструктура. Автор курса «Sovereign Bot Program» — обучение Claude с нуля.</span>
+          <span data-lang="en">Telegram bots on Hetzner 24/7. P2P infrastructure. Author of «Sovereign Bot Program» — Claude from zero.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS by REGION -->
+<section id="partners">
+  <div class="container">
+    <h2 class="section-title">
+      <span data-lang="ru">Партнёры по регионам</span>
+      <span data-lang="en">Partners by region</span>
+      <span data-lang="es">Socios por región</span>
+      <span data-lang="pl">Partnerzy według regionu</span>
+    </h2>
+    <p class="section-sub">
+      <span data-lang="ru">Мы — DEMI Academy, обучаем. Когда задача выходит за рамки обучения — у нас есть проверенный партнёр в нужном регионе.</span>
+      <span data-lang="en">We are DEMI Academy — we teach. When the task goes beyond training, we have a verified partner in the right region.</span>
+      <span data-lang="es">Somos DEMI Academy — enseñamos. Cuando el trabajo va más allá de la formación, tenemos socios verificados en cada región.</span>
+      <span data-lang="pl">Jesteśmy DEMI Academy — uczymy. Gdy zadanie wykracza poza szkolenie, mamy sprawdzonych partnerów w każdym regionie.</span>
+    </p>
+
+    <h3 style="margin-top:32px;margin-bottom:16px;font-size:18px;letter-spacing:0.04em;text-transform:uppercase;color:var(--gold-dark)">
+      🇪🇸🇵🇱 <span data-lang="ru">Европа — Польша / Испания</span>
+      <span data-lang="en">Europe — Poland / Spain</span>
+      <span data-lang="es">Europa — Polonia / España</span>
+      <span data-lang="pl">Europa — Polska / Hiszpania</span>
+    </h3>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon">🎨</div>
+        <div class="audience-name">Yuri</div>
+        <div class="audience-pain">
+          <span data-lang="ru">Дизайн + AI: лендинги, продуктовая графика, brand-кит. База в Варшаве. Работает с польскими и СНГ-стартапами.</span>
+          <span data-lang="en">Design + AI: landings, product graphics, brand kits. Based in Warsaw. Works with Polish and CIS startups.</span>
+          <span data-lang="es">Diseño + IA: landings, gráficos de producto, brand kits. Basado en Varsovia.</span>
+          <span data-lang="pl">Design + AI: landingi, grafika produktowa, brand kity. Warszawa.</span>
+        </div>
+        <div class="audience-metrics">
+          <span class="step-hours">
+            <span data-lang="ru">контакт через DEMI Academy →</span>
+            <span data-lang="en">contact via DEMI Academy →</span>
+            <span data-lang="es">contacto vía DEMI Academy →</span>
+            <span data-lang="pl">kontakt przez DEMI Academy →</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-icon">🏢</div>
+        <div class="audience-name">Vistarian Consulting</div>
+        <div class="audience-pain">
+          <span data-lang="ru">Technology consulting в Польше: tech-стартапы, EU expansion, EMI лицензии, fintech compliance.</span>
+          <span data-lang="en">Technology consulting in Poland: tech startups, EU expansion, EMI licenses, fintech compliance.</span>
+          <span data-lang="es">Consultoría tecnológica en Polonia: startups, expansión UE, licencias EMI.</span>
+          <span data-lang="pl">Doradztwo technologiczne w Polsce: startupy tech, ekspansja UE, licencje EMI.</span>
+        </div>
+        <div class="audience-metrics">
+          <a href="https://vistarian.consulting" target="_blank" class="step-hours">vistarian.consulting →</a>
+        </div>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-icon">⚙️</div>
+        <div class="audience-name">VALIIS by Stas</div>
+        <div class="audience-pain">
+          <span data-lang="ru">AI-разработка под заказ от Стаса: кастомные интеграции, агенты, автоматизация. Польша.</span>
+          <span data-lang="en">Custom AI development by Stas: integrations, agents, automation. Poland.</span>
+          <span data-lang="es">Desarrollo IA a medida por Stas: integraciones, agentes, automatización. Polonia.</span>
+          <span data-lang="pl">Custom AI od Stasa: integracje, agenci, automatyzacja. Polska.</span>
+        </div>
+        <div class="audience-metrics">
+          <span class="step-hours">
+            <span data-lang="ru">контакт через DEMI Academy →</span>
+            <span data-lang="en">contact via DEMI Academy →</span>
+            <span data-lang="es">contacto vía DEMI Academy →</span>
+            <span data-lang="pl">kontakt przez DEMI Academy →</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:48px;margin-bottom:16px;font-size:18px;letter-spacing:0.04em;text-transform:uppercase;color:var(--gold-dark)">
+      🌐 <span data-lang="ru">СНГ — закрытое сообщество</span>
+      <span data-lang="en">CIS — private community</span>
+      <span data-lang="es">CEI — comunidad privada</span>
+      <span data-lang="pl">WNP — zamknięta społeczność</span>
+    </h3>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon">🤝</div>
+        <div class="audience-name">
+          <span data-lang="ru">Клуб ИИ-компаний</span>
+          <span data-lang="en">AI Companies Club</span>
+          <span data-lang="es">Club de Empresas IA</span>
+          <span data-lang="pl">Klub Firm AI</span>
+        </div>
+        <div class="audience-pain">
+          <span data-lang="ru">Закрытое сообщество компаний внедряющих AI. Обмен опытом, готовые решения, deal-flow между участниками.</span>
+          <span data-lang="en">Private community of AI-adopting companies. Best practices, ready solutions, deal flow among members.</span>
+          <span data-lang="es">Comunidad privada de empresas IA. Buenas prácticas, soluciones listas, flujo de deals.</span>
+          <span data-lang="pl">Zamknięta społeczność firm AI. Najlepsze praktyki, gotowe rozwiązania, deal flow.</span>
+        </div>
+        <div class="audience-metrics">
+          <span class="step-hours">
+            <span data-lang="ru">по приглашению →</span>
+            <span data-lang="en">by invitation →</span>
+            <span data-lang="es">por invitación →</span>
+            <span data-lang="pl">na zaproszenie →</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-icon">🤖</div>
+        <div class="audience-name">Sovereign Bot Program</div>
+        <div class="audience-pain">
+          <span data-lang="ru">Курс «Полный курс Claude с нуля» от Александра — 16 разделов, для абсолютных нулевиков. RU.</span>
+          <span data-lang="en">«Claude from zero» course by Alexander — 16 sections for absolute beginners. RU.</span>
+          <span data-lang="es">Curso «Claude desde cero» de Alexander — 16 secciones para principiantes. RU.</span>
+          <span data-lang="pl">Kurs «Claude od zera» Alexandra — 16 sekcji dla początkujących. RU.</span>
+        </div>
+        <div class="audience-metrics">
+          <a href="https://bossworai.github.io/sovereign-bot-program/" target="_blank" class="step-hours">sovereign-bot-program →</a>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:48px;margin-bottom:16px;font-size:18px;letter-spacing:0.04em;text-transform:uppercase;color:var(--gold-dark)">
+      🇺🇸 <span data-lang="ru">США — крипто/финтех</span>
+      <span data-lang="en">USA — crypto/fintech</span>
+      <span data-lang="es">EE.UU. — cripto/fintech</span>
+      <span data-lang="pl">USA — krypto/fintech</span>
+    </h3>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon">💎</div>
+        <div class="audience-name">
+          <span data-lang="ru">VDA Consulting</span>
+          <span data-lang="en">VDA Consulting</span>
+        </div>
+        <div class="audience-pain">
+          <span data-lang="ru">Криптокризисный менеджмент Дмитрия (Bay Area): EMI/MSB, кросс-бордер, восстановление после регуляторов.</span>
+          <span data-lang="en">Dmitrii's crypto-crisis management (Bay Area): EMI/MSB, cross-border, post-regulator recovery.</span>
+          <span data-lang="es">Gestión de crisis cripto de Dmitrii (Bay Area): EMI/MSB, transfronterizo.</span>
+          <span data-lang="pl">Zarządzanie kryzysowe krypto Dmitrija (Bay Area): EMI/MSB, cross-border.</span>
+        </div>
+        <div class="audience-metrics">
+          <a href="https://vda.vc" target="_blank" class="step-hours">vda.vc →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container" style="text-align: center;">
+    <h2 class="section-title">
+      <span data-lang="ru">Начнём с Discovery 30 мин</span>
+      <span data-lang="en">Start with 30-min Discovery</span>
+    </h2>
+    <p class="section-sub" style="margin: 0 auto 32px;">
+      <span data-lang="ru">Бесплатно. Без обязательств. Поймём — подходим или нет.</span>
+      <span data-lang="en">Free. No obligations. We'll see if we fit.</span>
+    </p>
+    <div class="cta-row">
+      <a href="https://t.me/Posbitcoin" class="btn-primary">
+        <span data-lang="ru">Написать в Telegram</span>
+        <span data-lang="en">Telegram</span>
+      </a>
+      <a href="mailto:dima@vda.vc" class="btn-secondary">Email</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>
+      © 2026 DEMI Academy · demis.world ·
+      <span data-lang="ru">партнёры:</span>
+      <span data-lang="en">partners:</span>
+      <span data-lang="es">socios:</span>
+      <span data-lang="pl">partnerzy:</span>
+      Yuri · <a href="https://vistarian.consulting">Vistarian</a> · VALIIS by Stas ·
+      <span data-lang="ru">Клуб ИИ</span><span data-lang="en">AI Club</span><span data-lang="es">Club IA</span><span data-lang="pl">Klub AI</span> ·
+      Sovereign · <a href="https://vda.vc">VDA</a>
+    </p>
+  </div>
+</footer>
+
+<button class="approve-btn" onclick="document.querySelector('.approve-msg').style.display='block'">✅ Approve</button>
+<div class="approve-msg">
+  <span data-lang="ru">Напишите Дмитрию: <strong>«сделай academy v0.3 живым»</strong> или предложите правки.</span>
+  <span data-lang="en">Tell Dima: <strong>«ship academy v0.3»</strong> or suggest edits.</span>
+</div>
+
+<script>
+const LANGS = ['ru','en','es','pl'];
+const FALLBACK = {ru:'en', en:'ru', es:'en', pl:'en'};
+
+function setLang(lang) {
+  if (!LANGS.includes(lang)) lang = 'ru';
+  document.documentElement.lang = lang;
+  LANGS.forEach(l => {
+    const btn = document.getElementById('lang-' + l);
+    if (btn) btn.classList.toggle('active', l === lang);
+    document.body.classList.toggle('lang-' + l, l === lang);
+  });
+
+  // Group by parent and pick best matching data-lang in each group
+  const all = document.querySelectorAll('[data-lang]');
+  // Reset
+  all.forEach(el => el.classList.remove('is-active'));
+
+  // Group by parent element
+  const groups = new Map();
+  all.forEach(el => {
+    const parent = el.parentElement;
+    if (!groups.has(parent)) groups.set(parent, []);
+    groups.get(parent).push(el);
+  });
+
+  // For each group, activate one element: preferred > fallback (en) > first available
+  groups.forEach(items => {
+    const byLang = {};
+    items.forEach(el => byLang[el.getAttribute('data-lang')] = el);
+    const pick = byLang[lang] || byLang[FALLBACK[lang]] || byLang['en'] || byLang['ru'] || items[0];
+    if (pick) pick.classList.add('is-active');
+  });
+
+  localStorage.setItem('demi-academy-lang', lang);
+}
+
+const saved = localStorage.getItem('demi-academy-lang') || 'ru';
+setLang(saved);
+</script>
+
+</body>
+</html>
