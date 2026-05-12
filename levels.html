@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Уровни AI-оператора — 60-секундный тест · demis.world</title>
-<meta name="description" content="10 вопросов определят твой уровень работы с AI. Результат — конкретный модуль с которого стоит начать. 5 уровней от L0 до L5.">
+<meta name="description" content="10 вопросов определят твой уровень работы с AI. Результат — конкретный модуль, мини-экзамен и текст который можно отправить наставнику. 6 уровней от L0 до L5.">
 <link rel="canonical" href="https://demis.world/levels">
 
 <style>
@@ -27,7 +27,7 @@ a{color:var(--gold-br);text-decoration:none}a:hover{text-decoration:underline}
 .wrap{max-width:860px;margin:0 auto;padding:clamp(24px,5vw,56px)}
 
 .top-bar{position:fixed;top:14px;right:14px;z-index:100;display:flex;gap:6px}
-.top-btn{padding:6px 12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit}
+.top-btn{padding:6px 12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:12px;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;border-radius:2px;font-family:inherit}
 .top-btn:hover{border-color:var(--gold);color:var(--gold-br)}
 
 .kicker{color:var(--gold);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px}
@@ -56,9 +56,23 @@ h1 em{color:var(--gold-br);font-style:italic}
 .result h3{font-family:"Playfair Display",Georgia,serif;font-size:clamp(22px,2.5vw,28px);color:var(--fg);margin-bottom:10px}
 .result p{font-size:15px;color:var(--fg);margin-bottom:12px;line-height:1.6}
 .result p.muted{color:var(--muted);font-size:14px}
-.result-cta{display:inline-block;padding:12px 28px;background:var(--gold);color:var(--bg);font-weight:600;letter-spacing:1px;text-transform:uppercase;font-size:12px;border-radius:2px;margin-top:8px;margin-right:12px}
+.result-cta{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 28px;background:var(--gold);color:var(--bg);font-weight:600;letter-spacing:1px;text-transform:uppercase;font-size:12px;border-radius:2px;margin-top:8px;margin-right:12px;border:1px solid var(--gold);font-family:inherit;cursor:pointer;text-align:center}
 .result-cta:hover{background:var(--gold-br);text-decoration:none}
 .result-cta.secondary{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.next-panel{margin:22px 0 6px;padding:18px;border:1px solid var(--line);background:rgba(255,255,255,.28);display:grid;gap:14px}
+[data-theme="dark"] .next-panel{background:rgba(255,255,255,.03)}
+.next-panel h4{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-br);margin-bottom:2px}
+.next-panel p{margin:0;font-size:14px}
+.next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.next-item{padding:12px;border:1px solid var(--line);background:var(--bg);min-height:112px}
+.next-item b{display:block;color:var(--fg);font-size:13px;margin-bottom:5px}
+.next-item span{display:block;color:var(--muted);font-size:12.5px;line-height:1.45}
+.mentor-note{width:100%;min-height:108px;resize:vertical;padding:12px;border:1px solid var(--line);border-radius:2px;background:var(--bg);color:var(--fg);font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.copy-status{font-size:12px;color:var(--gold-br);min-height:18px}
+@media (max-width:720px){
+  .next-grid{grid-template-columns:1fr}
+  .result-cta{width:100%;margin-right:0}
+}
 
 /* LEVELS */
 h2.section{font-family:"Playfair Display",Georgia,serif;font-size:clamp(24px,3vw,36px);font-weight:600;margin:clamp(48px,6vw,72px) 0 clamp(14px,2vw,20px)}
@@ -69,10 +83,10 @@ h2.section::before{content:"— ";color:var(--gold)}
 .lvl-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:8px}
 .lvl-num{font-family:"Playfair Display",Georgia,serif;font-size:32px;font-weight:700;line-height:1}
 .lvl-title{font-family:"Playfair Display",Georgia,serif;font-size:20px;font-weight:600;color:var(--fg);flex:1}
-.lvl-meta{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.lvl-meta{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
 .lvl-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:6px}
 .lvl-signals{font-size:12.5px;color:var(--fg);margin-top:8px}
-.lvl-signals b{color:var(--gold-br);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+.lvl-signals b{color:var(--gold-br);font-size:12px;letter-spacing:1.2px;text-transform:uppercase;display:block;margin-bottom:3px}
 .lvl-links{margin-top:10px}
 .lvl-links a{font-size:12px;margin-right:14px;border-bottom:1px solid var(--line)}
 
@@ -112,7 +126,7 @@ function toggleTheme(){
 
 <div class="kicker">demis.world · ai-operator level test</div>
 <h1>Твой уровень AI-оператора —<br>за <em>60 секунд</em>.</h1>
-<p class="lede">10 вопросов «да / нет». Результат — конкретный модуль с которого стоит начать плюс понимание что впереди. Ничего не сохраняется, никуда не отправляется — всё у тебя в браузере.</p>
+<p class="lede">10 вопросов «да / нет». Результат — конкретный модуль, мини-экзамен и текст, который можно отправить наставнику. Ничего не сохраняется, никуда не отправляется — всё у тебя в браузере.</p>
 
 <!-- QUIZ -->
 <div class="quiz">
@@ -185,7 +199,24 @@ function toggleTheme(){
     <h3 id="result-title"></h3>
     <p id="result-desc"></p>
     <p class="muted" id="result-signals"></p>
+    <div class="next-panel">
+      <div>
+        <h4>Что сделать сейчас</h4>
+        <p id="result-action"></p>
+      </div>
+      <div class="next-grid">
+        <div class="next-item"><b>Артефакт</b><span id="result-artifact"></span></div>
+        <div class="next-item"><b>Мини-экзамен</b><span id="result-exam"></span></div>
+        <div class="next-item"><b>Следующий уровень</b><span id="result-next-level"></span></div>
+      </div>
+      <div>
+        <h4>Сообщение наставнику</h4>
+        <textarea class="mentor-note" id="mentor-note" readonly></textarea>
+        <div class="copy-status" id="copy-status"></div>
+      </div>
+    </div>
     <a class="result-cta" id="result-link" href="#" target="_blank">Перейти к плану →</a>
+    <button class="result-cta secondary" type="button" onclick="copyMentorNote()">Скопировать результат</button>
     <a class="result-cta secondary" href="https://t.me/Posbitcoin">Написать Диме</a>
   </div>
 </div>
@@ -222,8 +253,8 @@ function toggleTheme(){
     <div class="lvl-title">Connected — MCP + публичные каналы</div>
     <div class="lvl-meta">неделя 2 · MCP · inbox</div>
   </div>
-  <div class="lvl-desc">Подключил 2-3 MCP-сервера (Gmail / Telegram / Calendar / Perplexity). Async inbox читается твоим Claude на старте сессии. Сайт через Vercel задеплоен хотя бы один.</div>
-  <div class="lvl-signals"><b>Признаки</b>Понимаешь что такое MCP. `~/.claude/mcp.json` отредактирован вручную. Есть свой тестовый URL на .vercel.app.</div>
+  <div class="lvl-desc">Подключил 2-3 MCP-сервера (Gmail / Telegram / Calendar / Perplexity). Async inbox читается твоим Claude на старте сессии. Сайт через Vercel задеплоен хотя бы один. Теперь задача — не добавлять ещё инструменты, а автоматизировать один повторяемый процесс.</div>
+  <div class="lvl-signals"><b>Признаки</b>Понимаешь что такое MCP. `~/.claude/mcp.json` отредактирован вручную. Есть свой тестовый URL на .vercel.app. Но без scheduled task, voice→action и собственного skill всё ещё держится на ручном вводе.</div>
   <div class="lvl-links"><a href="/plans/noname-pl">План · модули 01-02</a> · <a href="/inbox">inbox protocol</a></div>
 </div>
 
@@ -287,26 +318,56 @@ function showResult(score){
     {l:0, badge:'L0 · Ноль', color:'var(--l0)', title:'Начни с самых основ',
      desc:'Claude Code ещё не установлен или установлен-но-не-понял. Это нормально — 90% людей туда и не доходят. Но твой next step виден.',
      signals:'Первая задача: подписка Claude Pro + установка CLI + первый hello-world. ~30 минут.',
+     action:'Поставь Claude Code и покажи первый результат: один файл создан или исправлен через CLI.',
+     artifact:'Скрин `claude --version` + короткий файл, который Claude создал в проекте.',
+     exam:'За 20 минут: попросить Claude создать README проекта и проверить, что файл реально появился.',
+     nextLevel:'L1 начинается когда CLI работает, permissions понятны, а в проекте есть первый CLAUDE.md.',
+     note:'Я прошёл тест demis.world/levels: L0. Claude Code ещё не настроен. Хочу начать с установки CLI, первого CLAUDE.md и одного простого результата за 30 минут.',
      link:'https://demis.world/plans/noname-pl', linkText:'План онбординга (7 модулей, 2 часа) →'},
     {l:1, badge:'L1 · Base', color:'var(--l1)', title:'Начинай с модуля 01',
      desc:'База есть — CLI работает, но экосистему ещё не знаешь. Главный прорыв случится когда подключишь первый MCP-сервер — Gmail/Calendar.',
      signals:'Рекомендация: Module 01 (подключение + inbox) → Module 02 (сайты Vercel). 45 минут на всё.',
+     action:'Собери главный проектный контекст: CLAUDE.md, папка inbox и один публичный/локальный результат.',
+     artifact:'CLAUDE.md проекта + ссылка или скрин первого сайта/страницы/рабочего файла.',
+     exam:'За 45 минут: дать Claude реальный материал и получить проверяемый результат, а не пересказ.',
+     nextLevel:'L2 начинается когда подключён хотя бы один MCP/API и появился внешний канал: сайт, inbox или календарь.',
+     note:'Я прошёл тест demis.world/levels: L1. CLI уже есть, но экосистема не собрана. Хочу настроить проектный CLAUDE.md, inbox и первый MCP/сайт.',
      link:'https://demis.world/plans/noname-pl', linkText:'Открыть план с Module 01 →'},
     {l:2, badge:'L2 · Connected', color:'var(--l2)', title:'Время автоматизировать',
      desc:'MCP и базовые инструменты уже работают. Следующий уровень — перестать печатать рутину руками. Scheduled tasks, voice input, skills.',
-     signals:'Рекомендация: Module 03 (презентации) + Module 04 (Whisper) + Module 05 (cron). 55 минут.',
+     signals:'Рекомендация: Module 03 (презентации) + Module 04 (Whisper) + Module 05 (cron). 55 минут. Не учить теорию — собрать один повторяемый workflow.',
+     action:'Выбери одну рутину на неделю: голосовые, созвоны, отчёты, презентации, лиды или контент. Преврати её в автоматический цикл.',
+     artifact:'Один рабочий workflow: входной материал → AI-обработка → готовый output → сохранение/отправка в нужное место.',
+     exam:'За 55 минут: voice→summary→tasks, или текст→презентация, или morning cron→дайджест. Результат должен быть показан файлом, ссылкой или скрином.',
+     nextLevel:'L3 начинается когда есть свой skill или scheduled task, который срабатывает повторно без ручного копипаста.',
+     note:'Я прошёл тест demis.world/levels: L2 Connected, 5/10. Базовые инструменты и MCP уже работают. Хочу перейти в L3: выбрать одну повторяющуюся задачу и за 55 минут собрать workflow voice/text → AI → готовый результат → сохранение или автозапуск.',
      link:'https://demis.world/plans/noname-pl', linkText:'Модули 03-05 →'},
     {l:3, badge:'L3 · Automated', color:'var(--l3)', title:'Собственная инфра + клиенты',
      desc:'У тебя уже работает автоматизация. Следующий шаг — production. Бот в live, клиентские сайты, надёжный deploy pipeline, мониторинг.',
      signals:'Рекомендация: Module 06 (network) + Claude в Chrome. Плюс первый реальный клиентский deliverable.',
+     action:'Возьми автоматизацию из личного режима и доведи до клиентского/командного deliverable.',
+     artifact:'Публичная страница, бот, dashboard или отчёт, который может использовать другой человек.',
+     exam:'За 90 минут: один клиентский пакет с входом, обработкой, результатом, проверкой mobile/quality.',
+     nextLevel:'L4 начинается когда есть production-бот, deploy pipeline, мониторинг и реальный пользователь/клиент.',
+     note:'Я прошёл тест demis.world/levels: L3. Автоматизация уже есть. Хочу довести один workflow до клиентского deliverable: страница, бот, dashboard или отчёт.',
      link:'https://demis.world/network', linkText:'Открытый слой сети →'},
     {l:4, badge:'L4 · Operator', color:'var(--l4)', title:'Готов в сеть операторов',
      desc:'Ты operator — собственная инфра плюс реальные клиенты. Следующий прорыв — horizontal: начать делиться skills с другими agents сети и получать revenue-share от referred-клиентов.',
      signals:'Рекомендация: изучи club layer на /network, напиши Диме с 1-строчным pitch о своей зоне экспертизы.',
+     action:'Сформулируй свою operator-зону: какой тип задач ты стабильно закрываешь лучше других.',
+     artifact:'Один reusable skill, один кейс и короткий pitch: зона, входы, результат, срок.',
+     exam:'За 2 часа: взять чужой сырой материал и выдать production-ready результат с проверкой.',
+     nextLevel:'L5 начинается когда твой skill может использовать другой агент, а не только ты сам.',
+     note:'Я прошёл тест demis.world/levels: L4. У меня есть своя инфра/клиенты. Хочу оформить operator-зону, reusable skill и формат revenue-share.',
      link:'https://demis.world/network', linkText:'Club layer + как вступить →'},
     {l:5, badge:'L5 · Federated', color:'var(--l5)', title:'Ты уже в сети',
      desc:'Если всё правда — ты federated-оператор. Редкая позиция. Пиши Диме одной строкой — обсудим trust-peer статус, revenue-share протокол, совместные клиентские потоки.',
      signals:'Рекомендация: прямой контакт с Димой. Формат: «я оператор по [зоне], контролирую [канал/аудиторию], могу выдавать [тип value], хочу trust-peer».',
+     action:'Переходи от обучения к совместной работе: trust-peer, протокол качества, распределение клиентов.',
+     artifact:'Публичный/приватный skill, 2 кейса, правила handoff и зона ответственности.',
+     exam:'Проверка не учебная: совместный клиентский поток или задача с revenue-share и прозрачным quality gate.',
+     nextLevel:'Дальше не уровни, а сеть: доверие, повторяемость, качество и сделки.',
+     note:'Я прошёл тест demis.world/levels: L5. Хочу обсуждать trust-peer статус, общие клиентские потоки, quality gate и revenue-share.',
      link:'https://t.me/Posbitcoin', linkText:'Написать Диме напрямую →'}
   ];
   var idx;
@@ -325,11 +386,31 @@ function showResult(score){
   document.getElementById('result-title').textContent = r.title;
   document.getElementById('result-desc').textContent = r.desc;
   document.getElementById('result-signals').textContent = r.signals;
+  document.getElementById('result-action').textContent = r.action;
+  document.getElementById('result-artifact').textContent = r.artifact;
+  document.getElementById('result-exam').textContent = r.exam;
+  document.getElementById('result-next-level').textContent = r.nextLevel;
+  document.getElementById('mentor-note').value = r.note;
   var link = document.getElementById('result-link');
   link.href = r.link;
   link.textContent = r.linkText;
   el.classList.add('show');
   setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'nearest'}); }, 100);
+}
+
+function copyMentorNote(){
+  var note = document.getElementById('mentor-note');
+  var status = document.getElementById('copy-status');
+  note.select();
+  note.setSelectionRange(0, note.value.length);
+  var done = function(){ status.textContent = 'Скопировано. Отправь наставнику вместе с примером того, что уже сделал.'; };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(note.value).then(done).catch(function(){
+      document.execCommand('copy'); done();
+    });
+  } else {
+    document.execCommand('copy'); done();
+  }
 }
 </script>
 
